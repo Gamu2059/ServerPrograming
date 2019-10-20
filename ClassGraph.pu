@@ -1,0 +1,60 @@
+/'
+以下参考にどうぞ
+https://qiita.com/couzie/items/9dedb834c5aff09ea7b2
+http://plantuml.com/ja/class-diagram
+https://qiita.com/ogomr/items/0b5c4de7f38fd1482a48
+'/
+
+@startuml
+title クラス図
+
+skinparam ClassAttributeIconSize 0
+class StudentInfo <<Entity>> {
+    -mailAddress
+    -studentNumber
+    -password
+    -displayName
+    -iconImageURL
+    -selfIntroduction
+    -department
+    -registerationState
+    -createdDate
+    -lastLoginDate
+
+    +getMainAddress()
+    +getStudentNumber()
+    +getPassword()
+    +getDisplayName()
+    +getIconImageURL()
+    +getSelfIntroduction()
+    +getDepartment()
+    +getRegisterationState()
+    +getCreatedDate()
+    +getLastLoginDate()
+
+    +login()
+}
+
+class DepartmentInfo <<Entity>> {
+    -departmentID
+    -facultyName
+    -subjectName
+    -campusID
+
+    +getDepartmentID()
+    +getFacultyName()
+    +getSubjectName()
+}
+
+class CampusInfo <<Entity>> {
+    -campusID
+    -campusName
+
+    +getCampusID()
+    +getCampusName()
+}
+
+DepartmentInfo "1以上" <--* "1" CampusInfo
+StudentInfo "0以上" <--* "1" DepartmentInfo
+
+@enduml
