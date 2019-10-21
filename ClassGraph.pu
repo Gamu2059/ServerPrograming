@@ -32,6 +32,17 @@ class StudentInfo <<Entity>> {
     +getCreatedDate()
     +getLastLoginDate()
 
+    +setMainAddress( mailAddress )
+    +setStudentNumber( studentNumber )
+    +setPassword( password )
+    +setDisplayName( displayName )
+    +setIconImageURL( iconImageURL )
+    +setSelfIntroduction( selfIntroduction )
+    +setDepartment( department )
+    +setRegisterationState( registrationState )
+    +setCreatedDate( createdDate )
+    +setLastLoginDate( lastLoginDate )
+
     +login()
 }
 
@@ -44,6 +55,12 @@ class DepartmentInfo <<Entity>> {
     +getDepartmentID()
     +getFacultyName()
     +getSubjectName()
+    +getCampusID()
+
+    +setDepartmentID( departmentID )
+    +setFacultyName( facultyName )
+    +setSubjectName( subjectName )
+    +setCampusID( campusID )
 }
 
 class CampusInfo <<Entity>> {
@@ -52,6 +69,9 @@ class CampusInfo <<Entity>> {
 
     +getCampusID()
     +getCampusName()
+
+    +setCampusID( campusID )
+    +setCampusName( campusName )
 }
 class AdminInfo <<Entity>>{
     -mailAddress
@@ -152,16 +172,18 @@ class MessageInfo <<Entity>>{
     -buyerNumber
     -postContent
     -postDate
-
+    -message
     +getMessageID()
     +getExhibitorNumber()
     +getBuyerNumber()
+    +getMessage()
     +getPostContent()
     +getPostDate()
 
     +setMessageID( messageID )
     +setExhibitorNumber( exhibitorNumber )
     +setBuyerNumber( buyerNumber )
+    +setMessage( message )
     +setPostContent( postContent )
     +setPostDate( postDate )
 }
@@ -188,6 +210,66 @@ class RoomMenberInfo <<Entity>>{
     +setRoomID( roomID )
     +setMailAddresses( mailAddresses )
 }
+class RelatedClassInfo<<Entity>>{
+    -itemID
+    -classCode
+
+    +getItemID()
+    +getClassCode()
+
+    +setItemID( itemID )
+    +setClassCode( classCode )
+}
+
+class OpeningSemesterInfo<<Entity>>{
+    -classCode
+    -semesterID
+
+    +getClassCode()
+    +getSemesterID()
+
+    +setClassCode( classCode )
+    +setSemnesterID( semesterID )
+}
+class TeacherInfo<<Entity>>{
+    -teacherID
+    -teacherName
+    -departmentID
+
+    +getTeacherID()
+    +getTeacherName()
+    +getDepartmentID()
+
+    +setTeacherID( teacherID )
+    +setTeacherName( teacherName )
+    +setDepartmentID( departmentID )
+}
+class ItemImageInfo<<Entity>>{
+    -imageID
+    -itemID
+    -image
+
+    +getImageID()
+    +getItemID()
+    +getImage()
+
+    +setImageID( imageID )
+    +setItemID( itemID )
+    +setImage( image )
+}
+class SemesterInfo <<Entity>>{
+    -semesterID
+    -year
+    -semester
+
+    +getSemesterID()
+    +getYear()
+    +getSemester()
+
+    +setSemesterID( semesterID )
+    +setYear( year )
+    +setSemester( semester )
+}
 
 DepartmentInfo "1以上" <--* "1" CampusInfo
 StudentInfo "0以上" <--* "1" DepartmentInfo
@@ -197,5 +279,13 @@ StudentInfo "1..*" <--o "0..*" MessageInfo
 StudentInfo "1" <--o "0以上" RoomMenberInfo
 MessageInfo "0..*" <--* "1" MessageRoomInfo
 RoomMenberInfo "0..*" <--* "1" MessageRoomInfo
+ItemImageInfo "0..4" <--* "1" ItemInfo
+RelatedClassInfo "0..*" -- "1" ItemInfo
+RelatedClassInfo "0..*"-- "1" SyllabusInfo
+OpeningSemesterInfo "1..*" <--* "1" SyllabusInfo
+SemesterInfo "0..*" <--* "1" OpeningSemesterInfo
+SyllabusInfo "0..*" -- "1" TeacherInfo
+TeacherInfo "0..*" <--* "1" DepartmentInfo
+SyllabusInfo "0..*" -- "1" DepartmentInfo
 
 @enduml
