@@ -53,8 +53,149 @@ class CampusInfo <<Entity>> {
     +getCampusID()
     +getCampusName()
 }
+class AdminInfo <<Entity>>{
+    -mailAddress
+    -password
+    -displayName
+    -iconImageURL
+    -registerationState
+    -createdDate
+    -lastLoginDate
+
+    +getMailAddress()
+    +getpassword()
+    +getdisplayName()
+    +geticonImageURL()
+    +getregisterationState()
+    +getcreatedDate()
+    +getlastLoginDate()
+
+    +setMailAddress( mailAddress )
+    +setPassword( password )
+    +setDisplayName( displayName )
+    +setIconImageURL( iconImageURL )
+    +setRegisterationState( registrationState )
+    +setCreatedDate( createdDate )
+    +setLastLoginDate( lastLoginDate )
+
+    +login()
+}
+
+class ItemInfo <<Entity>>{
+    -itemID
+    -mailAddress
+    -name
+    -description
+    -condition
+    -price
+    -tradingState
+    -itemImageURLs
+
+    +getItemID()
+    +getMailAddress()
+    +getName()
+    +getDescription()
+    +getCondition()
+    +getPrice()
+    +getTradingState()
+    +getItemImageURLs()
+
+    +setItemID( itemID )
+    +setMailAddress( mailAddress )
+    +setName( name )
+    +setDescription( description )
+    +setCondition( condition )
+    +setPrice( price )
+    +setTradingState( tradingState )
+    +setItemImageURLs( itemImageURLs )
+}
+class SyllabusInfo <<Entity>>{
+    -classCode
+    -className
+    -departmentID
+    -teacherID
+    -date
+    -units
+    -overview
+    -target
+    -requirements
+    -evaluationMethod
+    -courseYear
+
+    +getClassCode()
+    +getClassName()
+    +getDepartmentID()
+    +getTeacherID()
+    +getDate()
+    +getUnits()
+    +getOverview()
+    +getTarget()
+    +getRequirements()
+    +getEvaluationMethod()
+    +getCourseYear()
+    
+    +setClassCode( classCode )
+    +setClassName( className )
+    +setDepartmentID( departmentID )
+    +setTeacherID( teacherID )
+    +setDate( date )
+    +setUnits( units )
+    +setOverview( overview )
+    +setTarget( target )
+    +setRequirements( requirements )
+    +setEvaluationMethod( evaluationMethod )
+    +setCourseYear( courseYear )
+}
+class MessageInfo <<Entity>>{
+    -messageID
+    -exhibitorNumber
+    -buyerNumber
+    -postContent
+    -postDate
+
+    +getMessageID()
+    +getExhibitorNumber()
+    +getBuyerNumber()
+    +getPostContent()
+    +getPostDate()
+
+    +setMessageID( messageID )
+    +setExhibitorNumber( exhibitorNumber )
+    +setBuyerNumber( buyerNumber )
+    +setPostContent( postContent )
+    +setPostDate( postDate )
+}
+class MessageRoomInfo<<Entity>>{
+    -roomID
+    -generatedDate
+    -lastPostedDate
+
+    +getRoomID()
+    +getGeneratedDate()
+    +getLastPostedDate()
+
+    +setRoomID( roomID )
+    +setGeneratedDate( generatedDate )
+    +setLastPostedDate( lastPostedDate )
+}
+class RoomMenberInfo <<Entity>>{
+    -roomID
+    -mailAddresses
+
+    +getRoomID()
+    +getMailAddresses()
+
+    +setRoomID( roomID )
+    +setMailAddresses( mailAddresses )
+}
 
 DepartmentInfo "1以上" <--* "1" CampusInfo
 StudentInfo "0以上" <--* "1" DepartmentInfo
+
+ItemInfo "0..*" <--* "1" StudentInfo 
+StudentInfo "1..*" <--o "0..*" MessageInfo
+StudentInfo "1" <--o "0以上" RoomMenberInfo
+MessageInfo "0..*" <--* "1" MessageRoomInfo
+RoomMenberInfo "0..*" <--* "1" MessageRoomInfo
 
 @enduml
