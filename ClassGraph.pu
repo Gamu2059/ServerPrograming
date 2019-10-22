@@ -514,6 +514,128 @@ class ExhibitUpdater<<control>>{
     '禁止ワードが存在するか確認する
 }
 
+skinparam ClassAttributeIconSize 0
+class SylabusRemover <<Control>>{
+    -syllabusInfo
+    -isSyllabusRemove
+
+    -checkSyllabusId()
+    'シラバスIDに[ 0~9 , a~z , A~Z ]以外の文字が含まれているか、かつ、10桁であることを確認する
+    -isCheckRemove()
+    '削除可能かを確認する（DBに存在するかを確認する）
+    -remove()
+    'DBにシラバスの削除を要請する
+    -checkRemove()
+    '削除ができたかを確認する
+    -noticeRemoveSyllabus()
+    '削除完了を通知する
+    -noticeErrorRemoveSyllabus()
+    '削除失敗を通知する
+    -reformText()
+    '全角英数字を半角英数字に変換する
+    -checkProhibitText()
+    '禁止ワードが存在するか確認する
+}
+
+class ManagementRemover <<Control>>{
+    -managementInfo
+    -isManagementRemove
+
+    -checkManagementMailAddress()
+    'メールアドレスに[dendai]が含まれているかを確認する
+    -isCheckRemove()
+    '削除可能かを確認する（DBに存在するかを確認する）
+    -remove()
+    'DBにシラバスの削除を要請する
+    -checkRemove()
+    '削除ができたかを確認する
+    -noticeRemoveManagement()
+    '削除完了を通知する
+    -noticeErrorRemoveManagement()
+    '削除失敗を通知する
+    -reformText()
+    '全角英数字を半角英数字に変換する
+    -checkProhibitText()
+    '禁止ワードが存在するか確認する
+}
+
+class UpdateStudentByManegement <<Control>>{
+    -studentInfo
+
+    -checkDisplayName()
+    'ディスプレイネームが4～20文字以内であるか確認する
+    -checkIcon()
+    '画像の大きさ[400*400px]　形式[png , jpg]　枚数[0~1] であることを確認する
+    -checkText()
+    '自己紹介が0から200字以内であることを確認する    
+    -reformText()
+    '全角英数字を半角英数字に変換する
+    -checkProhibitText()
+    '禁止ワードが存在するか確認する
+}
+
+class ExhibitRemover <<Control>>{
+    -itemInfo
+    -isItemRemove
+    -isItemImageRemove
+    -isItemRemoveByManegement
+
+    -whoRemove()
+    '削除者が運営かどうかを確認する
+    -checkItemId()
+    '有効IDかを確認する
+    -checkItemImage()
+    '商品画像が存在するかを確認する
+    -isCheckRemove()
+    '削除可能かを確認する（DBに存在するかを確認する）
+    -itemRemove()
+    'DBに商品の削除を要請する
+    -itemImageRemove()
+    'DBに商品画像の削除を要請する
+    -checkItemRemove()
+    '商品が削除できたかを確認する
+    -checkItemImageRemove()
+    '商品画像が削除できたかを確認する
+    -noticeItemRemoveItem()
+    '削除完了を通知する
+    -noticeErrorRemoveItem()
+    '削除失敗を通知する
+    -mailSend()
+    '運営が削除した場合、出品していた学生に削除通知を知らせるメールを送信する
+    -reformText()
+    '全角英数字を半角英数字に変換する
+    -checkProhibitText()
+    '禁止ワードが存在するか確認する
+}
+
+class StudentRemover <<Control>>{
+    -studentInfo
+    -isStudentRemove
+    -isStudentRemoveByManegement
+
+    -whoRemove()
+    '削除者が運営かどうかを確認する
+    -checkStudentMailAddress()
+    'メールアドレスに[@ms.dendai.ac.jp]が含まれているかを確認する　※ユーザー登録時のみ使用
+    'また、23文字であることも確認する
+    -isCheckRemove()
+    '削除可能かを確認する（DBに存在するかを確認する）
+    -itemRemove()
+    'DBに学生の削除を要請する
+    -checkItemRemove()
+    '学生が削除できたかを確認する
+    -noticeItemRemoveItem()
+    '削除完了を通知する
+    -noticeErrorRemoveItem()
+    '削除失敗を通知する
+    -mailSend()
+    '削除した学生に削除通知を知らせるメールを送信する
+    -reformText()
+    '全角英数字を半角英数字に変換する
+    -checkProhibitText()
+    '禁止ワードが存在するか確認する
+}
+
 IUpdatable <|-- SyllabusRegisterer
 IUpdatable <|-- SyllabusUpdater
 IUpdatable <|-- IExhibitUpdatable
