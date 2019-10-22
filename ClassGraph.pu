@@ -452,10 +452,8 @@ class StudentSorter<<control>>{
     +sortDescNumber()
     +sortAscDepartment()
     +sortDescDepartment()
-    /'
-    asc:あいう～
-    desc: んをわ～
-    '/
+    ' asc:あいう～
+    ' desc: んをわ～
     +sortAscDisplayName()
     +sortDescDisplayName()
 }
@@ -466,6 +464,15 @@ class MessageSender<<control>>{
 
     +checkContent()
     +sendMessage()
+}
+
+class MessageReciever<<control>>{
+    'メッセージを受信する
+    +recieveMessage()
+    'メッセージを受け取ったことを通知する
+    +notifyMessage()
+    '部屋を更新する
+    +refleshRoom()
 }
 
 @enduml
