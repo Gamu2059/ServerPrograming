@@ -460,4 +460,12 @@ class StudentSorter<<control>>{
     +sortDescDisplayName()
 }
 
+class MessageSender<<control>>{
+    -name
+    -bodyText
+
+    +checkContent()
+    +sendMessage()
+}
+
 @enduml
