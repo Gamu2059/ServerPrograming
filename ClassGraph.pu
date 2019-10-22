@@ -424,5 +424,40 @@ IUpdatable <|-- IExhibitUpdatable
 IExhibitUpdatable <|-- ExhibitRegisterer
 IExhibitUpdatable <|-- ExhibitUpdater
 
+class ExhibitSorter<<control>>{
+    +sortDescNewer()
+    +sortAscCategory()
+    +sortDescCategory()
+    +sortAscCampus()
+    +sortDescCampus()
+    +sortAscName()
+    +sortDescName()
+    +sortAscPrice()
+    +sortDescPrice()
+    +sortAscClassName()
+    +sortDescClassName()
+}
+class SyllabusSorter<<control>>{
+    +sortAscClassCode()
+    +sortDescClassCode()
+    +sortAscDepartment()
+    +sortDescDepartment()
+    +sortAscClassName()
+    +sortDescClassName()
+    +sortAscTeacher()
+    +sortDescTeacher()
+}
+class StudentSorter<<control>>{
+    +sortAscNumber()
+    +sortDescNumber()
+    +sortAscDepartment()
+    +sortDescDepartment()
+    /'
+    asc:あいう～
+    desc: んをわ～
+    '/
+    +sortAscDisplayName()
+    +sortDescDisplayName()
+}
 
 @enduml
