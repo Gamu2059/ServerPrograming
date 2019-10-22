@@ -229,7 +229,60 @@ class ReferAdminInfo<<Control>>{
     +referAdminInfo()
 }
 
+class SearchProduct <<Control>>{
+    -productSearch
 
+    -checkProdcutName()
+    '商品名が0から50文字以内であることを確認する
+    -checkCondition()
+    'ドロップダウンボタンで値が選択されているか確認する
+    -checkPrice()
+    '価格が6桁以内で、[0~9]以外の文字列が含まれていないか確認する
+    -reformText()
+    '全角英数字を半角英数字に変換する
+    -searchProductfromData()
+    '検索を要請する
+    -receiveResult()
+    '検索結果を受け取る
+}
+
+class SearchStudent <<Control>>{
+    -studentSearch
+
+    -checkStudentNumber()
+    '学籍番号が0~8桁で、[ 0~9 , a~z , A~Z ]以外の文字列が含まれていないか確認する
+    -checkSubject()
+    'ドロップダウンボタンで値が選択されているか確認する
+    -checkDisplayName()
+    'ディスプレイネームが0~20文字以内である確認する
+    -reformText()
+    '全角英数字を半角英数字に変換する
+    -searchStudentfromData()
+    '検索を要請する
+    -receiveResult()
+    '検索結果を受け取る
+}
+
+class SearchSylabus <<Control>>{
+    -syllabusSearch
+
+    -checkSyllabusNumber()
+    '渡された授業コードは１０桁で、[ 0~9 , a~z , A~Z ]以外の文字が含まれていないか確認する
+     -checkSyllabusName()
+    'シラバスの名前が1～30文字以内であるか確認する
+    -checkSubject()
+    'ドロップダウンボタンで値が選択されているか確認する
+    -checkTeacherName()
+    '担当教員名が0から30文字以内であることを確認する
+    -checkYearSelect()
+    'ドロップダウンボタンで値が選択されているか確認する
+    -reformText()
+    '全角英数字を半角英数字に変換する
+    -searchSyllabusfromData()
+    '検索を要請する
+    -receiveResult()
+    '検索結果を受け取る
+}
 
 
 DepartmentInfo "1以上" <--* "1" CampusInfo
