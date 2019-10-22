@@ -189,6 +189,49 @@ class RoomMenberInfo <<Entity>>{
     +setMailAddresses( mailAddresses )
 }
 
+class MailAddressChecker<<Control>>{
+    +checkMailAddress()
+    +registerTemporaryAccount()
+    +issueTemporaryPassword()
+    +registerAccount()
+}
+
+class MailSender<<Control>>{
+    +sendMail()
+    'メールを送信する'
+}
+
+class Login<<Control>>{
+    +login()
+}
+
+class Logout<<Control>>{
+    +logout()
+}
+
+class ReferSyllabus<<Control>>{
+    +referSyllabus()
+}
+
+class ReferStudentInfo<<Control>>{
+    +referStudentInfo()
+}
+
+class ReferMessage<<Control>>{
+    +referMessage()
+}
+
+class ReferExhibit<<Control>>{
+    +referExhibit()
+}
+
+class ReferAdminInfo<<Control>>{
+    +referAdminInfo()
+}
+
+
+
+
 DepartmentInfo "1以上" <--* "1" CampusInfo
 StudentInfo "0以上" <--* "1" DepartmentInfo
 
