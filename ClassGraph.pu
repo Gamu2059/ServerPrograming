@@ -9,71 +9,17 @@ https://qiita.com/ogomr/items/0b5c4de7f38fd1482a48
 title クラス図
 
 skinparam ClassAttributeIconSize 0
-class StudentInfo <<Entity>> {
-    -mailAddress
-    -studentNumber
-    -password
-    -displayName
-    -iconImageURL
-    -selfIntroduction
-    -department
-    -registerationState
-    -createdDate
-    -lastLoginDate
 
-    +getMainAddress()
-    +getStudentNumber()
-    +getPassword()
-    +getDisplayName()
-    +getIconImageURL()
-    +getSelfIntroduction()
-    +getDepartment()
-    +getRegisterationState()
-    +getCreatedDate()
-    +getLastLoginDate()
-
-    +setMainAddress( mailAddress )
-    +setStudentNumber( studentNumber )
-    +setPassword( password )
-    +setDisplayName( displayName )
-    +setIconImageURL( iconImageURL )
-    +setSelfIntroduction( selfIntroduction )
-    +setDepartment( department )
-    +setRegisterationState( registrationState )
-    +setCreatedDate( createdDate )
-    +setLastLoginDate( lastLoginDate )
-
-    +login()
+interface IEntity {
+    +{abstract}saveToDataBase()
+    +{abstract}loadFromDataBase()
 }
 
-class DepartmentInfo <<Entity>> {
-    -departmentID
-    -facultyName
-    -subjectName
-    -campusID
-
-    +getDepartmentID()
-    +getFacultyName()
-    +getSubjectName()
-    +getCampusID()
-
-    +setDepartmentID( departmentID )
-    +setFacultyName( facultyName )
-    +setSubjectName( subjectName )
-    +setCampusID( campusID )
+interface IUpdateCache {
+    +{abstract}updateCache()
 }
 
-class CampusInfo <<Entity>> {
-    -campusID
-    -campusName
-
-    +getCampusID()
-    +getCampusName()
-
-    +setCampusID( campusID )
-    +setCampusName( campusName )
-}
-class AdminInfo <<Entity>>{
+class UserBase {
     -mailAddress
     -password
     -displayName
@@ -81,6 +27,8 @@ class AdminInfo <<Entity>>{
     -registerationState
     -createdDate
     -lastLoginDate
+
+    +UserBase()
 
     +getMailAddress()
     +getpassword()
@@ -98,143 +46,244 @@ class AdminInfo <<Entity>>{
     +setCreatedDate( createdDate )
     +setLastLoginDate( lastLoginDate )
 
-    +login()
+    +saveToDataBase()
+    +loadFromDataBase()
 }
 
-class ItemInfo <<Entity>>{
+class StudentInfo <<Entity Bean>> {
+    -studentNumber
+    -selfIntroduction
+    -departmentID
+
+    -cachedDepartmentInfo
+    -cachedExhibitItemInfoList
+    -cachedPostMessageInfoList
+    -cachedParticipateRoomInfoList
+
+    +StudentInfo()
+
+    +getStudentNumber()
+    +getSelfIntroduction()
+    +getDepartmentID()
+
+    +setStudentNumber( studentNumber )
+    +setSelfIntroduction( selfIntroduction )
+    +setDepartmentID( department )
+
+    +getCachedDepartmentInfo()
+    +getCachedExhibitItemInfoList()
+    +getCachedPostMessageInfoList()
+    +getCachedParticipateRoomInfoList()
+
+    +updateCache()
+    +saveToDataBase()
+    +loadFromDataBase()
+}
+
+class ManagerInfo <<Entity Bean>>{
+    +ManagerInfo()
+}
+
+class ItemInfo <<Entity Bean>>{
     -itemID
-    -mailAddress
-    -name
+    -exhibitorStudentNumber
+    -itemName
     -description
     -condition
     -price
     -tradingState
-    -itemImageURLs
+    -exhibitDate
+
+    -cachedExhibitorStudentInfo
+    -cachedRelatedClassInfoList
+    -cachedItemImageInfoList
+
+    +ItemInfo()
 
     +getItemID()
-    +getMailAddress()
-    +getName()
+    +getExibitorStudentNumber()
+    +getItemName()
     +getDescription()
     +getCondition()
     +getPrice()
     +getTradingState()
-    +getItemImageURLs()
+    +getExhibitDate()
 
     +setItemID( itemID )
-    +setMailAddress( mailAddress )
-    +setName( name )
+    +setExhibitorStudentNumber( exhibitorStudentNumber )
+    +setItemName( itemName )
     +setDescription( description )
     +setCondition( condition )
     +setPrice( price )
     +setTradingState( tradingState )
-    +setItemImageURLs( itemImageURLs )
+    +setExhibitDate( exhibitDate )
+
+    +getCachedExhibitorStudentInfo()
+    +getCachedRelatedClassInfoList()
+    +getCachedItemImageInfoList()
+
+    +updateCache()
+    +saveToDataBase()
+    +loadFromDataBase()
 }
-class SyllabusInfo <<Entity>>{
+
+class SyllabusInfo <<Entity Bean>>{
     -classCode
     -className
     -departmentID
     -teacherID
     -date
-    -units
+    -unitNum
     -overview
     -target
     -requirements
     -evaluationMethod
-    -courseYear
+
+    -cachedDepartmentInfo
+    -cachedTeacherInfo
+    -cachedCourseYearInfoList
+
+    +SyllabusInfo()
 
     +getClassCode()
     +getClassName()
     +getDepartmentID()
     +getTeacherID()
     +getDate()
-    +getUnits()
+    +getUnitNum()
     +getOverview()
     +getTarget()
     +getRequirements()
     +getEvaluationMethod()
     +getCourseYear()
-    
+
     +setClassCode( classCode )
     +setClassName( className )
     +setDepartmentID( departmentID )
     +setTeacherID( teacherID )
     +setDate( date )
-    +setUnits( units )
+    +setUnitNum( unitNum )
     +setOverview( overview )
     +setTarget( target )
     +setRequirements( requirements )
     +setEvaluationMethod( evaluationMethod )
     +setCourseYear( courseYear )
+
+    +getCachedDepartmentInfo()
+    +getCachedTeacherInfo()
+    +getCachedCourseYearInfoList()
+
+    +updateCache()
+    +saveToDataBase()
+    +loadFromDataBase()
 }
-class MessageInfo <<Entity>>{
+
+class MessageInfo <<Entity Bean>>{
     -messageID
-    -exhibitorNumber
-    -buyerNumber
+    -roomID
+    -postStudentNumber
     -postContent
     -postDate
-    -message
+
+    -cachedRoomInfo
+    -cachedPostStudentInfo
+
+    +MessageInfo()
+
     +getMessageID()
-    +getExhibitorNumber()
-    +getBuyerNumber()
-    +getMessage()
+    +getRoomID()
+    +getPostStudentNumber()
     +getPostContent()
     +getPostDate()
 
     +setMessageID( messageID )
-    +setExhibitorNumber( exhibitorNumber )
-    +setBuyerNumber( buyerNumber )
-    +setMessage( message )
+    +setRoomID( roomID )
+    +setPostStudentNumber( postStudentNumber )
     +setPostContent( postContent )
     +setPostDate( postDate )
+
+    +getCachedRoomInfo()
+    +getCachedPostStudentInfo()
+
+    +updateCache()
+    +saveToDataBase()
+    +loadFromDataBase()
 }
-class MessageRoomInfo<<Entity>>{
-    -roomID
-    -generatedDate
-    -lastPostedDate
 
-    +getRoomID()
-    +getGeneratedDate()
-    +getLastPostedDate()
+class CampusInfo <<Entity Bean>> {
+    -campusID
+    -campusName
 
-    +setRoomID( roomID )
-    +setGeneratedDate( generatedDate )
-    +setLastPostedDate( lastPostedDate )
+    +CampusInfo()
+
+    +getCampusID()
+    +getCampusName()
+
+    +setCampusID( campusID )
+    +setCampusName( campusName )
+
+    +saveToDataBase()
+    +loadFromDataBase()
 }
-class RoomMenberInfo <<Entity>>{
-    -roomID
-    -mailAddresses
 
-    +getRoomID()
-    +getMailAddresses()
+class DepartmentInfo <<Entity Bean>> {
+    -departmentID
+    -facultyName
+    -subjectName
+    -campusID
 
-    +setRoomID( roomID )
-    +setMailAddresses( mailAddresses )
+    -cachedCampusInfo
+
+    +DepartmentInfo()
+
+    +getDepartmentID()
+    +getFacultyName()
+    +getSubjectName()
+    +getCampusID()
+
+    +setDepartmentID( departmentID )
+    +setFacultyName( facultyName )
+    +setSubjectName( subjectName )
+    +setCampusID( campusID )
+
+    +getCachedCampusInfo()
+
+    +updateCache()
+    +saveToDataBase()
+    +loadFromDataBase()
 }
-class RelatedClassInfo<<Entity>>{
+
+class RelatedClassInfo <<Entity Bean>>{
     -itemID
     -classCode
+
+    -cachedItemInfo
+    -cachedSyllabusInfo
+
+    +RelatedClassInfo()
 
     +getItemID()
     +getClassCode()
 
     +setItemID( itemID )
     +setClassCode( classCode )
+
+    +getCachedItemInfo()
+    +getCachedSyllabusInfo()
+
+    +updateCache()
+    +saveToDataBase()
+    +loadFromDataBase()
 }
 
-class OpeningSemesterInfo<<Entity>>{
-    -classCode
-    -semesterID
-
-    +getClassCode()
-    +getSemesterID()
-
-    +setClassCode( classCode )
-    +setSemnesterID( semesterID )
-}
-class TeacherInfo<<Entity>>{
+class TeacherInfo <<Entity Bean>>{
     -teacherID
     -teacherName
     -departmentID
+
+    -cachedDepartmentInfo
+
+    +TeacherInfo()
 
     +getTeacherID()
     +getTeacherName()
@@ -243,24 +292,20 @@ class TeacherInfo<<Entity>>{
     +setTeacherID( teacherID )
     +setTeacherName( teacherName )
     +setDepartmentID( departmentID )
-}
-class ItemImageInfo<<Entity>>{
-    -imageID
-    -itemID
-    -image
 
-    +getImageID()
-    +getItemID()
-    +getImage()
+    +getCachedDepartmentInfo()
 
-    +setImageID( imageID )
-    +setItemID( itemID )
-    +setImage( image )
+    +updateCache()
+    +saveToDataBase()
+    +loadFromDataBase()
 }
-class SemesterInfo <<Entity>>{
+
+class SemesterInfo <<Entity Bean>>{
     -semesterID
     -year
     -semester
+
+    +SemesterInfo()
 
     +getSemesterID()
     +getYear()
@@ -269,428 +314,555 @@ class SemesterInfo <<Entity>>{
     +setSemesterID( semesterID )
     +setYear( year )
     +setSemester( semester )
+
+    +saveToDataBase()
+    +loadFromDataBase()
 }
 
-class MailAddressChecker<<Control>>{
-    +checkMailAddress()
-    +registerTemporaryAccount()
-    +issueTemporaryPassword()
-    +registerAccount()
+class OpeningSemesterInfo <<Entity Bean>>{
+    -classCode
+    -semesterID
+
+    -cachedSyllabusInfo
+    -cachedSemesterInfo
+
+    +OpeningSemesterInfo()
+
+    +getClassCode()
+    +getSemesterID()
+
+    +setClassCode( classCode )
+    +setSemnesterID( semesterID )
+
+    +getCachedSyllabusInfo()
+    +getCachedSemesterInfo()
+
+    +updateCache()
+    +saveToDataBase()
+    +loadFromDataBase()
 }
 
-class MailSender<<Control>>{
-    +sendMail()
-    'メールを送信する'
+class ItemImageInfo <<Entity Bean>>{
+    -imageID
+    -itemID
+    -image
+
+    -cachedItemInfo
+
+    +ItemImageInfo()
+
+    +getImageID()
+    +getItemID()
+    +getImage()
+
+    +setImageID( imageID )
+    +setItemID( itemID )
+    +setImage( image )
+
+    +getCachedItemInfo()
+
+    +updateCache()
+    +saveToDataBase()
+    +loadFromDataBase()
 }
 
-class Login<<Control>>{
-    +login()
+class RoomMemberInfo <<Entity Bean>>{
+    -roomID
+    -studentNumber
+
+    -cachedRoomInfo
+    -cachedStudentInfo
+
+    +RoomMomberInfo()
+
+    +getRoomID()
+    +getStudentNumber()
+
+    +setRoomID( roomID )
+    +setStudentNumber( studentNumber )
+
+    +getCachedRoomInfo()
+    +getCachedStudentInfo()
+
+    +updateCache()
+    +saveToDataBase()
+    +loadFromDataBase()
 }
 
-class Logout<<Control>>{
-    +logout()
+class MessageRoomInfo<<Entity Bean>>{
+    -roomID
+    -generatedDate
+    -lastPostedDate
+    -roomState
+
+    +MessageRoomInfo()
+
+    +getRoomID()
+    +getGeneratedDate()
+    +getLastPostedDate()
+    +getRoomState()
+
+    +setRoomID( roomID )
+    +setGeneratedDate( generatedDate )
+    +setLastPostedDate( lastPostedDate )
+    +setRoomState( roomState )
+
+    +saveToDataBase()
+    +loadFromDataBase()
 }
 
-class ReferSyllabus<<Control>>{
-    +referSyllabus()
+class StudentInfoDAO <<DAO>>{
+
 }
 
-class ReferStudentInfo<<Control>>{
-    +referStudentInfo()
+class ManagerInfoDAO <<DAO>>{
+
 }
 
-class ReferMessage<<Control>>{
-    +referMessage()
+class ItemInfoDAO <<DAO>>{
+
 }
 
-class ReferExhibit<<Control>>{
-    +referExhibit()
+class SyllabusInfoDAO <<DAO>>{
+
 }
 
-class ReferAdminInfo<<Control>>{
-    +referAdminInfo()
+class MessageInfoDAO <<DAO>>{
+
 }
 
-class SearchProduct <<Control>>{
-    -productSearch
+class CampusInfoDAO <<DAO>>{
 
-    -checkProdcutName()
-    '商品名が0から50文字以内であることを確認する
-    -checkCondition()
-    'ドロップダウンボタンで値が選択されているか確認する
-    -checkPrice()
-    '価格が6桁以内で、[0~9]以外の文字列が含まれていないか確認する
-    -reformText()
-    '全角英数字を半角英数字に変換する
-    -searchProductfromData()
-    '検索を要請する
-    -receiveResult()
-    '検索結果を受け取る
 }
 
-class SearchStudent <<Control>>{
-    -studentSearch
+class DepartmentInfoDAO <<DAO>>{
 
-    -checkStudentNumber()
-    '学籍番号が0~8桁で、[ 0~9 , a~z , A~Z ]以外の文字列が含まれていないか確認する
-    -checkSubject()
-    'ドロップダウンボタンで値が選択されているか確認する
-    -checkDisplayName()
-    'ディスプレイネームが0~20文字以内である確認する
-    -reformText()
-    '全角英数字を半角英数字に変換する
-    -searchStudentfromData()
-    '検索を要請する
-    -receiveResult()
-    '検索結果を受け取る
 }
 
-class SearchSylabus <<Control>>{
-    -syllabusSearch
+class RelatedClassInfoDAO <<DAO>>{
 
-    -checkSyllabusNumber()
-    '渡された授業コードは１０桁で、[ 0~9 , a~z , A~Z ]以外の文字が含まれていないか確認する
-     -checkSyllabusName()
-    'シラバスの名前が1～30文字以内であるか確認する
-    -checkSubject()
-    'ドロップダウンボタンで値が選択されているか確認する
-    -checkTeacherName()
-    '担当教員名が0から30文字以内であることを確認する
-    -checkYearSelect()
-    'ドロップダウンボタンで値が選択されているか確認する
-    -reformText()
-    '全角英数字を半角英数字に変換する
-    -searchSyllabusfromData()
-    '検索を要請する
-    -receiveResult()
-    '検索結果を受け取る
 }
 
+class TeacherInfoDAO <<DAO>>{
 
-DepartmentInfo "1以上" <--* "1" CampusInfo
-StudentInfo "0以上" <--* "1" DepartmentInfo
-
-ItemInfo "0..*" <--* "1" StudentInfo 
-StudentInfo "1..*" <--o "0..*" MessageInfo
-StudentInfo "1" <--o "0以上" RoomMenberInfo
-MessageInfo "0..*" <--* "1" MessageRoomInfo
-RoomMenberInfo "0..*" <--* "1" MessageRoomInfo
-ItemImageInfo "0..4" <--* "1" ItemInfo
-RelatedClassInfo "0..*" -- "1" ItemInfo
-RelatedClassInfo "0..*"-- "1" SyllabusInfo
-OpeningSemesterInfo "1..*" <--* "1" SyllabusInfo
-SemesterInfo "0..*" <--* "1" OpeningSemesterInfo
-SyllabusInfo "0..*" -- "1" TeacherInfo
-TeacherInfo "0..*" <--* "1" DepartmentInfo
-SyllabusInfo "0..*" -- "1" DepartmentInfo
-
-
-interface IUpdatable<<interface>>{
-    +updateInfomation()
-}
-interface IAccountUpdatable<<interface>>{
-    +checkContent()
-    +uploadImage()
 }
 
-abstract AccountRegisterer<<abstract>>{
-    abstract registerMailAddress()
-    abstract checkContent()
-    abstract updateInfomation()
-    
-    +registerDepartment()
-    +uploadImage()
+class SemesterInfoDAO <<DAO>>{
+
 }
 
-class StudentRegisterer <<control>>{
-    +registerMailAddress()
-    +checkContent()
-    +updateInfomation()
-}
-class AdminRegisterer<<control>>{
-    +registerMailAddress()
-    +checkContent()
-    +updateInfomation()
+class OpeningSemesterInfoDAO <<DAO>>{
+
 }
 
-class StudentUpdater <<control>>{
-    -studentInfo
+class ItemImageInfoDAO <<DAO>>{
 
-    -checkStudentMailAddress()
-    'メールアドレスに[@ms.dendai.ac.jp]が含まれているかを確認する　※ユーザー登録時のみ使用
-    'また、23文字であることも確認する
-    -checkPasswword()
-    '[ 0~9 , a~z , A~Z ]のみであり、かつ、8から16桁以内であることを確認する
-    -checkDisplayName()
-    'ディスプレイネームが4～20文字以内であるか確認する
-    -checkIcon()
-    '画像の大きさ[400*400px]　形式[png , jpg]　枚数[0~1] であることを確認する
-    -checkText()
-    '自己紹介が0から200字以内であることを確認する    
-    -reformText()
-    '全角英数字を半角英数字に変換する
-    -checkProhibitText()
-    '禁止ワードが存在するか確認する
 }
 
-class AdminUpdater <<control>>{
-    -ManegementInfo
+class RoomMemberInfoDAO <<DAO>>{
 
-    -checkStudentMailAddress()
-    'メールアドレスに[dendai]が含まれているかを確認する　※ユーザー登録時のみ使用
-    -checkPasswword()
-    '[ 0~9 , a~z , A~Z ]のみであり、かつ、8から16桁以内であることを確認する
-    -checkDisplayName()
-    'ディスプレイネームが4～20文字以内であるか確認する
-    -checkIcon()
-    '画像の大きさ[400*400px]　形式[png , jpg]　枚数[0~1] であることを確認する  
-    -reformText()
-    '全角英数字を半角英数字に変換する
-    -checkProhibitText()
-    '禁止ワードが存在するか確認する
 }
 
-IUpdatable <|-- IAccountUpdatable
-IAccountUpdatable <|-- AccountRegisterer
-AccountRegisterer <|-- StudentRegisterer
-AccountRegisterer <|-- AdminRegisterer
+class MessageRoomInfoDAO <<DAO>>{
 
-IAccountUpdatable <|-- StudentUpdater
-IAccountUpdatable <|-- AdminUpdater
-
-
-
-class SyllabusRegisterer<<Control>>{
-    +updateInformation()
 }
-class SyllabusUpdater<<control>>{
-    +updateInformation()
 
-    -syllabusInfo
-
-    -checkSyllabusId()
-    'シラバスIDに[ 0~9 , a~z , A~Z ]以外の文字が含まれているか、かつ、10桁であることを確認する
-    -checkSyllabusName()
-    'シラバス名前が1～30文字以内であるか確認する
-    -checkSyllabusUnit()
-    '単位数が0以外でかつ、1桁であることを確認する
-    -checkClassRoom()
-    '0から20文字以内であることを確認する
-    -checkTeacherName()
-    '0から30文字以内であることを確認する
-    -checkText()
-    '目的概要、達成目標、履修条件、評価方法がそれぞれ0から300字以内であることを確認する
-    -reformText()
-    '全角英数字を半角英数字に変換する
-    -checkProhibitText()
-    '禁止ワードが存在するか確認する
+class StudentInfoManager <<Entity Manager>>{
+    +getStudentInfo()
+    +getUnreadMessageNum()
 }
-interface IExhibitUpdatable<<interface>>{
-    +uploadImage()
+
+class ManagerInfoManager <<Entity Manager>>{
+
+}
+
+class ItemInfoManager <<Entity Manager>>{
+    + getNewItemList()
+    + validateRegisterExhibitItem()
+}
+
+class SyllabusInfoManager <<Entity Manager>>{
+
+}
+
+class MessageInfoManager <<Entity Manager>>{
+
+}
+
+class CampusInfoManager <<Entity Manager>>{
+
+}
+
+class DepartmentInfoManager <<Entity Manager>>{
+
+}
+
+class RelatedClassInfoManager <<Entity Manager>>{
+
+}
+
+class TeacherInfoManager <<Entity Manager>>{
+
+}
+
+class SemesterInfoManager <<Entity Manager>>{
+
+}
+
+class OpeningSemesterInfoManager <<Entity Manager>>{
+
+}
+
+class ItemImageInfoManager <<Entity Manager>>{
+
+}
+
+class RoomMemberInfoManager <<Entity Manager>>{
+
+}
+
+class MessageRoomInfoManager <<Entity Manager>>{
+
 }
 
 
-class ExhibitRegisterer<<control>>{
-    +updateInformation()
-    +uploadImage()
-}
-class ExhibitUpdater<<control>>{
-    -exhibitInfo
+' 特定の画面ではなく、特定のイベントに紐づいているコントローラ。
+' ユースケース文の中で、ユーザーの特定のアクションによって起動するフローに該当している。
+package Api {
 
-    +updateInformation()
-    +uploadImage()
+    class Login <<Controller>>{
+        ' ユーザーアカウントを検証し、ログイン処理を行う
+        ' メールアドレスとパスワードがちゃんとあるかチェック
+        ' メールアドレスから学生か運営かを判定する
+        ' 学生ならStudentInfoManagerにメールアドレスとパスワードを渡し、ログインできるかチェックする
+            ' チェックがOKなら、StudentInfoManagerのloginを呼ぶ
+        ' 運営ならManagerInfoManagerにメールアドレスとパスワードを渡し、ログインできるかチェックする
+            ' チェックがOKなら、ManagerInfoManagerのloginを呼ぶ
+        ' セッションにメールアドレスを保存する(他にいい実装があるかもしれない...)
+        +doPost()
+    }
 
-    -checkExhibit()
-    '商品名が50桁以内であることを確認する
-    -checkImage()
-    '画像の大きさ[1980*1080px]形式[png , jpg]　枚数[0~4]を確認する
-    -checkPrice()
-    '価格が[0~9]であり、かつ、0から9文字以内であることを確認する
-    -checkText()
-    '商品説明がそれぞれ0から200字以内であることを確認する
-    -reformText()
-    '全角英数字を半角英数字に変換する
-    -checkProhibitText()
-    '禁止ワードが存在するか確認する
-}
+    class Logout <<Controller>>{
+        ' ログアウト処理を行う
+        メールアドレスから学生か運営かを判定する
+        ' 学生ならStudentInfoManagerのlogoutを呼ぶ
+        ' 運営ならManagerInfoManagerのlogoutを呼ぶ
+        +doPost()
+    }
 
-skinparam ClassAttributeIconSize 0
-class SylabusRemover <<Control>>{
-    -syllabusInfo
-    -isSyllabusRemove
+    class PostMail <<Controller>>{
+        ' 仮パスの発行及び仮登録ステートを付与してメールを送信する
+    }
 
-    -checkSyllabusId()
-    'シラバスIDに[ 0~9 , a~z , A~Z ]以外の文字が含まれているか、かつ、10桁であることを確認する
-    -isCheckRemove()
-    '削除可能かを確認する（DBに存在するかを確認する）
-    -remove()
-    'DBにシラバスの削除を要請する
-    -checkRemove()
-    '削除ができたかを確認する
-    -noticeRemoveSyllabus()
-    '削除完了を通知する
-    -noticeErrorRemoveSyllabus()
-    '削除失敗を通知する
-    -reformText()
-    '全角英数字を半角英数字に変換する
-    -checkProhibitText()
-    '禁止ワードが存在するか確認する
-}
+    class RegisterStudent <<Controller>>{
+        ' 学生登録処理を呼ぶ
+    }
 
-class ManagementRemover <<Control>>{
-    -managementInfo
-    -isManagementRemove
+    class UpdateStudent <<Controller>>{
+        ' 学生更新処理を呼ぶ
+    }
 
-    -checkManagementMailAddress()
-    'メールアドレスに[dendai]が含まれているかを確認する
-    -isCheckRemove()
-    '削除可能かを確認する（DBに存在するかを確認する）
-    -remove()
-    'DBにシラバスの削除を要請する
-    -checkRemove()
-    '削除ができたかを確認する
-    -noticeRemoveManagement()
-    '削除完了を通知する
-    -noticeErrorRemoveManagement()
-    '削除失敗を通知する
-    -reformText()
-    '全角英数字を半角英数字に変換する
-    -checkProhibitText()
-    '禁止ワードが存在するか確認する
-}
+    class DeleteStudent <<Controller>>{
+        ' 学生削除処理を呼ぶ
+    }
 
-class UpdateStudentByManegement <<Control>>{
-    -studentInfo
+    class RegisterManager <<Controller>>{
+        ' 運営登録処理を呼ぶ
+    }
 
-    -checkDisplayName()
-    'ディスプレイネームが4～20文字以内であるか確認する
-    -checkIcon()
-    '画像の大きさ[400*400px]　形式[png , jpg]　枚数[0~1] であることを確認する
-    -checkText()
-    '自己紹介が0から200字以内であることを確認する    
-    -reformText()
-    '全角英数字を半角英数字に変換する
-    -checkProhibitText()
-    '禁止ワードが存在するか確認する
-}
+    class UpdateManager <<Controller>>{
+        ' 運営更新処理を呼ぶ
+    }
 
-class ExhibitRemover <<Control>>{
-    -itemInfo
-    -isItemRemove
-    -isItemImageRemove
-    -isItemRemoveByManegement
+    class DeleteManager <<Controller>>{
+        ' 運営削除処理を呼ぶ
+    }
 
-    -whoRemove()
-    '削除者が運営かどうかを確認する
-    -checkItemId()
-    '有効IDかを確認する
-    -checkItemImage()
-    '商品画像が存在するかを確認する
-    -isCheckRemove()
-    '削除可能かを確認する（DBに存在するかを確認する）
-    -itemRemove()
-    'DBに商品の削除を要請する
-    -itemImageRemove()
-    'DBに商品画像の削除を要請する
-    -checkItemRemove()
-    '商品が削除できたかを確認する
-    -checkItemImageRemove()
-    '商品画像が削除できたかを確認する
-    -noticeItemRemoveItem()
-    '削除完了を通知する
-    -noticeErrorRemoveItem()
-    '削除失敗を通知する
-    -mailSend()
-    '運営が削除した場合、出品していた学生に削除通知を知らせるメールを送信する
-    -reformText()
-    '全角英数字を半角英数字に変換する
-    -checkProhibitText()
-    '禁止ワードが存在するか確認する
+    class RegisterExhibitItem <<Controller>>{
+        ' 商品登録処理を呼ぶ
+    }
+
+    class UpdateExhibitItem <<Controller>>{
+        ' 出品商品更新処理を呼ぶ
+    }
+
+    class DeleteExhibitItem <<Controller>>{
+        ' 出品商品削除処理を呼ぶ
+    }
+
+    class RegisterSyllabus <<Controller>>{
+        ' シラバス登録処理を呼ぶ
+    }
+
+    class UpdateSyllabus <<Controller>>{
+        ' シラバス更新処理を呼ぶ
+    }
+
+    class DeleteSyllabus <<Controller>>{
+        ' シラバス削除処理を呼ぶ
+    }
+
+    class SearchSyllabus <<Controller>>{
+        ' シラバス検索処理を呼ぶ
+    }
+
+    class BuyItem <<Controller>>{
+        ' 取引開始処理を呼ぶ
+    }
+
+    class SearchItem <<Controller>>{
+        ' 商品検索処理を呼ぶ
+    }
+
+    class PostMessage <<Controller>>{
+        ' メッセージ送信処理を呼ぶ
+    }
+
+    class ChangeTradingState <<Controller>>{
+        ' 取引状態変更処理を呼ぶ
+    }
 }
 
-class StudentRemover <<Control>>{
-    -studentInfo
-    -isStudentRemove
-    -isStudentRemoveByManegement
+' 学生ユーザーの画面遷移時の処理を行うコントローラ。
+package Student {
 
-    -whoRemove()
-    '削除者が運営かどうかを確認する
-    -checkStudentMailAddress()
-    'メールアドレスに[@ms.dendai.ac.jp]が含まれているかを確認する　※ユーザー登録時のみ使用
-    'また、23文字であることも確認する
-    -isCheckRemove()
-    '削除可能かを確認する（DBに存在するかを確認する）
-    -itemRemove()
-    'DBに学生の削除を要請する
-    -checkItemRemove()
-    '学生が削除できたかを確認する
-    -noticeItemRemoveItem()
-    '削除完了を通知する
-    -noticeErrorRemoveItem()
-    '削除失敗を通知する
-    -mailSend()
-    '削除した学生に削除通知を知らせるメールを送信する
-    -reformText()
-    '全角英数字を半角英数字に変換する
-    -checkProhibitText()
-    '禁止ワードが存在するか確認する
+    ' USER004
+    class TopPage <<Controller>>{
+        ' 新着商品取得と未読メッセージ数取得を処理する
+    }
+
+    ' USER003
+    class SigninStudnetPage <<Controller>>{
+        ' ちょっとパスで
+    }
+
+    ' USER006
+    class ReferStudentPage <<Controller>>{
+        ' 学生情報を取得する
+    }
+
+    ' USER008
+    class EditStudentPage <<Controller>>{
+        ' 学生情報を取得して、それをビューに適用する
+    }
+
+    ' USER010
+    class RegisterExhibitItemPage <<Controller>>{
+        ' もしかしたら要らないかも
+    }
+
+    ' USER011
+    class ValidateExhibitItemPage <<Controller>>{
+        ' 商品情報の登録について検証を行う
+    }
+
+    ' USER013
+    class ReferExhibitItemListPage <<Controller>>{
+        ' 自身の学生情報をキーとして、存在する全出品商品情報を取得する
+    }
+
+    ' USER014
+    class EditExhibitItemPage <<Controller>>{
+        ' 出品商品情報を取得して、それをビューに適用する
+    }
+
+    ' USER016
+    class ReferExhibitItemPage <<Controller>>{
+        ' 出品商品情報を取得する
+    }
+
+    ' USER019-1
+    class SearchItemPage <<Controller>>{
+        ' ページとして独立しているので要るのかと思った
+    }
+
+    ' USER022
+    class ReferItemListPage <<Controller>>{
+        ' SeachItem APIを呼び出す
+    }
+
+    ' USER023
+    class ReferItemPage <<Controller>>{
+        ' ReferItem APIを呼び出す
+    }
+
+    ' USER019-2
+    class SearchSyllabusPage <<Controller>>{
+        ' ページとして独立しているので要るのかと思った
+    }
+
+    ' USER020
+    class ReferSyllabusListPage <<Controller>>{
+        ' SearchSyllabus APIを呼び出す
+    }
+
+    ' USER021
+    class ReferSyllabusPage <<Controller>>{
+        ' ReferSyllabus APIを呼び出す
+    }
+
+    ' USER026
+    class ReferMessageBoxListPage <<Controller>>{
+        ' ReferMessageBoxList APIを呼び出す
+        ' 選択状態によっては、ReferMessageBox APIも呼び出す
+    }
 }
 
-IUpdatable <|-- SyllabusRegisterer
-IUpdatable <|-- SyllabusUpdater
-IUpdatable <|-- IExhibitUpdatable
-IExhibitUpdatable <|-- ExhibitRegisterer
-IExhibitUpdatable <|-- ExhibitUpdater
+' 運営ユーザーの画面遷移時の処理を行うコントローラ。
+package Manager {
 
-class ExhibitSorter<<control>>{
-    +sortDescNewer()
-    +sortAscCategory()
-    +sortDescCategory()
-    +sortAscCampus()
-    +sortDescCampus()
-    +sortAscName()
-    +sortDescName()
-    +sortAscPrice()
-    +sortDescPrice()
-    +sortAscClassName()
-    +sortDescClassName()
-}
-class SyllabusSorter<<control>>{
-    +sortAscClassCode()
-    +sortDescClassCode()
-    +sortAscDepartment()
-    +sortDescDepartment()
-    +sortAscClassName()
-    +sortDescClassName()
-    +sortAscTeacher()
-    +sortDescTeacher()
-}
-class StudentSorter<<control>>{
-    +sortAscNumber()
-    +sortDescNumber()
-    +sortAscDepartment()
-    +sortDescDepartment()
-    ' asc:あいう～
-    ' desc: んをわ～
-    +sortAscDisplayName()
-    +sortDescDisplayName()
+    ' ADMIN004
+    class TopPage <<Controller>>{
+
+    }
+
+    ' ADMIN003
+    class SigninManagerPage <<Controller>>{
+
+    }
+
+    ' ADMIN027
+    class ReferManagerPage <<Controller>>{
+
+    }
+
+    ' ADMIN029
+    class EditManagerPage <<Controller>>{
+
+    }
+
+    ' ADMIN005
+    class ReferStudentListPage <<Controller>>{
+
+    }
+
+    ' ADMIN006
+    class ReferStudentPage <<Controller>>{
+
+    }
+
+    ' ADMIN011
+    class EditStudentPage <<Controller>>{
+
+    }
+
+    ' ADMIN007
+    class ReferExhibitItemList <<Controller>>{
+
+    }
+
+    ' ADMIN013
+    class ReferSyllabusListPage <<Controller>>{
+
+    }
+
+    ' ADMIN014
+    class RegisterSyllabusPage <<Controller>>{
+
+    }
+
+    ' ADMIN017
+    class EditSyllabusPage <<Controller>>{
+
+    }
+
+    ' ADMIN021
+    class ReferSyllabusPage <<Controller>>{
+
+    }
+
+    ' ADMIN022
+    class ReferItemListPage <<Controller>>{
+
+    }
+
+    ' ADMIN023
+    class ReferItem <<Controller>>{
+
+    }
 }
 
-class MessageSender<<control>>{
-    -name
-    -bodyText
+IEntity <|.down. UserBase
+UserBase <|-down- StudentInfo
+UserBase <|-down- ManagerInfo
+IEntity <|.down. ItemInfo
+IEntity <|.down. SyllabusInfo
+IEntity <|.down. MessageInfo
+IEntity <|.down. CampusInfo
+IEntity <|.down. DepartmentInfo
+IEntity <|.down. RelatedClassInfo
+IEntity <|.down. TeacherInfo
+IEntity <|.down. SemesterInfo
+IEntity <|.down. OpeningSemesterInfo
+IEntity <|.down. ItemImageInfo
+IEntity <|.down. RoomMemberInfo
+IEntity <|.down. MessageRoomInfo
 
-    +checkContent()
-    +sendMessage()
-}
+IUpdateCache <|.up. StudentInfo
+IUpdateCache <|.up. ItemInfo
+IUpdateCache <|.up. SyllabusInfo
+IUpdateCache <|.up. MessageInfo
+IUpdateCache <|.up. DepartmentInfo
+IUpdateCache <|.up. RelatedClassInfo
+IUpdateCache <|.up. TeacherInfo
+IUpdateCache <|.up. OpeningSemesterInfo
+IUpdateCache <|.up. ItemImageInfo
+IUpdateCache <|.up. RoomMemberInfo
 
-class MessageReciever<<control>>{
-    'メッセージを受信する
-    +recieveMessage()
-    'メッセージを受け取ったことを通知する
-    +notifyMessage()
-    '部屋を更新する
-    +refleshRoom()
-}
+StudentInfoManager --> StudentInfo :Use
+StudentInfoManager --> StudentInfoDAO :Use
+StudentInfo --> StudentInfoDAO :Use
+
+ManagerInfoManager --> ManagerInfo :Use
+ManagerInfoManager --> ManagerInfoDAO :Use
+ManagerInfo --> ManagerInfoDAO :Use
+
+ItemInfoManager --> ItemInfo :Use
+ItemInfoManager --> ItemInfoDAO :Use
+ItemInfo --> ItemInfoDAO :Use
+
+SyllabusInfoManager --> SyllabusInfo :Use
+SyllabusInfoManager --> SyllabusInfoDAO :Use
+SyllabusInfo --> SyllabusInfoDAO :Use
+
+MessageInfoManager --> MessageInfo :Use
+MessageInfoManager --> MessageInfoDAO :Use
+MessageInfo --> MessageInfoDAO :Use
+
+CampusInfoManager --> CampusInfo :Use
+CampusInfoManager --> CampusInfoDAO :Use
+CampusInfo --> CampusInfoDAO :Use
+
+DepartmentInfoManager --> DepartmentInfo :Use
+DepartmentInfoManager --> DepartmentInfoDAO :Use
+DepartmentInfo --> DepartmentInfoDAO :Use
+
+RelatedClassInfoManager --> RelatedClassInfo :Use
+RelatedClassInfoManager --> RelatedClassInfoDAO :Use
+RelatedClassInfo --> RelatedClassInfoDAO :Use
+
+TeacherInfoManager --> TeacherInfo :Use
+TeacherInfoManager --> TeacherInfoDAO :Use
+TeacherInfo --> TeacherInfoDAO :Use
+
+SemesterInfoManager --> SemesterInfo :Use
+SemesterInfoManager --> SemesterInfoDAO :Use
+SemesterInfo --> SemesterInfoDAO :Use
+
+OpeningSemesterInfoManager --> OpeningSemesterInfo :Use
+OpeningSemesterInfoManager --> OpeningSemesterInfoDAO :Use
+OpeningSemesterInfo --> OpeningSemesterInfoDAO :Use
+
+ItemImageInfoManager --> ItemImageInfo :Use
+ItemImageInfoManager --> ItemImageInfoDAO :Use
+ItemImageInfo --> ItemImageInfoDAO :Use
+
+RoomMemberInfoManager --> RoomMemberInfo :Use
+RoomMemberInfoManager --> RoomMemberInfoDAO :Use
+RoomMemberInfo --> RoomMemberInfoDAO :Use
+
+MessageRoomInfoManager --> MessageRoomInfo :Use
+MessageRoomInfoManager --> MessageRoomInfoDAO :Use
+MessageRoomInfo --> MessageRoomInfoDAO :Use
 
 @enduml
