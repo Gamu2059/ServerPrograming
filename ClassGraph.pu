@@ -55,10 +55,10 @@ class StudentInfo <<Entity Bean>> {
     -selfIntroduction
     -departmentID
 
-    -cachedDepartment
-    -cachedExhibitItemList
-    -cachedPostMessageList
-    -cachedParticipateRoomList
+    -cachedDepartmentInfo
+    -cachedExhibitItemInfoList
+    -cachedPostMessageInfoList
+    -cachedParticipateRoomInfoList
 
     +StudentInfo()
 
@@ -70,10 +70,10 @@ class StudentInfo <<Entity Bean>> {
     +setSelfIntroduction( selfIntroduction )
     +setDepartmentID( department )
 
-    +getCachedDepartment()
-    +getCachedExhibitItemList()
-    +getCachedPostMessageList()
-    +getCachedParticipateRoomList()
+    +getCachedDepartmentInfo()
+    +getCachedExhibitItemInfoList()
+    +getCachedPostMessageInfoList()
+    +getCachedParticipateRoomInfoList()
 
     +updateCache()
     +saveToDataBase()
@@ -94,9 +94,9 @@ class ItemInfo <<Entity Bean>>{
     -tradingState
     -exhibitDate
 
-    -cachedExhibitorStudent
-    -cachedRelatedClassList
-    -cachedItemImageList
+    -cachedExhibitorStudentInfo
+    -cachedRelatedClassInfoList
+    -cachedItemImageInfoList
 
     +ItemInfo()
 
@@ -118,9 +118,9 @@ class ItemInfo <<Entity Bean>>{
     +setTradingState( tradingState )
     +setExhibitDate( exhibitDate )
 
-    +getCachedExhibitorStudent()
-    +getCachedRelatedClassList()
-    +getCachedItemImageList()
+    +getCachedExhibitorStudentInfo()
+    +getCachedRelatedClassInfoList()
+    +getCachedItemImageInfoList()
 
     +updateCache()
     +saveToDataBase()
@@ -139,9 +139,9 @@ class SyllabusInfo <<Entity Bean>>{
     -requirements
     -evaluationMethod
 
-    -cachedDepartment
-    -cachedTeacher
-    -cachedCourseYearList
+    -cachedDepartmentInfo
+    -cachedTeacherInfo
+    -cachedCourseYearInfoList
 
     +SyllabusInfo()
 
@@ -169,9 +169,9 @@ class SyllabusInfo <<Entity Bean>>{
     +setEvaluationMethod( evaluationMethod )
     +setCourseYear( courseYear )
 
-    +getCachedDepartment()
-    +getCachedTeacher()
-    +getCachedCourseYearList()
+    +getCachedDepartmentInfo()
+    +getCachedTeacherInfo()
+    +getCachedCourseYearInfoList()
 
     +updateCache()
     +saveToDataBase()
@@ -185,8 +185,8 @@ class MessageInfo <<Entity Bean>>{
     -postContent
     -postDate
 
-    -cachedRoom
-    -cachedPostStudent
+    -cachedRoomInfo
+    -cachedPostStudentInfo
 
     +MessageInfo()
 
@@ -202,8 +202,8 @@ class MessageInfo <<Entity Bean>>{
     +setPostContent( postContent )
     +setPostDate( postDate )
 
-    +getCachedRoom()
-    +getCachedPostStudent()
+    +getCachedRoomInfo()
+    +getCachedPostStudentInfo()
 
     +updateCache()
     +saveToDataBase()
@@ -222,7 +222,6 @@ class CampusInfo <<Entity Bean>> {
     +setCampusID( campusID )
     +setCampusName( campusName )
 
-    +updateCache()
     +saveToDataBase()
     +loadFromDataBase()
 }
@@ -232,6 +231,8 @@ class DepartmentInfo <<Entity Bean>> {
     -facultyName
     -subjectName
     -campusID
+
+    -cachedCampusInfo
 
     +DepartmentInfo()
 
@@ -245,6 +246,8 @@ class DepartmentInfo <<Entity Bean>> {
     +setSubjectName( subjectName )
     +setCampusID( campusID )
 
+    +getCachedCampusInfo()
+
     +updateCache()
     +saveToDataBase()
     +loadFromDataBase()
@@ -254,6 +257,9 @@ class RelatedClassInfo <<Entity Bean>>{
     -itemID
     -classCode
 
+    -cachedItemInfo
+    -cachedSyllabusInfo
+
     +RelatedClassInfo()
 
     +getItemID()
@@ -261,6 +267,9 @@ class RelatedClassInfo <<Entity Bean>>{
 
     +setItemID( itemID )
     +setClassCode( classCode )
+
+    +getCachedItemInfo()
+    +getCachedSyllabusInfo()
 
     +updateCache()
     +saveToDataBase()
@@ -272,6 +281,8 @@ class TeacherInfo <<Entity Bean>>{
     -teacherName
     -departmentID
 
+    -cachedDepartmentInfo
+
     +TeacherInfo()
 
     +getTeacherID()
@@ -281,6 +292,8 @@ class TeacherInfo <<Entity Bean>>{
     +setTeacherID( teacherID )
     +setTeacherName( teacherName )
     +setDepartmentID( departmentID )
+
+    +getCachedDepartmentInfo()
 
     +updateCache()
     +saveToDataBase()
@@ -302,7 +315,6 @@ class SemesterInfo <<Entity Bean>>{
     +setYear( year )
     +setSemester( semester )
 
-    +updateCache()
     +saveToDataBase()
     +loadFromDataBase()
 }
@@ -311,6 +323,9 @@ class OpeningSemesterInfo <<Entity Bean>>{
     -classCode
     -semesterID
 
+    -cachedSyllabusInfo
+    -cachedSemesterInfo
+
     +OpeningSemesterInfo()
 
     +getClassCode()
@@ -318,6 +333,9 @@ class OpeningSemesterInfo <<Entity Bean>>{
 
     +setClassCode( classCode )
     +setSemnesterID( semesterID )
+
+    +getCachedSyllabusInfo()
+    +getCachedSemesterInfo()
 
     +updateCache()
     +saveToDataBase()
@@ -329,6 +347,8 @@ class ItemImageInfo <<Entity Bean>>{
     -itemID
     -image
 
+    -cachedItemInfo
+
     +ItemImageInfo()
 
     +getImageID()
@@ -339,6 +359,8 @@ class ItemImageInfo <<Entity Bean>>{
     +setItemID( itemID )
     +setImage( image )
 
+    +getCachedItemInfo()
+
     +updateCache()
     +saveToDataBase()
     +loadFromDataBase()
@@ -348,6 +370,9 @@ class RoomMemberInfo <<Entity Bean>>{
     -roomID
     -studentNumber
 
+    -cachedRoomInfo
+    -cachedStudentInfo
+
     +RoomMomberInfo()
 
     +getRoomID()
@@ -355,6 +380,9 @@ class RoomMemberInfo <<Entity Bean>>{
 
     +setRoomID( roomID )
     +setStudentNumber( studentNumber )
+
+    +getCachedRoomInfo()
+    +getCachedStudentInfo()
 
     +updateCache()
     +saveToDataBase()
@@ -379,7 +407,6 @@ class MessageRoomInfo<<Entity Bean>>{
     +setLastPostedDate( lastPostedDate )
     +setRoomState( roomState )
 
-    +updateCache()
     +saveToDataBase()
     +loadFromDataBase()
 }
@@ -743,23 +770,87 @@ package Manager {
     }
 }
 
-IEntity <|.. UserBase
-UserBase <|-- StudentInfo
-UserBase <|-- ManagerInfo
-IEntity <|.. ItemInfo
-IEntity <|.. SyllabusInfo
-IEntity <|.. MessageInfo
-IEntity <|.. CampusInfo
-IEntity <|.. DepartmentInfo
-IEntity <|.. RelatedClassInfo
-IEntity <|.. TeacherInfo
-IEntity <|.. SemesterInfo
-IEntity <|.. OpeningSemesterInfo
-IEntity <|.. ItemImageInfo
-IEntity <|.. RoomMemberInfo
-IEntity <|.. MessageRoomInfo
+IEntity <|.down. UserBase
+UserBase <|-down- StudentInfo
+UserBase <|-down- ManagerInfo
+IEntity <|.down. ItemInfo
+IEntity <|.down. SyllabusInfo
+IEntity <|.down. MessageInfo
+IEntity <|.down. CampusInfo
+IEntity <|.down. DepartmentInfo
+IEntity <|.down. RelatedClassInfo
+IEntity <|.down. TeacherInfo
+IEntity <|.down. SemesterInfo
+IEntity <|.down. OpeningSemesterInfo
+IEntity <|.down. ItemImageInfo
+IEntity <|.down. RoomMemberInfo
+IEntity <|.down. MessageRoomInfo
 
-IUpdateCache <|.. StudentInfo
+IUpdateCache <|.up. StudentInfo
+IUpdateCache <|.up. ItemInfo
+IUpdateCache <|.up. SyllabusInfo
+IUpdateCache <|.up. MessageInfo
+IUpdateCache <|.up. DepartmentInfo
+IUpdateCache <|.up. RelatedClassInfo
+IUpdateCache <|.up. TeacherInfo
+IUpdateCache <|.up. OpeningSemesterInfo
+IUpdateCache <|.up. ItemImageInfo
+IUpdateCache <|.up. RoomMemberInfo
 
+StudentInfoManager --> StudentInfo :Use
+StudentInfoManager --> StudentInfoDAO :Use
+StudentInfo --> StudentInfoDAO :Use
+
+ManagerInfoManager --> ManagerInfo :Use
+ManagerInfoManager --> ManagerInfoDAO :Use
+ManagerInfo --> ManagerInfoDAO :Use
+
+ItemInfoManager --> ItemInfo :Use
+ItemInfoManager --> ItemInfoDAO :Use
+ItemInfo --> ItemInfoDAO :Use
+
+SyllabusInfoManager --> SyllabusInfo :Use
+SyllabusInfoManager --> SyllabusInfoDAO :Use
+SyllabusInfo --> SyllabusInfoDAO :Use
+
+MessageInfoManager --> MessageInfo :Use
+MessageInfoManager --> MessageInfoDAO :Use
+MessageInfo --> MessageInfoDAO :Use
+
+CampusInfoManager --> CampusInfo :Use
+CampusInfoManager --> CampusInfoDAO :Use
+CampusInfo --> CampusInfoDAO :Use
+
+DepartmentInfoManager --> DepartmentInfo :Use
+DepartmentInfoManager --> DepartmentInfoDAO :Use
+DepartmentInfo --> DepartmentInfoDAO :Use
+
+RelatedClassInfoManager --> RelatedClassInfo :Use
+RelatedClassInfoManager --> RelatedClassInfoDAO :Use
+RelatedClassInfo --> RelatedClassInfoDAO :Use
+
+TeacherInfoManager --> TeacherInfo :Use
+TeacherInfoManager --> TeacherInfoDAO :Use
+TeacherInfo --> TeacherInfoDAO :Use
+
+SemesterInfoManager --> SemesterInfo :Use
+SemesterInfoManager --> SemesterInfoDAO :Use
+SemesterInfo --> SemesterInfoDAO :Use
+
+OpeningSemesterInfoManager --> OpeningSemesterInfo :Use
+OpeningSemesterInfoManager --> OpeningSemesterInfoDAO :Use
+OpeningSemesterInfo --> OpeningSemesterInfoDAO :Use
+
+ItemImageInfoManager --> ItemImageInfo :Use
+ItemImageInfoManager --> ItemImageInfoDAO :Use
+ItemImageInfo --> ItemImageInfoDAO :Use
+
+RoomMemberInfoManager --> RoomMemberInfo :Use
+RoomMemberInfoManager --> RoomMemberInfoDAO :Use
+RoomMemberInfo --> RoomMemberInfoDAO :Use
+
+MessageRoomInfoManager --> MessageRoomInfo :Use
+MessageRoomInfoManager --> MessageRoomInfoDAO :Use
+MessageRoomInfo --> MessageRoomInfoDAO :Use
 
 @enduml
