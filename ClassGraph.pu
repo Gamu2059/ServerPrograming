@@ -532,10 +532,22 @@ package Api {
 
     class Login <<Controller>>{
         ' ユーザーアカウントを検証し、ログイン処理を行う
+        ' メールアドレスとパスワードがちゃんとあるかチェック
+        ' メールアドレスから学生か運営かを判定する
+        ' 学生ならStudentInfoManagerにメールアドレスとパスワードを渡し、ログインできるかチェックする
+            ' チェックがOKなら、StudentInfoManagerのloginを呼ぶ
+        ' 運営ならManagerInfoManagerにメールアドレスとパスワードを渡し、ログインできるかチェックする
+            ' チェックがOKなら、ManagerInfoManagerのloginを呼ぶ
+        ' セッションにメールアドレスを保存する(他にいい実装があるかもしれない...)
+        +doPost()
     }
 
     class Logout <<Controller>>{
         ' ログアウト処理を行う
+        メールアドレスから学生か運営かを判定する
+        ' 学生ならStudentInfoManagerのlogoutを呼ぶ
+        ' 運営ならManagerInfoManagerのlogoutを呼ぶ
+        +doPost()
     }
 
     class PostMail <<Controller>>{
