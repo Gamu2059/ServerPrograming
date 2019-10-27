@@ -298,7 +298,7 @@ package DAO {
 
     class StudentInfoDAO <<DAO>>{
         +StudentInfo createStudentInfo( String mailAddress )
-        +StudentInfo getStudnetInfo( String mailAddress )
+        +StudentInfo getStudentInfo( String mailAddress )
         +void updateStudentInfo( StudentUpdateInfo studentUpdateInfo )
         +void deleteStudentInfo( String mailAddress )
         +void updateLastLogin( String mailAddress )
@@ -717,7 +717,7 @@ package DTO {
         -String postStudentNumber
         -String postContent
 
-        +MessageCreateInfo( long roomID, String postStudnetNumber, String postContent )
+        +MessageCreateInfo( long roomID, String postStudentNumber, String postContent )
 
         +long getRoomID()
         +String getPostStudentNumber()
@@ -884,7 +884,7 @@ package DTO {
 
         +RoomMemberGetInfo( StudentGetInfo studentGetInfo, MessageRoomGetInfo[] rooms )
 
-        +StudentGetInfo getStudnetGetInfo()
+        +StudentGetInfo getStudentGetInfo()
         +MessageRoomGetInfo[] getRooms()
     }
 
@@ -1108,14 +1108,14 @@ package Student {
 
     ' USER003_1
     ' RegisterStudentと異なり、こちらは新規登録画面に入ってきた時に処理するコントローラ
-    class SigninStudnetPage <<Controller>>{
+    class SigninStudentPage <<Controller>>{
         ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
         +doGet()
     }
 
     ' UC-USERINFO-01
     ' USER003_2
-    ' SigninStudnetPageと異なり、こちらは登録ボタンを押した時に処理するコントローラ
+    ' SigninStudentPageと異なり、こちらは登録ボタンを押した時に処理するコントローラ
     ' 学生登録画面の登録ボタンから呼び出される
     class RegisterStudentInfo <<Controller>>{
         ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
