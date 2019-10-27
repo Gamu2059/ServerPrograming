@@ -411,6 +411,8 @@ class MessageRoomInfo<<Entity Bean>>{
     +loadFromDataBase()
 }
 
+' どんなDBへのクエリがあるか、まだ把握しきれていないです
+' DAO以外の部分でどういう風にデータをDBから取得するか分かってからメソッドを定義していきたいです
 class StudentInfoDAO <<DAO>>{
 
 }
@@ -467,18 +469,128 @@ class MessageRoomInfoDAO <<DAO>>{
 
 }
 
+' DTO(Data Transfer Object)は、Immutableなクラスにして下さい。
+' Immutableなクラスとは、読み取り専用のクラスという意味で、コンストラクタにデータを渡した後は、一切のデータの変更を受けつけないクラスです。
+class LoginInfo <<DTO>>{
+    -String mailAddress
+    -String nonHashedPassword
+
+    +LoginInfo(String mailAddress, String nonHashedPassword)
+    
+    +String getMailAddress()
+    +String getNonHashedPassword()
+}
+
+class StudentGetInfo <<DTO>>{
+    -String displayName
+    -int departmentID
+    -String selfIntroduction
+    -String iconImageURL
+
+    +StudentGetInfo( String displayName, int departmentID, String selfIntroduction, String iconImageURL )
+
+    +String getdisplayName()
+    +int getDepartmentID()
+    +String getSelfIntroduction()
+    +String geticonImageURL()
+}
+
+class StudentUpdateInfo <<DTO>>{
+    -String nonHashedPassword
+    -String displayName
+    -int departmentID
+    -String selfIntroduction
+    -String iconImageURL
+
+    +StudentUpdateInfo( String nonHashedPassword, String displayName, int departmentID, String selfIntroduction, String iconImageURL )
+
+    +String getNonHashedPassword()
+    +String getdisplayName()
+    +int getDepartmentID()
+    +String getSelfIntroduction()
+    +String geticonImageURL()
+}
+
+class ManagerGetInfo <<DTO>>{
+    -String displayName
+    -int departmentID
+    -String iconImageURL
+
+    +ManagerGetInfo( String displayName, int departmentID, String iconImageURL )
+
+    +String getdisplayName()
+    +int getDepartmentID()
+    +String geticonImageURL()
+}
+
+class ManagerUpdateInfo <<DTO>>{
+    -String nonHashedPassword
+    -String displayName
+    -int departmentID
+    -String iconImageURL
+
+    +ManagerUpdateInfo( String nonHashedPassword, String displayName, int departmentID, String iconImageURL )
+
+    +String getNonHashedPassword()
+    +String getdisplayName()
+    +int getDepartmentID()
+    +String geticonImageURL()
+}
+
+' ユースケース文を見ながら、アプリケーションの表面部分では処理できないものをEntityManagerに記述してきます
+' まずは、Controlの中身をユースケース文に対応させながら全て埋める必要があります。
+class AccountUtil {
+    +{static}boolean isMeetRequirementPassword( String nonHashedPassword )
+    +{static}String getHashedPassword( String nonHashedPassword )
+}
+
 class StudentInfoManager <<Entity Manager>>{
-    +getStudentInfo()
-    +getUnreadMessageNum()
+    -List<StudentInfo> cachedStudentInfoList
+
+    -StudentInfo getStudentInfoFromDB( String mailAddress )
+    -StudentInfo getStudentInfoFromCache( String mailAddress )
+
+    +boolean isStudentMailAddress( String mailAddress )
+    +boolean existMailAddress( String mailAddress )
+    +boolean canLogin( LoginInfo loginInfo )
+    +void login( LoginInfo loginInfo )
+    +void logout( String mailAddress )
+    +boolean isRegisteredState( String mailAddress )
+    +String createTemporaryAccount( String mailAddress )
+    +StudentGetInfo getStudentInfo( String mailAddress )
+    +void makeStudentInfoRegistered( StudentUpdateInfo studentUpdateInfo )
+    +void updateStudentInfo( StudentUpdateInfo studentUpdateInfo )
+    +void deleteStudentInfo( String mailAddress )
+    +int getUnreadMessageNum( String mailAddress )
 }
 
 class ManagerInfoManager <<Entity Manager>>{
+    -List<ManagerInfo> cachedManagerInfoList
 
+    -ManagerInfo getManagerInfoFromDB( String mailAddress )
+    -ManagerInfo getManagerInfoFromCache( String mailAddress )
+
+    +boolean isManagerMailAddress( String mailAddress )
+    +boolean existMailAddress( String mailAddress )
+    +boolean canLogin( LoginInfo loginInfo )
+    +void login( LoginInfo loginInfo )
+    +void logout( String mailAddress )
+    +boolean isRegisteredState( String mailAddress )
+    +String createTemporaryAccount( String mailAddress )
+    +ManagerGetInfo getManagerInfo( String mailAddress )
+    +void makeManagerInfoRegistered( ManagerUpdateInfo managerUpdateInfo )
+    +void updateManagerInfo( ManagerUpdateInfo managerUpdateInfo )
+    +void deleteManagerInfo( String mailAddress )
 }
 
 class ItemInfoManager <<Entity Manager>>{
-    + getNewItemList()
-    + validateRegisterExhibitItem()
+    -cachedItemInfoList
+
+    -getItemInfoFromDB( itemID )
+    -getItemInfoFromCache( itemID )
+
+    +getNewItemList()
+    +validateRegisterExhibitItem()
 }
 
 class SyllabusInfoManager <<Entity Manager>>{
@@ -525,260 +637,433 @@ class MessageRoomInfoManager <<Entity Manager>>{
 
 }
 
+' 共通コントローラ
+package Common {
 
-' 特定の画面ではなく、特定のイベントに紐づいているコントローラ。
-' ユースケース文の中で、ユーザーの特定のアクションによって起動するフローに該当している。
-package Api {
-
+    ' UC-LOGIN-01
+    ' USER001 ADMIN001
+    ' ログイン画面のボタンから呼び出される
     class Login <<Controller>>{
-        ' ユーザーアカウントを検証し、ログイン処理を行う
-        ' メールアドレスとパスワードがちゃんとあるかチェック
+        ' メールアドレスがメールアドレスの体をなしているかチェック
+        ' パスワードがパスワードの体をなしているかをチェック
         ' メールアドレスから学生か運営かを判定する
         ' 学生ならStudentInfoManagerにメールアドレスとパスワードを渡し、ログインできるかチェックする
-            ' チェックがOKなら、StudentInfoManagerのloginを呼ぶ
+        '   チェックがOKなら、StudentInfoManagerのloginを呼ぶ
         ' 運営ならManagerInfoManagerにメールアドレスとパスワードを渡し、ログインできるかチェックする
-            ' チェックがOKなら、ManagerInfoManagerのloginを呼ぶ
+        '   チェックがOKなら、ManagerInfoManagerのloginを呼ぶ
         ' セッションにメールアドレスを保存する(他にいい実装があるかもしれない...)
+        ' アカウントが仮登録状態ならば、新規登録画面に遷移する
+        ' アカウントが登録済み状態ならば、トップ画面に遷移する
         +doPost()
-    }
-
-    class Logout <<Controller>>{
-        ' ログアウト処理を行う
-        メールアドレスから学生か運営かを判定する
-        ' 学生ならStudentInfoManagerのlogoutを呼ぶ
-        ' 運営ならManagerInfoManagerのlogoutを呼ぶ
-        +doPost()
-    }
-
-    class PostMail <<Controller>>{
-        ' 仮パスの発行及び仮登録ステートを付与してメールを送信する
-    }
-
-    class RegisterStudent <<Controller>>{
-        ' 学生登録処理を呼ぶ
-    }
-
-    class UpdateStudent <<Controller>>{
-        ' 学生更新処理を呼ぶ
-    }
-
-    class DeleteStudent <<Controller>>{
-        ' 学生削除処理を呼ぶ
-    }
-
-    class RegisterManager <<Controller>>{
-        ' 運営登録処理を呼ぶ
-    }
-
-    class UpdateManager <<Controller>>{
-        ' 運営更新処理を呼ぶ
-    }
-
-    class DeleteManager <<Controller>>{
-        ' 運営削除処理を呼ぶ
-    }
-
-    class RegisterExhibitItem <<Controller>>{
-        ' 商品登録処理を呼ぶ
-    }
-
-    class UpdateExhibitItem <<Controller>>{
-        ' 出品商品更新処理を呼ぶ
-    }
-
-    class DeleteExhibitItem <<Controller>>{
-        ' 出品商品削除処理を呼ぶ
-    }
-
-    class RegisterSyllabus <<Controller>>{
-        ' シラバス登録処理を呼ぶ
-    }
-
-    class UpdateSyllabus <<Controller>>{
-        ' シラバス更新処理を呼ぶ
-    }
-
-    class DeleteSyllabus <<Controller>>{
-        ' シラバス削除処理を呼ぶ
-    }
-
-    class SearchSyllabus <<Controller>>{
-        ' シラバス検索処理を呼ぶ
-    }
-
-    class BuyItem <<Controller>>{
-        ' 取引開始処理を呼ぶ
-    }
-
-    class SearchItem <<Controller>>{
-        ' 商品検索処理を呼ぶ
-    }
-
-    class PostMessage <<Controller>>{
-        ' メッセージ送信処理を呼ぶ
-    }
-
-    class ChangeTradingState <<Controller>>{
-        ' 取引状態変更処理を呼ぶ
     }
 }
 
 ' 学生ユーザーの画面遷移時の処理を行うコントローラ。
 package Student {
 
-    ' USER004
-    class TopPage <<Controller>>{
-        ' 新着商品取得と未読メッセージ数取得を処理する
+    ' UC-LOGOUT-01
+    ' ログアウトボタンから呼び出される
+    class Logout <<Controller>>{
+        ' StudentInfoManagerのlogoutを呼ぶ
+        ' セッションに保存してある色々なデータを抹消する
+        ' ログインページに遷移する
+        +doPost()
     }
 
-    ' USER003
+    ' UC-USERINFO-01
+    ' USER002
+    ' 新規登録画面の送信ボタンから呼び出される
+    class PostMail <<Controller>>{
+        ' メールアドレスがメールアドレスの体をなしているかチェック
+        ' メールアドレスがDBに登録されていないかをチェックする
+        ' 新規アカウントを仮登録状態、仮パスワードで作成する
+        ' 仮パスワードをメールアドレス宛に送信する
+        ' 送信した後、ログインページに遷移する
+        +doPost()
+    }
+
+    ' USER003_1
+    ' RegisterStudentと異なり、こちらは新規登録画面に入ってきた時に処理するコントローラ
     class SigninStudnetPage <<Controller>>{
-        ' ちょっとパスで
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        +doGet()
+    }
+
+    ' UC-USERINFO-01
+    ' USER003_2
+    ' SigninStudnetPageと異なり、こちらは登録ボタンを押した時に処理するコントローラ
+    ' 学生登録画面の登録ボタンから呼び出される
+    class RegisterStudentInfo <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        ' 各種入力フォームの必要項目が入力されているかチェック
+        ' パスワード等が仕様を満たしたものになっているかをチェック
+        ' アカウントの仮登録状態を登録済み状態にし、各種情報を入力されたものに変更する
+        ' トップ画面に遷移する
+        +doPost()
+    }
+
+    ' USER004
+    ' 学生のトップ画面に遷移する時に処理する
+    class TopPage <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        ' 未読メッセージ数取得を処理する
+        ' 新着商品を取得する
+        +doGet()
     }
 
     ' USER006
+    ' 自身の情報参照画面に遷移する時に処理する
     class ReferStudentPage <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        ' 未読メッセージ数取得を処理する
         ' 学生情報を取得する
+        +doGet()
     }
 
     ' USER008
+    ' 自身の編集画面に遷移する時に処理する
     class EditStudentPage <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        ' 未読メッセージ数取得を処理する
         ' 学生情報を取得して、それをビューに適用する
+        +doGet()
     }
 
+    ' UC-USERINFO-04
+    ' USER008
+    ' 更新ボタンから呼び出される
+    class UpdateStudentInfo <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        ' 各種入力フォームの必要項目が入力されているかチェック
+        ' パスワード等が使用を満たしたものになっているかをチェック
+        ' アカウントの各種情報を入力されたものに変更する
+        ' EditStudentPageに遷移する
+        +doPost()
+    }
+
+    ' USER007
+    ' 退会ボタンから呼び出される
+    class DeleteStudentInfo <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        ' 学生削除処理を呼ぶ
+        +doPost()
+    }
+
+    ' UC-ITEMINFO-01
     ' USER010
     class RegisterExhibitItemPage <<Controller>>{
-        ' もしかしたら要らないかも
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        ' 未読メッセージ数取得を処理する
+        +doGet()
     }
 
-    ' USER011
-    class ValidateExhibitItemPage <<Controller>>{
+    ' UC-ITEMINFO-01
+    ' USER010
+    ' 確認ボタンから呼び出される
+    class ValidateExhibitItem <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        ' 未読メッセージ数取得を処理する
+        ' 各種入力情報をチェックする
         ' 商品情報の登録について検証を行う
+        ' 正常ならば確認ページに遷移する
+        +doPost()
+    }
+
+    ' UC-ITEMINFO-01
+    ' USER011
+    ' 出品ボタンから呼び出される
+    class RegisterItemInfo <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        ' 商品登録処理を呼ぶ
+        +doPost()
     }
 
     ' USER013
     class ReferExhibitItemListPage <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        ' 未読メッセージ数取得を処理する
         ' 自身の学生情報をキーとして、存在する全出品商品情報を取得する
-    }
-
-    ' USER014
-    class EditExhibitItemPage <<Controller>>{
-        ' 出品商品情報を取得して、それをビューに適用する
+        +doGet()
     }
 
     ' USER016
     class ReferExhibitItemPage <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        ' 未読メッセージ数取得を処理する
         ' 出品商品情報を取得する
+        +doGet()
+    }
+
+    ' USER014
+    class EditExhibitItemPage <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        ' 未読メッセージ数取得を処理する
+        ' 出品商品情報を取得して、それをビューに適用する
+        +doGet()
+    }
+
+    class UpdateItemInfo <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        ' 出品商品更新処理を呼ぶ
+        +doPost()
+    }
+
+    class DeleteItemInfo <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        ' 出品商品削除処理を呼ぶ
+        +doPost()
     }
 
     ' USER019-1
     class SearchItemPage <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        ' 未読メッセージ数取得を処理する
         ' ページとして独立しているので要るのかと思った
+        +doGet()
     }
 
     ' USER022
     class ReferItemListPage <<Controller>>{
-        ' SeachItem APIを呼び出す
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        ' 未読メッセージ数取得を処理する
+        ' 検索キーワード等から検索をかける
+        +doGet()
     }
 
     ' USER023
     class ReferItemPage <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        ' 未読メッセージ数取得を処理する
         ' ReferItem APIを呼び出す
+        +doGet()
     }
 
     ' USER019-2
     class SearchSyllabusPage <<Controller>>{
-        ' ページとして独立しているので要るのかと思った
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        ' 未読メッセージ数取得を処理する
+        ' 検索キーワード等から検索を掛ける
+        +doGet()
     }
 
     ' USER020
     class ReferSyllabusListPage <<Controller>>{
-        ' SearchSyllabus APIを呼び出す
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        ' 未読メッセージ数取得を処理する
+        +doGet()
     }
 
     ' USER021
     class ReferSyllabusPage <<Controller>>{
-        ' ReferSyllabus APIを呼び出す
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        ' 未読メッセージ数取得を処理する
+        +doGet()
     }
 
     ' USER026
     class ReferMessageBoxListPage <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        ' 未読メッセージ数取得を処理する
         ' ReferMessageBoxList APIを呼び出す
         ' 選択状態によっては、ReferMessageBox APIも呼び出す
+        +doGet()
+    }
+
+    class BuyItem <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        ' 取引開始処理を呼ぶ
+        +doPost()
+    }
+
+    class PostMessage <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        ' メッセージ送信処理を呼ぶ
+        +doPost()
+    }
+
+    class ChangeTradingState <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        ' 取引状態変更処理を呼ぶ
+        +doPost()
     }
 }
 
 ' 運営ユーザーの画面遷移時の処理を行うコントローラ。
 package Manager {
 
-    ' ADMIN004
-    class TopPage <<Controller>>{
+    ' UC-LOGOUT-01
+    ' ログアウトボタンから呼び出される
+    ' 正式にはLogoutクラス
+    class LogoutManager <<Controller>>{
+        ' ManagerInfoManagerのlogoutを呼ぶ
+        ' セッションに保存してある色々なデータを抹消する
+        ' ログインページに遷移する
+        +doPost()
+    }
 
+    ' UC-ADMININFO-01
+    ' ADMIN002
+    ' 新規登録画面の送信ボタンから呼び出される
+    ' 正式にはPostMailクラス
+    class PostMailManager <<Controller>>{
+        ' メールアドレスがメールアドレスの体をなしているかチェック
+        ' メールアドレスがDBに登録されていないかをチェックする
+        ' 新規アカウントを仮登録状態、仮パスワードで作成する
+        ' 仮パスワードをメールアドレス宛に送信する
+        ' 送信した後、ログインページに遷移する
+        +doPost()
+    }
+
+    ' ADMIN004
+    ' 正式にはTopPageクラス
+    class ManagerTopPage <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        +doGet()
     }
 
     ' ADMIN003
     class SigninManagerPage <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        +doGet()
+    }
 
+    class RegisterManager <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        ' 運営登録処理を呼ぶ
+        +doPost()
     }
 
     ' ADMIN027
     class ReferManagerPage <<Controller>>{
-
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        ' ManagerInfoManagerに、セッションに保存されている自身のメールアドレスを渡して自身の運営データを取得する
+        +doGet()
     }
 
     ' ADMIN029
     class EditManagerPage <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        +doGet()
+    }
 
+    class UpdateManager <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        ' 運営更新処理を呼ぶ
+        +doPost()
+    }
+
+    class DeleteManager <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        ' 運営削除処理を呼ぶ
+        +doPost()
     }
 
     ' ADMIN005
     class ReferStudentListPage <<Controller>>{
-
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        +doGet()
     }
 
     ' ADMIN006
-    class ReferStudentPage <<Controller>>{
-
+    ' 正式にはReferStudentPageクラス
+    class ManagerReferStudentPage <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        +doGet()
     }
 
     ' ADMIN011
-    class EditStudentPage <<Controller>>{
+    ' 正式にはEditStudentPageクラス
+    class ManagerEditStudentPage <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        +doGet()
+    }
 
+    ' UC-USERINFO-04
+    ' ADMIN011
+    ' 正式にはUpdateStudentInfoクラス
+    class ManagerUpdateStudentInfo <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        ' 各種入力フォームの必要項目が入力されているかチェック
+        ' パスワード等が使用を満たしたものになっているかをチェック
+        ' アカウントの各種情報を入力されたものに変更する
+        ' EditStudentPageに遷移する
+        +doPost()
+    }
+
+    ' ADMIN011
+    ' 正式にはDeleteStudentInfoクラス
+    class ManagerDeleteStudentInfo <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        ' 学生削除処理を呼ぶ
+        +doPost()
     }
 
     ' ADMIN007
-    class ReferExhibitItemList <<Controller>>{
-
+    ' 正式にはReferExhibitItemListPageクラス
+    class ManagerReferExhibitItemListPage <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        +doGet()
     }
 
     ' ADMIN013
     class ReferSyllabusListPage <<Controller>>{
-
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        +doGet()
     }
 
     ' ADMIN014
     class RegisterSyllabusPage <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        +doGet()
+    }
 
+    class RegisterSyllabusInfo <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        ' シラバス登録処理を呼ぶ
+        +doPost()
     }
 
     ' ADMIN017
     class EditSyllabusPage <<Controller>>{
-
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        +doGet()
     }
 
     ' ADMIN021
     class ReferSyllabusPage <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        +doGet()
+    }
 
+    class UpdateSyllabusInfo <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        ' シラバス更新処理を呼ぶ
+        +doPost()
+    }
+
+    class DeleteSyllabusInfo <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        ' シラバス削除処理を呼ぶ
+        +doPost()
     }
 
     ' ADMIN022
     class ReferItemListPage <<Controller>>{
-
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        +doGet()
     }
 
     ' ADMIN023
-    class ReferItem <<Controller>>{
+    class ReferItemPage <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        +doGet()
+    }
 
+    ' 正式にはDeleteItemInfoクラス
+    class ManagerDeleteItemInfo <<Controller>>{
+        ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
+        ' 出品商品削除処理を呼ぶ
+        +doPost()
     }
 }
 
