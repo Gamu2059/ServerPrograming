@@ -23,12 +23,12 @@ class UserBase {
     +UserBase()
 
     +String getMailAddress()
-    +String getpassword()
-    +String getdisplayName()
-    +String geticonImageURL()
-    +int getregisterationState()
-    +Date getcreatedDate()
-    +Date getlastLoginDate()
+    +String getPassword()
+    +String getDisplayName()
+    +String getIconImageURL()
+    +int getRegisterationState()
+    +Date getCreatedDate()
+    +Date getLastLoginDate()
 
     +void setMailAddress( String mailAddress )
     +void setPassword( String password )
