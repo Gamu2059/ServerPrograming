@@ -291,62 +291,107 @@ class MessageRoomInfo<<Entity Bean>>{
     +setRoomState( roomState )
 }
 
-' どんなDBへのクエリがあるか、まだ把握しきれていないです
-' DAO以外の部分でどういう風にデータをDBから取得するか分かってからメソッドを定義していきたいです
 class StudentInfoDAO <<DAO>>{
-
+    +StudentInfo createStudentInfo( String mailAddress )
+    +StudentInfo getStudnetInfo( String mailAddress )
+    +void updateStudentInfo( StudentUpdateInfo studentUpdateInfo )
+    +void deleteStudentInfo( String mailAddress )
+    +void updateLastLogin( String mailAddress )
+    +List<StudentInfo> searchStudentInfo( StudentSearchInfo studentSearchInfo)
 }
 
 class ManagerInfoDAO <<DAO>>{
-
+    +ManagerInfo createManagerInfo( String mailAddress )
+    +ManagerInfo getManagerInfo( String mailAddress )
+    +void updateManagerInfo( ManagerUpdateInfo managerUpdateInfo )
+    +void deleteManagerInfo( String mailAddress )
+    +void updateLastLogin( String mailAddress )
 }
 
 class ItemInfoDAO <<DAO>>{
-
+    +ItemInfo getItemInfo( long itemID )
+    +void createItemInfo( ItemCreateInfo itemCreateInfo )
+    +void updateItemInfo( ItemUpdateInfo itemUpdateInfo )
+    +void deleteItemInfo( long itemID )
+    +List<ItemGetInfo> getExhibitItem( String studentNumber )
+    +List<ItemGetInfo> searchItemInfo( ItemSearchInfo itemSearchInfo )
 }
 
 class SyllabusInfoDAO <<DAO>>{
-
+    +SyllabusInfo getSyllabusInfo( String classCode )
+    +void createSyllabusInfo( SyllabusCreateInfo syllabusCreateInfo )
+    +void updateSyllabusInfo( SyllabusUpdateInfo syllabusUpdateInfo )
+    +void deleteSyllabusInfo( String classCode )
+    +List<SyllabusInfo> searchSyllabusInfo( SyllabusSearchInfo syllabusSearchInfo )
 }
 
 class MessageInfoDAO <<DAO>>{
-
+    +MessageInfo getMessageInfo( long messageID )
+    +void createMessageInfo( MessageCreateInfo messageCreateInfo )
+    +void deleteMessageInfoWithMessageRoom( long roomID )
+    +void deleteMessageInfoWithStudentNumber( String studentNumber )
 }
 
 class CampusInfoDAO <<DAO>>{
-
+    +CampusInfo getCampusInfo( long campusID )
+    +void createCampusInfo( CampusCreateInfo campusCreateInfo )
+    +void deleteCampusInfo( long campusID )
+    +List<CampusInfo> getAllCampusInfo()
 }
 
 class DepartmentInfoDAO <<DAO>>{
-
+    +DepartmentInfo getDepartmentInfo( long departmentID )
+    +void createDepartmentInfo( DepartmentCreateInfo departmentCreateInfo )
+    +void deleteDepartmentInfo( long departmentID )
+    +List<DepartmentInfo> getAllDepartmentInfo()
 }
 
 class RelatedClassInfoDAO <<DAO>>{
-
+    +List<RelatedClassInfo> getRelatedClassInfoWithItem( long itemID)
+    +List<RelatedClassInfo> getRelatedClassInfoWithSyllabus( String classCode )
+    +void createRelatedClassInfo( RelatedClassCreateInfo relatedClassCreateInfo )
+    +void deleteRelatedClassInfoWithItem( long itemID )
+    +void deleteRelatedClassInfoWithSyllabus( String classCode )
 }
 
 class TeacherInfoDAO <<DAO>>{
-
+    +TeacherInfo getTeacherInfo( long teacherID )
+    +void createTeacherInfo( TeacherCreateInfo teacherCreateInfo )
+    +void deleteTeacherInfo( long teacherID )
+    +List<TeacherInfo> getAllTeacherInfo()
 }
 
 class SemesterInfoDAO <<DAO>>{
-
+    +SemesterInfo getSemesterInfo( long semesterID )
+    +void createSemesterInfo( SemesterCreateInfo semesterCreateInfo )
+    +void deleteSemesterInfo( long semesterID )
+    +List<SemesterInfo> getAllSemesterInfo()
 }
 
 class OpeningSemesterInfoDAO <<DAO>>{
-
+    +List<OpeningSemesterInfo> getOpeningSemesterInfo( String classCode )
+    +void createOpeningSemesterInfo( OpeningSemesterCreateInfo openingSemesterCreateInfo )
+    +void deleteOpeningSemesterInfo( String classCode )
 }
 
 class ItemImageInfoDAO <<DAO>>{
-
+    +List<ItemImageInfo> getItemImageInfo( long itemID )
+    +void createItemImageInfo( ItemImageCreateInfo itemImageCreateInfo )
+    +void deleteItemImageInfo( long itemID )
 }
 
 class RoomMemberInfoDAO <<DAO>>{
-
+    +List<RoomMemberInfo> getRoomMemberInfo( String studentNumber)
+    +void createRoomMemberInfo( RoomMemberCreateInfo roomMemberCreateInfo )
+    +void deleteRoomMemberInfoWithMessageRoom( long roomID )
+    +void deleteRoomMemberInfoWithStudentNumber( String studentNumber )
 }
 
 class MessageRoomInfoDAO <<DAO>>{
-
+    +MessageRoomInfo getMessageRoomInfo( long roomID )
+    +void createMessageRoomInfo( MessageRoomCreateInfo messageRoomCreateInfo )
+    +void deleteMessageRoomInfo( long roomID )
+    +void changeStateMessageRoomInfo( MessageRoomChangeInfo messageRoomChangeInfo )
 }
 
 ' DTO(Data Transfer Object)は、Immutableなクラスにして下さい。
@@ -460,16 +505,16 @@ class ItemValidateInfo <<DTO>>{
     -String description
     -int condition
     -int price
-    -int relatedClassCode
+    -String relatedClassCode
     -String[] itemImageURLs
 
-    +ItemValidateInfo( String itemName, String description, int condition, int price, int relatedClassCode, String[] itemImageURLs )
+    +ItemValidateInfo( String itemName, String description, int condition, int price, String relatedClassCode, String[] itemImageURLs )
 
     +String getItemName()
     +String getDescription()
     +int getCondition()
     +int getPrice()
-    +int getRelatedClassCode()
+    +String getRelatedClassCode()
     +String[] getItemImageURLs()
 }
 
@@ -479,17 +524,17 @@ class ItemCreateInfo <<DTO>>{
     -String description
     -int condition
     -int price
-    -int relatedClassCode
+    -String relatedClassCode
     -String[] itemImageURLs
 
-    +ItemCreateInfo( String exhibitorStudentNumber, String itemName, String description, int condtion, int price, int relatedClassCode, String[] itemImageURLs )
+    +ItemCreateInfo( String exhibitorStudentNumber, String itemName, String description, int condtion, int price, String relatedClassCode, String[] itemImageURLs )
 
     +String getExhibitorStudentNumber()
     +String getItemName()
     +String getDescription()
     +int getCondition()
     +int getPrice()
-    +int getRelatedClassCode()
+    +String getRelatedClassCode()
     +String[] getItemImageURLs()
 }
 
@@ -499,17 +544,17 @@ class ItemUpdateInfo <<DTO>>{
     -String description
     -int condition
     -int price
-    -int relatedClassCode
+    -String relatedClassCode
     -String[] itemImageURLs()
 
-    +ItemUpdateInfo( long itemID, String itemName, String description, int condition, int price, int relatedClassCode, String[] itemImageURLs )
+    +ItemUpdateInfo( long itemID, String itemName, String description, int condition, int price, String relatedClassCode, String[] itemImageURLs )
 
     +long getItemID()
     +String getItemName()
     +String getDescription()
     +int getCondition()
     +int getPrice()
-    +int getRelatedClassCode()
+    +String getRelatedClassCode()
     +String[] getItemImageURLs()
 }
 
@@ -526,7 +571,7 @@ class ItemSearchInfo <<DTO>>{
 }
 
 class SyllabusListGetInfo <<DTO>>{
-    -long classCode
+    -String classCode
     -String className
     -String facultyName
     -String subjectName
@@ -534,9 +579,9 @@ class SyllabusListGetInfo <<DTO>>{
     -String teacherName
     -String openingSemester
 
-    +SyllabusListGetInfo( long classCode, String className, String facultyName, String subjectName, String dates, String teacherName, String openingSemester )
+    +SyllabusListGetInfo( String classCode, String className, String facultyName, String subjectName, String dates, String teacherName, String openingSemester )
 
-    +long getClassCode()
+    +String getClassCode()
     +String getClassName()
     +String getFacultyName()
     +String getSubjectName()
@@ -546,7 +591,7 @@ class SyllabusListGetInfo <<DTO>>{
 }
 
 class SyllabusGetInfo <<DTO>>{
-    -long classCode
+    -String classCode
     -String className
     -String openingSemester
     -String dates
@@ -558,9 +603,9 @@ class SyllabusGetInfo <<DTO>>{
     -String requirements
     -String evaluationMethod
 
-    +SyllabusGetInfo( long classCode, String className, String openingSemester, String dates, int unitNum, String classRoom, String teacherName, String overview, String target, String requirments, String evaluationMethod )
+    +SyllabusGetInfo( String classCode, String className, String openingSemester, String dates, int unitNum, String classRoom, String teacherName, String overview, String target, String requirments, String evaluationMethod )
 
-    +long getClassCode()
+    +String getClassCode()
     +String getClassName()
     +String getOpeningSemester()
     +String getDates()
@@ -574,7 +619,7 @@ class SyllabusGetInfo <<DTO>>{
 }
 
 class SyllabusCreateInfo <<DTO>>{
-    -long classCode
+    -String classCode
     -String className
     -long semesterID
     -String dates
@@ -586,9 +631,9 @@ class SyllabusCreateInfo <<DTO>>{
     -String requirements
     -String evaluationMethod
 
-    +SyllabusCreateInfo( long classCode, String className, long semesterID, String dates, int unitNum, String classRoom, long teacherID, String overview, String target, String requirments, String evaluationMethod )
+    +SyllabusCreateInfo( String classCode, String className, long semesterID, String dates, int unitNum, String classRoom, long teacherID, String overview, String target, String requirments, String evaluationMethod )
 
-    +long getClassCode()
+    +String getClassCode()
     +String getClassName()
     +long getSemesterID()
     +String getDates()
@@ -602,8 +647,8 @@ class SyllabusCreateInfo <<DTO>>{
 }
 
 class SyllabusUpdateInfo <<DTO>>{
-    -long previousClassCode
-    -long classCode
+    -String previousClassCode
+    -String classCode
     -String className
     -long semesterID
     -String dates
@@ -615,10 +660,10 @@ class SyllabusUpdateInfo <<DTO>>{
     -String requirements
     -String evaluationMethod
 
-    +SyllabusCreateInfo( long previousClassCode, long classCode, String className, long semesterID, String dates, int unitNum, String classRoom, long teacherID, String overview, String target, String requirments, String evaluationMethod )
+    +SyllabusCreateInfo( String previousClassCode, String classCode, String className, long semesterID, String dates, int unitNum, String classRoom, long teacherID, String overview, String target, String requirments, String evaluationMethod )
 
-    +long getPreviousClassCode()
-    +long getClassCode()
+    +String getPreviousClassCode()
+    +String getClassCode()
     +String getClassName()
     +long getSemesterID()
     +String getDates()
@@ -632,15 +677,15 @@ class SyllabusUpdateInfo <<DTO>>{
 }
 
 class SyllabusSearchInfo <<DTO>>{
-    -long classCode
+    -String classCode
     -long departmentID
     -String classNameKeyword
     -String teacherNameKeyword
     -long semesterID
 
-    +SyllabusSearchInfo( long classCode, long departmentID, String classNameKeyword, String teacherNameKeyword, long semesterID )
+    +SyllabusSearchInfo( String classCode, long departmentID, String classNameKeyword, String teacherNameKeyword, long semesterID )
 
-    +long getClassCode()
+    +String getClassCode()
     +long getDepartmentID()
     +String getClassNameKeyword()
     +String getTeacherNameKeyword()
@@ -683,6 +728,16 @@ class CampusGetInfo <<DTO>>{
     +String getCampusName()
 }
 
+class CampusCreateInfo <<DTO>>{
+    -long campusID
+    -String campusName
+
+    +CampusCreateInfo( long campusID, String campusName )
+
+    +long getCampusID()
+    +String getCampusName()
+}
+
 class DepartmentGetInfo <<DTO>>{
     -long departmentID
     -String facultyName
@@ -693,6 +748,20 @@ class DepartmentGetInfo <<DTO>>{
     +long getDepartmentID()
     +String getFacultyName()
     +String getSubjectName()
+}
+
+class DepartmentCreateInfo <<DTO>>{
+    -long departmentID
+    -String facultyName
+    -String subjectName
+    -long campusID
+
+    +DepartmentCreateInfo( long departmentID, String facultyName, String subjectName, long campusID)
+
+    +long getDepartmentID()
+    +String getFacultyName()
+    +String getSubjectName()
+    +long getCampusID()
 }
 
 class RelatedClassGetInfo <<DTO>>{
@@ -707,12 +776,12 @@ class RelatedClassGetInfo <<DTO>>{
 
 class RelatedClassCreateInfo <<DTO>>{
     -long itemID
-    -long classCode
+    -String classCode
 
-    +RelatedClassCreateInfo( long itemID, long classCode )
+    +RelatedClassCreateInfo( long itemID, String classCode )
 
     +long getItemID()
-    +long getClassCode()
+    +String getClassCode()
 }
 
 class TeacherGetInfo <<DTO>>{
@@ -725,7 +794,31 @@ class TeacherGetInfo <<DTO>>{
     +String getTeacherName()
 }
 
+class TeacherCreateInfo <<DTO>>{
+    -long teacherID
+    -String teacherName
+    -long departmentID
+    
+    +TeacherGetInfo( long teacherID, String teacherName, long departmentID )
+
+    -long getTeacherID()
+    +String getTeacherName()
+    +long getDepartmentID()
+}
+
 class SemesterGetInfo <<DTO>>{
+    -long semesterID
+    -String year
+    -String semester
+
+    +SemesterGetInfo( long semesterID, String year, String semester )
+
+    +long getSemesterID()
+    +String getYear()
+    +String getSemester()
+}
+
+class SemesterCreateInfo <<DTO>>{
     -long semesterID
     -String year
     -String semester
@@ -741,19 +834,19 @@ class OpeningSemesterGetInfo <<DTO>>{
     -SyllabusGetInfo syllabusGetInfo
     -SemesterGetInfo[] openingSemesters
 
-    +OpeningSemesterGetInfo( long classCode, SemesterGetInfo[] openingSemesters )
+    +OpeningSemesterGetInfo( SyllabusGetInfo syllabusGetInfo, SemesterGetInfo[] openingSemesters )
 
-    +long getClassCode()
+    +SyllabusGetInfo getSyllabusGetInfo()
     +SemesterGetInfo[] getOpeningSemesters()
 }
 
 class OpeningSemesterCreateInfo <<DTO>>{
-    -long classCode
+    -String classCode
     -long[] semesterIDs
 
-    +OpeningSemesterCreateInfo( long classCode, long[] semesterIDs )
+    +OpeningSemesterCreateInfo( String classCode, long[] semesterIDs )
 
-    +long getClassCode()
+    +String getClassCode()
     +long[] getsemesterIDs()
 }
 
@@ -881,10 +974,10 @@ class ItemInfoManager <<Entity Manager>>{
 
 class SyllabusInfoManager <<Entity Manager>>{
     +boolean validateRegisterSyllabus( SyllabusCreateInfo syllabusCreateInfo )
-    +SyllabusGetInfo getSyllabusInfo( long classCode )
+    +SyllabusGetInfo getSyllabusInfo( String classCode )
     +void createSyllabusInfo( SyllabusCreateInfo syllabusCreateInfo )
     +void updateSyllabusInfo( SyllabusUpdateInfo syllabusUpdateInfo )
-    +void deleteSyllabusInfo( long classCode )
+    +void deleteSyllabusInfo( String classCode )
     +List<SyllabusListGetInfo> searchSyllabus( SyllabusSearchInfo syllabusSearchInfo )
 }
 
@@ -911,10 +1004,10 @@ class DepartmentInfoManager <<Entity Manager>>{
 
 class RelatedClassInfoManager <<Entity Manager>>{
     +List<RelatedClassGetInfo> getRelatedClassInfoWithItem( long itemID )
-    +List<RelatedClassGetInfo> getRelatedClassInfoWithSyllabus( long classCode )
+    +List<RelatedClassGetInfo> getRelatedClassInfoWithSyllabus( String classCode )
     +void createRelatedClassInfo( RelatedClassCreateInfo relatedClassCreateInfo )
     +void deleteRelatedClassInfoWithItem( long itemID )
-    +void deleteRelatedClassInfoWithSyllabus( long classCode )
+    +void deleteRelatedClassInfoWithSyllabus( String classCode )
 }
 
 ' 実装するシステムの範囲では、TeacherInfoを作成、更新、削除する処理は不要
@@ -933,9 +1026,9 @@ class SemesterInfoManager <<Entity Manager>>{
 }
 
 class OpeningSemesterInfoManager <<Entity Manager>>{
-    +OpeningSemesterGetInfo getOpeningSemesterInfo( long classCode )
+    +OpeningSemesterGetInfo getOpeningSemesterInfo( String classCode )
     +void createOpeningSemesterInfo( OpeningSemesterCreateInfo openingSemesterCreateInfo )
-    +void deleteOpeningSemesterInfo( long classCode )
+    +void deleteOpeningSemesterInfo( String classCode )
 }
 
 class ItemImageInfoManager <<Entity Manager>>{
@@ -1448,5 +1541,10 @@ RoomMemberInfo --> RoomMemberInfoDAO :Use
 MessageRoomInfoManager --> MessageRoomInfo :Use
 MessageRoomInfoManager --> MessageRoomInfoDAO :Use
 MessageRoomInfo --> MessageRoomInfoDAO :Use
+
+StudentInfoManager --> LoginInfo :Use
+StudentInfoManager --> StudentgetInfo :Use
+StudentInfoManager --> StudentUpdateInfo :Use
+StudentInfoManager --> StudentSearchInfo :Use
 
 @enduml
