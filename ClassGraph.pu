@@ -10,15 +10,6 @@ title クラス図
 
 skinparam ClassAttributeIconSize 0
 
-interface IEntity {
-    +{abstract}saveToDataBase()
-    +{abstract}loadFromDataBase()
-}
-
-interface IUpdateCache {
-    +{abstract}updateCache()
-}
-
 class UserBase {
     -mailAddress
     -password
@@ -45,20 +36,12 @@ class UserBase {
     +setRegisterationState( registrationState )
     +setCreatedDate( createdDate )
     +setLastLoginDate( lastLoginDate )
-
-    +saveToDataBase()
-    +loadFromDataBase()
 }
 
 class StudentInfo <<Entity Bean>> {
     -studentNumber
     -selfIntroduction
     -departmentID
-
-    -cachedDepartmentInfo
-    -cachedExhibitItemInfoList
-    -cachedPostMessageInfoList
-    -cachedParticipateRoomInfoList
 
     +StudentInfo()
 
@@ -69,15 +52,6 @@ class StudentInfo <<Entity Bean>> {
     +setStudentNumber( studentNumber )
     +setSelfIntroduction( selfIntroduction )
     +setDepartmentID( department )
-
-    +getCachedDepartmentInfo()
-    +getCachedExhibitItemInfoList()
-    +getCachedPostMessageInfoList()
-    +getCachedParticipateRoomInfoList()
-
-    +updateCache()
-    +saveToDataBase()
-    +loadFromDataBase()
 }
 
 class ManagerInfo <<Entity Bean>>{
@@ -93,10 +67,6 @@ class ItemInfo <<Entity Bean>>{
     -price
     -tradingState
     -exhibitDate
-
-    -cachedExhibitorStudentInfo
-    -cachedRelatedClassInfoList
-    -cachedItemImageInfoList
 
     +ItemInfo()
 
@@ -117,14 +87,6 @@ class ItemInfo <<Entity Bean>>{
     +setPrice( price )
     +setTradingState( tradingState )
     +setExhibitDate( exhibitDate )
-
-    +getCachedExhibitorStudentInfo()
-    +getCachedRelatedClassInfoList()
-    +getCachedItemImageInfoList()
-
-    +updateCache()
-    +saveToDataBase()
-    +loadFromDataBase()
 }
 
 class SyllabusInfo <<Entity Bean>>{
@@ -138,10 +100,6 @@ class SyllabusInfo <<Entity Bean>>{
     -target
     -requirements
     -evaluationMethod
-
-    -cachedDepartmentInfo
-    -cachedTeacherInfo
-    -cachedCourseYearInfoList
 
     +SyllabusInfo()
 
@@ -168,14 +126,6 @@ class SyllabusInfo <<Entity Bean>>{
     +setRequirements( requirements )
     +setEvaluationMethod( evaluationMethod )
     +setCourseYear( courseYear )
-
-    +getCachedDepartmentInfo()
-    +getCachedTeacherInfo()
-    +getCachedCourseYearInfoList()
-
-    +updateCache()
-    +saveToDataBase()
-    +loadFromDataBase()
 }
 
 class MessageInfo <<Entity Bean>>{
@@ -184,9 +134,6 @@ class MessageInfo <<Entity Bean>>{
     -postStudentNumber
     -postContent
     -postDate
-
-    -cachedRoomInfo
-    -cachedPostStudentInfo
 
     +MessageInfo()
 
@@ -201,13 +148,6 @@ class MessageInfo <<Entity Bean>>{
     +setPostStudentNumber( postStudentNumber )
     +setPostContent( postContent )
     +setPostDate( postDate )
-
-    +getCachedRoomInfo()
-    +getCachedPostStudentInfo()
-
-    +updateCache()
-    +saveToDataBase()
-    +loadFromDataBase()
 }
 
 class CampusInfo <<Entity Bean>> {
@@ -216,14 +156,8 @@ class CampusInfo <<Entity Bean>> {
 
     +CampusInfo()
 
-    +getCampusID()
-    +getCampusName()
-
     +setCampusID( campusID )
     +setCampusName( campusName )
-
-    +saveToDataBase()
-    +loadFromDataBase()
 }
 
 class DepartmentInfo <<Entity Bean>> {
@@ -231,8 +165,6 @@ class DepartmentInfo <<Entity Bean>> {
     -facultyName
     -subjectName
     -campusID
-
-    -cachedCampusInfo
 
     +DepartmentInfo()
 
@@ -245,20 +177,11 @@ class DepartmentInfo <<Entity Bean>> {
     +setFacultyName( facultyName )
     +setSubjectName( subjectName )
     +setCampusID( campusID )
-
-    +getCachedCampusInfo()
-
-    +updateCache()
-    +saveToDataBase()
-    +loadFromDataBase()
 }
 
 class RelatedClassInfo <<Entity Bean>>{
     -itemID
     -classCode
-
-    -cachedItemInfo
-    -cachedSyllabusInfo
 
     +RelatedClassInfo()
 
@@ -267,21 +190,12 @@ class RelatedClassInfo <<Entity Bean>>{
 
     +setItemID( itemID )
     +setClassCode( classCode )
-
-    +getCachedItemInfo()
-    +getCachedSyllabusInfo()
-
-    +updateCache()
-    +saveToDataBase()
-    +loadFromDataBase()
 }
 
 class TeacherInfo <<Entity Bean>>{
     -teacherID
     -teacherName
     -departmentID
-
-    -cachedDepartmentInfo
 
     +TeacherInfo()
 
@@ -292,12 +206,6 @@ class TeacherInfo <<Entity Bean>>{
     +setTeacherID( teacherID )
     +setTeacherName( teacherName )
     +setDepartmentID( departmentID )
-
-    +getCachedDepartmentInfo()
-
-    +updateCache()
-    +saveToDataBase()
-    +loadFromDataBase()
 }
 
 class SemesterInfo <<Entity Bean>>{
@@ -314,17 +222,11 @@ class SemesterInfo <<Entity Bean>>{
     +setSemesterID( semesterID )
     +setYear( year )
     +setSemester( semester )
-
-    +saveToDataBase()
-    +loadFromDataBase()
 }
 
 class OpeningSemesterInfo <<Entity Bean>>{
     -classCode
     -semesterID
-
-    -cachedSyllabusInfo
-    -cachedSemesterInfo
 
     +OpeningSemesterInfo()
 
@@ -333,21 +235,12 @@ class OpeningSemesterInfo <<Entity Bean>>{
 
     +setClassCode( classCode )
     +setSemnesterID( semesterID )
-
-    +getCachedSyllabusInfo()
-    +getCachedSemesterInfo()
-
-    +updateCache()
-    +saveToDataBase()
-    +loadFromDataBase()
 }
 
 class ItemImageInfo <<Entity Bean>>{
     -imageID
     -itemID
     -image
-
-    -cachedItemInfo
 
     +ItemImageInfo()
 
@@ -358,20 +251,11 @@ class ItemImageInfo <<Entity Bean>>{
     +setImageID( imageID )
     +setItemID( itemID )
     +setImage( image )
-
-    +getCachedItemInfo()
-
-    +updateCache()
-    +saveToDataBase()
-    +loadFromDataBase()
 }
 
 class RoomMemberInfo <<Entity Bean>>{
     -roomID
     -studentNumber
-
-    -cachedRoomInfo
-    -cachedStudentInfo
 
     +RoomMomberInfo()
 
@@ -380,13 +264,6 @@ class RoomMemberInfo <<Entity Bean>>{
 
     +setRoomID( roomID )
     +setStudentNumber( studentNumber )
-
-    +getCachedRoomInfo()
-    +getCachedStudentInfo()
-
-    +updateCache()
-    +saveToDataBase()
-    +loadFromDataBase()
 }
 
 class MessageRoomInfo<<Entity Bean>>{
@@ -406,9 +283,6 @@ class MessageRoomInfo<<Entity Bean>>{
     +setGeneratedDate( generatedDate )
     +setLastPostedDate( lastPostedDate )
     +setRoomState( roomState )
-
-    +saveToDataBase()
-    +loadFromDataBase()
 }
 
 ' どんなDBへのクエリがあるか、まだ把握しきれていないです
@@ -537,20 +411,148 @@ class ManagerUpdateInfo <<DTO>>{
     +String geticonImageURL()
 }
 
+class ItemGetInfo <<DTO>>{
+    -String itemName
+    -String description
+    -int condition
+    -int price
+    -int tradingState
+    -Date exhibitDate
+    -String[] itemImageURLs
+
+    +ItemGetInfo( String itemName, String description, int condition, int price, int tradingState, Date exhibitDate, String[] itemImageURLs)
+
+    +String getItemName()
+    +String getDescription()
+    +int getCondition()
+    +int getPrice()
+    +int getTradingState()
+    +Date getExhibitDate()
+    +String[] getItemImageURLs()
+}
+
+class ItemValidateInfo <<DTO>>{
+    -itemID
+    -exhibitorStudentNumber
+    -itemName
+    -description
+    -condition
+    -price
+    -tradingState
+    -exhibitDate
+}
+
+class ItemCreateInfo <<DTO>>{
+
+}
+
+class ItemUpdateInfo <<DTO>>{
+
+}
+
+class ItemSearchInfo <<DTO>>{
+
+}
+
+class SyllabusGetInfo <<DTO>>{
+
+}
+
+class SyllabusValidateInfo <<DTO>>{
+
+}
+
+class SyllabusCreateInfo <<DTO>>{
+
+}
+
+class SyllabusUpdateInfo <<DTO>>{
+
+}
+
+class SyllabusSearchInfo <<DTO>>{
+
+}
+
+class MessageGetInfo <<DTO>>{
+
+}
+
+class MessageCreateInfo <<DTO>>{
+
+}
+
+class CampusGetInfo <<DTO>>{
+
+}
+
+class DepartmentGetInfo <<DTO>>{
+
+}
+
+class RelatedClassGetInfo <<DTO>>{
+
+}
+
+class RelatedClassCreateInfo <<DTO>>{
+
+}
+
+class TeacherGetInfo <<DTO>>{
+
+}
+
+class SemesterGetInfo <<DTO>>{
+
+}
+
+class OpeningSemesterGetInfo <<DTO>>{
+
+}
+
+class OpeningSemesterCreateInfo <<DTO>>{
+
+}
+
+class ItemImageGetInfo <<DTO>>{
+
+}
+
+class ItemImageCreateInfo <<DTO>>{
+
+}
+
+class RoomMemberGetInfo <<DTO>>{
+
+}
+
+class RoomMemberCreateInfo <<DTO>>{
+
+}
+
+class MessageRoomGetInfo <<DTO>>{
+
+}
+
+class MessageRoomCreateInfo <<DTO>>{
+
+}
+
+class MessageRoomChangeInfo <<DTO>>{
+
+}
+
 ' ユースケース文を見ながら、アプリケーションの表面部分では処理できないものをEntityManagerに記述してきます
 ' まずは、Controlの中身をユースケース文に対応させながら全て埋める必要があります。
 class AccountUtil {
     +{static}boolean isMeetRequirementPassword( String nonHashedPassword )
     +{static}String getHashedPassword( String nonHashedPassword )
+    +{static}boolean isStudentMailAddress( String mailAddress )
+    +{static}boolean isManagerMailAddress( String mailAddress )
+    +{static}String getStudentNumber( String studentMailAddress )
 }
 
 class StudentInfoManager <<Entity Manager>>{
-    -List<StudentInfo> cachedStudentInfoList
-
-    -StudentInfo getStudentInfoFromDB( String mailAddress )
-    -StudentInfo getStudentInfoFromCache( String mailAddress )
-
-    +boolean isStudentMailAddress( String mailAddress )
     +boolean existMailAddress( String mailAddress )
     +boolean canLogin( LoginInfo loginInfo )
     +void login( LoginInfo loginInfo )
@@ -561,16 +563,9 @@ class StudentInfoManager <<Entity Manager>>{
     +void makeStudentInfoRegistered( StudentUpdateInfo studentUpdateInfo )
     +void updateStudentInfo( StudentUpdateInfo studentUpdateInfo )
     +void deleteStudentInfo( String mailAddress )
-    +int getUnreadMessageNum( String mailAddress )
 }
 
 class ManagerInfoManager <<Entity Manager>>{
-    -List<ManagerInfo> cachedManagerInfoList
-
-    -ManagerInfo getManagerInfoFromDB( String mailAddress )
-    -ManagerInfo getManagerInfoFromCache( String mailAddress )
-
-    +boolean isManagerMailAddress( String mailAddress )
     +boolean existMailAddress( String mailAddress )
     +boolean canLogin( LoginInfo loginInfo )
     +void login( LoginInfo loginInfo )
@@ -584,57 +579,94 @@ class ManagerInfoManager <<Entity Manager>>{
 }
 
 class ItemInfoManager <<Entity Manager>>{
-    -cachedItemInfoList
-
-    -getItemInfoFromDB( itemID )
-    -getItemInfoFromCache( itemID )
-
-    +getNewItemList()
-    +validateRegisterExhibitItem()
+    +List<ItemGetInfo> getNewItemList()
+    +boolean validateRegisterExhibitItem( ItemValidateInfo itemValidateInfo )
+    +ItemGetInfo getItemInfo( long itemID )
+    +void createItemInfo( ItemCreateInfo itemCreateInfo )
+    +void updateItemInfo( ItemUpdateInfo itemUpdateInfo )
+    +void deleteItemInfo( long itemID )
+    +List<ItemGetInfo> getExhibitItem( String studentNumber )
+    +List<ItemGetInfo> searchItem( ItemSearchInfo itemSearchInfo )
 }
 
 class SyllabusInfoManager <<Entity Manager>>{
-
+    +boolean validateRegisterSyllabus( SyllausValidateInfo syllabusValidateInfo )
+    +SyllabusGetInfo getSyllabusInfo( long syllabusID )
+    +void createSyllabusInfo( SyllabusCreateInfo syllabusCreateInfo )
+    +void updateSyllabusInfo( SyllabusUpdateInfo syllabusUpdateInfo )
+    +void deleteSyllabusInfo( long syllabusID )
+    +List<SyllabusGetInfo> searchSyllabus( SyllabusSearchInfo syllabusSearchInfo )
 }
 
 class MessageInfoManager <<Entity Manager>>{
-
+    +MessageGetInfo getMessageInfo( long messageRoomID )
+    +void createMessageInfo( MessageCreateInfo messageCreateInfo )
+    +void deleteMessageInfoWithMessageRoom( long messageRoomID )
+    +void deleteMessageInfoWithStudentNumber( String studentNumber )
 }
 
+' 実装するシステムの範囲では、CampusInfoを作成、更新、削除する処理は不要
+' 必要な分のデータは事前にDBに存在しているものとする
 class CampusInfoManager <<Entity Manager>>{
-
+    +CampusGetInfo getCampusInfo( long campusID )
+    +List<CampusGetInfo> getCampusInfoList()
 }
 
+' 実装するシステムの範囲では、DepartmentInfoを作成、更新、削除する処理は不要
+' 必要な分のデータは事前にDBに存在しているものとする
 class DepartmentInfoManager <<Entity Manager>>{
-
+    +DepartmentGetInfo getDepartmentInfo( long departmentID )
+    +List<DepartmentGetInfo> getDepartmentInfoList()
 }
 
 class RelatedClassInfoManager <<Entity Manager>>{
-
+    +RelatedClassGetInfo getRelatedClassInfoWithItem( long itemID )
+    +RelatedClassGetInfo getRelatedClassInfoWithSyllabus( long syllabusID )
+    +void createRelatedClassInfo( RelatedClassCreateInfo relatedClassCreateInfo )
+    +void deleteRelatedClassInfoWithItem( long itemID )
+    +void deleteRelatedClassInfoWithSyllabus( long syllabusID )
 }
 
+' 実装するシステムの範囲では、TeacherInfoを作成、更新、削除する処理は不要
+' 必要な分のデータは事前にDBに存在しているものとする
 class TeacherInfoManager <<Entity Manager>>{
-
+    +TeacherGetInfo getTeacherInfo( long teacherID )
+    +List<TeacherGetInfo> getTeacherInfoList()
 }
 
-class SemesterInfoManager <<Entity Manager>>{
 
+' 実装するシステムの範囲では、SemesterInfoを作成、更新、削除する処理は不要
+' 必要な分のデータは事前にDBに存在しているものとする
+class SemesterInfoManager <<Entity Manager>>{
+    +SemesterGetInfo getSemesterInfo( long semesterID )
+    +List<SemesterGetInfo> getSemesterInfoList()
 }
 
 class OpeningSemesterInfoManager <<Entity Manager>>{
-
+    +OpeningSemesterGetInfo getOpeningSemesterInfo( long syllabusID )
+    +void createOpeningSemesterInfo( OpeningSemesterCreateInfo openingSemesterCreateInfo )
+    +void deleteOpeningSemesterInfo( long syllabusID )
 }
 
 class ItemImageInfoManager <<Entity Manager>>{
-
+    +ItemImageGetInfo getItemImageInfo( long itemID )
+    +void createItemImageInfo( ItemImageCreateInfo itemImageCreateInfo )
+    +void deleteItemImageInfo( long itemID )
 }
 
 class RoomMemberInfoManager <<Entity Manager>>{
-
+    +RoomMemberGetInfo getRoomMemberInfoWithMessageRoom( long messageRoomID )
+    +RoomMemberGetInfo getRoomMemberInfoWithStudentNumber( String studentNumber )
+    +void createRoomMemberInfo( RoomMemberCreateInfo roomMemberCreateInfo )
+    +void deleteRoomMemberInfoWithMessageRoom( long messageRoomID )
+    +void deleteRoomMemberInfoWithStudentNumber( String studentNumber )
 }
 
 class MessageRoomInfoManager <<Entity Manager>>{
-
+    +MessageRoomGetInfo getMessageRoomInfo( long messageRoomID )
+    +void createMessageRoomInfo( MessageRoomCreateInfo messageRoomCreateInfo )
+    +void changeStateMessageRoomInfo( MessageRoomChangeInfo messageRoomChangeInfo )
+    +void deleteMessageRoomInfo( long messageRoomID )
 }
 
 ' 共通コントローラ
@@ -834,7 +866,7 @@ package Student {
     class ReferItemPage <<Controller>>{
         ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
         ' 未読メッセージ数取得を処理する
-        ' ReferItem APIを呼び出す
+        ' アイテム情報を取得する
         +doGet()
     }
 
@@ -850,6 +882,7 @@ package Student {
     class ReferSyllabusListPage <<Controller>>{
         ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
         ' 未読メッセージ数取得を処理する
+        ' 検索キーワード等から検索をかける
         +doGet()
     }
 
@@ -857,6 +890,7 @@ package Student {
     class ReferSyllabusPage <<Controller>>{
         ' ログインしているかを検証 -> ログインしていなかったらログイン画面へ飛ばす
         ' 未読メッセージ数取得を処理する
+        ' シラバス情報を取得する
         +doGet()
     }
 
@@ -1067,32 +1101,8 @@ package Manager {
     }
 }
 
-IEntity <|.down. UserBase
-UserBase <|-down- StudentInfo
-UserBase <|-down- ManagerInfo
-IEntity <|.down. ItemInfo
-IEntity <|.down. SyllabusInfo
-IEntity <|.down. MessageInfo
-IEntity <|.down. CampusInfo
-IEntity <|.down. DepartmentInfo
-IEntity <|.down. RelatedClassInfo
-IEntity <|.down. TeacherInfo
-IEntity <|.down. SemesterInfo
-IEntity <|.down. OpeningSemesterInfo
-IEntity <|.down. ItemImageInfo
-IEntity <|.down. RoomMemberInfo
-IEntity <|.down. MessageRoomInfo
-
-IUpdateCache <|.up. StudentInfo
-IUpdateCache <|.up. ItemInfo
-IUpdateCache <|.up. SyllabusInfo
-IUpdateCache <|.up. MessageInfo
-IUpdateCache <|.up. DepartmentInfo
-IUpdateCache <|.up. RelatedClassInfo
-IUpdateCache <|.up. TeacherInfo
-IUpdateCache <|.up. OpeningSemesterInfo
-IUpdateCache <|.up. ItemImageInfo
-IUpdateCache <|.up. RoomMemberInfo
+UserBase <|-- StudentInfo
+UserBase <|-- ManagerInfo
 
 StudentInfoManager --> StudentInfo :Use
 StudentInfoManager --> StudentInfoDAO :Use
