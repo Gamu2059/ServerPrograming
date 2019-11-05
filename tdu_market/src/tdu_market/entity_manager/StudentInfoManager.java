@@ -10,52 +10,52 @@ import tdu_market.dto.StudentUpdateInfo;
 public final class StudentInfoManager {
 
 	public boolean existMailAddress(String mailAddress) {
-		System.err.println("non implementation!");
+		System.err.println("existMailAddress is non implementation!");
 		return false;
 	}
 
 	public boolean canLogin(LoginInfo loginInfo) {
-		System.err.println("non implementation!");
+		System.err.println("canLogin non implementation!");
 		return false;
 	}
 
 	public void login(LoginInfo loginInfo) {
-		System.err.println("non implementation!");
+		System.err.println("login is non implementation!");
 	}
 
 	public void logout(String mailAddress) {
-		System.err.println("non implementation!");
+		System.err.println("logout is non implementation!");
 	}
 
 	public boolean isRegisteredState(String mailAddress) {
-		System.err.println("non implementation!");
+		System.err.println("isRegisteredState is non implementation!");
 		return false;
 	}
 
 	public String createTemporaryAccount(String mailAddress) {
-		System.err.println("non implementation!");
+		System.err.println("createTemporaryAccount is non implementation!");
 		return null;
 	}
 
 	public StudentGetInfo getStudentInfo(String mailAddress) {
-		System.err.println("non implementation!");
+		System.err.println("getStudentInfo is non implementation!");
 		return null;
 	}
 
 	public void makeStudentInfoRegistered(StudentUpdateInfo studentUpdateInfo) {
-		System.err.println("non implementation!");
+		System.err.println("makeStudentInfoRegistered is non implementation!");
 	}
 
 	public void updateStudentInfo(StudentUpdateInfo studentUpdateInfo) {
-		System.err.println("non implementation!");
+		System.err.println("updateStudentInfo is non implementation!");
 	}
 
 	public void deleteStudentInfo(String mailAddress) {
-		System.err.println("non implementation!");
+		System.err.println("deleteStudentInfo is non implementation!");
 	}
 
 	public ArrayList<StudentGetInfo> searchStudentInfo(StudentSearchInfo studentSearchInfo) {
-		System.err.println("non implementation!");
+		System.err.println("searchStudentInfo is non implementation!");
 		return null;
 	}
 }

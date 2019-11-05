@@ -11,29 +11,29 @@ import tdu_market.entity_bean.ItemInfo;
 public final class ItemInfoDAO {
 
 	public ItemInfo getItemInfo(long itemID) {
-		System.err.println("non implementation!");
+		System.err.println("getItemInfo is non implementation!");
 		return null;
 	}
 
 	public void createItemInfo(ItemCreateInfo itemCreateInfo) {
-		System.err.println("non implementation!");
+		System.err.println("createItemInfo is non implementation!");
 	}
 
 	public void updateItemInfo(ItemUpdateInfo itemUpdateInfo) {
-		System.err.println("non implementation!");
+		System.err.println("updateItemInfo is non implementation!");
 	}
 
 	public void deleteItemInfo(long itemID) {
-		System.err.println("non implementation!");
+		System.err.println("deleteItemInfo is non implementation!");
 	}
 
 	public ArrayList<ItemGetInfo> getExhibitItem(String studentNumber) {
-		System.err.println("non implementation!");
+		System.err.println("getExhibitItem is non implementation!");
 		return null;
 	}
 
 	public ArrayList<ItemGetInfo> searchItemInfo(ItemSearchInfo itemSearchInfo) {
-		System.err.println("non implementation!");
+		System.err.println("searchItemInfo is non implementation!");
 		return null;
 	}
 }

@@ -7,12 +7,12 @@ import tdu_market.dto.CampusGetInfo;
 public final class CampusInfoManager {
 
 	public CampusGetInfo getCampusInfo(long campusID) {
-		System.err.println("non implementation!");
+		System.err.println("getCampusInfo is non implementation!");
 		return null;
 	}
 
 	public ArrayList<CampusGetInfo> getCampusInfoList() {
-		System.err.println("non implementation!");
+		System.err.println("getCampusInfoList is non implementation!");
 		return null;
 	}
 }
