@@ -10,39 +10,39 @@ import tdu_market.dto.ItemUpdateInfo;
 public final class ItemInfoManager {
 
 	public ArrayList<ItemGetInfo> getNewItemList() {
-		System.err.println("non implementation!");
+		System.err.println("getNewItemList is non implementation!");
 		return null;
 	}
 
 	public boolean validateRegisterExhibitItem(ItemCreateInfo itemCreateInfo) {
-		System.err.println("non implementation!");
+		System.err.println("validateRegisterExhibitItem is non implementation!");
 		return false;
 	}
 
 	public ItemGetInfo getItemInfo(long itemID) {
-		System.err.println("non implementation!");
+		System.err.println("getItemInfo is non implementation!");
 		return null;
 	}
 
 	public void createItemInfo(ItemCreateInfo itemCreateInfo) {
-		System.err.println("non implementation!");
+		System.err.println("createItemInfo is non implementation!");
 	}
 
 	public void updateItemInfo(ItemUpdateInfo itemUpdateInfo) {
-		System.err.println("non implementation!");
+		System.err.println("updateItemInfo is non implementation!");
 	}
 
 	public void deleteItemInfo(long itemID) {
-		System.err.println("non implementation!");
+		System.err.println("deleteItemInfo is non implementation!");
 	}
 
 	public ArrayList<ItemGetInfo> getExhibitItem(String studentNumber) {
-		System.err.println("non implementation!");
+		System.err.println("getExhibitItem is non implementation!");
 		return null;
 	}
 
 	public ArrayList<ItemGetInfo> searchItem(ItemSearchInfo itemSearchInfo) {
-		System.err.println("non implementation!");
+		System.err.println("searchItem is non implementation!");
 		return null;
 	}
 }
