@@ -1,6 +1,7 @@
 package tdu_market.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,14 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class ManagerDeleteIntemInfo
  */
-@WebServlet("/ManagerDeleteIntemInfo")
-public class ManagerDeleteIntemInfo extends HttpServlet {
+@WebServlet("/ManagerDeleteItemInfo")
+public class ManagerDeleteItemInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ManagerDeleteIntemInfo() {
+    public ManagerDeleteItemInfo() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,7 +29,7 @@ public class ManagerDeleteIntemInfo extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.err.println("non implementation!");
+		System.err.println("ManagerDeleteItemInfo is non implementation!");
 	}
 
 }
