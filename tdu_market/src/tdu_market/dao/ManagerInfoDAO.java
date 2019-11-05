@@ -6,24 +6,24 @@ import tdu_market.entity_bean.ManagerInfo;
 public final class ManagerInfoDAO {
 
 	public ManagerInfo createManagerInfo(String mailAddress) {
-		System.err.println("non implementation!");
+		System.err.println("createManagerInfo is non implementation!");
 		return null;
 	}
 
 	public ManagerInfo getManagerInfo(String mailAddress) {
-		System.err.println("non implementation!");
+		System.err.println("getManagerInfo is non implementation!");
 		return null;
 	}
 
 	public void updateManagerInfo(ManagerUpdateInfo managerUpdateInfo) {
-		System.err.println("non implementation!");
+		System.err.println("updateManagerInfo is non implementation!");
 	}
 
 	public void deleteManagerInfo(String mailAddress) {
-		System.err.println("non implementation!");
+		System.err.println("deleteManagerInfo is non implementation!");
 	}
 
 	public void updateLastLogin(String mailAddress) {
-		System.err.println("non implementation!");
+		System.err.println("updateLastLogin is non implementation!");
 	}
 }

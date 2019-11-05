@@ -10,24 +10,24 @@ import tdu_market.entity_bean.SyllabusInfo;
 public final class SyllabusInfoDAO {
 
 	public SyllabusInfo getSyllabusInfo(String classCode) {
-		System.err.println("non implementation!");
+		System.err.println("getSyllabusInfo is non implementation!");
 		return null;
 	}
 
 	public void createSyllabusInfo(SyllabusCreateInfo syllabusCreateInfo) {
-		System.err.println("non implementation!");
+		System.err.println("createSyllabusInfo is non implementation!");
 	}
 
 	public void updateSyllabusInfo(SyllabusUpdateInfo syllabusUpdateInfo) {
-		System.err.println("non implementation!");
+		System.err.println("updateSyllabusInfo is non implementation!");
 	}
 
 	public void deleteSyllabusInfo(String classCode) {
-		System.err.println("non implementation!");
+		System.err.println("deleteSyllabusInfo is non implementation!");
 	}
 
 	public ArrayList<SyllabusInfo> searchSyllabusInfo(SyllabusSearchInfo syllabusSearchInfo) {
-		System.err.println("non implementation!");
+		System.err.println("searchSyllabusInfo is non implementation!");
 		return null;
 	}
 }

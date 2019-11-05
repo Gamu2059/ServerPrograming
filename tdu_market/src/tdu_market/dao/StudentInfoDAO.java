@@ -9,29 +9,29 @@ import tdu_market.entity_bean.StudentInfo;
 public final class StudentInfoDAO {
 
 	public StudentInfo createStudentInfo(String mailAddress) {
-		System.err.println("non implementation!");
+		System.err.println("createStudentInfo is non implementation!");
 		return null;
 	}
 
 	public StudentInfo getStudentInfo(String mailAddress) {
-		System.err.println("non implementation!");
+		System.err.println("getStudentInfo is non implementation!");
 		return null;
 	}
 
 	public void updateStudentInfo(StudentUpdateInfo studentUpdateInfo) {
-		System.err.println("non implementation!");
+		System.err.println("updateStudentInfo is non implementation!");
 	}
 
 	public void deleteStudentInfo(String mailAddress) {
-		System.err.println("non implementation!");
+		System.err.println("deleteStudentInfo is non implementation!");
 	}
 
 	public void updateLastLogin(String mailAddress) {
-		System.err.println("non implementation!");
+		System.err.println("updateLastLogin is non implementation!");
 	}
 
 	public ArrayList<StudentInfo> searchStudentInfo(StudentSearchInfo studentSearchInfo) {
-		System.err.println("non implementation!");
+		System.err.println("searchStudentInfo is non implementation!");
 		return null;
 	}
 }
