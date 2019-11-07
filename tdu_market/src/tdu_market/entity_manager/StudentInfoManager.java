@@ -46,7 +46,7 @@ public final class StudentInfoManager {
 			studentInfo.login();
 
 			return new ReturnInfo("", true);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
@@ -62,7 +62,7 @@ public final class StudentInfoManager {
 			}
 
 			studentInfo.logout();
-		}catch(Exception e) {
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
@@ -79,7 +79,7 @@ public final class StudentInfoManager {
 			boolean isRegistered = studentInfo.getRegisterationState() == Def.REGISTERED;
 
 			return new ReturnInfo(isRegistered ? "" : "アカウントが本登録されていません。", isRegistered);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
@@ -98,30 +98,48 @@ public final class StudentInfoManager {
 			studentInfoDAO.createStudentInfo(new StudentCreateInfo(mailAddress, password));
 
 			return new ReturnInfo(password, true);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
 	public StudentGetInfo getStudentInfo(String mailAddress) {
-		System.err.println("getStudentInfo is non implementation!");
-		return null;
+
+		StudentInfo studentInfo = getRawStudentInfo(mailAddress);
+		return StudentGetInfo.create(studentInfo);
 	}
 
 	public void makeStudentInfoRegistered(StudentUpdateInfo studentUpdateInfo) {
-		System.err.println("makeStudentInfoRegistered is non implementation!");
+
+		StudentInfoDAO studentInfoDAO = new StudentInfoDAO();
+		studentInfoDAO.updateStudentInfo(studentUpdateInfo);
 	}
 
 	public void updateStudentInfo(StudentUpdateInfo studentUpdateInfo) {
-		System.err.println("updateStudentInfo is non implementation!");
+
+		StudentInfoDAO studentInfoDAO = new StudentInfoDAO();
+		studentInfoDAO.updateStudentInfo(studentUpdateInfo);
 	}
 
 	public void deleteStudentInfo(String mailAddress) {
-		System.err.println("deleteStudentInfo is non implementation!");
+
+		StudentInfoDAO studentInfoDAO = new StudentInfoDAO();
+		studentInfoDAO.deleteStudentInfo(mailAddress);
 	}
 
 	public ArrayList<StudentGetInfo> searchStudentInfo(StudentSearchInfo studentSearchInfo) {
-		System.err.println("searchStudentInfo is non implementation!");
-		return null;
+
+		StudentInfoDAO studentInfoDAO = new StudentInfoDAO();
+		ArrayList<StudentInfo> searchResult = studentInfoDAO.searchStudentInfo(studentSearchInfo);
+		if (searchResult == null) {
+			return null;
+		}
+
+		ArrayList<StudentGetInfo> result = new ArrayList<StudentGetInfo>();
+		for (StudentInfo i : searchResult) {
+			result.add(StudentGetInfo.create(i));
+		}
+
+		return result;
 	}
 }
