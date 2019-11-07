@@ -2,7 +2,7 @@ package tdu_market.dto;
 
 public class ItemCreateInfo {
 
-	private final String exhibitorStudentNumber;
+	private final String exhibitorMailAddress;
 	private final String itemName;
 	private final String description;
 	private final int condition;
@@ -10,10 +10,10 @@ public class ItemCreateInfo {
 	private final String relatedClassCode;
 	private final String[] itemImageURLs;
 
-	public ItemCreateInfo(String exhibitorStudentNumber, String itemName, String description, int condition, int price,
+	public ItemCreateInfo(String exhibitorMailAddress, String itemName, String description, int condition, int price,
 			String relatedClassCode, String[] itemImageURLs) {
 		super();
-		this.exhibitorStudentNumber = exhibitorStudentNumber;
+		this.exhibitorMailAddress = exhibitorMailAddress;
 		this.itemName = itemName;
 		this.description = description;
 		this.condition = condition;
@@ -22,8 +22,8 @@ public class ItemCreateInfo {
 		this.itemImageURLs = itemImageURLs;
 	}
 
-	public String getExhibitorStudentNumber() {
-		return exhibitorStudentNumber;
+	public String getExhibitorMailAddress() {
+		return exhibitorMailAddress;
 	}
 
 	public String getItemName() {

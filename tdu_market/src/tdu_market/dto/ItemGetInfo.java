@@ -2,6 +2,8 @@ package tdu_market.dto;
 
 import java.util.Date;
 
+import tdu_market.entity_bean.ItemInfo;
+
 public class ItemGetInfo {
 
 	private final long itemID;
@@ -56,5 +58,27 @@ public class ItemGetInfo {
 
 	public String[] getItemImageURLs() {
 		return itemImageURLs;
+	}
+
+	public static ItemGetInfo create(ItemInfo itemInfo, ItemImageGetInfo itemImageGetInfo) {
+
+		if (itemInfo == null) {
+			return null;
+		}
+
+		long itemID = itemInfo.getItemID();
+		String name = itemInfo.getItemName();
+		String desc = itemInfo.getDescription();
+		int cond = itemInfo.getCondition();
+		int price = itemInfo.getPrice();
+		int state = itemInfo.getTradingState();
+		Date exhibitDate = itemInfo.getExhibitDate();
+		String[] urls = null;
+
+		if (itemImageGetInfo != null) {
+			urls = itemImageGetInfo.getItemImageURLs();
+		}
+
+		return new ItemGetInfo(itemID, name, desc, cond, price, state, exhibitDate, urls);
 	}
 }

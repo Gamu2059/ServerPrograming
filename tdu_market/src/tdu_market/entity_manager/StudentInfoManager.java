@@ -36,11 +36,11 @@ public final class StudentInfoManager {
 			StudentInfo studentInfo = getRawStudentInfo(mailAddress);
 
 			if (studentInfo == null) {
-				return new ReturnInfo("メールアドレスまたはパスワードが正しくありません。", false);
+				return new ReturnInfo("メールアドレスまたはパスワードが正しくありません。");
 			}
 
 			if (!studentInfo.canLogin(password)) {
-				return new ReturnInfo("メールアドレスまたはパスワードが正しくありません。", false);
+				return new ReturnInfo("メールアドレスまたはパスワードが正しくありません。");
 			}
 
 			studentInfo.login();
@@ -73,7 +73,7 @@ public final class StudentInfoManager {
 			StudentInfo studentInfo = getRawStudentInfo(mailAddress);
 
 			if (studentInfo == null) {
-				return new ReturnInfo("アカウントが存在しません。", false);
+				return new ReturnInfo("アカウントが存在しません。");
 			}
 
 			boolean isRegistered = studentInfo.getRegisterationState() == Def.REGISTERED;
@@ -89,7 +89,7 @@ public final class StudentInfoManager {
 		try {
 			ReturnInfo existMailAddress = existMailAddress(mailAddress);
 			if (existMailAddress.isSuccess()) {
-				return new ReturnInfo("既にアカウントが存在しています。", false);
+				return new ReturnInfo("既にアカウントが存在しています。");
 			}
 
 			String password = PasswordUtil.createNonHashedPassword();

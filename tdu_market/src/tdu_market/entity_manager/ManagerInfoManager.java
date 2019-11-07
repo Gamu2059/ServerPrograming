@@ -33,11 +33,11 @@ public final class ManagerInfoManager {
 			ManagerInfo managerInfo = getRawManagerInfo(mailAddress);
 
 			if (managerInfo == null) {
-				return new ReturnInfo("メールアドレスまたはパスワードが正しくありません。", false);
+				return new ReturnInfo("メールアドレスまたはパスワードが正しくありません。");
 			}
 
 			if (!managerInfo.canLogin(password)) {
-				return new ReturnInfo("メールアドレスまたはパスワードが正しくありません。", false);
+				return new ReturnInfo("メールアドレスまたはパスワードが正しくありません。");
 			}
 
 			managerInfo.login();
@@ -70,7 +70,7 @@ public final class ManagerInfoManager {
 			ManagerInfo managerInfo = getRawManagerInfo(mailAddress);
 
 			if (managerInfo == null) {
-				return new ReturnInfo("アカウントが存在しません。", false);
+				return new ReturnInfo("アカウントが存在しません。");
 			}
 
 			boolean isRegistered = managerInfo.getRegisterationState() == Def.REGISTERED;
@@ -86,7 +86,7 @@ public final class ManagerInfoManager {
 		try {
 			ReturnInfo existMailAddress = existMailAddress(mailAddress);
 			if (existMailAddress.isSuccess()) {
-				return new ReturnInfo("既にアカウントが存在しています。", false);
+				return new ReturnInfo("既にアカウントが存在しています。");
 			}
 
 			String password = PasswordUtil.createNonHashedPassword();

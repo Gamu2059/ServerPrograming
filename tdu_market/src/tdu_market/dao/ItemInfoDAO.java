@@ -3,7 +3,6 @@ package tdu_market.dao;
 import java.util.ArrayList;
 
 import tdu_market.dto.ItemCreateInfo;
-import tdu_market.dto.ItemGetInfo;
 import tdu_market.dto.ItemSearchInfo;
 import tdu_market.dto.ItemUpdateInfo;
 import tdu_market.entity_bean.ItemInfo;
@@ -27,12 +26,12 @@ public final class ItemInfoDAO {
 		System.err.println("deleteItemInfo is non implementation!");
 	}
 
-	public ArrayList<ItemGetInfo> getExhibitItem(String studentNumber) {
+	public ArrayList<ItemInfo> getExhibitItem(String studentNumber) {
 		System.err.println("getExhibitItem is non implementation!");
 		return null;
 	}
 
-	public ArrayList<ItemGetInfo> searchItemInfo(ItemSearchInfo itemSearchInfo) {
+	public ArrayList<ItemInfo> searchItemInfo(ItemSearchInfo itemSearchInfo) {
 		System.err.println("searchItemInfo is non implementation!");
 		return null;
 	}
