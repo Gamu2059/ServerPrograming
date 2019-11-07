@@ -41,16 +41,19 @@ public final class StudentInfo extends UseBase implements Serializable {
 		this.departmentID = departmentID;
 	}
 
+	@Override
 	public boolean canLogin(String nonHashedPassword) {
 		String hashedPassword = AccountUtil.getHashedPassword(getMailAddress(), nonHashedPassword);
 		return hashedPassword.equals(getHashedPassword());
 	}
 
+	@Override
 	public void login() {
 		StudentInfoDAO dao = new StudentInfoDAO();
 		dao.updateLastLogin(getMailAddress());
 	}
 
+	@Override
 	public void logout() {
 		// ログアウトの記録をDBに保存するなら処理を何か記述する
 	}

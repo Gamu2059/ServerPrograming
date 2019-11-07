@@ -1,11 +1,12 @@
 package tdu_market.dao;
 
+import tdu_market.dto.ManagerCreateInfo;
 import tdu_market.dto.ManagerUpdateInfo;
 import tdu_market.entity_bean.ManagerInfo;
 
 public final class ManagerInfoDAO {
 
-	public ManagerInfo createManagerInfo(String mailAddress) {
+	public ManagerInfo createManagerInfo(ManagerCreateInfo managerCreateInfo) {
 		System.err.println("createManagerInfo is non implementation!");
 		return null;
 	}
