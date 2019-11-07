@@ -71,4 +71,8 @@ public final class PasswordUtil {
 
 		return sb.toString();
 	}
+
+	public static String createNonHashedPassword() {
+		return null;
+	}
 }

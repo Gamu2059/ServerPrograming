@@ -2,6 +2,9 @@ package tdu_market.entity_bean;
 
 import java.io.Serializable;
 
+import tdu_market.dao.StudentInfoDAO;
+import tdu_market.util.AccountUtil;
+
 public final class StudentInfo extends UseBase implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -36,5 +39,19 @@ public final class StudentInfo extends UseBase implements Serializable {
 
 	public void setDepartmentID(long departmentID) {
 		this.departmentID = departmentID;
+	}
+
+	public boolean canLogin(String nonHashedPassword) {
+		String hashedPassword = AccountUtil.getHashedPassword(getMailAddress(), nonHashedPassword);
+		return hashedPassword.equals(getHashedPassword());
+	}
+
+	public void login() {
+		StudentInfoDAO dao = new StudentInfoDAO();
+		dao.updateLastLogin(getMailAddress());
+	}
+
+	public void logout() {
+		// ログアウトの記録をDBに保存するなら処理を何か記述する
 	}
 }
