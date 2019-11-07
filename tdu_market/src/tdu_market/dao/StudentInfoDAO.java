@@ -2,13 +2,14 @@ package tdu_market.dao;
 
 import java.util.ArrayList;
 
+import tdu_market.dto.StudentCreateInfo;
 import tdu_market.dto.StudentSearchInfo;
 import tdu_market.dto.StudentUpdateInfo;
 import tdu_market.entity_bean.StudentInfo;
 
 public final class StudentInfoDAO {
 
-	public StudentInfo createStudentInfo(String mailAddress) {
+	public StudentInfo createStudentInfo(StudentCreateInfo studentCreateInfo) {
 		System.err.println("createStudentInfo is non implementation!");
 		return null;
 	}

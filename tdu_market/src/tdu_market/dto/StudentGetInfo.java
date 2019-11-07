@@ -1,14 +1,17 @@
 package tdu_market.dto;
 
+import tdu_market.entity_bean.StudentInfo;
+
 public class StudentGetInfo {
 
 	private final String mailAddress;
 	private final String displayName;
-	private final int departmentID;
+	private final long departmentID;
 	private final String selfIntroduction;
 	private final String iconImageURL;
 
-	public StudentGetInfo(String mailAddress, String displayName, int departmentID, String selfIntroduction, String iconImageURL) {
+	public StudentGetInfo(String mailAddress, String displayName, long departmentID, String selfIntroduction,
+			String iconImageURL) {
 		super();
 		this.mailAddress = mailAddress;
 		this.displayName = displayName;
@@ -25,7 +28,7 @@ public class StudentGetInfo {
 		return displayName;
 	}
 
-	public int getDepartmentID() {
+	public long getDepartmentID() {
 		return departmentID;
 	}
 
@@ -35,5 +38,19 @@ public class StudentGetInfo {
 
 	public String getIconImageURL() {
 		return iconImageURL;
+	}
+
+	public static StudentGetInfo create(StudentInfo studentInfo) {
+
+		if (studentInfo == null) {
+			return null;
+		}
+
+		String addr = studentInfo.getMailAddress();
+		String disp = studentInfo.getDisplayName();
+		long depID = studentInfo.getDepartmentID();
+		String intro = studentInfo.getSelfIntroduction();
+		String icon = studentInfo.getIconImageURL();
+		return new StudentGetInfo(addr, disp, depID, intro, icon);
 	}
 }

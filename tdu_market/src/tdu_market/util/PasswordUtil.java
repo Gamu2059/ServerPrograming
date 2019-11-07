@@ -3,7 +3,13 @@ package tdu_market.util;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
@@ -70,5 +76,40 @@ public final class PasswordUtil {
 		}
 
 		return sb.toString();
+	}
+
+	private static Stream<Character> getRandomNumbers(int n) {
+		SecureRandom random = new SecureRandom();
+		IntStream chars = random.ints(n, '0', '9');
+		return chars.mapToObj(d -> (char) d);
+	}
+
+	private static Stream<Character> getRandomChars(int n, boolean isUpperCase) {
+		SecureRandom random = new SecureRandom();
+		IntStream chars;
+		if (isUpperCase) {
+			chars = random.ints(n, 'A', 'Z');
+		} else {
+			chars = random.ints(n, 'a', 'z');
+		}
+
+		return chars.mapToObj(d -> (char) d);
+	}
+
+	public static String createNonHashedPassword() {
+
+		Stream<Character> numStream = getRandomNumbers(4);
+		Stream<Character> lowerStream = getRandomChars(4, false);
+		Stream<Character> upperStream = getRandomChars(4, true);
+		Stream<Character> pwdStream = Stream.concat(numStream, Stream.concat(lowerStream, upperStream));
+
+		List<Character> list = pwdStream.collect(Collectors.toList());
+		Collections.shuffle(list);
+		String password = list.stream().collect(
+				StringBuilder::new,
+				StringBuilder::append,
+				StringBuilder::append).toString();
+
+		return password;
 	}
 }
