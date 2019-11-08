@@ -1,5 +1,7 @@
 package tdu_market.dto;
 
+import tdu_market.entity_bean.SemesterInfo;
+
 public class SemesterGetInfo {
 
 	private final long semesterID;
@@ -23,5 +25,18 @@ public class SemesterGetInfo {
 
 	public String getSemester() {
 		return semester;
+	}
+
+	public static SemesterGetInfo create(SemesterInfo semesterInfo) {
+
+		if (semesterInfo == null) {
+			return null;
+		}
+
+		long semesterID = semesterInfo.getSemesterID();
+		String year = semesterInfo.getYear();
+		String semester = semesterInfo.getSemester();
+
+		return new SemesterGetInfo(semesterID, year, semester);
 	}
 }
