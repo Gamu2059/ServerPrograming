@@ -1,5 +1,7 @@
 package tdu_market.dto;
 
+import tdu_market.entity_bean.DepartmentInfo;
+
 public class DepartmentGetInfo {
 
 	private final long departmentID;
@@ -23,5 +25,18 @@ public class DepartmentGetInfo {
 
 	public String getSubjectName() {
 		return subjectName;
+	}
+
+	public static DepartmentGetInfo create(DepartmentInfo departmentInfo) {
+
+		if (departmentInfo == null) {
+			return null;
+		}
+
+		long depID = departmentInfo.getDepartmentID();
+		String faculty = departmentInfo.getFacultyName();
+		String subject = departmentInfo.getSubjectName();
+
+		return new DepartmentGetInfo(depID, faculty, subject);
 	}
 }
