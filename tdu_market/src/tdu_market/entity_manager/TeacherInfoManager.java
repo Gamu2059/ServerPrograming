@@ -8,6 +8,12 @@ import tdu_market.entity_bean.TeacherInfo;
 
 public final class TeacherInfoManager {
 
+	public boolean isExistTeacher(long teacherID) {
+
+		TeacherInfoDAO teacherInfoDAO = new TeacherInfoDAO();
+		return teacherInfoDAO.getTeacherInfo(teacherID) != null;
+	}
+
 	public TeacherGetInfo getTeacherInfo(long teacherID) {
 
 		TeacherInfoDAO teacherInfoDAO = new TeacherInfoDAO();

@@ -34,7 +34,7 @@ public final class ItemInfoManager {
 
 			SyllabusInfoManager syllabusInfoManager = new SyllabusInfoManager();
 			ReturnInfo existSyllabus = syllabusInfoManager.existSyllabus(classCode);
-			if (!existStudent.isSuccess()) {
+			if (!existSyllabus.isSuccess()) {
 				return new ReturnInfo("関連講義が設定されていません。");
 			}
 

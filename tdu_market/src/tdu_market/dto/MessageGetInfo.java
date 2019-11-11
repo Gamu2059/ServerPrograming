@@ -2,6 +2,8 @@ package tdu_market.dto;
 
 import java.util.Date;
 
+import tdu_market.entity_bean.MessageInfo;
+
 public class MessageGetInfo {
 
 	private final long messageID;
@@ -31,5 +33,19 @@ public class MessageGetInfo {
 
 	public Date getPostDate() {
 		return postDate;
+	}
+
+	public static MessageGetInfo create(MessageInfo messageInfo) {
+
+		if (messageInfo == null) {
+			return null;
+		}
+
+		long msgID = messageInfo.getMessageID();
+		String studentNumber = messageInfo.getPostStudentNumber();
+		String content = messageInfo.getPostContent();
+		Date date = messageInfo.getPostDate();
+
+		return new MessageGetInfo(msgID, studentNumber, content, date);
 	}
 }

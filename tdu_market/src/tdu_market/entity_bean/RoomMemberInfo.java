@@ -7,7 +7,7 @@ public final class RoomMemberInfo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private long roomID;
-	private String studentNumber;
+	private String studentMailAddress;
 
 	public RoomMemberInfo() {
 		super();
@@ -21,11 +21,11 @@ public final class RoomMemberInfo implements Serializable {
 		this.roomID = roomID;
 	}
 
-	public String getStudentNumber() {
-		return studentNumber;
+	public String getStudentMailAddress() {
+		return studentMailAddress;
 	}
 
-	public void setStudentNumber(String studentNumber) {
-		this.studentNumber = studentNumber;
+	public void setStudentMailAddress(String studentMailAddress) {
+		this.studentMailAddress = studentMailAddress;
 	}
 }

@@ -8,6 +8,12 @@ import tdu_market.entity_bean.SemesterInfo;
 
 public final class SemesterInfoManager {
 
+	public boolean isExistSemester(long semesterID) {
+
+		SemesterInfoDAO semesterInfoDAO = new SemesterInfoDAO();
+		return semesterInfoDAO.getSemesterInfo(semesterID) != null;
+	}
+
 	public SemesterGetInfo getSemesterInfo(long semesterID) {
 
 		SemesterInfoDAO semesterInfoDAO = new SemesterInfoDAO();

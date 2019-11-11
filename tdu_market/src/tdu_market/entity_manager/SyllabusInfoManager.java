@@ -30,9 +30,6 @@ public final class SyllabusInfoManager {
 			String classCode = syllabusCreateInfo.getClassCode();
 			String className = syllabusCreateInfo.getClassName();
 			long semesterID = syllabusCreateInfo.getSemesterID();
-			String dates = syllabusCreateInfo.getDates();
-			int unitNum = syllabusCreateInfo.getUnitNum();
-			String classRoom = syllabusCreateInfo.getClassRoom();
 			long teacherID = syllabusCreateInfo.getTeacherID();
 
 			ReturnInfo isExist = existSyllabus(classCode);
@@ -40,6 +37,19 @@ public final class SyllabusInfoManager {
 				return new ReturnInfo("同一のクラスコードを持つ講義が既に存在しています。");
 			}
 
+			if (className == null || className.trim().isEmpty()) {
+				return new ReturnInfo("講義名が設定されていません。");
+			}
+
+			SemesterInfoManager semesterInfoManager = new SemesterInfoManager();
+			if (!semesterInfoManager.isExistSemester(semesterID)) {
+				return new ReturnInfo("対応する講義がありません。");
+			}
+
+			TeacherInfoManager teacherInfoManager = new TeacherInfoManager();
+			if (!teacherInfoManager.isExistTeacher(teacherID)) {
+				return new ReturnInfo("対応する担任がいません。");
+			}
 
 			return new ReturnInfo("", true);
 		} catch(Exception e) {

@@ -2,20 +2,20 @@ package tdu_market.dto;
 
 public class RoomMemberGetInfo {
 
-	private final StudentGetInfo studentGetInfo;
-	private final MessageRoomGetInfo[] rooms;
+	private final String[] memberMailAddresses;
+	private final long[] roomIDs;
 
-	public RoomMemberGetInfo(StudentGetInfo studentGetInfo, MessageRoomGetInfo[] rooms) {
+	public RoomMemberGetInfo(String[] memberMailAddresses, long[] roomIDs) {
 		super();
-		this.studentGetInfo = studentGetInfo;
-		this.rooms = rooms;
+		this.memberMailAddresses = memberMailAddresses;
+		this.roomIDs = roomIDs;
 	}
 
-	public StudentGetInfo getStudentGetInfo() {
-		return studentGetInfo;
+	public String[] getMemberMailAddresses() {
+		return memberMailAddresses;
 	}
 
-	public MessageRoomGetInfo[] getRooms() {
-		return rooms;
+	public long[] getRoomIDs() {
+		return roomIDs;
 	}
 }
