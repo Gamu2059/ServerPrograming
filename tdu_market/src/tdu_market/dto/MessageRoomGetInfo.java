@@ -1,5 +1,7 @@
 package tdu_market.dto;
 
+import tdu_market.entity_bean.MessageRoomInfo;
+
 public class MessageRoomGetInfo {
 
 	private final long roomID;
@@ -24,5 +26,16 @@ public class MessageRoomGetInfo {
 
 	public MessageGetInfo getLatestPostMessageGetInfo() {
 		return latestPostMessageGetInfo;
+	}
+
+	public static MessageRoomGetInfo create(MessageRoomInfo messageRoomInfo, StudentGetInfo opponentStudentGetInfo, MessageGetInfo latestPostMessageGetInfo) {
+
+		if (messageRoomInfo == null || opponentStudentGetInfo == null || latestPostMessageGetInfo == null) {
+			return null;
+		}
+
+		long roomID = messageRoomInfo.getRoomID();
+
+		return new MessageRoomGetInfo(roomID, opponentStudentGetInfo, latestPostMessageGetInfo);
 	}
 }

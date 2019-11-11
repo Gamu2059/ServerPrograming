@@ -1,5 +1,7 @@
 package tdu_market.dto;
 
+import tdu_market.entity_bean.CampusInfo;
+
 public class CampusGetInfo {
 
 	private final long campusID;
@@ -17,5 +19,17 @@ public class CampusGetInfo {
 
 	public String getCampusName() {
 		return campusName;
+	}
+
+	public static CampusGetInfo create(CampusInfo campusInfo) {
+
+		if (campusInfo == null) {
+			return null;
+		}
+
+		long camID = campusInfo.getCampusID();
+		String name = campusInfo.getCampusName();
+
+		return new CampusGetInfo(camID, name);
 	}
 }

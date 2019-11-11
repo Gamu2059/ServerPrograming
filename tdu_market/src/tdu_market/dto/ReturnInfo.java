@@ -5,6 +5,12 @@ public final class ReturnInfo {
 	private final String msg;
 	private final boolean isSuccess;
 
+	/** isSuccessをfalseに設定するコンストラクタ */
+	public ReturnInfo(String msg) {
+		this(msg, false);
+	}
+
+	/** デフォルトコンストラクタ */
 	public ReturnInfo(String msg, boolean isSuccess) {
 		super();
 		this.msg = msg;

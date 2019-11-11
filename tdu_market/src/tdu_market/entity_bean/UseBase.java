@@ -71,4 +71,10 @@ public abstract class UseBase {
 	public void setLastLoginDate(Date lastLoginDate) {
 		this.lastLoginDate = lastLoginDate;
 	}
+
+	public abstract boolean canLogin(String nonHashedPassword);
+
+	public abstract void login();
+
+	public abstract void logout();
 }

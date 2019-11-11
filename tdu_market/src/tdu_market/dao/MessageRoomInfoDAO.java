@@ -1,5 +1,7 @@
 package tdu_market.dao;
 
+import java.util.ArrayList;
+
 import tdu_market.dto.MessageRoomChangeInfo;
 import tdu_market.dto.MessageRoomCreateInfo;
 import tdu_market.entity_bean.MessageRoomInfo;
@@ -7,6 +9,11 @@ import tdu_market.entity_bean.MessageRoomInfo;
 public final class MessageRoomInfoDAO {
 
 	public MessageRoomInfo getMessageRoomInfo(long roomID) {
+		System.err.println("getMessageRoomInfo is non implementation!");
+		return null;
+	}
+
+	public ArrayList<MessageRoomInfo> getMessageRoomInfo(String mailAddress){
 		System.err.println("getMessageRoomInfo is non implementation!");
 		return null;
 	}

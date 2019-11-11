@@ -1,5 +1,7 @@
 package tdu_market.dto;
 
+import tdu_market.entity_bean.SyllabusInfo;
+
 public class SyllabusGetInfo {
 
 	private final String classCode;
@@ -12,11 +14,11 @@ public class SyllabusGetInfo {
 	private final String overview;
 	private final String target;
 	private final String requirments;
-	private final String evaliationMethod;
+	private final String evaluationMethod;
 
 	public SyllabusGetInfo(String classCode, String className, String openingSemester, String dates, int unitNum,
 			String classRoom, String teacherName, String overview, String target, String requirments,
-			String evaliationMethod) {
+			String evaluationMethod) {
 		super();
 		this.classCode = classCode;
 		this.className = className;
@@ -28,7 +30,7 @@ public class SyllabusGetInfo {
 		this.overview = overview;
 		this.target = target;
 		this.requirments = requirments;
-		this.evaliationMethod = evaliationMethod;
+		this.evaluationMethod = evaluationMethod;
 	}
 
 	public String getClassCode() {
@@ -71,7 +73,48 @@ public class SyllabusGetInfo {
 		return requirments;
 	}
 
-	public String getEvaliationMethod() {
-		return evaliationMethod;
+	public String getEvaluationMethod() {
+		return evaluationMethod;
+	}
+
+	public static SyllabusGetInfo create(SyllabusInfo syllabusInfo, OpeningSemesterGetInfo openingSemesterGetInfo, TeacherGetInfo teacherGetInfo) {
+
+		if (syllabusInfo == null) {
+			return null;
+		}
+
+		String classCode = syllabusInfo.getClassCode();
+		String className = syllabusInfo.getClassName();
+		String openingSemester = null;
+		String dates = syllabusInfo.getDates();
+		int unitNum = syllabusInfo.getUnitNum();
+		String classRoom = syllabusInfo.getClassRoom();
+		String teacherName = null;
+		String overview = syllabusInfo.getOverview();
+		String target = syllabusInfo.getTarget();
+		String requirments = syllabusInfo.getRequirments();
+		String evaluationMethod = syllabusInfo.getEvaluationMethod();
+
+		if (openingSemesterGetInfo != null) {
+
+			SemesterGetInfo[] semesterGetInfos = openingSemesterGetInfo.getOpeningSemesters();
+			if (semesterGetInfos != null) {
+				for(SemesterGetInfo i : semesterGetInfos) {
+					String s = i.getSemester();
+					if (s == null || s.trim().isEmpty()) {
+						continue;
+					}
+
+					openingSemester = s.trim();
+					break;
+				}
+			}
+		}
+
+		if (teacherGetInfo != null) {
+			teacherName = teacherGetInfo.getTeacherName();
+		}
+
+		return new SyllabusGetInfo(classCode, className, openingSemester, dates, unitNum, classRoom, teacherName, overview, target, requirments, evaluationMethod);
 	}
 }

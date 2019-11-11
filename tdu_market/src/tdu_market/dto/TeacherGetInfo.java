@@ -1,5 +1,7 @@
 package tdu_market.dto;
 
+import tdu_market.entity_bean.TeacherInfo;
+
 public class TeacherGetInfo {
 
 	private final long teacherID;
@@ -17,5 +19,17 @@ public class TeacherGetInfo {
 
 	public String getTeacherName() {
 		return teacherName;
+	}
+
+	public static TeacherGetInfo create(TeacherInfo teacherInfo) {
+
+		if (teacherInfo == null) {
+			return null;
+		}
+
+		long teacherID = teacherInfo.getTeacherID();
+		String name = teacherInfo.getTeacherName();
+
+		return new TeacherGetInfo(teacherID, name);
 	}
 }

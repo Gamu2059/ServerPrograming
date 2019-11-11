@@ -2,17 +2,20 @@ package tdu_market.dto;
 
 public class OpeningSemesterGetInfo {
 
-	private final SyllabusGetInfo syllabusGetInfo;
+	// 設計上、循環参照になってしまうため、SyllabusGetInfoは参照しない
+	private final String classCode;
 	private final SemesterGetInfo[] openingSemesters;
 
-	public OpeningSemesterGetInfo(SyllabusGetInfo syllabusGetInfo, SemesterGetInfo[] openingSemesters) {
+
+
+	public OpeningSemesterGetInfo(String classCode, SemesterGetInfo[] openingSemesters) {
 		super();
-		this.syllabusGetInfo = syllabusGetInfo;
+		this.classCode = classCode;
 		this.openingSemesters = openingSemesters;
 	}
 
-	public SyllabusGetInfo getSyllabusGetInfo() {
-		return syllabusGetInfo;
+	public String getClassCode() {
+		return classCode;
 	}
 
 	public SemesterGetInfo[] getOpeningSemesters() {
