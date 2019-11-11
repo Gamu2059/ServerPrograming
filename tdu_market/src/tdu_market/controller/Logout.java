@@ -13,17 +13,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletResponse;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 
 /**
  * Servlet implementation class Logout
@@ -48,7 +38,6 @@ public class Logout extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.err.println("Logout is non implementation!");
 		StudentInfoManager student = new StudentInfoManager();
-		
 		
 		// StudentInfoManager‚Ìlogout‚ðŒÄ‚Ô
 		student.logout(mailAddress);

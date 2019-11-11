@@ -2,7 +2,8 @@ package tdu_market.controller;
 import tdu_market.entity_manager.ManagerInfoManager;
 import tdu_market.entity_manager.StudentInfoManager;
 import java.io.IOException;
-
+import tdu_market.dto.LoginInfo;
+import tdu_market.dto.ReturnInfo;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -50,28 +51,33 @@ public class Login extends HttpServlet {
 
 		ManagerInfoManager manage = new ManagerInfoManager();
 		StudentInfoManager student = new StudentInfoManager();
-		String sentaddress = request.getParameter("mailaddress");
-		String sentPw = request.getParameter("password");
+		LoginInfo info = new LoginInfo(request.getParameter("mailaddress"),request.getParameter("password"));
+	
 		
 		// 'メールアドレスから学生か運営かを判定する
-		if (sentaddress.endsWith("@ms.dendai.ac.jp")) {
+		if (info.getMailAddress().endsWith("@ms.dendai.ac.jp")) {
 			// '学生ならStudentInfoManagerにメールアドレスとパスワードを渡し、ログインできるかチェックする
+			//student.canLogin(info);
+			
 			//'アカウントが仮登録状態ならば、新規登録画面に遷移する
 			//'アカウントが登録済み状態ならば、トップ画面に遷移する
 			// 'チェックがOKなら、StudentInfoManagerのloginを呼ぶ
-			student.login();
+			student.login(info);
 		}
 
-		if (sentaddress.endsWith("@ms.dendai.ac.jp")) {
+		if (info.getMailAddress().endsWith("@ms.dendai.ac.jp")) {
 			// '運営ならManagerInfoManagerにメールアドレスとパスワードを渡し、ログインできるかチェックする
+			//manage.canLogin(info);
+			
 			//'アカウントが仮登録状態ならば、新規登録画面に遷移する
 			//'アカウントが登録済み状態ならば、トップ画面に遷移する
-			// 'チェックがOKなら、ManagerInfoManagerのloginを呼ぶ
+			// 'チェックがOKなら、ManagerInfoManagerのloginを呼ぶ]
+			manage.login(info);
 		}
 
 		//セッションにメールアドレスを保存する(他にいい実装があるかもしれない...)
 		HttpSession session = request.getSession();
-		session.setAttribute("mailaddress", sentaddress);
+		session.setAttribute("mailaddress", info.getMailAddress());
 
 
 		/*作ってしまったログイン処理　
@@ -90,10 +96,6 @@ public class Login extends HttpServlet {
 
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-		rd.forward(request, response);
-	}
 
 }
 
