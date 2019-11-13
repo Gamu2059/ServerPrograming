@@ -36,7 +36,6 @@ public class RegisterItemInfo extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("RegisterItemInfo is non implementation!");
-		System.err.println("UpdateStudentPage is non implementation!");
 		HttpSession session = request.getSession();
 		String mailAddress = (String)session.getAttribute("mailaddress");
 		StudentInfoManager student = new StudentInfoManager();
@@ -45,6 +44,7 @@ public class RegisterItemInfo extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 			rd.forward(request, response);		
 		}
+		
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		ItemCreateInfo createInfo = new ItemCreateInfo(request.getParameter("exhibitorMailAddress"), request.getParameter("itemName"), request.getParameter("description"),Integer.valueOf(request.getParameter("condtion")).intValue() , Integer.valueOf(request.getParameter("price")).intValue(),
 				request.getParameter("relatedClassCode"), request.getParameterValues("itemImageURLs"));
