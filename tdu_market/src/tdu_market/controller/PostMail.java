@@ -48,10 +48,6 @@ public class PostMail extends HttpServlet {
 		String mailAddress = (String)session.getAttribute("mailaddress");
 
 		StudentInfoManager student = new StudentInfoManager();
-
-
-	
-
 		ReturnInfo createResult = student.createTemporaryAccount(mailAddress);
 		
 		if(createResult.isSuccess()) {

@@ -2,11 +2,16 @@ package tdu_market.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import tdu_market.dto.ReturnInfo;
+import tdu_market.entity_manager.StudentInfoManager;
 
 /**
  * Servlet implementation class TopPage
@@ -29,6 +34,18 @@ public class TopPage extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("TopPage is non implementation!");
+		HttpSession session = request.getSession();
+		String mailAddress = (String)session.getAttribute("mailaddress");
+		StudentInfoManager student = new StudentInfoManager();
+		ReturnInfo loginResult = student.existMailAddress(mailAddress);
+		if(!loginResult.isSuccess()) {
+			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+			rd.forward(request, response);		
+		}
+		
+		//新着商品を取得する
+		//わからない
+		
 	}
 
 
