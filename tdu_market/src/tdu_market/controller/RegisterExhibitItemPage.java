@@ -37,7 +37,7 @@ public class RegisterExhibitItemPage extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.err.println("RegisterExhibitItemPage is non implementation!");
+	
 		HttpSession session = request.getSession();
 		String mailAddress = (String)session.getAttribute("mailaddress");
 		StudentInfoManager student = new StudentInfoManager();
@@ -46,10 +46,11 @@ public class RegisterExhibitItemPage extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 			rd.forward(request, response);		
 		}
-		
-		//存在する全出品情報を取得
-		ItemInfoManager itemInfo = new ItemInfoManager();
-		ArrayList<ItemGetInfo> itemList =  itemInfo.getExhibitItem(mailAddress);
+		else {
+			RequestDispatcher rd = request.getRequestDispatcher("confirm_register_exhibit.jsp");
+			rd.forward(request, response);		
+			
+		}
 		
 	}
 

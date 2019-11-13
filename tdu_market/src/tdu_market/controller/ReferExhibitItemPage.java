@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import tdu_market.dto.ItemGetInfo;
 import tdu_market.dto.ReturnInfo;
+import tdu_market.entity_manager.ItemInfoManager;
 import tdu_market.entity_manager.StudentInfoManager;
 
 /**
@@ -34,7 +36,7 @@ public class ReferExhibitItemPage extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("ReferExhibitItemPage is non implementation!");
-		System.err.println("UpdateStudentPage is non implementation!");
+
 		HttpSession session = request.getSession();
 		String mailAddress = (String)session.getAttribute("mailaddress");
 		StudentInfoManager student = new StudentInfoManager();
@@ -43,12 +45,11 @@ public class ReferExhibitItemPage extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 			rd.forward(request, response);		
 		}
-		else {
-			RequestDispatcher rd = request.getRequestDispatcher("confirm_register_exhibit.jsp");
-			rd.forward(request, response);		
-			
-		}
-
+		
+		//出品情報を取得
+		ItemInfoManager itemInfo = new ItemInfoManager();
+		ItemGetInfo info =  itemInfo.getItemInfo(Integer.valueOf(request.getParameter("itemID")));
+	
 		
 	}
 
