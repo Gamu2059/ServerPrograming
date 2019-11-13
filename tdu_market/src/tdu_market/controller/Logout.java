@@ -37,21 +37,23 @@ public class Logout extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("Logout is non implementation!");
-		StudentInfoManager student = new StudentInfoManager();
 		
-		// StudentInfoManager‚Ìlogout‚ğŒÄ‚Ô
-		student.logout(mailAddress);
-		//ƒZƒbƒVƒ‡ƒ“‚É•Û‘¶‚µ‚Ä‚ ‚éFX‚Èƒf[ƒ^‚ğ–•Á‚·‚é
-		HttpSession sess = request.getSession();
-			//ƒZƒbƒVƒ‡ƒ“‚É‚ ‚é‘S‚Ä‚Ì—v‘f–¼‚ğæ“¾‚·‚é
-		Enumeration vals = sess.getAttributeNames();
+		
+		HttpSession session = request.getSession();
+		String mailAddress = (String)session.getAttribute("mailaddress");
+		StudentInfoManager student = new StudentInfoManager();
 
-			//æ“¾‚µ‚½—v‘f–¼‚ğƒ‹[ƒvˆ—‚Å‘S‚Äíœ‚·‚é
+		// StudentInfoManagerã®logoutã‚’å‘¼ã¶ã€‚
+		student.logout(mailAddress);
+
+		//ã‚»ãƒƒã‚·ãƒ§ãƒ³ã«ä¿å­˜ã•ã‚ŒãŸãƒ‡ãƒ¼ã‚¿ã®å‰Šé™¤
+		HttpSession sess = request.getSession();
+		Enumeration vals = sess.getAttributeNames();
 		while(vals.hasMoreElements()){
 			String nm = (String)vals.nextElement();
 			sess.removeAttribute(nm);
 		}	
-		//ƒƒOƒCƒ“ƒy[ƒW‚É‘JˆÚ‚·‚é
+
 		RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 		rd.forward(request, response);
 

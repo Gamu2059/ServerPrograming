@@ -26,7 +26,7 @@ import javax.servlet.http.HttpSession;
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	//‚±‚±‚Å‚Í•Ö‹X“I‚ÉƒAƒhƒŒƒX‚ÆƒpƒX‚ğ—^‚¦‚Ä‚¢‚é
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Å‚Í•Ö‹Xï¿½Iï¿½ÉƒAï¿½hï¿½ï¿½ï¿½Xï¿½Æƒpï¿½Xï¿½ï¿½^ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½
 	private final String loginId = "1@gmail.com";
 	private final String password = "123";
 
@@ -53,41 +53,34 @@ public class Login extends HttpServlet {
 		StudentInfoManager student = new StudentInfoManager();
 		LoginInfo info = new LoginInfo(request.getParameter("mailaddress"),request.getParameter("password"));
 	
-		
-		// 'ƒ[ƒ‹ƒAƒhƒŒƒX‚©‚çŠw¶‚©‰^‰c‚©‚ğ”»’è‚·‚é
-		if (info.getMailAddress().endsWith("@ms.dendai.ac.jp")) {
-			// 'Šw¶‚È‚çStudentInfoManager‚Éƒ[ƒ‹ƒAƒhƒŒƒX‚ÆƒpƒXƒ[ƒh‚ğ“n‚µAƒƒOƒCƒ“‚Å‚«‚é‚©ƒ`ƒFƒbƒN‚·‚é
-			//student.canLogin(info);
-			
-			//'ƒAƒJƒEƒ“ƒg‚ª‰¼“o˜^ó‘Ô‚È‚ç‚ÎAV‹K“o˜^‰æ–Ê‚É‘JˆÚ‚·‚é
-			//'ƒAƒJƒEƒ“ƒg‚ª“o˜^Ï‚İó‘Ô‚È‚ç‚ÎAƒgƒbƒv‰æ–Ê‚É‘JˆÚ‚·‚é
-			// 'ƒ`ƒFƒbƒN‚ªOK‚È‚çAStudentInfoManager‚Ìlogin‚ğŒÄ‚Ô
+	
+		if (info.getMailAddress().endsWith("@ms.dendai.ac.jp")) {			
+			ReturnInfo result = student.isRegisteredState(info.getMailAddress());
+			if(result.isSuccess()) {
 			student.login(info);
+			}
+			
 		}
 
-		if (info.getMailAddress().endsWith("@ms.dendai.ac.jp")) {
-			// '‰^‰c‚È‚çManagerInfoManager‚Éƒ[ƒ‹ƒAƒhƒŒƒX‚ÆƒpƒXƒ[ƒh‚ğ“n‚µAƒƒOƒCƒ“‚Å‚«‚é‚©ƒ`ƒFƒbƒN‚·‚é
-			//manage.canLogin(info);
-			
-			//'ƒAƒJƒEƒ“ƒg‚ª‰¼“o˜^ó‘Ô‚È‚ç‚ÎAV‹K“o˜^‰æ–Ê‚É‘JˆÚ‚·‚é
-			//'ƒAƒJƒEƒ“ƒg‚ª“o˜^Ï‚İó‘Ô‚È‚ç‚ÎAƒgƒbƒv‰æ–Ê‚É‘JˆÚ‚·‚é
-			// 'ƒ`ƒFƒbƒN‚ªOK‚È‚çAManagerInfoManager‚Ìlogin‚ğŒÄ‚Ô]
+		else if (info.getMailAddress().endsWith("@ms.dendai.ac.jp")) {
+		
 			manage.login(info);
 		}
 
-		//ƒZƒbƒVƒ‡ƒ“‚Éƒ[ƒ‹ƒAƒhƒŒƒX‚ğ•Û‘¶‚·‚é(‘¼‚É‚¢‚¢À‘•‚ª‚ ‚é‚©‚à‚µ‚ê‚È‚¢...)
+		//ã‚»ãƒƒã‚·ãƒ§ãƒ³ã«ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’ä¿å­˜
 		HttpSession session = request.getSession();
 		session.setAttribute("mailaddress", info.getMailAddress());
+		
+		
 
-
-		/*ì‚Á‚Ä‚µ‚Ü‚Á‚½ƒƒOƒCƒ“ˆ—@
+		/*ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Oï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@
 	        if (sentaddress.equals(loginId) && sentPw.equals(password)) {
 	            HttpSession session = request.getSession();
 	            session.setAttribute("loginUser", true);
 	            RequestDispatcher rd = request.getRequestDispatcher("NewFile.jsp");
 	            rd.forward(request, response);
 	        } else {
-	            request.setAttribute("loginErrorMsg", "ƒƒOƒCƒ“î•ñ‚ª•s³‚Å‚·B");
+	            request.setAttribute("loginErrorMsg", "ï¿½ï¿½ï¿½Oï¿½Cï¿½ï¿½ï¿½ï¿½ñ‚ª•sï¿½ï¿½ï¿½Å‚ï¿½ï¿½B");
 	            request.setAttribute("errorFlg", true);
 	            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 	            rd.forward(request, response);

@@ -7,7 +7,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +17,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+
+import tdu_market.dto.ReturnInfo;
 import tdu_market.entity_manager.StudentInfoManager;
+import tdu_market.controller.SendMail;
 /**
  * Servlet implementation class PostMail
  */
@@ -38,20 +44,27 @@ public class PostMail extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.err.println("PostMail is non implementation!");
 
-		StudentInfoManager student = new StudentinfoManager();
-		//' メールアドレスがメールアドレスの体をなしているかチェック
-		//' メールアドレスがDBに登録されていないかをチェックする
-		if( student.existMailAddress(mailAddress)) {
-			//' 新規アカウントを仮登録状態、仮パスワードで作成する
-			student.createTemporaryAccount(mailAddress);
-		//' 仮パスワードをメールアドレス宛に送信する
-			
-			//ここもんだい
-			
-		//' 送信した後、ログインページに遷移する
-		  RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-          rd.forward(request, response);
+		HttpSession session = request.getSession();
+		String mailAddress = (String)session.getAttribute("mailaddress");
+
+		StudentInfoManager student = new StudentInfoManager();
+
+
+	
+
+		ReturnInfo createResult = student.createTemporaryAccount(mailAddress);
+		
+		if(createResult.isSuccess()) {
+			SendMail mailer = new SendMail(); 
+			//莉ｮ繝代せ繝ｯ繝ｼ繝蛾∽ｿ｡
+			mailer.sendPassword(mailAddress,createResult.getMsg());
+			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+			rd.forward(request, response);
+		}
+		else {
+			request.setAttribute("ErrorMessage",createResult.getMsg());
+			RequestDispatcher rd = request.getRequestDispatcher("hoge.jsp");
+			rd.forward(request, response);
 		}
 	}
-
 }
