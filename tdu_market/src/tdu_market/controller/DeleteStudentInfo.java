@@ -35,7 +35,7 @@ public class DeleteStudentInfo extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("DeleteStudentInfo is non implementation!");
-		System.err.println("UpdateStudentPage is non implementation!");
+	
 		HttpSession session = request.getSession();
 		String mailAddress = (String)session.getAttribute("mailaddress");
 		StudentInfoManager student = new StudentInfoManager();

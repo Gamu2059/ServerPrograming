@@ -2,11 +2,18 @@ package tdu_market.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import tdu_market.dto.ItemGetInfo;
+import tdu_market.dto.ReturnInfo;
+import tdu_market.entity_manager.ItemInfoManager;
+import tdu_market.entity_manager.StudentInfoManager;
 
 /**
  * Servlet implementation class EditExhibitItemPage
@@ -29,6 +36,30 @@ public class EditExhibitItemPage extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("EditExhibitItemPage is non implementation!");
+		
+		HttpSession session = request.getSession();
+		String mailAddress = (String)session.getAttribute("mailaddress");
+		StudentInfoManager student = new StudentInfoManager();
+		ReturnInfo loginResult = student.existMailAddress(mailAddress);
+		if(!loginResult.isSuccess()) {
+			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+			rd.forward(request, response);		
+		}
+
+		//商品情報を取得する
+		ItemInfoManager itemInfo = new ItemInfoManager();
+		ItemGetInfo info =  itemInfo.getItemInfo(Integer.valueOf(request.getParameter("itemID")));
+	
+		//取得した情報をviewに適用
+		request.setAttribute("itemID",info.getItemID());
+		request.setAttribute("itemName",info.getItemName());
+		request.setAttribute("description",info.getDescription());
+		request.setAttribute("condtion",info.getCondition());
+		request.setAttribute("price",info.getPrice());
+		request.setAttribute("TradingState",info.getTradingState());
+		request.setAttribute("ExhibitDate",info.getExhibitDate());
+		request.setAttribute("itemImageURLs",info.getItemImageURLs());
+
 	}
 
 }
