@@ -33,11 +33,16 @@ public final class CampusInfo implements Serializable {
 		this.campusName = campusName;
 	}
 
+	@Override
+	public String toString() {
+		return "CampusInfo [campusID=" + campusID + ", campusName=" + campusName + "]";
+	}
+
 	public static CampusInfo create(ResultSet resultSet) {
 
 		try {
 
-			if (resultSet == null || !resultSet.next()) {
+			if (resultSet == null) {
 				return null;
 			}
 

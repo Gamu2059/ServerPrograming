@@ -23,7 +23,7 @@ public final class CampusInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "select * from CampusInfo where campusID=?";
+			String sql = "select * from \"CampusInfo\" where \"campusID\" = ?";
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 
 			pstmt.setLong(1, campusID);
@@ -64,11 +64,10 @@ public final class CampusInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "insert into CampusInfo ('campusID', 'campusName') values (?, ?)";
+			String sql = "insert into \"CampusInfo\" (\"campusName\") values (?)";
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 
-			pstmt.setLong(1, campusCreateInfo.getCampusID());
-			pstmt.setString(2, campusCreateInfo.getCampusName());
+			pstmt.setString(1, campusCreateInfo.getCampusName());
 
 			int result = pstmt.executeUpdate();
 			System.out.println("createCampusInfo : " + result + "件のデータ作成");
@@ -94,7 +93,7 @@ public final class CampusInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "delete from CampusInfo where campusID=?";
+			String sql = "delete from \"CampusInfo\" where \"campusID\" = ?";
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 
 			pstmt.setLong(1, campusID);
@@ -126,7 +125,7 @@ public final class CampusInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "select * from CampusInfo";
+			String sql = "select * from \"CampusInfo\"";
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 
 			resultSet = pstmt.executeQuery();
@@ -159,5 +158,31 @@ public final class CampusInfoDAO extends DAOBase {
 		}
 
 		return list;
+	}
+
+	public static void main(String[] args) {
+
+		ArrayList<CampusInfo> list;
+		CampusInfoDAO dao = new CampusInfoDAO();
+		showInfo(dao.getAllCampusInfo());
+
+		CampusCreateInfo cInfo = new CampusCreateInfo("神田");
+		dao.createCampusInfo(cInfo);
+		showInfo(dao.getAllCampusInfo());
+
+		dao.deleteCampusInfo(3);
+		showInfo(dao.getAllCampusInfo());
+
+		CampusInfo c = dao.getCampusInfo(2);
+		System.out.println(c);
+		c = dao.getCampusInfo(3);
+		System.out.println(c);
+	}
+
+	private static void showInfo(ArrayList<CampusInfo> list) {
+
+		for(CampusInfo i : list) {
+			System.out.println(i);
+		}
 	}
 }
