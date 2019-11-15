@@ -1,10 +1,14 @@
 package tdu_market.entity_bean;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
 
 public final class CampusInfo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
+	private static final String CAMPUS_ID = "campusID";
+	private static final String CAMPUS_NAME = "campusName";
 
 	private long campusID;
 	private String campusName;
@@ -27,5 +31,24 @@ public final class CampusInfo implements Serializable {
 
 	public void setCampusName(String campusName) {
 		this.campusName = campusName;
+	}
+
+	public static CampusInfo create(ResultSet resultSet) {
+
+		try {
+
+			if (resultSet == null || !resultSet.next()) {
+				return null;
+			}
+
+			CampusInfo campusInfo = new CampusInfo();
+			campusInfo.setCampusID(resultSet.getLong(CAMPUS_ID));
+			campusInfo.setCampusName(resultSet.getString(CAMPUS_NAME));
+
+			return campusInfo;
+		} catch(Exception e) {
+
+			throw new RuntimeException(e);
+		}
 	}
 }

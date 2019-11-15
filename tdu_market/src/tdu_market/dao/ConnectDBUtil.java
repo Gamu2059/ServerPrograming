@@ -2,6 +2,7 @@ package tdu_market.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public final class ConnectDBUtil {
 
@@ -16,7 +17,7 @@ public final class ConnectDBUtil {
 	private final static String URL_DOCKER = "jdbc:postgresql://" + SQL_HOST_NAME_DOCKER + "/" + DB_NAME;
 	private final static String DRIVER_CLASS_NAME = "org.postgresql.Driver";
 
-	public static Connection getConnection() throws Exception {
+	public static Connection getConnection() throws SQLException, ClassNotFoundException {
 
 		String url = IS_CONNECT_DOCKER_DB ? URL_DOCKER : URL_LOCAL;
 		Class.forName(DRIVER_CLASS_NAME);
