@@ -2,6 +2,7 @@ package tdu_market.entity_bean;
 
 import java.io.Serializable;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public final class CampusInfo implements Serializable {
 
@@ -38,22 +39,16 @@ public final class CampusInfo implements Serializable {
 		return "CampusInfo [campusID=" + campusID + ", campusName=" + campusName + "]";
 	}
 
-	public static CampusInfo create(ResultSet resultSet) {
+	public static CampusInfo create(ResultSet resultSet) throws SQLException {
 
-		try {
-
-			if (resultSet == null) {
-				return null;
-			}
-
-			CampusInfo campusInfo = new CampusInfo();
-			campusInfo.setCampusID(resultSet.getLong(CAMPUS_ID));
-			campusInfo.setCampusName(resultSet.getString(CAMPUS_NAME));
-
-			return campusInfo;
-		} catch(Exception e) {
-
-			throw new RuntimeException(e);
+		if (resultSet == null) {
+			return null;
 		}
+
+		CampusInfo campusInfo = new CampusInfo();
+		campusInfo.setCampusID(resultSet.getLong(CAMPUS_ID));
+		campusInfo.setCampusName(resultSet.getString(CAMPUS_NAME));
+
+		return campusInfo;
 	}
 }
