@@ -246,7 +246,7 @@ public final class DepartmentInfoDAO extends DAOBase {
 		showInfo(dao.getDepartmentInfoWithFaculty(1, false));
 
 		System.out.println("SUBJECT");
-		showInfo(dao.getDepartmentInfoWithSubject(1, false));
+		showInfo(dao.getDepartmentInfoWithSubject(11, false));
 	}
 
 	private static void showInfo(ArrayList<DepartmentInfo> list) {
