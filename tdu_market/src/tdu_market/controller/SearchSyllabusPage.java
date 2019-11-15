@@ -40,18 +40,8 @@ public class SearchSyllabusPage extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.err.println("SearchSyllabusPage is non implementation!");
 
-
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			return;
 		}
-
-		SyllabusInfoManager syllabusInfo = new SyllabusInfoManager();
-		SyllabusSearchInfo searchInfo = new SyllabusSearchInfo(request.getParameter("classCode"), Integer.valueOf(request.getParameter("departmentID")).longValue(), request.getParameter("classNameKeyword"),request.getParameter("seacherNameKeyword"),
-				 Integer.valueOf(request.getParameter("semesterID")).longValue());
-		//シラバス検索情報を格納
-		ArrayList<SyllabusGetInfo> searchResult = syllabusInfo.searchSyllabus(searchInfo) ;
-		//jspに情報を投げる。
-		request.setAttribute("searchResult", searchResult);
-
 	}
 }

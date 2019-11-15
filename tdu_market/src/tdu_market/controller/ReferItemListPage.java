@@ -47,7 +47,6 @@ public class ReferItemListPage extends HttpServlet {
 			return;
 		}
 
-
 		//String to Date型変換  
 		Date sqlDate = java.sql.Date.valueOf(request.getParameter("oldestDate"));
 
