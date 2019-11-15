@@ -14,6 +14,7 @@ import tdu_market.dto.ReturnInfo;
 import tdu_market.dto.StudentGetInfo;
 import tdu_market.dto.StudentUpdateInfo;
 import tdu_market.entity_manager.StudentInfoManager;
+import tdu_market.util.ControllerUtil;
 
 /**
  * Servlet implementation class UpdateStudentPage
@@ -37,15 +38,11 @@ public class UpdateStudentPage extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("UpdateStudentPage is non implementation!");
-		HttpSession session = request.getSession();
-		String mailAddress = (String)session.getAttribute("mailaddress");
+	
 		StudentInfoManager student = new StudentInfoManager();
-		ReturnInfo loginResult = student.existMailAddress(mailAddress);
-		if(!loginResult.isSuccess()) {
-			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-			rd.forward(request, response);		
+		if (!ControllerUtil.verifyLogin(request, response)) {
+			return;
 		}
-
 		
 		//必要項目の入力チェック（jsp側）
 		

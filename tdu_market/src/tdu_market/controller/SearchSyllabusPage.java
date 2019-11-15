@@ -16,6 +16,7 @@ import tdu_market.dto.SyllabusGetInfo;
 import tdu_market.dto.SyllabusSearchInfo;
 import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.entity_manager.SyllabusInfoManager;
+import tdu_market.util.ControllerUtil;
 
 /**
  * Servlet implementation class SearchSyllabusPage
@@ -39,13 +40,9 @@ public class SearchSyllabusPage extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.err.println("SearchSyllabusPage is non implementation!");
 
-		HttpSession session = request.getSession();
-		String mailAddress = (String)session.getAttribute("mailaddress");
-		StudentInfoManager student = new StudentInfoManager();
-		ReturnInfo loginResult = student.existMailAddress(mailAddress);
-		if(!loginResult.isSuccess()) {
-			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-			rd.forward(request, response);		
+
+		if (!ControllerUtil.verifyLogin(request, response)) {
+			return;
 		}
 
 		SyllabusInfoManager syllabusInfo = new SyllabusInfoManager();

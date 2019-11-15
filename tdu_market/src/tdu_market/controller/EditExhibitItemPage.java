@@ -14,6 +14,7 @@ import tdu_market.dto.ItemGetInfo;
 import tdu_market.dto.ReturnInfo;
 import tdu_market.entity_manager.ItemInfoManager;
 import tdu_market.entity_manager.StudentInfoManager;
+import tdu_market.util.ControllerUtil;
 
 /**
  * Servlet implementation class EditExhibitItemPage
@@ -22,13 +23,13 @@ import tdu_market.entity_manager.StudentInfoManager;
 public class EditExhibitItemPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public EditExhibitItemPage() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public EditExhibitItemPage() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -36,20 +37,16 @@ public class EditExhibitItemPage extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("EditExhibitItemPage is non implementation!");
-		
-		HttpSession session = request.getSession();
-		String mailAddress = (String)session.getAttribute("mailaddress");
-		StudentInfoManager student = new StudentInfoManager();
-		ReturnInfo loginResult = student.existMailAddress(mailAddress);
-		if(!loginResult.isSuccess()) {
-			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-			rd.forward(request, response);		
+
+		//ログイン状態の検証
+		if (!ControllerUtil.verifyLogin(request, response)) {
+			return;
 		}
 
 		//商品情報を取得する
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		ItemGetInfo info =  itemInfo.getItemInfo(Integer.valueOf(request.getParameter("itemID")));
-	
+
 		//取得した情報をviewに適用
 		request.setAttribute("itemID",info.getItemID());
 		request.setAttribute("itemName",info.getItemName());

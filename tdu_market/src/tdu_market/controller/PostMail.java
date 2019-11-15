@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 
 import tdu_market.dto.ReturnInfo;
 import tdu_market.entity_manager.StudentInfoManager;
+import tdu_market.util.ControllerUtil;
 import tdu_market.controller.SendMail;
 /**
  * Servlet implementation class PostMail
@@ -44,9 +45,8 @@ public class PostMail extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.err.println("PostMail is non implementation!");
 
-		HttpSession session = request.getSession();
-		String mailAddress = (String)session.getAttribute("mailaddress");
-
+		String mailAddress = ControllerUtil.getMailAddress(request, response);
+	
 		StudentInfoManager student = new StudentInfoManager();
 		ReturnInfo createResult = student.createTemporaryAccount(mailAddress);
 		

@@ -1,5 +1,7 @@
 package tdu_market.controller;
 import tdu_market.entity_manager.StudentInfoManager;
+import tdu_market.util.ControllerUtil;
+
 import java.io.IOException;
 import tdu_market.entity_manager.ManagerInfoManager;
 import tdu_market.entity_manager.StudentInfoManager;
@@ -37,12 +39,11 @@ public class Logout extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("Logout is non implementation!");
-		
-		
-		HttpSession session = request.getSession();
-		String mailAddress = (String)session.getAttribute("mailaddress");
-		StudentInfoManager student = new StudentInfoManager();
 
+
+		StudentInfoManager student = new StudentInfoManager();
+		//セッションからメールアドレスを取得
+		String mailAddress = ControllerUtil.getMailAddress(request, response);
 		// StudentInfoManagerのlogoutを呼ぶ。
 		student.logout(mailAddress);
 

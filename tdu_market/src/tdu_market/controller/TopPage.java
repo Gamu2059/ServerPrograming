@@ -1,6 +1,7 @@
 package tdu_market.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,8 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import tdu_market.dto.ItemGetInfo;
 import tdu_market.dto.ReturnInfo;
 import tdu_market.entity_manager.StudentInfoManager;
+import tdu_market.entity_manager.ItemInfoManager;
+import tdu_market.util.ControllerUtil;
 
 /**
  * Servlet implementation class TopPage
@@ -34,18 +38,16 @@ public class TopPage extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("TopPage is non implementation!");
-		HttpSession session = request.getSession();
-		String mailAddress = (String)session.getAttribute("mailaddress");
-		StudentInfoManager student = new StudentInfoManager();
-		ReturnInfo loginResult = student.existMailAddress(mailAddress);
-		if(!loginResult.isSuccess()) {
-			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-			rd.forward(request, response);		
+		//ログイン状態の検証
+		if (!ControllerUtil.verifyLogin(request, response)) {
+			return;
 		}
 		
 		//新着商品を取得する
-		//わからない
-		
+		ItemInfoManager itemInfo = new ItemInfoManager();
+		ArrayList<ItemGetInfo> newItemList = itemInfo.getNewItemList();
+		request.setAttribute("newItemList", newItemList);
+	
 	}
 
 

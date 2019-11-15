@@ -17,7 +17,7 @@ import tdu_market.dto.ItemSearchInfo;
 import tdu_market.dto.ReturnInfo;
 import tdu_market.entity_manager.ItemInfoManager;
 import tdu_market.entity_manager.StudentInfoManager;
-
+import tdu_market.util.ControllerUtil;
 
 import java.text.SimpleDateFormat;
 /**
@@ -42,13 +42,9 @@ public class ReferItemListPage extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.err.println("ReferItemListPage is non implementation!");
 
-		HttpSession session = request.getSession();
-		String mailAddress = (String)session.getAttribute("mailaddress");
-		StudentInfoManager student = new StudentInfoManager();
-		ReturnInfo loginResult = student.existMailAddress(mailAddress);
-		if(!loginResult.isSuccess()) {
-			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-			rd.forward(request, response);		
+
+		if (!ControllerUtil.verifyLogin(request, response)) {
+			return;
 		}
 
 

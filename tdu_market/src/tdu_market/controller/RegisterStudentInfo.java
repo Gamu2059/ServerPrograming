@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import tdu_market.dto.StudentUpdateInfo;
 import tdu_market.dto.ReturnInfo;
 import tdu_market.entity_manager.StudentInfoManager;
+import tdu_market.util.ControllerUtil;
 
 /**
  * Servlet implementation class RegisterStudentInfo
@@ -35,14 +36,10 @@ public class RegisterStudentInfo extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-		HttpSession session = request.getSession();
-		String mailAddress = (String)session.getAttribute("mailaddress");
+	
 		StudentInfoManager student = new StudentInfoManager();
-		ReturnInfo loginResult = student.existMailAddress(mailAddress);
-
-		if(!loginResult.isSuccess()) {
-			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-			rd.forward(request, response);		
+		if (!ControllerUtil.verifyLogin(request, response)) {
+			return;
 		}
 
 		//入力フォームの必要事項が入力されているかチェック

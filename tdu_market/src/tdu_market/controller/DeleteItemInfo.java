@@ -14,6 +14,7 @@ import tdu_market.dto.ItemGetInfo;
 import tdu_market.dto.ReturnInfo;
 import tdu_market.entity_manager.ItemInfoManager;
 import tdu_market.entity_manager.StudentInfoManager;
+import tdu_market.util.ControllerUtil;
 
 /**
  * Servlet implementation class DeleteItemInfo
@@ -22,13 +23,13 @@ import tdu_market.entity_manager.StudentInfoManager;
 public class DeleteItemInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DeleteItemInfo() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public DeleteItemInfo() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 
 	/**
@@ -37,19 +38,15 @@ public class DeleteItemInfo extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("DeleteItemInfo is non implementation!");
-		HttpSession session = request.getSession();
-		String mailAddress = (String)session.getAttribute("mailaddress");
-		StudentInfoManager student = new StudentInfoManager();
-		ReturnInfo loginResult = student.existMailAddress(mailAddress);
-		if(!loginResult.isSuccess()) {
-			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-			rd.forward(request, response);		
+
+		//ログイン状態の検証
+		if (!ControllerUtil.verifyLogin(request, response)) {
+			return;
 		}
-		
 		//削除処理？
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		itemInfo.deleteItemInfo(Integer.valueOf(request.getParameter("itemID")));
-		
+
 	}
 
 }

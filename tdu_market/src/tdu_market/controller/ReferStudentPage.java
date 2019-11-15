@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import tdu_market.dto.ReturnInfo;
 import tdu_market.entity_manager.StudentInfoManager;
+import tdu_market.util.ControllerUtil;
 import tdu_market.dto.StudentGetInfo;
 
 /**
@@ -21,13 +22,13 @@ import tdu_market.dto.StudentGetInfo;
 public class ReferStudentPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ReferStudentPage() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public ReferStudentPage() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -35,15 +36,15 @@ public class ReferStudentPage extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("ReferStudentPage is non implementation!");
-		HttpSession session = request.getSession();
-		String mailAddress = (String)session.getAttribute("mailaddress");
+
 		StudentInfoManager student = new StudentInfoManager();
-		ReturnInfo loginResult = student.existMailAddress(mailAddress);
-		if(!loginResult.isSuccess()) {
-			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-			rd.forward(request, response);		
+		//ログイン状態の検証
+		if (!ControllerUtil.verifyLogin(request, response)) {
+			return;
 		}
-		
+		//セッションからメールアドレスを取得
+		String mailAddress = ControllerUtil.getMailAddress(request, response);
+
 		//DBから学生情報を取得する
 		StudentGetInfo studentInfo = student.getStudentInfo(mailAddress);
 	}

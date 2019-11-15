@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import tdu_market.dto.ReturnInfo;
 import tdu_market.dto.StudentGetInfo;
 import tdu_market.entity_manager.StudentInfoManager;
+import tdu_market.util.ControllerUtil;
 
 /**
  * Servlet implementation class EditStudentPage
@@ -35,15 +36,14 @@ public class EditStudentPage extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("EditStudentPage is non implementation!");
-		HttpSession session = request.getSession();
-		String mailAddress = (String)session.getAttribute("mailaddress");
-		StudentInfoManager student = new StudentInfoManager();
-		ReturnInfo loginResult = student.existMailAddress(mailAddress);
-		if(!loginResult.isSuccess()) {
-			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-			rd.forward(request, response);		
-		}
 
+		StudentInfoManager student = new StudentInfoManager();
+		//ログイン状態の検証
+		if (!ControllerUtil.verifyLogin(request, response)) {
+			return;
+		}
+		//セッションからメールアドレスを取得
+		String mailAddress = ControllerUtil.getMailAddress(request, response);
 		//DBから学生情報を取得する
 		StudentGetInfo studentInfo = student.getStudentInfo(mailAddress);
 		//取得した情報をviewに適用

@@ -14,6 +14,7 @@ import tdu_market.dto.ReturnInfo;
 import tdu_market.dto.SyllabusGetInfo;
 import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.entity_manager.SyllabusInfoManager;
+import tdu_market.util.ControllerUtil;
 
 
 /**
@@ -23,13 +24,13 @@ import tdu_market.entity_manager.SyllabusInfoManager;
 public class ReferSyllabusPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ReferSyllabusPage() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public ReferSyllabusPage() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -38,15 +39,10 @@ public class ReferSyllabusPage extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.err.println("ReferSyllabusPage is non implementation!");
 
-		HttpSession session = request.getSession();
-		String mailAddress = (String)session.getAttribute("mailaddress");
-		StudentInfoManager student = new StudentInfoManager();
-		ReturnInfo loginResult = student.existMailAddress(mailAddress);
-		if(!loginResult.isSuccess()) {
-			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-			rd.forward(request, response);		
+		if (!ControllerUtil.verifyLogin(request, response)) {
+			return;
 		}
-
+		
 		SyllabusInfoManager syllabusInfo = new SyllabusInfoManager();
 		//getInfoにシラバス情報を格納
 		SyllabusGetInfo getInfo = syllabusInfo.getSyllabusInfo(request.getParameter("classCode"));
