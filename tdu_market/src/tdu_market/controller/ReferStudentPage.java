@@ -47,6 +47,8 @@ public class ReferStudentPage extends HttpServlet {
 
 		//DBから学生情報を取得する
 		StudentGetInfo studentInfo = student.getStudentInfo(mailAddress);
+		//jspに情報を投げる。
+		request.setAttribute("studentInfo", studentInfo);
 	}
 
 

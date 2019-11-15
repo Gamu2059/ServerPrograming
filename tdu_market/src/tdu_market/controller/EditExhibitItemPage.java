@@ -48,6 +48,9 @@ public class EditExhibitItemPage extends HttpServlet {
 		ItemGetInfo info =  itemInfo.getItemInfo(Integer.valueOf(request.getParameter("itemID")));
 
 		//取得した情報をviewに適用
+		//jspに情報を投げる。
+		request.setAttribute("info", info);
+		/*
 		request.setAttribute("itemID",info.getItemID());
 		request.setAttribute("itemName",info.getItemName());
 		request.setAttribute("description",info.getDescription());
@@ -56,6 +59,7 @@ public class EditExhibitItemPage extends HttpServlet {
 		request.setAttribute("TradingState",info.getTradingState());
 		request.setAttribute("ExhibitDate",info.getExhibitDate());
 		request.setAttribute("itemImageURLs",info.getItemImageURLs());
+		*/
 
 	}
 

@@ -46,6 +46,8 @@ public class ReferSyllabusPage extends HttpServlet {
 		SyllabusInfoManager syllabusInfo = new SyllabusInfoManager();
 		//getInfoにシラバス情報を格納
 		SyllabusGetInfo getInfo = syllabusInfo.getSyllabusInfo(request.getParameter("classCode"));
+		//jspに情報を投げる。
+		request.setAttribute("getInfo", getInfo);
 	}
 
 

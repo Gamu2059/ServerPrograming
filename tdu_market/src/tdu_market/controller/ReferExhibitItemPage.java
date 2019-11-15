@@ -45,8 +45,9 @@ public class ReferExhibitItemPage extends HttpServlet {
 
 		//出品情報を取得
 		ItemInfoManager itemInfo = new ItemInfoManager();
-		ItemGetInfo info =  itemInfo.getItemInfo(Integer.valueOf(request.getParameter("itemID")));
-
+		ItemGetInfo exhibitInfo =  itemInfo.getItemInfo(Integer.valueOf(request.getParameter("itemID")));
+		//jspに情報を投げる。
+		request.setAttribute("exhibitInfo", exhibitInfo);
 
 	}
 

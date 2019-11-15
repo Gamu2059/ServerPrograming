@@ -50,6 +50,8 @@ public class SearchSyllabusPage extends HttpServlet {
 				 Integer.valueOf(request.getParameter("semesterID")).longValue());
 		//シラバス検索情報を格納
 		ArrayList<SyllabusGetInfo> searchResult = syllabusInfo.searchSyllabus(searchInfo) ;
+		//jspに情報を投げる。
+		request.setAttribute("searchResult", searchResult);
 
 	}
 }

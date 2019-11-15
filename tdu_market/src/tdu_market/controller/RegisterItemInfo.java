@@ -36,7 +36,7 @@ public class RegisterItemInfo extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+
 		//ログイン状態の検証
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			return;

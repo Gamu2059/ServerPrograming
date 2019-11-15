@@ -56,8 +56,8 @@ public class ReferItemListPage extends HttpServlet {
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		//検索結果をリストへ保持
 		ArrayList<ItemGetInfo> itemList = itemInfo.searchItem(searchInfo) ;
-		//リストをviewへ戻す処理...？
-		// ~~~~~~
+		//jspに情報を投げる。
+		request.setAttribute("itemList", itemList);
 		
 	}
 

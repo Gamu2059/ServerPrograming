@@ -50,7 +50,8 @@ public class ReferItemPage extends HttpServlet {
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		//出品商品情報をリストへ保持
 		ArrayList<ItemGetInfo> itemList = itemInfo.getExhibitItem(mailAddress) ;
-	
+		//jspに情報を投げる。
+		request.setAttribute("itemLIst", itemList);
 	}
 
 

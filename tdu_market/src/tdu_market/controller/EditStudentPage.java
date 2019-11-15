@@ -44,14 +44,20 @@ public class EditStudentPage extends HttpServlet {
 		}
 		//セッションからメールアドレスを取得
 		String mailAddress = ControllerUtil.getMailAddress(request, response);
+		
 		//DBから学生情報を取得する
 		StudentGetInfo studentInfo = student.getStudentInfo(mailAddress);
+		//jspに情報を投げる。
+		request.setAttribute("studentInfo", studentInfo);
+		
+		/*
 		//取得した情報をviewに適用
 		request.setAttribute("mailaddress",studentInfo.getMailAddress());
 		request.setAttribute("displayName",studentInfo.getDisplayName());
 		request.setAttribute("departmentID",studentInfo.getDepartmentID());
 		request.setAttribute("selfIntroduction",studentInfo.getSelfIntroduction());
 		request.setAttribute("iconImageURL",studentInfo.getIconImageURL());
+		*/
 
 	}
 }
