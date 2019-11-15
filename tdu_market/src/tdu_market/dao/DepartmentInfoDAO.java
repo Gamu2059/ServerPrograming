@@ -11,7 +11,7 @@ import tdu_market.entity_bean.DepartmentInfo;
 /** 学位、学部、学科などをまとめて取り扱うDAO */
 public final class DepartmentInfoDAO extends DAOBase {
 
-	public ArrayList<DepartmentInfo> getDepartmentInfoWithDegree(long degreeID) {
+	public ArrayList<DepartmentInfo> getDepartmentInfoWithDegree(long degreeID, boolean isIncludeNormalSubject) {
 
 		Connection connection = getConnection();
 		if (connection == null) {
@@ -23,10 +23,17 @@ public final class DepartmentInfoDAO extends DAOBase {
 
 		try {
 
-			String sql =
-					"select * " +
-					"from \"DegreeInfo\" as d, \"FacultyInfo\" as f, \"SubjectInfo\" as s " +
-					"where d.\"degreeID\" = f.\"degreeID\" and f.\"facultyID\" = s.\"facultyID\" and d.\"degreeID\" = ?";
+			String sql;
+			if (isIncludeNormalSubject) {
+				sql = "select * " +
+						"from \"DegreeInfo\" as d, \"FacultyInfo\" as f, \"SubjectInfo\" as s " +
+						"where d.\"degreeID\" = f.\"degreeID\" and f.\"facultyID\" = s.\"facultyID\" and d.\"degreeID\" = ?";
+			} else {
+				sql = "select * " +
+						"from \"DegreeInfo\" as d, \"FacultyInfo\" as f, \"SubjectInfo\" as s " +
+						"where d.\"degreeID\" = f.\"degreeID\" and f.\"facultyID\" = s.\"facultyID\" and f.\"facultySymbol\" <> ' ' and d.\"degreeID\" = ?";
+			}
+
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setLong(1, degreeID);
 
@@ -59,7 +66,7 @@ public final class DepartmentInfoDAO extends DAOBase {
 		return list;
 	}
 
-	public ArrayList<DepartmentInfo> getDepartmentInfoWithFaculty(long facultyID) {
+	public ArrayList<DepartmentInfo> getDepartmentInfoWithFaculty(long facultyID, boolean isIncludeNormalSubject) {
 
 		Connection connection = getConnection();
 		if (connection == null) {
@@ -71,10 +78,17 @@ public final class DepartmentInfoDAO extends DAOBase {
 
 		try {
 
-			String sql =
-					"select * " +
-					"from \"DegreeInfo\" as d, \"FacultyInfo\" as f, \"SubjectInfo\" as s " +
-					"where d.\"degreeID\" = f.\"degreeID\" and f.\"facultyID\" = s.\"facultyID\" and f.\"facultyID\" = ?";
+			String sql;
+			if (isIncludeNormalSubject) {
+				sql = "select * " +
+						"from \"DegreeInfo\" as d, \"FacultyInfo\" as f, \"SubjectInfo\" as s " +
+						"where d.\"degreeID\" = f.\"degreeID\" and f.\"facultyID\" = s.\"facultyID\" and f.\"facultyID\" = ?";
+			} else {
+				sql = "select * " +
+						"from \"DegreeInfo\" as d, \"FacultyInfo\" as f, \"SubjectInfo\" as s " +
+						"where d.\"degreeID\" = f.\"degreeID\" and f.\"facultyID\" = s.\"facultyID\" and f.\"facultySymbol\" <> ' ' and f.\"facultyID\" = ?";
+			}
+
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setLong(1, facultyID);
 
@@ -107,7 +121,7 @@ public final class DepartmentInfoDAO extends DAOBase {
 		return list;
 	}
 
-	public ArrayList<DepartmentInfo> getDepartmentInfoWithSubject(long subjectID) {
+	public ArrayList<DepartmentInfo> getDepartmentInfoWithSubject(long subjectID, boolean isIncludeNormalSubject) {
 
 		Connection connection = getConnection();
 		if (connection == null) {
@@ -119,10 +133,17 @@ public final class DepartmentInfoDAO extends DAOBase {
 
 		try {
 
-			String sql =
-					"select * " +
-					"from \"DegreeInfo\" as d, \"FacultyInfo\" as f, \"SubjectInfo\" as s " +
-					"where d.\"degreeID\" = f.\"degreeID\" and f.\"facultyID\" = s.\"facultyID\" and s.\"subjectID\" = ?";
+			String sql;
+			if (isIncludeNormalSubject) {
+				sql = "select * " +
+						"from \"DegreeInfo\" as d, \"FacultyInfo\" as f, \"SubjectInfo\" as s " +
+						"where d.\"degreeID\" = f.\"degreeID\" and f.\"facultyID\" = s.\"facultyID\" and s.\"subjectID\" = ?";
+			} else {
+				sql = "select * " +
+						"from \"DegreeInfo\" as d, \"FacultyInfo\" as f, \"SubjectInfo\" as s " +
+						"where d.\"degreeID\" = f.\"degreeID\" and f.\"facultyID\" = s.\"facultyID\" and f.\"facultySymbol\" <> ' ' and s.\"subjectID\" = ?";
+			}
+
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setLong(1, subjectID);
 
@@ -155,7 +176,7 @@ public final class DepartmentInfoDAO extends DAOBase {
 		return list;
 	}
 
-	public ArrayList<DepartmentInfo> getAllDepartmentInfo() {
+	public ArrayList<DepartmentInfo> getAllDepartmentInfo(boolean isIncludeNormalSubject) {
 
 		Connection connection = getConnection();
 		if (connection == null) {
@@ -167,10 +188,17 @@ public final class DepartmentInfoDAO extends DAOBase {
 
 		try {
 
-			String sql =
-					"select * " +
-					"from \"DegreeInfo\" as d, \"FacultyInfo\" as f, \"SubjectInfo\" as s " +
-					"where d.\"degreeID\" = f.\"degreeID\" and f.\"facultyID\" = s.\"facultyID\"";
+			String sql;
+			if (isIncludeNormalSubject) {
+				sql = "select * " +
+						"from \"DegreeInfo\" as d, \"FacultyInfo\" as f, \"SubjectInfo\" as s " +
+						"where d.\"degreeID\" = f.\"degreeID\" and f.\"facultyID\" = s.\"facultyID\"";
+			} else {
+				sql = "select * " +
+						"from \"DegreeInfo\" as d, \"FacultyInfo\" as f, \"SubjectInfo\" as s " +
+						"where d.\"degreeID\" = f.\"degreeID\" and f.\"facultyID\" = s.\"facultyID\" and f.\"facultySymbol\" <> ' '";
+			}
+
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 
 			resultSet = pstmt.executeQuery();
@@ -205,17 +233,20 @@ public final class DepartmentInfoDAO extends DAOBase {
 	public static void main(String[] args) {
 
 		DepartmentInfoDAO dao = new DepartmentInfoDAO();
-		System.out.println("ALL");
-		showInfo(dao.getAllDepartmentInfo());
+		System.out.println("ALL not include normal");
+		showInfo(dao.getAllDepartmentInfo(false));
+
+		System.out.println("ALL include normal");
+		showInfo(dao.getAllDepartmentInfo(true));
 
 		System.out.println("DEGREE");
-		showInfo(dao.getDepartmentInfoWithDegree(1));
+		showInfo(dao.getDepartmentInfoWithDegree(1, false));
 
 		System.out.println("FACULTY");
-		showInfo(dao.getDepartmentInfoWithFaculty(1));
+		showInfo(dao.getDepartmentInfoWithFaculty(1, false));
 
 		System.out.println("SUBJECT");
-		showInfo(dao.getDepartmentInfoWithSubject(1));
+		showInfo(dao.getDepartmentInfoWithSubject(1, false));
 	}
 
 	private static void showInfo(ArrayList<DepartmentInfo> list) {
@@ -225,7 +256,7 @@ public final class DepartmentInfoDAO extends DAOBase {
 			return;
 		}
 
-		for(DepartmentInfo i : list) {
+		for (DepartmentInfo i : list) {
 			System.out.println(i);
 		}
 	}
