@@ -1,12 +1,21 @@
 package tdu_market.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import tdu_market.dto.ReturnInfo;
+import tdu_market.dto.SyllabusGetInfo;
+import tdu_market.dto.SyllabusSearchInfo;
+import tdu_market.entity_manager.StudentInfoManager;
+import tdu_market.entity_manager.SyllabusInfoManager;
 
 /**
  * Servlet implementation class SearchSyllabusPage
@@ -29,7 +38,21 @@ public class SearchSyllabusPage extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("SearchSyllabusPage is non implementation!");
+
+		HttpSession session = request.getSession();
+		String mailAddress = (String)session.getAttribute("mailaddress");
+		StudentInfoManager student = new StudentInfoManager();
+		ReturnInfo loginResult = student.existMailAddress(mailAddress);
+		if(!loginResult.isSuccess()) {
+			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+			rd.forward(request, response);		
+		}
+
+		SyllabusInfoManager syllabusInfo = new SyllabusInfoManager();
+		SyllabusSearchInfo searchInfo = new SyllabusSearchInfo(request.getParameter("classCode"), Integer.valueOf(request.getParameter("departmentID")).longValue(), request.getParameter("classNameKeyword"),request.getParameter("seacherNameKeyword"),
+				 Integer.valueOf(request.getParameter("semesterID")).longValue());
+		//シラバス検索情報を格納
+		ArrayList<SyllabusGetInfo> searchResult = syllabusInfo.searchSyllabus(searchInfo) ;
+
 	}
-
-
 }

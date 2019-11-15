@@ -20,13 +20,13 @@ import tdu_market.entity_manager.StudentInfoManager;
 public class SearchItemPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SearchItemPage() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public SearchItemPage() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -34,7 +34,7 @@ public class SearchItemPage extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("SearchItemPage is non implementation!");
-		
+
 		HttpSession session = request.getSession();
 		String mailAddress = (String)session.getAttribute("mailaddress");
 		StudentInfoManager student = new StudentInfoManager();
@@ -44,5 +44,4 @@ public class SearchItemPage extends HttpServlet {
 			rd.forward(request, response);		
 		}
 	}
-
 }
