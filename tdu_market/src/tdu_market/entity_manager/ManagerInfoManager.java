@@ -73,7 +73,7 @@ public final class ManagerInfoManager {
 				return new ReturnInfo("アカウントが存在しません。");
 			}
 
-			boolean isRegistered = managerInfo.getRegisterationState() == Def.REGISTERED;
+			boolean isRegistered = managerInfo.getRegisterState() == Def.REGISTERED;
 
 			return new ReturnInfo(isRegistered ? "" : "アカウントが本登録されていません。", isRegistered);
 		} catch (Exception e) {

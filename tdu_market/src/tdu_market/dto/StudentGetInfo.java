@@ -8,16 +8,16 @@ public class StudentGetInfo {
 	private final String displayName;
 	private final long departmentID;
 	private final String selfIntroduction;
-	private final String iconImageURL;
+	private final String iconImageBinary;
 
 	public StudentGetInfo(String mailAddress, String displayName, long departmentID, String selfIntroduction,
-			String iconImageURL) {
+			String iconImageBinary) {
 		super();
 		this.mailAddress = mailAddress;
 		this.displayName = displayName;
 		this.departmentID = departmentID;
 		this.selfIntroduction = selfIntroduction;
-		this.iconImageURL = iconImageURL;
+		this.iconImageBinary = iconImageBinary;
 	}
 
 	public String getMailAddress() {
@@ -36,8 +36,8 @@ public class StudentGetInfo {
 		return selfIntroduction;
 	}
 
-	public String getIconImageURL() {
-		return iconImageURL;
+	public String getIconImageBinary() {
+		return iconImageBinary;
 	}
 
 	public static StudentGetInfo create(StudentInfo studentInfo) {
@@ -48,9 +48,9 @@ public class StudentGetInfo {
 
 		String addr = studentInfo.getMailAddress();
 		String disp = studentInfo.getDisplayName();
-		long depID = studentInfo.getDepartmentID();
+		long subID = studentInfo.getSubjectID();
 		String intro = studentInfo.getSelfIntroduction();
-		String icon = studentInfo.getIconImageURL();
-		return new StudentGetInfo(addr, disp, depID, intro, icon);
+		String icon = studentInfo.getIconImageBinary();
+		return new StudentGetInfo(addr, disp, subID, intro, icon);
 	}
 }

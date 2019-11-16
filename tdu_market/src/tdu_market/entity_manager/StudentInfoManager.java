@@ -111,10 +111,9 @@ public final class StudentInfoManager {
 
 			String studnetNumber = AccountUtil.getStudentNumber(mailAddress);
 			String password = PasswordUtil.createNonHashedPassword();
-			String hashedPassword = AccountUtil.getHashedPassword(password, mailAddress);
 
 			StudentInfoDAO studentInfoDAO = new StudentInfoDAO();
-			studentInfoDAO.createStudentInfo(new StudentCreateInfo(mailAddress, hashedPassword, studnetNumber));
+			studentInfoDAO.createStudentInfo(new StudentCreateInfo(mailAddress, password, studnetNumber));
 
 			return new ReturnInfo(password, true);
 		} catch (Exception e) {

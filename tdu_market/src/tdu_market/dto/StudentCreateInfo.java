@@ -3,13 +3,13 @@ package tdu_market.dto;
 public final class StudentCreateInfo {
 
 	private final String mailAddress;
-	private final String hashedPassword;
+	private final String nonHashedPassword;
 	private final String studentNumber;
 
-	public StudentCreateInfo(String mailAddress, String hashedPassword, String studentNumber) {
+	public StudentCreateInfo(String mailAddress, String nonHashedPassword, String studentNumber) {
 		super();
 		this.mailAddress = mailAddress;
-		this.hashedPassword = hashedPassword;
+		this.nonHashedPassword = nonHashedPassword;
 		this.studentNumber = studentNumber;
 	}
 
@@ -17,8 +17,8 @@ public final class StudentCreateInfo {
 		return mailAddress;
 	}
 
-	public String getHashedPassword() {
-		return hashedPassword;
+	public String getNonHashedPassword() {
+		return nonHashedPassword;
 	}
 
 	public String getStudentNumber() {
