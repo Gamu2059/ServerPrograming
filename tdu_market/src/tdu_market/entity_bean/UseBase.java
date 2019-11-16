@@ -4,13 +4,21 @@ import java.util.Date;
 
 public abstract class UseBase {
 
-	private String mailAddress;
-	private String hashedPassword;
-	private String displayName;
-	private String iconImageURL;
-	private int registerationState;
-	private Date createDate;
-	private Date lastLoginDate;
+	protected static final String MAIL_ADDRESS = "mailAddress";
+	protected static final String HASHED_PASSWORD = "hashedPassword";
+	protected static final String DISPLAY_NAME = "displayName";
+	protected static final String ICON_IMAGE_BINARY = "iconImageBinary";
+	protected static final String REGISTER_STATE = "registerState";
+	protected static final String CREATED_DATE = "createdDate";
+	protected static final String LAST_LOGIN_DATE = "lastLoginDate";
+
+	protected String mailAddress;
+	protected String hashedPassword;
+	protected String displayName;
+	protected String iconImageBinary;
+	protected int registerState;
+	protected Date createdDate;
+	protected Date lastLoginDate;
 
 	public UseBase() {
 		super();
@@ -40,28 +48,28 @@ public abstract class UseBase {
 		this.displayName = displayName;
 	}
 
-	public String getIconImageURL() {
-		return iconImageURL;
+	public String getIconImageBinary() {
+		return iconImageBinary;
 	}
 
-	public void setIconImageURL(String iconImageURL) {
-		this.iconImageURL = iconImageURL;
+	public void setIconImageBinary(String iconImageBinary) {
+		this.iconImageBinary = iconImageBinary;
 	}
 
-	public int getRegisterationState() {
-		return registerationState;
+	public int getRegisterState() {
+		return registerState;
 	}
 
-	public void setRegisterationState(int registerationState) {
-		this.registerationState = registerationState;
+	public Date getCreatedDate() {
+		return createdDate;
 	}
 
-	public Date getCreateDate() {
-		return createDate;
+	public void setRegisterState(int registerState) {
+		this.registerState = registerState;
 	}
 
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	public Date getLastLoginDate() {
