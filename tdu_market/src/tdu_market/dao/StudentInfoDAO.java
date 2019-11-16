@@ -118,10 +118,9 @@ public final class StudentInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "update \"StudentInfo\" " +
-					"set \"hashedPassword\" = ?, \"displayName\" = ?, \"subjectID\" = ?, \"selfIntroduction\" = ?, \"iconImageBinary\" = ? "
-					+
-					"where \"mailAddress\" = ?";
+			String sql = "update \"StudentInfo\" "
+					+ "set \"hashedPassword\" = ?, \"displayName\" = ?, \"subjectID\" = ?, \"selfIntroduction\" = ?, \"iconImageBinary\" = ?, \"registerState\" = 2 "
+					+ "where \"mailAddress\" = ?";
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 
 			String mailAddress = studentUpdateInfo.getMailAddress();
@@ -392,7 +391,8 @@ public final class StudentInfoDAO extends DAOBase {
 		searchInfo = new StudentSearchInfo("17", 11, "し");
 		showInfo(dao.searchStudentInfo(searchInfo));
 
-		StudentCreateInfo studentCreateInfo = new StudentCreateInfo("18fi005@ms.dendai.ac.jp", "agiab6BYhr4", "18fi005");
+		StudentCreateInfo studentCreateInfo = new StudentCreateInfo("18fi005@ms.dendai.ac.jp", "agiab6BYhr4",
+				"18fi005");
 		dao.createStudentInfo(studentCreateInfo);
 		showInfo(dao.getAllStudentInfo());
 
