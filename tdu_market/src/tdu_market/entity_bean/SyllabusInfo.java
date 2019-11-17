@@ -1,21 +1,35 @@
 package tdu_market.entity_bean;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public final class SyllabusInfo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	private static final String CLASS_CODE = "classCode";
+	private static final String CLASS_NAME = "className";
+	private static final String SUBJECT_ID = "subjectID";
+	private static final String TEACHER_ID = "teacherID";
+	private static final String DATES = "dates";
+	private static final String UNIT_NUM = "unitNum";
+	private static final String CLASS_ROOM = "classRoom";
+	private static final String OVERVIEW = "overview";
+	private static final String TARGET = "target";
+	private static final String REQUIREMENTS = "requirements";
+	private static final String EVALUATIONMETHOD = "evaluationMethod";
+
 	private String classCode;
 	private String className;
-	private long departmentID;
+	private long subjectID;
 	private long teacherID;
 	private String dates;
 	private int unitNum;
 	private String classRoom;
 	private String overview;
 	private String target;
-	private String requirments;
+	private String requirements;
 	private String evaluationMethod;
 
 	public SyllabusInfo() {
@@ -38,12 +52,12 @@ public final class SyllabusInfo implements Serializable {
 		this.className = className;
 	}
 
-	public long getDepartmentID() {
-		return departmentID;
+	public long getSubjectID() {
+		return subjectID;
 	}
 
-	public void setDepartmentID(long departmentID) {
-		this.departmentID = departmentID;
+	public void setSubjectID(long subjectID) {
+		this.subjectID = subjectID;
 	}
 
 	public long getTeacherID() {
@@ -94,12 +108,12 @@ public final class SyllabusInfo implements Serializable {
 		this.target = target;
 	}
 
-	public String getRequirments() {
-		return requirments;
+	public String getRequirements() {
+		return requirements;
 	}
 
-	public void setRequirments(String requirments) {
-		this.requirments = requirments;
+	public void setRequirements(String requirements) {
+		this.requirements = requirements;
 	}
 
 	public String getEvaluationMethod() {
@@ -108,5 +122,36 @@ public final class SyllabusInfo implements Serializable {
 
 	public void setEvaluationMethod(String evaluationMethod) {
 		this.evaluationMethod = evaluationMethod;
+	}
+
+	@Override
+	public String toString() {
+		return "SyllabusInfo [classCode=" + classCode + ", className=" + className + ", subjectID=" + subjectID
+				+ ", teacherID=" + teacherID + ", dates=" + dates + ", unitNum=" + unitNum + ", classRoom=" + classRoom
+				+ ", overview=" + overview + ", target=" + target + ", requirements=" + requirements
+				+ ", evaluationMethod=" + evaluationMethod + "]";
+	}
+
+	public static SyllabusInfo create(ResultSet resultSet) throws SQLException {
+
+		if (resultSet == null) {
+			return null;
+		}
+
+		SyllabusInfo syllabusInfo = new SyllabusInfo();
+
+		syllabusInfo.setClassCode(resultSet.getString(CLASS_CODE));
+		syllabusInfo.setClassName(resultSet.getString(CLASS_NAME));
+		syllabusInfo.setTeacherID(resultSet.getLong(TEACHER_ID));
+		syllabusInfo.setSubjectID(resultSet.getLong(SUBJECT_ID));
+		syllabusInfo.setDates(resultSet.getString(DATES));
+		syllabusInfo.setUnitNum(resultSet.getInt(UNIT_NUM));
+		syllabusInfo.setClassRoom(resultSet.getString(CLASS_ROOM));
+		syllabusInfo.setOverview(resultSet.getString(OVERVIEW));
+		syllabusInfo.setTarget(resultSet.getString(TARGET));
+		syllabusInfo.setRequirements(resultSet.getString(REQUIREMENTS));
+		syllabusInfo.setEvaluationMethod(resultSet.getString(EVALUATIONMETHOD));
+
+		return syllabusInfo;
 	}
 }

@@ -1,14 +1,25 @@
 package tdu_market.entity_bean;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 
 public final class ItemInfo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	private static final String ITEM_ID = "itemID";
+	private static final String EXHIBITOR_MAIL_ADDRESS = "exhibitorMailAddress";
+	private static final String ITEM_NAME = "itemName";
+	private static final String DESCRIPTION = "description";
+	private static final String CONDITION = "condition";
+	private static final String PRICE = "price";
+	private static final String TRADING_STATE = "tradingState";
+	private static final String EXHIBIT_DATE = "exhibitDate";
+
 	private long itemID;
-	private String exhibitorStudentNumber;
+	private String exhibitorMailAddress;
 	private String itemName;
 	private String description;
 	private int condition;
@@ -29,11 +40,15 @@ public final class ItemInfo implements Serializable {
 	}
 
 	public String getExhibitorStudentNumber() {
-		return exhibitorStudentNumber;
+		return exhibitorMailAddress;
 	}
 
-	public void setExhibitorStudentNumber(String exhibitorStudentNumber) {
-		this.exhibitorStudentNumber = exhibitorStudentNumber;
+	public String getExhibitorMailAddress() {
+		return exhibitorMailAddress;
+	}
+
+	public void setExhibitorMailAddress(String exhibitorMailAddress) {
+		this.exhibitorMailAddress = exhibitorMailAddress;
 	}
 
 	public String getItemName() {
@@ -82,5 +97,32 @@ public final class ItemInfo implements Serializable {
 
 	public void setExhibitDate(Date exhibitDate) {
 		this.exhibitDate = exhibitDate;
+	}
+
+	@Override
+	public String toString() {
+		return "ItemInfo [itemID=" + itemID + ", exhibitorMailAddress=" + exhibitorMailAddress + ", itemName="
+				+ itemName + ", description=" + description + ", condition=" + condition + ", price=" + price
+				+ ", tradingState=" + tradingState + ", exhibitDate=" + exhibitDate + "]";
+	}
+
+	public static ItemInfo create(ResultSet resultSet) throws SQLException {
+
+		if (resultSet == null) {
+			return null;
+		}
+
+		ItemInfo itemInfo = new ItemInfo();
+
+		itemInfo.setItemID(resultSet.getLong(ITEM_ID));
+		itemInfo.setExhibitorMailAddress(resultSet.getString(EXHIBITOR_MAIL_ADDRESS));
+		itemInfo.setItemName(resultSet.getString(ITEM_NAME));
+		itemInfo.setDescription(resultSet.getString(DESCRIPTION));
+		itemInfo.setCondition(resultSet.getInt(CONDITION));
+		itemInfo.setPrice(resultSet.getInt(PRICE));
+		itemInfo.setTradingState(resultSet.getInt(TRADING_STATE));
+		itemInfo.setExhibitDate(resultSet.getDate(EXHIBIT_DATE));
+
+		return itemInfo;
 	}
 }

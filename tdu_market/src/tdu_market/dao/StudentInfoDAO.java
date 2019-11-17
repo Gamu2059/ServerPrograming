@@ -283,17 +283,17 @@ public final class StudentInfoDAO extends DAOBase {
 			int setCount = 1;
 
 			if (!isEmptySNK) {
-				pstmt.setString(setCount, String.format("%%%s%%", studentSearchInfo.getStudentNumberKeyword()));
+				pstmt.setString(setCount, String.format("%%%s%%", studentNumberKeyword));
 				setCount++;
 			}
 
 			if (!isEmptyDNK) {
-				pstmt.setString(setCount, String.format("%%%s%%", studentSearchInfo.getDisplayNameKeyword()));
+				pstmt.setString(setCount, String.format("%%%s%%", displayNameKeyword));
 				setCount++;
 			}
 
 			if (!isEmptySujectID) {
-				pstmt.setLong(setCount, studentSearchInfo.getSubjectID());
+				pstmt.setLong(setCount, subjectID);
 				setCount++;
 			}
 
