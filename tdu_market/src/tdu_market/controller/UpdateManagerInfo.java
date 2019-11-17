@@ -2,11 +2,16 @@ package tdu_market.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import tdu_market.dto.ManagerUpdateInfo;
+import tdu_market.entity_manager.ManagerInfoManager;
+import tdu_market.util.ControllerUtil;
 
 /**
  * Servlet implementation class UpdateManagerInfo
@@ -29,6 +34,19 @@ public class UpdateManagerInfo extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("UpdateManagerInfo is non implementation!");
+		ManagerInfoManager manager = new ManagerInfoManager();
+		if (!ControllerUtil.verifyLogin(request, response)) {
+			return;
+		}
+		
+		//必要項目の入力チェック（jsp側）
+		
+		//アカウントの情報を変更
+		ManagerUpdateInfo updateInfo = new ManagerUpdateInfo( request.getParameter("nonHashedPassword"), request.getParameter("displayName"), Integer.valueOf(request.getParameter("departmentID")).longValue(),  request.getParameter("iconImageURL"));
+		manager.updateManagerInfo(updateInfo);
+		RequestDispatcher rd = request.getRequestDispatcher("edit_profile_admin.jsp");
+		rd.forward(request, response);		
+
 	}
 
 }

@@ -47,7 +47,7 @@ public class UpdateStudentPage extends HttpServlet {
 		//必要項目の入力チェック（jsp側）
 		
 		//アカウントの情報を変更
-		StudentUpdateInfo updateInfo = new StudentUpdateInfo(request.getParameter("mailaddress"), request.getParameter("nonHashedPassword"), request.getParameter("displayName"), Integer.valueOf(request.getParameter("departmentValue")).longValue(), request.getParameter("selfIntroduction"), request.getParameter("iconImageURL"));
+		StudentUpdateInfo updateInfo = new StudentUpdateInfo(request.getParameter("mailaddress"), request.getParameter("nonHashedPassword"), request.getParameter("displayName"), Integer.valueOf(request.getParameter("departmentID")).longValue(), request.getParameter("selfIntroduction"), request.getParameter("iconImageURL"));
 		student.updateStudentInfo(updateInfo);
 		RequestDispatcher rd = request.getRequestDispatcher("edit_profile_student.jsp");
 		rd.forward(request, response);		

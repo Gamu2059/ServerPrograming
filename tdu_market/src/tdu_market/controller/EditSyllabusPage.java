@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import tdu_market.util.ControllerUtil;
+
 /**
  * Servlet implementation class EditSyllabusPage
  */
@@ -29,6 +31,9 @@ public class EditSyllabusPage extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("EditSyllabusPage is non implementation!");
+		if (!ControllerUtil.verifyLogin(request, response)) {
+			return;
+		}
 	}
 
 }
