@@ -27,7 +27,8 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-thead, tbody {
+thead,
+tbody {
   display: block;
 }
 
@@ -72,9 +73,10 @@ ul.top_ul li {
 .right_panel {
   height: 100vh;
   width: 100%;
+  filter: drop-shadow(0 0 5px black);
 }
 /* 右パネル ページタイトル */
-.right_panel #page_title{
+.right_panel #page_title {
   height: 5vh;
   padding-left: 10px;
   background-color: #ffa251;
@@ -104,7 +106,7 @@ button#red_button:hover {
   background: rgb(255, 0, 0);
 }
 /* 共通 オレンジ色 */
-button#orange_button{
+button#orange_button {
   margin: 0px;
   padding: 0px;
   display: flex;
@@ -120,11 +122,11 @@ button#orange_button{
   width: 120px;
   border-style: none;
 }
-button#orange_button:hover{
+button#orange_button:hover {
   background: #ff7700;
 }
 /* 共通 ブルー色 */
-button#blue_button{
+button#blue_button {
   margin: 0px;
   padding: 0px;
   display: flex;
@@ -140,11 +142,11 @@ button#blue_button{
   width: 120px;
   border-style: none;
 }
-button#blue_button:hover{
+button#blue_button:hover {
   background: rgb(0, 132, 255);
 }
 /* 共通 ホワイト色 */
-button#white_button{
+button#white_button {
   margin: 0px;
   padding: 5px 10px;
   display: flex;
@@ -159,7 +161,7 @@ button#white_button{
   min-height: 30px;
   min-width: 100px;
 }
-button#white_button:hover{
+button#white_button:hover {
   background: #efefef;
 }
 
@@ -168,7 +170,7 @@ button.menu {
   display: block;
   border-style: none;
   width: 100%;
-  padding: 10px 0px 10px 100px;
+  padding: 10px 0px 10px 50px;
   margin: 0px;
   font-size: 17px;
   text-align: left;
@@ -243,7 +245,7 @@ button.search_button img {
   width: 50px;
   object-fit: contain;
 }
-button.search_button:hover{
+button.search_button:hover {
   background-color: #ff7700;
 }
 
@@ -268,51 +270,74 @@ button.exhibit_list_button:hover {
   background-color: #ff7700;
 }
 
+/* アイコン画像編集ボタン */
+label#edit_img_button > input {
+  display: none;
+}
+label#edit_img_button {
+  margin: 0px;
+  padding: 0px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0);
+}
+label#edit_img_button h3 {
+  display: block;
+  font-weight: bold;
+}
+label#edit_img_button:hover {
+  color: #000000;
+}
+
 /* アイテムの位置を整えるパネル */
 /* コンテナ操作 */
 /* コンテナサイズ50vw */
-.content_size_50vw{
+.content_size_50vw {
   margin-left: auto;
   margin-right: auto;
   width: 50vw;
 }
 /* マージン操作 */
 /* 左右余白200px */
-.content_margin_200px{
+.content_margin_200px {
   margin-left: 200px;
   margin-right: 200px;
 }
+/* 左右余白300px */
+.content_margin_300px {
+  margin-left: 300px;
+  margin-right: 300px;
+}
 /* 左右余白400px */
-.content_margin_400px{
+.content_margin_400px {
   margin-left: 400px;
   margin-right: 400px;
 }
 
 /* グリッド操作 */
-.item_for_grid_r1c1{
+.item_for_grid_r1c1 {
   width: 100%;
   margin: 0px auto;
   display: grid;
   grid-template-columns: 1fr;
 }
-.item_for_grid_r1c1 h3[name="perpose"]{
+.item_for_grid_r1c1 h3[name="perpose"] {
   border-top: solid 1px !important;
 }
-.item_for_grid_r1c2{
+.item_for_grid_r1c2 {
   width: 100%;
   margin: 0px auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-content: center;
 }
-.item_for_grid_r1c2_c12{
+.item_for_grid_r1c2_c12 {
   width: 100%;
   margin: 0px auto;
   display: grid;
   grid-template-columns: 1fr 2fr;
   justify-content: center;
 }
-.item_for_grid_r1c4{
+.item_for_grid_r1c4 {
   width: 100%;
   margin: 0px auto;
   display: grid;
@@ -321,7 +346,7 @@ button.exhibit_list_button:hover {
 
 /* フレックス操作 */
 /* アイテム中央寄せ */
-.item_for_center{
+.item_for_center {
   margin-left: auto;
   margin-right: auto;
   display: flex;
