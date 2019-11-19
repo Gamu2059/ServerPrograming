@@ -71,6 +71,15 @@ public class DepartmentGetInfo {
 		return isFullTime;
 	}
 
+
+	@Override
+	public String toString() {
+		return "DepartmentGetInfo [degreeID=" + degreeID + ", facultyID=" + facultyID + ", subjectID=" + subjectID
+				+ ", campusID=" + campusID + ", degree=" + degree + ", facultyName=" + facultyName + ", facultySymbol="
+				+ facultySymbol + ", subjectName=" + subjectName + ", subjectSymbol=" + subjectSymbol + ", isFullTime="
+				+ isFullTime + "]";
+	}
+
 	public static DepartmentGetInfo create(DepartmentInfo departmentInfo) {
 
 		if (departmentInfo == null) {

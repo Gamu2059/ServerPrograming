@@ -27,6 +27,13 @@ public class ManagerGetInfo {
 		return iconImageBinary;
 	}
 
+
+	@Override
+	public String toString() {
+		return "ManagerGetInfo [mailAddress=" + mailAddress + ", displayName=" + displayName + ", iconImageBinary="
+				+ iconImageBinary + "]";
+	}
+
 	public static ManagerGetInfo create(ManagerInfo managerInfo) {
 
 		if (managerInfo == null) {

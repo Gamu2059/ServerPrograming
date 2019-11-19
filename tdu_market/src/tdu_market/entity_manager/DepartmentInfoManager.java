@@ -41,7 +41,7 @@ public final class DepartmentInfoManager {
 		return result;
 	}
 
-	public ArrayList<DepartmentGetInfo> getDepartmentInfoWithSubject(long subjectID, boolean isIncludeNormalSubject) {
+	public ArrayList<DepartmentGetInfo> getDepartmentInfoListWithSubject(long subjectID, boolean isIncludeNormalSubject) {
 
 		DepartmentInfoDAO departmentInfoDAO = new DepartmentInfoDAO();
 		ArrayList<DepartmentInfo> list = departmentInfoDAO.getDepartmentInfoWithSubject(subjectID, isIncludeNormalSubject);

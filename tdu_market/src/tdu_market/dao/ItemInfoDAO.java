@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import tdu_market.dto.ItemCreateInfo;
@@ -70,14 +71,14 @@ public final class ItemInfoDAO extends DAOBase {
 			String sql = "insert into \"ItemInfo\" (\"exhibitorMailAddress\", \"itemName\", \"description\", \"condition\", \"price\", \"exhibitDate\") values (?, ?, ?, ?, ?, ?)";
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 
-			Date exhibitDate = new Date(new java.util.Date().getTime());
+			Timestamp exhibitTimestamp = new Timestamp(new java.util.Date().getTime());
 
 			pstmt.setString(1, itemCreateInfo.getExhibitorMailAddress());
 			pstmt.setString(2, itemCreateInfo.getItemName());
 			pstmt.setString(3, itemCreateInfo.getDescription());
 			pstmt.setInt(4, itemCreateInfo.getCondition());
 			pstmt.setInt(5, itemCreateInfo.getPrice());
-			pstmt.setDate(6, exhibitDate);
+			pstmt.setTimestamp(6, exhibitTimestamp);
 
 			int result = pstmt.executeUpdate();
 			System.out.println("createItemInfo : " + result + "件のデータを作成");

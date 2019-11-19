@@ -1,10 +1,10 @@
 package tdu_market.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import tdu_market.dto.StudentCreateInfo;
@@ -38,12 +38,12 @@ public final class StudentInfoDAO extends DAOBase {
 			String hashedPassword = PasswordUtil.getHashedPassword(studentCreateInfo.getNonHashedPassword(),
 					mailAddress);
 			String studentNumber = studentCreateInfo.getStudentNumber();
-			Date createdDate = new Date(new java.util.Date().getTime());
+			Timestamp createdTimestamp = new Timestamp(new java.util.Date().getTime());
 
 			pstmt.setString(1, mailAddress);
 			pstmt.setString(2, hashedPassword);
 			pstmt.setString(3, studentNumber);
-			pstmt.setDate(4, createdDate);
+			pstmt.setTimestamp(4, createdTimestamp);
 
 			int result = pstmt.executeUpdate();
 			System.out.println("createStudentInfo : " + result + "件のデータを作成");
@@ -203,9 +203,9 @@ public final class StudentInfoDAO extends DAOBase {
 			String sql = "update \"StudentInfo\" set \"lastLoginDate\" = ? where \"mailAddress\" = ?";
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 
-			Date lastLoginDate = new Date(new java.util.Date().getTime());
+			Timestamp lastLoginTimestamp = new Timestamp(new java.util.Date().getTime());
 
-			pstmt.setDate(1, lastLoginDate);
+			pstmt.setTimestamp(1, lastLoginTimestamp);
 			pstmt.setString(2, mailAddress);
 
 			int result = pstmt.executeUpdate();

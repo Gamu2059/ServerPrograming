@@ -24,4 +24,9 @@ public final class ReturnInfo {
 	public boolean isSuccess() {
 		return isSuccess;
 	}
+
+	@Override
+	public String toString() {
+		return "ReturnInfo [msg=" + msg + ", isSuccess=" + isSuccess + "]";
+	}
 }
