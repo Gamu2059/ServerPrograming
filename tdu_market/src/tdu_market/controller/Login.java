@@ -47,7 +47,18 @@ public class Login extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		System.err.println("Login is non implementation!");
-		
+		/*  ' メールアドレスがメールアドレスの体をなしているかチェック
+    ' パスワードがパスワードの体をなしているかをチェック
+    ' メールアドレスから学生か運営かを判定する
+    ' 学生ならStudentInfoManagerにメールアドレスとパスワードを渡し、ログインできるかチェックする
+    '   チェックがOKなら、StudentInfoManagerのloginを呼ぶ
+    ' 運営ならManagerInfoManagerにメールアドレスとパスワードを渡し、ログインできるかチェックする
+    '   チェックがOKなら、ManagerInfoManagerのloginを呼ぶ
+    ' セッションにメールアドレスを保存する(他にいい実装があるかもしれない...)
+    ' アカウントが仮登録状態ならば、新規登録画面に遷移する
+    ' アカウントが登録済み状態ならば、トップ画面に遷移する
+
+*/
 
 		ManagerInfoManager manage = new ManagerInfoManager();
 		StudentInfoManager student = new StudentInfoManager();

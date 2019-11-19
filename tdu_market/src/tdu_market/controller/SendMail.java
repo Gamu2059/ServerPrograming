@@ -25,7 +25,7 @@ public class SendMail {
 	        // MimeMessageの取得と設定
 	        Message msg = new MimeMessage(session);
 	        // 送信者設定
-	        msg.setFrom(new InternetAddress("market@gmail.com"));
+	        msg.setFrom(new InternetAddress("DendaiMarket@gmail.com"));
 	        // 宛先設定
 	        msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mailAddress, false));
 	        // タイトル設定
@@ -39,7 +39,7 @@ public class SendMail {
 	        SMTPTransport t = (SMTPTransport) session.getTransport("smtp");
 	        try {
 	        	//グーグル側のセキュリティ設定が必要だったので注意。
-	          t.connect("smtp.gmail.com", "market", "------");
+	          t.connect("smtp.gmail.com", "DendaiMarket", "Su6pJDXR");
 	          t.sendMessage(msg, msg.getAllRecipients());
 	        } finally {
 	          t.close();

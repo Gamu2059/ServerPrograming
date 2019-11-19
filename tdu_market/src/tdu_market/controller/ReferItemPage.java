@@ -42,16 +42,15 @@ public class ReferItemPage extends HttpServlet {
 		System.err.println("ReferItemPage is non implementation!");
 		
 
-		String mailAddress = ControllerUtil.getMailAddress(request, response);
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			return;
 		}
 
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		//出品商品情報をリストへ保持
-		ArrayList<ItemGetInfo> itemList = itemInfo.getExhibitItem(mailAddress) ;
+		ItemGetInfo itemGetInfo = itemInfo.getItemInfo(Integer.valueOf(request.getParameter("itemID")).longValue()) ;
 		//jspに情報を投げる。
-		request.setAttribute("itemLIst", itemList);
+		request.setAttribute("itemInfo", itemGetInfo);
 	}
 
 
