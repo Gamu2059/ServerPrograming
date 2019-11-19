@@ -1,22 +1,176 @@
 package tdu_market.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import tdu_market.dto.ItemImageCreateInfo;
 import tdu_market.entity_bean.ItemImageInfo;
 
-public final class ItemImageInfoDAO {
+public final class ItemImageInfoDAO extends DAOBase {
 
 	public ArrayList<ItemImageInfo> getItemImageInfo(long itemID) {
-		System.err.println("getItemImageInfo is non implementation!");
-		return null;
+
+		Connection connection = getConnection();
+		if (connection == null) {
+			return null;
+		}
+
+		ArrayList<ItemImageInfo> list = null;
+		ResultSet resultSet = null;
+
+		try {
+
+			String sql = "select * from \"ItemImageInfo\" where \"itemID\" = ?";
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt.setLong(1, itemID);
+
+			resultSet = pstmt.executeQuery();
+
+			while (resultSet.next()) {
+				ItemImageInfo itemImageInfo = ItemImageInfo.create(resultSet);
+
+				if (list == null) {
+					list = new ArrayList<ItemImageInfo>();
+				}
+
+				list.add(itemImageInfo);
+			}
+		} catch (SQLException e) {
+			showSQLException(e);
+		} finally {
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				showSQLException(e);
+			}
+		}
+
+		return list;
 	}
 
-	public void createItemImageInfo(ItemImageCreateInfo imageCreateInfo) {
-		System.err.println("createItemImageInfo is non implementation!");
+	public void createItemImageInfo(ItemImageCreateInfo itemImageCreateInfo) {
+
+		if (itemImageCreateInfo == null) {
+			System.err.println("createItemImageInfo : itemImageCreateInfo is null");
+			return;
+		}
+
+		Connection connection = getConnection();
+		if (connection == null) {
+			return;
+		}
+
+		try {
+
+			String[] imageBinaries = itemImageCreateInfo.getItemImageBinaries();
+			StringBuilder builder = new StringBuilder("insert into \"ItemImageInfo\" (\"itemID\", \"imageBinary\") values");
+			for (int i = 0; i < imageBinaries.length; i++) {
+				if (i > 0) {
+					builder.append(",");
+				}
+				builder.append(" (?, ?)");
+			}
+
+			String sql = builder.toString();
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+
+			for (int i = 0; i < imageBinaries.length; i++) {
+				pstmt.setLong(i * 2 + 1, itemImageCreateInfo.getItemID());
+				pstmt.setString(i * 2 + 2, imageBinaries[i]);
+			}
+
+			int result = pstmt.executeUpdate();
+			System.out.println("createItemImageInfo : " + result + "件のデータを作成");
+		} catch (SQLException e) {
+			showSQLException(e);
+		} finally {
+			try {
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				showSQLException(e);
+			}
+		}
 	}
 
 	public void deleteItemImageInfo(long itemID) {
-		System.err.println("deleteItemImageInfo is non implementation!");
+
+		Connection connection = getConnection();
+		if (connection == null) {
+			return;
+		}
+
+		try {
+
+			String sql = "delete from \"ItemImageInfo\" where \"itemID\" = ?";
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt.setLong(1, itemID);
+
+			int result = pstmt.executeUpdate();
+			System.out.println("deleteItemImageInfo : " + result + "件のデータを削除");
+		} catch (SQLException e) {
+			showSQLException(e);
+		} finally {
+			try {
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				showSQLException(e);
+			}
+		}
+	}
+
+	public ArrayList<ItemImageInfo> getAllItemImageInfo(){
+
+		Connection connection = getConnection();
+		if (connection == null) {
+			return null;
+		}
+
+		ArrayList<ItemImageInfo> list = null;
+		ResultSet resultSet = null;
+
+		try {
+
+			String sql = "select * from \"ItemImageInfo\"";
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+
+			resultSet = pstmt.executeQuery();
+
+			while (resultSet.next()) {
+				ItemImageInfo itemImageInfo = ItemImageInfo.create(resultSet);
+
+				if (list == null) {
+					list = new ArrayList<ItemImageInfo>();
+				}
+
+				list.add(itemImageInfo);
+			}
+		} catch (SQLException e) {
+			showSQLException(e);
+		} finally {
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				showSQLException(e);
+			}
+		}
+
+		return list;
 	}
 }

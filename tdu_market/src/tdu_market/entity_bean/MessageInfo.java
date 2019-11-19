@@ -1,15 +1,23 @@
 package tdu_market.entity_bean;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 
 public final class MessageInfo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	private static final String MESSAGE_ID = "messageID";
+	private static final String ROOM_ID = "roomID";
+	private static final String POST_MAIL_ADDRESS = "postMailAddress";
+	private static final String POST_CONTENT = "postContent";
+	private static final String POST_DATE = "postDate";
+
 	private long messageID;
 	private long roomID;
-	private String postStudentNumber;
+	private String postMailAddress;
 	private String postContent;
 	private Date postDate;
 
@@ -33,12 +41,12 @@ public final class MessageInfo implements Serializable {
 		this.roomID = roomID;
 	}
 
-	public String getPostStudentNumber() {
-		return postStudentNumber;
+	public String getPostMailAddress() {
+		return postMailAddress;
 	}
 
-	public void setPostStudentNumber(String postStudentNumber) {
-		this.postStudentNumber = postStudentNumber;
+	public void setPostMailAddress(String postMailAddress) {
+		this.postMailAddress = postMailAddress;
 	}
 
 	public String getPostContent() {
@@ -55,5 +63,28 @@ public final class MessageInfo implements Serializable {
 
 	public void setPostDate(Date postDate) {
 		this.postDate = postDate;
+	}
+
+	@Override
+	public String toString() {
+		return "MessageInfo [messageID=" + messageID + ", roomID=" + roomID + ", postMailAddress=" + postMailAddress
+				+ ", postContent=" + postContent + ", postDate=" + postDate + "]";
+	}
+
+	public static MessageInfo create(ResultSet resultSet) throws SQLException {
+
+		if (resultSet == null) {
+			return null;
+		}
+
+		MessageInfo messageInfo = new MessageInfo();
+
+		messageInfo.setMessageID(resultSet.getLong(MESSAGE_ID));
+		messageInfo.setRoomID(resultSet.getLong(ROOM_ID));
+		messageInfo.setPostMailAddress(resultSet.getString(POST_MAIL_ADDRESS));
+		messageInfo.setPostContent(resultSet.getString(POST_CONTENT));
+		messageInfo.setPostDate(resultSet.getDate(POST_DATE));
+
+		return messageInfo;
 	}
 }

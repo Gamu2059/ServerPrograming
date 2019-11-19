@@ -50,6 +50,6 @@ public final class RoomMemberInfoManager {
 	public void deleteRoomMemberInfoWithStudentMailAddress(String studentMailAddress) {
 
 		RoomMemberInfoDAO roomMemberInfoDAO = new RoomMemberInfoDAO();
-		roomMemberInfoDAO.deleteRoomMemberInfoWithStudentMailAddress(studentMailAddress);
+		roomMemberInfoDAO.deleteRoomMemberInfoWithMemberMailAddress(studentMailAddress);
 	}
 }

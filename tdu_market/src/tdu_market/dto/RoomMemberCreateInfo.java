@@ -3,19 +3,19 @@ package tdu_market.dto;
 public class RoomMemberCreateInfo {
 
 	private final long roomID;
-	private final String[] studentNumbers;
+	private final String[] memberMailAddresses;
 
-	public RoomMemberCreateInfo(long roomID, String[] studentNumbers) {
+	public RoomMemberCreateInfo(long roomID, String[] memberMailAddresses) {
 		super();
 		this.roomID = roomID;
-		this.studentNumbers = studentNumbers;
+		this.memberMailAddresses = memberMailAddresses;
 	}
 
 	public long getRoomID() {
 		return roomID;
 	}
 
-	public String[] getStudentNumbers() {
-		return studentNumbers;
+	public String[] getMemberMailAddresses() {
+		return memberMailAddresses;
 	}
 }

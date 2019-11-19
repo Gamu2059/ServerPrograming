@@ -19,7 +19,7 @@ public final class ItemImageInfoManager {
 
 		String[] urls = new String[getResult.size()];
 		for (int i = 0; i < getResult.size(); i++) {
-			urls[i] = getResult.get(i).getImageURL();
+			urls[i] = getResult.get(i).getImageBinary();
 		}
 
 		return new ItemImageGetInfo(itemID, urls);
