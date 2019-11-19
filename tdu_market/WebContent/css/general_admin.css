@@ -1,0 +1,355 @@
+@charset "UTF-8";
+/* 全般 - 共通部位 */
+/* 全体のテーマを揃える様な設定を記載する */
+
+html * {
+  margin: 0;
+  background: white;
+}
+body {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}
+body * {
+  background: #efefef;
+}
+article {
+  overflow: auto;
+  height: 95vh;
+}
+ul * {
+  padding: 0px;
+  list-style: none;
+  text-align: left;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+thead, tbody {
+  display: block;
+}
+
+/* 左パネル */
+/* 左パネル全般 */
+.left_panel {
+  width: 25%;
+  height: 100vh;
+  background-color: #ffffff;
+}
+.left_panel * {
+  background-color: #ffffff;
+}
+/* 左パネル タイトルロゴ */
+.title_logo {
+  background-color: #ffffff;
+}
+.title_logo * {
+  background-color: #ffffff;
+}
+.title_logo img {
+  padding: 5px;
+  margin: 0px 0px 20px 0px;
+  width: 90%;
+  object-fit: cover;
+}
+/* 左パネル 運営操作メニュー */
+ul.top_ul li {
+  display: inline-block;
+}
+.panel_menu ul li h2 {
+  padding: 0px 0px 0px 20px;
+  margin: 0px 0px 20px 0px;
+  font-size: 16px;
+}
+.panel_menu .edit_profile {
+  margin: 300px auto 0px;
+}
+
+/* 右パネル */
+/* 右パネル 全般 */
+.right_panel {
+  height: 100vh;
+  width: 100%;
+}
+/* 右パネル ページタイトル */
+.right_panel #page_title{
+  height: 5vh;
+  padding-left: 10px;
+  background-color: #ffa251;
+  color: white;
+  line-height: 5vh;
+}
+
+/* ボタン */
+/* 共通 レッド色 */
+button#red_button {
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgb(255, 80, 80);
+  color: #ffffff;
+  border-radius: 30px;
+  font-size: 1em;
+  font-weight: bold;
+  text-align: center;
+  height: 30px;
+  width: 100px;
+  border-style: none;
+}
+button#red_button:hover {
+  background: rgb(255, 0, 0);
+}
+/* 共通 オレンジ色 */
+button#orange_button{
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgb(255, 162, 81);
+  color: #ffffff;
+  border-radius: 30px;
+  font-size: 1em;
+  font-weight: bold;
+  text-align: center;
+  height: 40px;
+  width: 120px;
+  border-style: none;
+}
+button#orange_button:hover{
+  background: #ff7700;
+}
+/* 共通 ブルー色 */
+button#blue_button{
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgb(81, 171, 255);
+  color: #ffffff;
+  border-radius: 30px;
+  font-size: 1em;
+  font-weight: bold;
+  text-align: center;
+  height: 40px;
+  width: 120px;
+  border-style: none;
+}
+button#blue_button:hover{
+  background: rgb(0, 132, 255);
+}
+/* 共通 ホワイト色 */
+button#white_button{
+  margin: 0px;
+  padding: 5px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+  color: #000000;
+  border-radius: 30px;
+  font-size: 1em;
+  font-weight: bold;
+  text-align: center;
+  min-height: 30px;
+  min-width: 100px;
+}
+button#white_button:hover{
+  background: #efefef;
+}
+
+/* サイドパネル メニューボタン */
+button.menu {
+  display: block;
+  border-style: none;
+  width: 100%;
+  padding: 10px 0px 10px 100px;
+  margin: 0px;
+  font-size: 17px;
+  text-align: left;
+  text-decoration: none;
+}
+button.menu:hover {
+  background: #f4f9ff;
+}
+
+/* サイドパネル 編集ボタン */
+button.edit_profile {
+  background: #51abff;
+  display: block;
+  border-style: none;
+  padding: 10px 40px;
+  margin: auto;
+  color: white;
+  font-size: 15px;
+  text-decoration: none;
+  border-radius: 8px;
+}
+button.edit_profile:hover {
+  background: #48a8ff;
+}
+
+/* トップ画面 ボタン */
+button.top_menu {
+  background: white;
+  display: block;
+  border: solid 1px;
+  border-radius: 30px;
+  padding: 50px 10px;
+  margin: 30px 50px;
+  text-align: left;
+  height: 300px;
+  width: 300px;
+}
+button.top_menu:hover {
+  background: #f4f9ff;
+}
+button.top_menu h2 {
+  background-color: rgba(0, 0, 0, 0);
+  padding: 0px 0px 25px 0px;
+  font-size: 20px;
+}
+button.top_menu h3 {
+  background-color: rgba(0, 0, 0, 0);
+  font-weight: lighter;
+  font-size: 15px;
+}
+
+/* 絞り込みボタン */
+button.search_button {
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  background: rgb(255, 162, 81);
+  color: #ffffff;
+  border-radius: 30px;
+  font-size: 1em;
+  font-weight: bold;
+  text-align: center;
+  height: 40px;
+  width: 180px;
+  border-style: none;
+}
+button.search_button img {
+  margin: 0px 0px 0px 20px;
+  background-color: rgba(0, 0, 0, 0);
+  width: 50px;
+  object-fit: contain;
+}
+button.search_button:hover{
+  background-color: #ff7700;
+}
+
+/* 出品一覧ボタン */
+button.exhibit_list_button {
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgb(255, 162, 81);
+  color: #ffffff;
+  border-radius: 20px;
+  font-size: 1em;
+  font-weight: bold;
+  text-align: center;
+  height: 45px;
+  width: 110px;
+  border-style: none;
+}
+button.exhibit_list_button:hover {
+  background-color: #ff7700;
+}
+
+/* アイテムの位置を整えるパネル */
+/* コンテナ操作 */
+/* コンテナサイズ50vw */
+.content_size_50vw{
+  margin-left: auto;
+  margin-right: auto;
+  width: 50vw;
+}
+/* マージン操作 */
+/* 左右余白200px */
+.content_margin_200px{
+  margin-left: 200px;
+  margin-right: 200px;
+}
+/* 左右余白400px */
+.content_margin_400px{
+  margin-left: 400px;
+  margin-right: 400px;
+}
+
+/* グリッド操作 */
+.item_for_grid_r1c1{
+  width: 100%;
+  margin: 0px auto;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.item_for_grid_r1c1 h3[name="perpose"]{
+  border-top: solid 1px !important;
+}
+.item_for_grid_r1c2{
+  width: 100%;
+  margin: 0px auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
+}
+.item_for_grid_r1c2_c12{
+  width: 100%;
+  margin: 0px auto;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  justify-content: center;
+}
+.item_for_grid_r1c4{
+  width: 100%;
+  margin: 0px auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+/* フレックス操作 */
+/* アイテム中央寄せ */
+.item_for_center{
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+}
+/* アイテム右寄せ */
+.item_for_right {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: right;
+}
+/* アイテム下寄せ */
+.item_for_bottom {
+  margin-top: auto;
+  margin-bottom: 0px;
+}
+/* アイテム左右均等寄せ */
+.item_for_LeftAndRight_around {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: space-around;
+}
+/* アイテム両端寄せ */
+.item_for_LeftAndRight_between {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: space-between;
+}

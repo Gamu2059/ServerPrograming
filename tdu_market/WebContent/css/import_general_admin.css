@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+@import url(general_layout.css);
+@import url(general.css);
+
+body {
+  widows: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url(../images/univ2.png);
+}
+
+.center_container article {
+  padding: 30px;
+  background: rgb(239, 239, 239);
+}

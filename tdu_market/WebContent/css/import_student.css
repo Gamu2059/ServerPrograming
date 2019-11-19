@@ -1,0 +1,7 @@
+@charset "utf-8";
+
+@import url("bootstrap-4.3.1.css");
+@import url(general.css);
+@import url(general_student.css);
+@import url(student.css);
+@import url("dialog.css");

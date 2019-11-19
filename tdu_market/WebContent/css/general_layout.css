@@ -1,0 +1,127 @@
+/* 全体 */
+html * {
+  margin: 0px;
+}
+
+/* ヘッダー */
+header {
+  padding: 10px;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  background-color: rgba(0, 0, 0, 0);
+}
+header #title_log {
+  height: 2.5em;
+}
+
+/* 本体 */
+article {
+  margin: 0px auto;
+  padding: auto 0px;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  text-align: center;
+}
+article h1 {
+  font-size: 50px;
+}
+article form {
+  margin: 0px auto;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+article input {
+  width: 500px;
+  margin: 80px auto;
+  display: block;
+  background-color: white;
+  font-size: 1.5em;
+  text-align: center;
+}
+article .input_field {
+  margin: 80px 0px;
+}
+article .input_field * {
+  margin: 0 auto;
+  padding: 5px 0px;
+}
+article .input_field_ver2 {
+  margin: 0px;
+}
+article .input_field_ver2 * {
+  margin: 0px auto;
+  padding: 5px 0px;
+}
+article #send_mailaddress_button {
+  width: 250px;
+  height: 50px;
+  margin: 0px auto;
+  background-color: #51abff;
+  border-radius: 30px;
+  font-size: 1.5em;
+  color: white;
+  border: none;
+}
+article #send_mailaddress_button:hover {
+  background-color: #48a8ff;
+}
+article #new_account_button {
+  width: 180px;
+  height: 30px;
+  margin: 50px auto 0px auto;
+  background-color: #51abff;
+  border-radius: 30px;
+  font-size: 1em;
+  color: white;
+  border: none;
+}
+article #new_account_button:hover {
+  background-color: #48a8ff;
+}
+.input_content * {
+  padding: 5px 5px;
+  justify-content: left;
+  text-align: left;
+}
+.input_content input {
+  padding: 5px 10px;
+}
+.input_content #password {
+  justify-content: left;
+  margin-left: 0px;
+  width: 80%;
+}
+.input_content textarea {
+  margin: 0px;
+  width: 100%;
+  min-height: 100px;
+  resize: none;
+}
+.input_content_img {
+  display: flex;
+  justify-content: space-around;
+}
+.input_content_img label {
+  margin-left: 0px;
+  display: flex;
+  text-align: left;
+  justify-content: left;
+}
+.input_content_img input {
+  margin-left: 0px;
+  text-align: left;
+  background: rgba(0, 0, 0, 0);
+  width: 250px;
+  font-size: 1em;
+}
+.input_content_img h2 {
+  margin-left: 0px;
+}
+.input_content_img img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+}
