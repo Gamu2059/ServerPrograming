@@ -4,9 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
-import tdu_market.dto.MessageRoomCreateInfo;
 import tdu_market.entity_bean.MessageRoomInfo;
 
 public final class MessageRoomInfoDAO extends DAOBase {
@@ -94,8 +94,47 @@ public final class MessageRoomInfoDAO extends DAOBase {
 		return list;
 	}
 
-	public void createMessageRoomInfo(MessageRoomCreateInfo messageRoomCreateInfo) {
-		System.err.println("createMessageRoomInfo is non implementation!");
+	/** ルームを生成してルームIDを返す。 */
+	public long createMessageRoomInfo() {
+
+		Connection connection = getConnection();
+		if (connection == null) {
+			return -1;
+		}
+
+		ResultSet resultSet = null;
+		Long roomID = null;
+
+		try {
+
+			String sql = "insert into \"MessageRoomInfo\" (\"createdDate\") values (?)";
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+
+			Timestamp createdTimestamp = new Timestamp(new java.util.Date().getTime());
+			pstmt.setTimestamp(1, createdTimestamp);
+
+			int result = pstmt.executeUpdate();
+			System.out.println("createMessageRoomInfo : " + result + "件のデータを作成");
+
+			sql = "select \"roomID\" from \"MessageRoomInfo\" order by \"roomID\" desc";
+			pstmt = connection.prepareStatement(sql);
+			resultSet = pstmt.executeQuery();
+			if (resultSet.next()) {
+				roomID = resultSet.getLong("roomID");
+			}
+		} catch (SQLException e) {
+			showSQLException(e);
+		} finally {
+			try {
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				showSQLException(e);
+			}
+		}
+
+		return roomID != null ? roomID : -1;
 	}
 
 	public void deleteMessageRoomInfo(long roomID) {

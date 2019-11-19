@@ -1,10 +1,10 @@
 package tdu_market.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import tdu_market.dto.MessageCreateInfo;
@@ -149,12 +149,12 @@ public final class MessageInfoDAO extends DAOBase {
 			String sql = "insert into \"MessageInfo\" (\"roomID\", \"postMailAddress\", \"postContent\", \"postDate\") values (?, ?, ?, ?)";
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 
-			Date postDate = new Date(new java.util.Date().getTime());
+			Timestamp postTimestamp = new Timestamp(new java.util.Date().getTime());
 
 			pstmt.setLong(1, messageCreateInfo.getRoomID());
 			pstmt.setString(2, messageCreateInfo.getPostMailAddress());
 			pstmt.setString(3, messageCreateInfo.getPostContent());
-			pstmt.setDate(4, postDate);
+			pstmt.setTimestamp(4, postTimestamp);
 
 			int result = pstmt.executeUpdate();
 			System.out.println("createMessageInfo : " + result + "件のデータを作成");

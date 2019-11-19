@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import tdu_market.dao.MessageRoomInfoDAO;
 import tdu_market.dto.MessageGetInfo;
-import tdu_market.dto.MessageRoomChangeInfo;
 import tdu_market.dto.MessageRoomCreateInfo;
 import tdu_market.dto.MessageRoomGetInfo;
 import tdu_market.dto.RoomMemberGetInfo;
@@ -48,13 +47,7 @@ public final class MessageRoomInfoManager {
 	public void createMessageRoomInfo(MessageRoomCreateInfo messageRoomCreateInfo) {
 
 		MessageRoomInfoDAO messageRoomInfoDAO = new MessageRoomInfoDAO();
-		messageRoomInfoDAO.createMessageRoomInfo(messageRoomCreateInfo);
-	}
-
-	public void changeStateMessageRoomInfo(MessageRoomChangeInfo messageRoomChangeInfo) {
-
-		MessageRoomInfoDAO messageRoomInfoDAO = new MessageRoomInfoDAO();
-		messageRoomInfoDAO.changeStateMessageRoomInfo(messageRoomChangeInfo);
+		long roomID = messageRoomInfoDAO.createMessageRoomInfo();
 	}
 
 	public void deleteMessageRoomInfo(long roomID) {

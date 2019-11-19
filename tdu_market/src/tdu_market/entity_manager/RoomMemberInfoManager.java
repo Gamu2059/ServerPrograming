@@ -29,7 +29,7 @@ public final class RoomMemberInfoManager {
 
 		String[] addresses = new String[list.size()];
 		for (int i = 0; i < list.size(); i++) {
-			addresses[i] = list.get(i).getStudentMailAddress();
+			addresses[i] = list.get(i).getMemberMailAddress();
 		}
 
 		return new RoomMemberGetInfo(addresses, new long[] { roomID });
