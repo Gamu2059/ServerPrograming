@@ -3,13 +3,13 @@ package tdu_market.dto;
 public class StudentSearchInfo {
 
 	private final String studentNumberKeyword;
-	private final long departmentID;
+	private final long subjectID;
 	private final String displayNameKeyword;
 
-	public StudentSearchInfo(String studentNumberKeyword, long departmentID, String displayNameKeyword) {
+	public StudentSearchInfo(String studentNumberKeyword, long subjectID, String displayNameKeyword) {
 		super();
 		this.studentNumberKeyword = studentNumberKeyword;
-		this.departmentID = departmentID;
+		this.subjectID = subjectID;
 		this.displayNameKeyword = displayNameKeyword;
 	}
 
@@ -17,8 +17,8 @@ public class StudentSearchInfo {
 		return studentNumberKeyword;
 	}
 
-	public long getDepartmentID() {
-		return departmentID;
+	public long getSubjectID() {
+		return subjectID;
 	}
 
 	public String getDisplayNameKeyword() {

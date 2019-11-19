@@ -6,13 +6,13 @@ public class ManagerGetInfo {
 
 	private final String mailAddress;
 	private final String displayName;
-	private final String iconImageURL;
+	private final String iconImageBinary;
 
-	public ManagerGetInfo(String mailAddress, String displayName, String iconImageURL) {
+	public ManagerGetInfo(String mailAddress, String displayName, String iconImageBinary) {
 		super();
 		this.mailAddress = mailAddress;
 		this.displayName = displayName;
-		this.iconImageURL = iconImageURL;
+		this.iconImageBinary = iconImageBinary;
 	}
 
 	public String getMailAddress() {
@@ -23,8 +23,8 @@ public class ManagerGetInfo {
 		return displayName;
 	}
 
-	public String getIconImageURL() {
-		return iconImageURL;
+	public String getIconImageBinary() {
+		return iconImageBinary;
 	}
 
 	public static ManagerGetInfo create(ManagerInfo managerInfo) {
@@ -35,7 +35,7 @@ public class ManagerGetInfo {
 
 		String addr = managerInfo.getMailAddress();
 		String disp = managerInfo.getDisplayName();
-		String icon = managerInfo.getIconImageURL();
+		String icon = managerInfo.getIconImageBinary();
 		return new ManagerGetInfo(addr, disp, icon);
 	}
 }

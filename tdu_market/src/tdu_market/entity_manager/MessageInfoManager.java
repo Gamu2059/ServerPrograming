@@ -52,6 +52,6 @@ public final class MessageInfoManager {
 	public void deleteMessageInfoWithStudentNumber(String studentNumber) {
 
 		MessageInfoDAO messageInfoDAO = new MessageInfoDAO();
-		messageInfoDAO.deleteMessageInfoWithStudentNumber(studentNumber);
+		messageInfoDAO.deleteMessageInfoWithMailAddress(studentNumber);
 	}
 }

@@ -21,7 +21,7 @@ public final class ItemInfoManager {
 		try {
 
 			String address = itemCreateInfo.getExhibitorMailAddress();
-			String classCode = itemCreateInfo.getRelatedClassCode();
+//			String classCode = itemCreateInfo.getRelatedClassCode();
 			String name = itemCreateInfo.getItemName();
 			int condition = itemCreateInfo.getCondition();
 			int price = itemCreateInfo.getPrice();
@@ -32,11 +32,11 @@ public final class ItemInfoManager {
 				return new ReturnInfo("出品者アカウントが存在しません。");
 			}
 
-			SyllabusInfoManager syllabusInfoManager = new SyllabusInfoManager();
-			ReturnInfo existSyllabus = syllabusInfoManager.existSyllabus(classCode);
-			if (!existSyllabus.isSuccess()) {
-				return new ReturnInfo("関連講義が設定されていません。");
-			}
+//			SyllabusInfoManager syllabusInfoManager = new SyllabusInfoManager();
+//			ReturnInfo existSyllabus = syllabusInfoManager.existSyllabus(classCode);
+//			if (!existSyllabus.isSuccess()) {
+//				return new ReturnInfo("関連講義が設定されていません。");
+//			}
 
 			if (name == null || name.trim().isEmpty()) {
 				return new ReturnInfo("名前が指定されていません。");

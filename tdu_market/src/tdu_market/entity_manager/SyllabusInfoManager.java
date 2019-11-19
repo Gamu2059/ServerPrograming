@@ -29,7 +29,7 @@ public final class SyllabusInfoManager {
 
 			String classCode = syllabusCreateInfo.getClassCode();
 			String className = syllabusCreateInfo.getClassName();
-			long semesterID = syllabusCreateInfo.getSemesterID();
+//			long semesterID = syllabusCreateInfo.getSemesterID();
 			long teacherID = syllabusCreateInfo.getTeacherID();
 
 			ReturnInfo isExist = existSyllabus(classCode);
@@ -41,10 +41,10 @@ public final class SyllabusInfoManager {
 				return new ReturnInfo("講義名が設定されていません。");
 			}
 
-			SemesterInfoManager semesterInfoManager = new SemesterInfoManager();
-			if (!semesterInfoManager.isExistSemester(semesterID)) {
-				return new ReturnInfo("対応する講義がありません。");
-			}
+//			SemesterInfoManager semesterInfoManager = new SemesterInfoManager();
+//			if (!semesterInfoManager.isExistSemester(semesterID)) {
+//				return new ReturnInfo("対応する講義がありません。");
+//			}
 
 			TeacherInfoManager teacherInfoManager = new TeacherInfoManager();
 			if (!teacherInfoManager.isExistTeacher(teacherID)) {

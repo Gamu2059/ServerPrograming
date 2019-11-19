@@ -5,18 +5,18 @@ public class StudentUpdateInfo {
 	private final String mailAddress;
 	private final String nonHashedPassword;
 	private final String displayName;
-	private final long departmentID;
+	private final long subjectID;
 	private final String selfIntroduction;
-	private final String iconImageURL;
+	private final String iconImageBinary;
 
-	public StudentUpdateInfo(String mailAddress, String nonHashedPassword, String displayName, long departmentID, String selfIntroduction, String iconImageURL) {
+	public StudentUpdateInfo(String mailAddress, String nonHashedPassword, String displayName, long subjectID, String selfIntroduction, String iconImageBinary) {
 		super();
 		this.mailAddress = mailAddress;
 		this.nonHashedPassword = nonHashedPassword;
 		this.displayName = displayName;
-		this.departmentID = departmentID;
+		this.subjectID = subjectID;
 		this.selfIntroduction = selfIntroduction;
-		this.iconImageURL = iconImageURL;
+		this.iconImageBinary = iconImageBinary;
 	}
 
 	public String getMailAddress() {
@@ -31,15 +31,15 @@ public class StudentUpdateInfo {
 		return displayName;
 	}
 
-	public long getDepartmentID() {
-		return departmentID;
+	public long getSubjectID() {
+		return subjectID;
 	}
 
 	public String getSelfIntroduction() {
 		return selfIntroduction;
 	}
 
-	public String getIconImageURL() {
-		return iconImageURL;
+	public String getIconImageBinary() {
+		return iconImageBinary;
 	}
 }

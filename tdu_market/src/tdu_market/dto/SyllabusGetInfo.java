@@ -92,7 +92,7 @@ public class SyllabusGetInfo {
 		String teacherName = null;
 		String overview = syllabusInfo.getOverview();
 		String target = syllabusInfo.getTarget();
-		String requirments = syllabusInfo.getRequirments();
+		String requirments = syllabusInfo.getRequirements();
 		String evaluationMethod = syllabusInfo.getEvaluationMethod();
 
 		if (openingSemesterGetInfo != null) {
