@@ -86,6 +86,10 @@ public final class SyllabusInfoManager {
 	/** シラバスを削除する。 */
 	public void deleteSyllabusInfo(String classCode) {
 
+		// 関連講義データを削除する
+		RelatedClassInfoManager relatedClassInfoManager = new RelatedClassInfoManager();
+		relatedClassInfoManager.deleteRelatedClassInfoWithSyllabus(classCode);
+
 		// 自動的に対応する開講年度情報も削除する(こちらを先に削除しないと制約エラーとなる)
 		OpeningSemesterInfoManager openingSemesterInfoManager = new OpeningSemesterInfoManager();
 		openingSemesterInfoManager.deleteOpeningSemesterInfo(classCode);

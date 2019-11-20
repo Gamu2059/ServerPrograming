@@ -13,10 +13,12 @@ public class ItemGetInfo {
 	private final int price;
 	private final int tradingState;
 	private final Date exhibitDate;
-	private final String[] itemImageURLs;
+
+	private final String exhibitorMailAddress;
+	private final String[] itemImageBinaries;
 
 	public ItemGetInfo(long itemID, String itemName, String description, int condition, int price, int tradingState,
-			Date exhibitDate, String[] itemImageURLs) {
+			Date exhibitDate, String exhibitorMailAddress, String[] itemImageBinaries) {
 		super();
 		this.itemID = itemID;
 		this.itemName = itemName;
@@ -25,7 +27,8 @@ public class ItemGetInfo {
 		this.price = price;
 		this.tradingState = tradingState;
 		this.exhibitDate = exhibitDate;
-		this.itemImageURLs = itemImageURLs;
+		this.exhibitorMailAddress = exhibitorMailAddress;
+		this.itemImageBinaries = itemImageBinaries;
 	}
 
 	public long getItemID() {
@@ -56,8 +59,12 @@ public class ItemGetInfo {
 		return exhibitDate;
 	}
 
-	public String[] getItemImageURLs() {
-		return itemImageURLs;
+	public String getExhibitorMailAddress() {
+		return exhibitorMailAddress;
+	}
+
+	public String[] getItemImageBinaries() {
+		return itemImageBinaries;
 	}
 
 	public static ItemGetInfo create(ItemInfo itemInfo, ItemImageGetInfo itemImageGetInfo) {
@@ -73,12 +80,14 @@ public class ItemGetInfo {
 		int price = itemInfo.getPrice();
 		int state = itemInfo.getTradingState();
 		Date exhibitDate = itemInfo.getExhibitDate();
-		String[] urls = null;
+
+		String exhibitorMailAddress = itemInfo.getExhibitorMailAddress();
+		String[] binaries = null;
 
 		if (itemImageGetInfo != null) {
-			urls = itemImageGetInfo.getItemImageURLs();
+			binaries = itemImageGetInfo.getItemImageURLs();
 		}
 
-		return new ItemGetInfo(itemID, name, desc, cond, price, state, exhibitDate, urls);
+		return new ItemGetInfo(itemID, name, desc, cond, price, state, exhibitDate, exhibitorMailAddress, binaries);
 	}
 }

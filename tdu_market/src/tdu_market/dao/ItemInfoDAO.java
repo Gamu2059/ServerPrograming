@@ -54,17 +54,20 @@ public final class ItemInfoDAO extends DAOBase {
 		return itemInfo;
 	}
 
-	public void createItemInfo(ItemCreateInfo itemCreateInfo) {
+	public long createItemInfo(ItemCreateInfo itemCreateInfo) {
 
 		if (itemCreateInfo == null) {
 			System.err.println("createItemInfo : itemCreateInfo is null");
-			return;
+			return -1;
 		}
 
 		Connection connection = getConnection();
 		if (connection == null) {
-			return;
+			return -1;
 		}
+
+		Long itemID = null;
+		ResultSet resultSet = null;
 
 		try {
 
@@ -82,10 +85,22 @@ public final class ItemInfoDAO extends DAOBase {
 
 			int result = pstmt.executeUpdate();
 			System.out.println("createItemInfo : " + result + "件のデータを作成");
+
+			sql = "select \"itemID\" from \"ItemInfo\" order by \"itemID\" desc limit 1";
+			pstmt = connection.prepareStatement(sql);
+
+			resultSet = pstmt.executeQuery();
+
+			if (resultSet.next()) {
+				itemID = resultSet.getLong("itemID");
+			}
 		} catch (SQLException e) {
 			showSQLException(e);
 		} finally {
 			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
 				if (connection != null) {
 					connection.close();
 				}
@@ -93,6 +108,8 @@ public final class ItemInfoDAO extends DAOBase {
 				showSQLException(e);
 			}
 		}
+
+		return itemID != null ? itemID : -1;
 	}
 
 	public void updateItemInfo(ItemUpdateInfo itemUpdateInfo) {
@@ -119,6 +136,34 @@ public final class ItemInfoDAO extends DAOBase {
 			pstmt.setInt(3, itemUpdateInfo.getCondition());
 			pstmt.setInt(4, itemUpdateInfo.getPrice());
 			pstmt.setLong(5, itemUpdateInfo.getItemID());
+
+			int result = pstmt.executeUpdate();
+			System.out.println("updateItemInfo : " + result + "件のデータを更新");
+		} catch (SQLException e) {
+			showSQLException(e);
+		} finally {
+			try {
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				showSQLException(e);
+			}
+		}
+	}
+
+	public void changeTradingState(long itemID, int tradingState) {
+
+		Connection connection = getConnection();
+		if (connection == null) {
+			return;
+		}
+
+		try {
+
+			String sql = "update \"ItemInfo\" set \"tradingState\" = ? where \"itemID\" = ?";
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, tradingState);
 
 			int result = pstmt.executeUpdate();
 			System.out.println("updateItemInfo : " + result + "件のデータを更新");

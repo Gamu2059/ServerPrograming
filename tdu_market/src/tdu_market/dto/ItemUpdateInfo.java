@@ -8,10 +8,10 @@ public class ItemUpdateInfo {
 	private final int condition;
 	private final int price;
 	private final String relatedClassCode;
-	private final String[] itemImageURLs;
+	private final String[] itemImageBinaries;
 
 	public ItemUpdateInfo(long itemID, String itemName, String description, int condition, int price,
-			String relatedClassCode, String[] itemImageURLs) {
+			String relatedClassCode, String[] itemImageBinaries) {
 		super();
 		this.itemID = itemID;
 		this.itemName = itemName;
@@ -19,7 +19,7 @@ public class ItemUpdateInfo {
 		this.condition = condition;
 		this.price = price;
 		this.relatedClassCode = relatedClassCode;
-		this.itemImageURLs = itemImageURLs;
+		this.itemImageBinaries = itemImageBinaries;
 	}
 
 	public long getItemID() {
@@ -46,7 +46,7 @@ public class ItemUpdateInfo {
 		return relatedClassCode;
 	}
 
-	public String[] getItemImageURLs() {
-		return itemImageURLs;
+	public String[] getItemImageBinaries() {
+		return itemImageBinaries;
 	}
 }
