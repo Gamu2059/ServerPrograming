@@ -3,13 +3,13 @@ package tdu_market.dto;
 public class MessageCreateInfo {
 
 	private final long roomID;
-	private final String postStudentNumber;
+	private final String postMailAddress;
 	private final String postContent;
 
-	public MessageCreateInfo(long roomID, String postStudentNumber, String postContent) {
+	public MessageCreateInfo(long roomID, String postMailAddress, String postContent) {
 		super();
 		this.roomID = roomID;
-		this.postStudentNumber = postStudentNumber;
+		this.postMailAddress = postMailAddress;
 		this.postContent = postContent;
 	}
 
@@ -17,8 +17,8 @@ public class MessageCreateInfo {
 		return roomID;
 	}
 
-	public String getPostStudentNumber() {
-		return postStudentNumber;
+	public String getPostMailAddress() {
+		return postMailAddress;
 	}
 
 	public String getPostContent() {

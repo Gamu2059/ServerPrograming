@@ -42,7 +42,7 @@ public class MessageGetInfo {
 		}
 
 		long msgID = messageInfo.getMessageID();
-		String studentNumber = messageInfo.getPostStudentNumber();
+		String studentNumber = messageInfo.getPostMailAddress();
 		String content = messageInfo.getPostContent();
 		Date date = messageInfo.getPostDate();
 

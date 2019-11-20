@@ -2,17 +2,21 @@ package tdu_market.dto;
 
 public class ManagerUpdateInfo {
 
+	private final String mailAddress;
 	private final String nonHashedPassword;
 	private final String displayName;
-	private final long departmentID;
-	private final String iconImageURL;
+	private final String iconImageBinary;
 
-	public ManagerUpdateInfo(String nonHashedPassword, String displayName, long departmentID, String iconImageURL) {
+	public ManagerUpdateInfo(String mailAddress, String nonHashedPassword, String displayName, String iconImageBinary) {
 		super();
+		this.mailAddress = mailAddress;
 		this.nonHashedPassword = nonHashedPassword;
 		this.displayName = displayName;
-		this.departmentID = departmentID;
-		this.iconImageURL = iconImageURL;
+		this.iconImageBinary = iconImageBinary;
+	}
+
+	public String getMailAddress() {
+		return mailAddress;
 	}
 
 	public String getNonHashedPassword() {
@@ -23,11 +27,7 @@ public class ManagerUpdateInfo {
 		return displayName;
 	}
 
-	public long getDepartmentID() {
-		return departmentID;
-	}
-
-	public String getIconImageURL() {
-		return iconImageURL;
+	public String getIconImageBinary() {
+		return iconImageBinary;
 	}
 }

@@ -7,11 +7,13 @@ public class ItemCreateInfo {
 	private final String description;
 	private final int condition;
 	private final int price;
+
 	private final String relatedClassCode;
-	private final String[] itemImageURLs;
+
+	private final String[] itemImageBinaries;
 
 	public ItemCreateInfo(String exhibitorMailAddress, String itemName, String description, int condition, int price,
-			String relatedClassCode, String[] itemImageURLs) {
+			String relatedClassCode, String[] itemImageBinaries) {
 		super();
 		this.exhibitorMailAddress = exhibitorMailAddress;
 		this.itemName = itemName;
@@ -19,7 +21,7 @@ public class ItemCreateInfo {
 		this.condition = condition;
 		this.price = price;
 		this.relatedClassCode = relatedClassCode;
-		this.itemImageURLs = itemImageURLs;
+		this.itemImageBinaries = itemImageBinaries;
 	}
 
 	public String getExhibitorMailAddress() {
@@ -46,7 +48,7 @@ public class ItemCreateInfo {
 		return relatedClassCode;
 	}
 
-	public String[] getItemImageURLs() {
-		return itemImageURLs;
+	public String[] getItemImageBinaries() {
+		return itemImageBinaries;
 	}
 }

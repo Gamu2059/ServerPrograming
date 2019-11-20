@@ -4,31 +4,35 @@ public class SyllabusCreateInfo {
 
 	private final String classCode;
 	private final String className;
-	private final long semesterID;
+	private final long subjectID;
+	private final long teacherID;
 	private final String dates;
 	private final int unitNum;
 	private final String classRoom;
-	private final long teacherID;
 	private final String overview;
 	private final String target;
-	private final String requierments;
+	private final String requirements;
 	private final String evaluationMethod;
 
-	public SyllabusCreateInfo(String classCode, String className, long semesterID, String dates, int unitNum,
-			String classRoom, long teacherID, String overview, String target, String requierments,
-			String evaluationMethod) {
+	// 対応する年度学期の情報は必要
+	private final long semesterID;
+
+	public SyllabusCreateInfo(String classCode, String className, long subjectID, long teacherID, String dates,
+			int unitNum, String classRoom, String overview, String target, String requirements, String evaluationMethod,
+			long semesterID) {
 		super();
 		this.classCode = classCode;
 		this.className = className;
-		this.semesterID = semesterID;
+		this.subjectID = subjectID;
+		this.teacherID = teacherID;
 		this.dates = dates;
 		this.unitNum = unitNum;
 		this.classRoom = classRoom;
-		this.teacherID = teacherID;
 		this.overview = overview;
 		this.target = target;
-		this.requierments = requierments;
+		this.requirements = requirements;
 		this.evaluationMethod = evaluationMethod;
+		this.semesterID = semesterID;
 	}
 
 	public String getClassCode() {
@@ -39,8 +43,12 @@ public class SyllabusCreateInfo {
 		return className;
 	}
 
-	public long getSemesterID() {
-		return semesterID;
+	public long getSubjectID() {
+		return subjectID;
+	}
+
+	public long getTeacherID() {
+		return teacherID;
 	}
 
 	public String getDates() {
@@ -55,10 +63,6 @@ public class SyllabusCreateInfo {
 		return classRoom;
 	}
 
-	public long getTeacherID() {
-		return teacherID;
-	}
-
 	public String getOverview() {
 		return overview;
 	}
@@ -67,11 +71,15 @@ public class SyllabusCreateInfo {
 		return target;
 	}
 
-	public String getRequierments() {
-		return requierments;
+	public String getRequirements() {
+		return requirements;
 	}
 
 	public String getEvaluationMethod() {
 		return evaluationMethod;
+	}
+
+	public long getSemesterID() {
+		return semesterID;
 	}
 }

@@ -10,4 +10,10 @@ public final class Def {
 
 	/** アカウントが本登録されている状態 */
 	public static final int REGISTERED = 2;
+
+	/** 商品を購入していない状態 */
+	public static final int NOT_BUY = 0;
+
+	/** 商品を購入している状態 */
+	public static final int BUYED = 1;
 }

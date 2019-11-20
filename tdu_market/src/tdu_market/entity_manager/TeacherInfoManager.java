@@ -6,6 +6,7 @@ import tdu_market.dao.TeacherInfoDAO;
 import tdu_market.dto.TeacherGetInfo;
 import tdu_market.entity_bean.TeacherInfo;
 
+/** 原則として、データが増えも減りもしない前提です。 */
 public final class TeacherInfoManager {
 
 	public boolean isExistTeacher(long teacherID) {

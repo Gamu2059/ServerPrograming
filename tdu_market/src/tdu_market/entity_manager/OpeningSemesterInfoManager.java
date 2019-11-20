@@ -8,8 +8,10 @@ import tdu_market.dto.OpeningSemesterGetInfo;
 import tdu_market.dto.SemesterGetInfo;
 import tdu_market.entity_bean.OpeningSemesterInfo;
 
+/** 原則として、SyllabusInfoManagerから呼び出される前提になっています。 */
 public final class OpeningSemesterInfoManager {
 
+	/** あらゆる場所からアクセスしても大丈夫です。 */
 	public OpeningSemesterGetInfo getOpeningSemesterInfo(String classCode) {
 
 		OpeningSemesterInfoDAO openingSemesterInfoDAO = new OpeningSemesterInfoDAO();
@@ -25,12 +27,14 @@ public final class OpeningSemesterInfoManager {
 		return new OpeningSemesterGetInfo(classCode, semesterGetInfos);
 	}
 
+	/** 処理的に、SyllabusInfoManagerのみで使用してほしいです。 */
 	public void createOpeningSemesterInfo(OpeningSemesterCreateInfo openingSemesterCreateInfo) {
 
 		OpeningSemesterInfoDAO openingSemesterInfoDAO = new OpeningSemesterInfoDAO();
 		openingSemesterInfoDAO.createOpeningSemesterInfo(openingSemesterCreateInfo);
 	}
 
+	/** 処理的に、SyllabusInfoManagerのみで使用してほしいです。 */
 	public void deleteOpeningSemesterInfo(String classCode) {
 
 		OpeningSemesterInfoDAO openingSemesterInfoDAO = new OpeningSemesterInfoDAO();

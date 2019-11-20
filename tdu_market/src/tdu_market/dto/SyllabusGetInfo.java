@@ -1,6 +1,8 @@
 package tdu_market.dto;
 
+import tdu_market.entity_bean.SemesterInfo;
 import tdu_market.entity_bean.SyllabusInfo;
+import tdu_market.entity_bean.TeacherInfo;
 
 public class SyllabusGetInfo {
 
@@ -92,7 +94,7 @@ public class SyllabusGetInfo {
 		String teacherName = null;
 		String overview = syllabusInfo.getOverview();
 		String target = syllabusInfo.getTarget();
-		String requirments = syllabusInfo.getRequirments();
+		String requirments = syllabusInfo.getRequirements();
 		String evaluationMethod = syllabusInfo.getEvaluationMethod();
 
 		if (openingSemesterGetInfo != null) {
@@ -114,6 +116,27 @@ public class SyllabusGetInfo {
 		if (teacherGetInfo != null) {
 			teacherName = teacherGetInfo.getTeacherName();
 		}
+
+		return new SyllabusGetInfo(classCode, className, openingSemester, dates, unitNum, classRoom, teacherName, overview, target, requirments, evaluationMethod);
+	}
+
+	public static SyllabusGetInfo create(SyllabusInfo syllabusInfo, SemesterInfo semesterInfo, TeacherInfo teacherInfo) {
+
+		if (syllabusInfo == null || semesterInfo == null || teacherInfo == null) {
+			return null;
+		}
+
+		String classCode = syllabusInfo.getClassCode();
+		String className = syllabusInfo.getClassName();
+		String openingSemester = semesterInfo.getSemester();
+		String dates = syllabusInfo.getDates();
+		int unitNum = syllabusInfo.getUnitNum();
+		String classRoom = syllabusInfo.getClassRoom();
+		String teacherName = teacherInfo.getTeacherName();
+		String overview = syllabusInfo.getOverview();
+		String target = syllabusInfo.getTarget();
+		String requirments = syllabusInfo.getRequirements();
+		String evaluationMethod = syllabusInfo.getEvaluationMethod();
 
 		return new SyllabusGetInfo(classCode, className, openingSemester, dates, unitNum, classRoom, teacherName, overview, target, requirments, evaluationMethod);
 	}
