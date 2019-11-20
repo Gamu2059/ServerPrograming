@@ -104,6 +104,8 @@ public final class ItemInfoManager {
 		}
 
 		ItemSearchInfo itemSearchInfo = new ItemSearchInfo(studentGetInfo.getDisplayName(), -1, -1, null);
+		ItemInfoDAO dao = new ItemInfoDAO();
+		dao.getExhibitItem(exhibitorMailAddress);
 		return searchItem(itemSearchInfo);
 	}
 

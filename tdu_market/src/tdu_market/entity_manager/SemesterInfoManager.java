@@ -6,6 +6,7 @@ import tdu_market.dao.SemesterInfoDAO;
 import tdu_market.dto.SemesterGetInfo;
 import tdu_market.entity_bean.SemesterInfo;
 
+/** 原則として、データが増えも減りもしない前提です。 */
 public final class SemesterInfoManager {
 
 	public boolean isExistSemester(long semesterID) {

@@ -7,8 +7,10 @@ import tdu_market.dto.ItemImageCreateInfo;
 import tdu_market.dto.ItemImageGetInfo;
 import tdu_market.entity_bean.ItemImageInfo;
 
+/** 原則として、ItemInfoManagerから呼び出される前提になっています。 */
 public final class ItemImageInfoManager {
 
+	/** あらゆる場所からアクセスしても大丈夫です。 */
 	public ItemImageGetInfo getItemImageInfo(long itemID) {
 
 		ItemImageInfoDAO itemImageInfoDAO = new ItemImageInfoDAO();
@@ -25,12 +27,14 @@ public final class ItemImageInfoManager {
 		return new ItemImageGetInfo(itemID, binaries);
 	}
 
+	/** 処理的に、ItemInfoManagerのみで使用してほしいです。 */
 	public void createItemImageInfo(ItemImageCreateInfo itemImageCreateInfo) {
 
 		ItemImageInfoDAO itemImageInfoDAO = new ItemImageInfoDAO();
 		itemImageInfoDAO.createItemImageInfo(itemImageCreateInfo);
 	}
 
+	/** 処理的に、ItemInfoManagerのみで使用してほしいです。 */
 	public void deleteItemImageInfo(long itemID) {
 
 		ItemImageInfoDAO itemImageInfoDAO = new ItemImageInfoDAO();

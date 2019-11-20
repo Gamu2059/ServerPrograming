@@ -14,9 +14,12 @@ public class SyllabusCreateInfo {
 	private final String requirements;
 	private final String evaluationMethod;
 
+	// 対応する年度学期の情報は必要
+	private final long semesterID;
+
 	public SyllabusCreateInfo(String classCode, String className, long subjectID, long teacherID, String dates,
-			int unitNum, String classRoom, String overview, String target, String requirements,
-			String evaluationMethod) {
+			int unitNum, String classRoom, String overview, String target, String requirements, String evaluationMethod,
+			long semesterID) {
 		super();
 		this.classCode = classCode;
 		this.className = className;
@@ -29,6 +32,7 @@ public class SyllabusCreateInfo {
 		this.target = target;
 		this.requirements = requirements;
 		this.evaluationMethod = evaluationMethod;
+		this.semesterID = semesterID;
 	}
 
 	public String getClassCode() {
@@ -73,5 +77,9 @@ public class SyllabusCreateInfo {
 
 	public String getEvaluationMethod() {
 		return evaluationMethod;
+	}
+
+	public long getSemesterID() {
+		return semesterID;
 	}
 }

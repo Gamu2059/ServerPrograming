@@ -6,6 +6,7 @@ import tdu_market.dao.CampusInfoDAO;
 import tdu_market.dto.CampusGetInfo;
 import tdu_market.entity_bean.CampusInfo;
 
+/** 原則として、データが増えも減りもしない前提です。 */
 public final class CampusInfoManager {
 
 	public CampusGetInfo getCampusInfo(long campusID) {
