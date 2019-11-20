@@ -132,8 +132,8 @@
   border: 1px solid #000000;
   border-left: none;
   border-right: none;
+  padding: 5px 0px;
 }
-
 
 /* レイアウト - 要素 */
 /* 商品 */
@@ -272,68 +272,68 @@ p#note_Text {
   text-align: right;
 }
 /* 出品物一覧 - タブレイアウト */
-.tab_content table{
+.tab_content table {
   margin: 0px;
   padding: 0px;
   width: 100%;
   background: #ffffff;
 }
 /* 出品物一覧 - タブアイテムレイアウト */
-.tab_content table tr{
+.tab_content table tr {
   margin: 0px;
   padding: 10px 20px 10px;
   display: flex;
   justify-content: space-between;
   border: 1px solid #000000;
 }
-.tab_content table tr:hover{
+.tab_content table tr:hover {
   background-color: #c5c5c5;
 }
 /* 出品物一覧 - タブ画像 */
-.tab_content table tr td img{
+.tab_content table tr td img {
   width: 150px;
   height: 150px;
   object-fit: contain;
 }
 /* 出品物一覧 - 商品名 */
-.tab_content #item_name{
+.tab_content #item_name {
   width: 70%;
   margin: 10px 0px 0px 0px;
   font-size: 1.5em;
 }
 /* 出品物一覧 - 商品価格 */
-.tab_content #item_price{
+.tab_content #item_price {
   margin-top: auto;
   margin-bottom: 20px;
   font-weight: bold;
   font-size: 1.8em;
 }
 /* 商品情報一覧 - ソート */
-.first_container_ver3 #sort_item{
+.first_container_ver3 #sort_item {
   font-size: 1.4em;
 }
 /* シラバス紹介 - 授業コード */
-.detail_content #class_code_field{
+.detail_content #class_code_field {
   width: 400px;
 }
 /* シラバス紹介 - 学科組織 */
-.detail_content #department{
+.detail_content #department {
   font-size: 1.3em;
 }
 /* シラバス照会 - 授業名 */
-.detail_content #class_name_field{
+.detail_content #class_name_field {
   width: 400px;
 }
 /* シラバス照会 - 担当教員 */
-.detail_content #teacher_field{
+.detail_content #teacher_field {
   width: 400px;
 }
 /* 商品検索 - 商品名 */
-.detail_content #item_name_field{
+.detail_content #item_name_field {
   width: 400px;
 }
 /* 商品検索 - 状態 */
-.detail_content #condition{
+.detail_content #condition {
   font-size: 1.3em;
 }
 
@@ -374,11 +374,12 @@ p#note_Text {
 
 /*メッセージ画面*/
 
-.message_tab input{
-	display: none;
+.message_tab input {
+  display: none;
 }
-.message_tab { /*タブの全体設定*/
-  background-color: #EFEFEF;
+.message_tab {
+  /*タブの全体設定*/
+  background-color: #efefef;
   border: solid 1px;
   float: left;
   margin: 0 auto;
@@ -391,7 +392,7 @@ p#note_Text {
   object-fit: contain;
 }
 .message_header {
-  background-color: #EFEFEF;
+  background-color: #efefef;
   font-weight: bold;
   font-size: 1em;
   height: 2.5em;
@@ -400,21 +401,21 @@ p#note_Text {
   padding: 0px 5px;
 }
 
-.message_header[name="message_room_panel"]{
-	border: solid 1px;
-	justify-content: space-between;
-	font-size: 1em;
+.message_header[name="message_room_panel"] {
+  border: solid 1px;
+  justify-content: space-between;
+  font-size: 1em;
 }
 .message_header div {
   min-width: 1em;
 }
 
-input[name="trading_button"]{
-	margin: 5px 10px;
-	text-align: center;
+input[name="trading_button"] {
+  margin: 5px 10px;
+  text-align: center;
 }
-input[name="end_button"]{
-	margin: 5px 10px;
+input[name="end_button"] {
+  margin: 5px 10px;
 }
 
 /*メッセージ一覧画面*/
@@ -427,7 +428,7 @@ input[name="end_button"]{
   width: 100%;
 }
 .message_list_tab:hover {
-  background-color: #C5C5C5;
+  background-color: #c5c5c5;
 }
 .message_content {
   float: left;
@@ -439,7 +440,7 @@ input[name="end_button"]{
   margin-top: 5px;
 }
 .message_text {
-  color: #4E4E4E;
+  color: #4e4e4e;
   font-size: 1em;
   width: 100%;
   word-wrap: break-word;
@@ -473,41 +474,41 @@ input[name="end_button"]{
   padding-bottom: 90px;
 }
 
-.message_post {/*一つ一つの投稿*/
-	display: flex;
-	margin: 10px;
+.message_post {
+  /*一つ一つの投稿*/
+  display: flex;
+  margin: 10px;
 }
-.message_post img{
-	width: 10%;
-	object-fit: contain;
+.message_post img {
+  width: 10%;
+  object-fit: contain;
 }
-.message_post[name="opponent"]{
-	justify-content: flex-start;
+.message_post[name="opponent"] {
+  justify-content: flex-start;
 }
-.message_post[name="myself"]{
-	justify-content: flex-end;
+.message_post[name="myself"] {
+  justify-content: flex-end;
 }
-.message_post[name="system"]{
-	justify-content: center;
-
+.message_post[name="system"] {
+  justify-content: center;
 }
 .message_post_content {
-	margin-left: 10px;
-	width: 80%;
-	border-radius: 15px;
-	padding: 5px 10px;
+  margin-left: 10px;
+  width: 80%;
+  border-radius: 15px;
+  padding: 5px 10px;
 }
-.message_post_content[name="myself"]{
-	background-color: #51ABFF;
+.message_post_content[name="myself"] {
+  background-color: #51abff;
 }
-.message_post_content[name="opponent"]{
-	background-color: #EFEFEF;
+.message_post_content[name="opponent"] {
+  background-color: #efefef;
 }
-.message_post_content[name="system"]{
-	background: #B8B8B8;
-	border-radius: 5px !important;
-	margin: 20px;
-	width: 50%;
+.message_post_content[name="system"] {
+  background: #b8b8b8;
+  border-radius: 5px !important;
+  margin: 20px;
+  width: 50%;
 }
 .message_room .textfield {
   display: flex;

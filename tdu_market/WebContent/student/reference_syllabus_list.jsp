@@ -25,43 +25,57 @@
 			<div class="second_container_ver2">
 				<section>
 					<h2>検索結果</h2>
-					<br>
-					<table class="syllabus_list">
-						<!-- テーブルタイトル -->
-						<thead>
-							<tr>
-								<th id="syllabus_column1">授業名</th>
-								<th id="syllabus_column2">曜日時限</th>
-								<th id="syllabus_column3">担当教員</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td id="syllabus_column1"><button
-										id="syllabus_column_button">コンピュータープログラミング</button></td>
-								<td id="syllabus_column2"><button
-										id="syllabus_column_button">水3</button></td>
-								<td id="syllabus_column3"><button
-										id="syllabus_column_button">電大太郎</button></td>
-							</tr>
-							<tr>
-								<td id="syllabus_column1"><button
-										id="syllabus_column_button">コンピュータープログラミング</button></td>
-								<td id="syllabus_column2"><button
-										id="syllabus_column_button">水3</button></td>
-								<td id="syllabus_column3"><button
-										id="syllabus_column_button">電大太郎</button></td>
-							</tr>
-							<tr>
-								<td id="syllabus_column1"><button
-										id="syllabus_column_button">コンピュータープログラミング</button></td>
-								<td id="syllabus_column2"><button
-										id="syllabus_column_button">水3</button></td>
-								<td id="syllabus_column3"><button
-										id="syllabus_column_button">電大太郎</button></td>
-							</tr>
-						</tbody>
-					</table>
+					<br />
+					<form name="select_syllabus">
+						<table class="syllabus_list">
+							<!-- テーブルタイトル -->
+							<thead>
+								<tr>
+									<th hidden>授業コード</th>
+									<th id="syllabus_column1">授業名</th>
+									<th id="syllabus_column2">曜日時限</th>
+									<th id="syllabus_column3">担当教員</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="syllabusId">
+									<td hidden>0000000000000</td>
+									<td id="syllabus_column1">コンピュータープログラミング</td>
+									<td id="syllabus_column2">水3</td>
+									<td id="syllabus_column3">電大太郎</td>
+								</tr>
+							</tbody>
+						</table>
+						<!-- テーブル要素クリック -->
+						<script type="text/javascript"
+							src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+						<script type="text/javascript">
+							$(".syllabusId").on(
+									"click",
+									function() {
+										//授業コードの取得
+										var syllabusCode = $(this).children(
+												"td")[0].innerText;
+										//Input型エレメントの生成
+										var element = document
+												.createElement("input");
+										//typeの設定
+										element.setAttribute("type", "submit");
+										//nameの設定
+										element.setAttribute("name",
+												"selectSyllabus");
+										//valueの設定
+										element.setAttribute("value",
+												syllabusCode);
+										//取得したIDデータをsetattributeする
+										document.select_syllabus
+												.appendChild(element);
+										//データをサーバーへ送信する
+										document.select_syllabus.submit();
+									});
+						</script>
+						<!-- テーブル要素クリックここまで -->
+					</form>
 				</section>
 			</div>
 			<!-- サードコンテナ -->

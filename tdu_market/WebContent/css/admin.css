@@ -3,8 +3,7 @@
 /* リスト */
 /* リスト - タイトル */
 .list_title * {
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding: 10px 0px 10px 0px;
   background-color: rgb(90, 90, 90);
   color: white;
   font-weight: bold;
@@ -24,23 +23,27 @@
 .list_content * {
   background-color: #ffffff;
 }
-
 /* リスト - 行設定 */
-.list_content tr th input {
-  padding-top: 5px;
-  padding-bottom: 5px;
+.list_title tr th {
+  padding: 5px 0px 5px 5px;
 }
-.list_content tr td button {
-  padding-top: 5px;
-  padding-bottom: 5px;
-  margin: 0px;
-  width: 100%;
-  height: 100%;
-  text-align: left;
-  font-size: 1em;
-  border: none;
+.list_content tr td {
+  padding: 5px 0px 5px 5px;
+}
+.list_content tr {
+  border: solid 1px rgb(90, 90, 90);
+}
+.list_content tr * {
+  background-color: rgba(0, 0, 0, 0);
+}
+.list_content tr:hover {
+  background: rgb(239, 239, 239);
 }
 /* リスト - 列設定 */
+.hidden_column {
+  visibility: collapse;
+  width: 0px;
+}
 .check_column1 {
   width: 50px;
 }
@@ -57,7 +60,7 @@
   width: 300px;
 }
 .student_column5 {
-  width: 100px;
+  width: 80px;
 }
 .syllabus_column1 {
   width: 120px;
@@ -78,7 +81,7 @@
   width: 120px;
 }
 .item_column1 {
-  width: 300px;
+  width: 350px;
 }
 .item_column2 {
   width: 100px;
@@ -90,7 +93,7 @@
   width: 300px;
 }
 .item_column5 {
-  width: 70px;
+  width: 80px;
 }
 
 /* ソート */
