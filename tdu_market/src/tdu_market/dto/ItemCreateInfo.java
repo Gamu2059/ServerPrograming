@@ -8,13 +8,20 @@ public class ItemCreateInfo {
 	private final int condition;
 	private final int price;
 
-	public ItemCreateInfo(String exhibitorMailAddress, String itemName, String description, int condition, int price) {
+	private final String relatedClassCode;
+
+	private final String[] itemImageBinaries;
+
+	public ItemCreateInfo(String exhibitorMailAddress, String itemName, String description, int condition, int price,
+			String relatedClassCode, String[] itemImageBinaries) {
 		super();
 		this.exhibitorMailAddress = exhibitorMailAddress;
 		this.itemName = itemName;
 		this.description = description;
 		this.condition = condition;
 		this.price = price;
+		this.relatedClassCode = relatedClassCode;
+		this.itemImageBinaries = itemImageBinaries;
 	}
 
 	public String getExhibitorMailAddress() {
@@ -35,5 +42,13 @@ public class ItemCreateInfo {
 
 	public int getPrice() {
 		return price;
+	}
+
+	public String getRelatedClassCode() {
+		return relatedClassCode;
+	}
+
+	public String[] getItemImageBinaries() {
+		return itemImageBinaries;
 	}
 }

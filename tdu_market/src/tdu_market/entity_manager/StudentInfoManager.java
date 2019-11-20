@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import tdu_market.dao.StudentInfoDAO;
 import tdu_market.dto.LoginInfo;
 import tdu_market.dto.ReturnInfo;
+import tdu_market.dto.RoomMemberGetInfo;
 import tdu_market.dto.StudentCreateInfo;
 import tdu_market.dto.StudentGetInfo;
 import tdu_market.dto.StudentSearchInfo;
@@ -101,12 +102,12 @@ public final class StudentInfoManager {
 
 			// メールアドレスがメールアドレスの体を成しているか確認
 			if (!AccountUtil.isMeetRequirementMailAddress(mailAddress)) {
-				return new ReturnInfo("メールアドレスを入力してください。");
+				return new ReturnInfo("これはメールアドレスではありません。");
 			}
 
 			// メールアドレスが学生メールアドレスであるか確認
 			if (!AccountUtil.isStudentMailAddress(mailAddress)) {
-				return new ReturnInfo("学籍番号メールアドレスを入力してください。");
+				return new ReturnInfo("このメールアドレスは学生アカウントとして登録できません。");
 			}
 
 			String studnetNumber = AccountUtil.getStudentNumber(mailAddress);
@@ -121,30 +122,40 @@ public final class StudentInfoManager {
 		}
 	}
 
+	/** アカウントを取得する。 */
 	public StudentGetInfo getStudentInfo(String mailAddress) {
 
 		StudentInfo studentInfo = getRawStudentInfo(mailAddress);
 		return StudentGetInfo.create(studentInfo);
 	}
 
-	public void makeStudentInfoRegistered(StudentUpdateInfo studentUpdateInfo) {
-
-		StudentInfoDAO studentInfoDAO = new StudentInfoDAO();
-		studentInfoDAO.updateStudentInfo(studentUpdateInfo);
-	}
-
+	/** アカウントを更新する。 */
 	public void updateStudentInfo(StudentUpdateInfo studentUpdateInfo) {
 
 		StudentInfoDAO studentInfoDAO = new StudentInfoDAO();
 		studentInfoDAO.updateStudentInfo(studentUpdateInfo);
 	}
 
+	/** アカウントを削除する。 */
 	public void deleteStudentInfo(String mailAddress) {
+
+		RoomMemberInfoManager roomMemberInfoManager = new RoomMemberInfoManager();
+		RoomMemberGetInfo roomMemberGetInfo = roomMemberInfoManager.getRoomMemberInfoWithMailAddress(mailAddress);
+		if (roomMemberGetInfo == null) {
+			return;
+		}
+
+		// ルーム情報を削除する
+		MessageRoomInfoManager messageRoomInfoManager = new MessageRoomInfoManager();
+		for(long roomID : roomMemberGetInfo.getRoomIDs()) {
+			messageRoomInfoManager.deleteMessageRoomInfo(roomID);
+		}
 
 		StudentInfoDAO studentInfoDAO = new StudentInfoDAO();
 		studentInfoDAO.deleteStudentInfo(mailAddress);
 	}
 
+	/** アカウントを検索する。 */
 	public ArrayList<StudentGetInfo> searchStudentInfo(StudentSearchInfo studentSearchInfo) {
 
 		StudentInfoDAO studentInfoDAO = new StudentInfoDAO();

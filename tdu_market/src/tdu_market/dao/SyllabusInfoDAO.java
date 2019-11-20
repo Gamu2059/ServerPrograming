@@ -6,34 +6,41 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import tdu_market.dto.OpeningSemesterCreateInfo;
 import tdu_market.dto.SyllabusCreateInfo;
+import tdu_market.dto.SyllabusGetInfo;
 import tdu_market.dto.SyllabusSearchInfo;
 import tdu_market.dto.SyllabusUpdateInfo;
+import tdu_market.entity_bean.SemesterInfo;
 import tdu_market.entity_bean.SyllabusInfo;
+import tdu_market.entity_bean.TeacherInfo;
 
 public final class SyllabusInfoDAO extends DAOBase {
 
-	public SyllabusInfo getSyllabusInfo(String classCode) {
+	public SyllabusGetInfo getSyllabusInfo(String classCode) {
 
 		Connection connection = getConnection();
 		if (connection == null) {
 			return null;
 		}
 
-		SyllabusInfo syllabusInfo = null;
+		SyllabusGetInfo syllabusGetInfo = null;
 		ResultSet resultSet = null;
 
 		try {
 
-			String sql = "select * from \"SyllabusInfo\" where \"classCode\" = ?";
+			String sql = "select * from \"SyllabusInfo\" as s, \"OpeningSemesterInfo\" as o, \"SemesterInfo\" as se, \"TeacherInfo\" as t "
+					+ "where s.\"classCode\" = o.\"classCode\" and o.\"semesterID\" = se.\"semesterID\" and s.\"teacherID\" = t.\"teacherID\" and s.\"classCode\" = ?";
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, classCode);
 
 			resultSet = pstmt.executeQuery();
 
 			if (resultSet.next()) {
-				syllabusInfo = SyllabusInfo.create(resultSet);
+				SyllabusInfo syllabusInfo = SyllabusInfo.create(resultSet);
+				SemesterInfo semesterInfo = SemesterInfo.create(resultSet);
+				TeacherInfo teacherInfo = TeacherInfo.create(resultSet);
+
+				syllabusGetInfo = SyllabusGetInfo.create(syllabusInfo, semesterInfo, teacherInfo);
 			}
 		} catch (SQLException e) {
 			showSQLException(e);
@@ -50,7 +57,7 @@ public final class SyllabusInfoDAO extends DAOBase {
 			}
 		}
 
-		return syllabusInfo;
+		return syllabusGetInfo;
 	}
 
 	public void createSyllabusInfo(SyllabusCreateInfo syllabusCreateInfo) {
@@ -173,7 +180,7 @@ public final class SyllabusInfoDAO extends DAOBase {
 		}
 	}
 
-	public ArrayList<SyllabusInfo> searchSyllabusInfo(SyllabusSearchInfo syllabusSearchInfo) {
+	public ArrayList<SyllabusGetInfo> searchSyllabusInfo(SyllabusSearchInfo syllabusSearchInfo) {
 
 		if (syllabusSearchInfo == null) {
 			System.err.println("searchSyllabusInfo : syllabusSearchInfo is null");
@@ -185,7 +192,7 @@ public final class SyllabusInfoDAO extends DAOBase {
 			return null;
 		}
 
-		ArrayList<SyllabusInfo> list = null;
+		ArrayList<SyllabusGetInfo> list = null;
 		ResultSet resultSet = null;
 
 		try {
@@ -202,8 +209,10 @@ public final class SyllabusInfoDAO extends DAOBase {
 			boolean isEmptySujectID = subjectID < 1;
 			boolean isEmptySemesterID = semesterID < 1;
 
-			StringBuilder builder = new StringBuilder("select * from \"SyllabusInfo\" as s, \"OpeningSemesterInfo\" as o, \"SemesterInfo\" as se, \"TeacherInfo\" as t ");
-			builder.append("where s.\"classCode\" = o.\"classCode\" and o.\"semesterID\" = se.\"semesterID\" and s.\"teacherID\" = t.\"teacherID\" ");
+			StringBuilder builder = new StringBuilder(
+					"select * from \"SyllabusInfo\" as s, \"OpeningSemesterInfo\" as o, \"SemesterInfo\" as se, \"TeacherInfo\" as t ");
+			builder.append(
+					"where s.\"classCode\" = o.\"classCode\" and o.\"semesterID\" = se.\"semesterID\" and s.\"teacherID\" = t.\"teacherID\" ");
 
 			if (!isEmptyCCK) {
 				builder.append("and s.\"classCode\" like ? ");
@@ -259,12 +268,16 @@ public final class SyllabusInfoDAO extends DAOBase {
 
 			while (resultSet.next()) {
 				SyllabusInfo syllabusInfo = SyllabusInfo.create(resultSet);
+				SemesterInfo semesterInfo = SemesterInfo.create(resultSet);
+				TeacherInfo teacherInfo = TeacherInfo.create(resultSet);
+
+				SyllabusGetInfo syllabusGetInfo = SyllabusGetInfo.create(syllabusInfo, semesterInfo, teacherInfo);
 
 				if (list == null) {
-					list = new ArrayList<SyllabusInfo>();
+					list = new ArrayList<SyllabusGetInfo>();
 				}
 
-				list.add(syllabusInfo);
+				list.add(syllabusGetInfo);
 			}
 		} catch (SQLException e) {
 			showSQLException(e);
@@ -284,14 +297,14 @@ public final class SyllabusInfoDAO extends DAOBase {
 		return list;
 	}
 
-	public ArrayList<SyllabusInfo> getAllSyllabusInfo() {
+	public ArrayList<SyllabusGetInfo> getAllSyllabusInfo() {
 
 		Connection connection = getConnection();
 		if (connection == null) {
 			return null;
 		}
 
-		ArrayList<SyllabusInfo> list = null;
+		ArrayList<SyllabusGetInfo> list = null;
 		ResultSet resultSet = null;
 
 		try {
@@ -303,12 +316,16 @@ public final class SyllabusInfoDAO extends DAOBase {
 
 			while (resultSet.next()) {
 				SyllabusInfo syllabusInfo = SyllabusInfo.create(resultSet);
+				SemesterInfo semesterInfo = SemesterInfo.create(resultSet);
+				TeacherInfo teacherInfo = TeacherInfo.create(resultSet);
+
+				SyllabusGetInfo syllabusGetInfo = SyllabusGetInfo.create(syllabusInfo, semesterInfo, teacherInfo);
 
 				if (list == null) {
-					list = new ArrayList<SyllabusInfo>();
+					list = new ArrayList<SyllabusGetInfo>();
 				}
 
-				list.add(syllabusInfo);
+				list.add(syllabusGetInfo);
 			}
 		} catch (SQLException e) {
 			showSQLException(e);
@@ -360,19 +377,15 @@ public final class SyllabusInfoDAO extends DAOBase {
 		showInfo(dao.searchSyllabusInfo(searchInfo));
 
 		SyllabusCreateInfo createInfo = null;
-		OpeningSemesterInfoDAO openingSemesterInfoDAO = new OpeningSemesterInfoDAO();
-		OpeningSemesterCreateInfo openingSemesterCreateInfo = null;
 
 		System.out.println("データ作成");
-		createInfo = new SyllabusCreateInfo("1109046401", "メディア演習A（動画）（後前期）", 11, 9, "月3 月4", 1, "メディア演習室", null, null, null, null);
+		createInfo = new SyllabusCreateInfo("1109046401", "メディア演習A（動画）（後前期）", 11, 9, "月3 月4", 1, "メディア演習室", null, null,
+				null, null, 2);
 		dao.createSyllabusInfo(createInfo);
-		openingSemesterCreateInfo = new OpeningSemesterCreateInfo("1109046401", new long[] {2});
-		openingSemesterInfoDAO.createOpeningSemesterInfo(openingSemesterCreateInfo);
 
-		createInfo = new SyllabusCreateInfo("1109047401", "メディア演習A（動画）（後後期）", 11, 9, "月3 月4", 1, "メディア演習室", null, null, null, null);
+		createInfo = new SyllabusCreateInfo("1109047401", "メディア演習A（動画）（後後期）", 11, 9, "月3 月4", 1, "メディア演習室", null, null,
+				null, null, 2);
 		dao.createSyllabusInfo(createInfo);
-		openingSemesterCreateInfo = new OpeningSemesterCreateInfo("1109047401", new long[] {2});
-		openingSemesterInfoDAO.createOpeningSemesterInfo(openingSemesterCreateInfo);
 
 		System.out.println("担任名&開講年度検索");
 		searchInfo = new SyllabusSearchInfo(null, 0, null, "高", 2);
@@ -382,9 +395,7 @@ public final class SyllabusInfoDAO extends DAOBase {
 		showInfo(dao.getAllSyllabusInfo());
 
 		System.out.println("データ削除");
-		openingSemesterInfoDAO.deleteOpeningSemesterInfo("1109046401");
 		dao.deleteSyllabusInfo("1109046401");
-		openingSemesterInfoDAO.deleteOpeningSemesterInfo("1109047401");
 		dao.deleteSyllabusInfo("1109047401");
 
 		System.out.println("担任名&開講年度検索");
@@ -395,14 +406,14 @@ public final class SyllabusInfoDAO extends DAOBase {
 		showInfo(dao.getAllSyllabusInfo());
 	}
 
-	private static void showInfo(ArrayList<SyllabusInfo> list) {
+	private static void showInfo(ArrayList<SyllabusGetInfo> list) {
 
 		if (list == null) {
 			System.out.println("list is empty");
 			return;
 		}
 
-		for (SyllabusInfo i : list) {
+		for (SyllabusGetInfo i : list) {
 			System.out.println(i);
 		}
 	}

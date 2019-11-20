@@ -6,6 +6,7 @@ import tdu_market.dao.DepartmentInfoDAO;
 import tdu_market.dto.DepartmentGetInfo;
 import tdu_market.entity_bean.DepartmentInfo;
 
+/** 原則として、データが増えも減りもしない前提です。 */
 public final class DepartmentInfoManager {
 
 	public ArrayList<DepartmentGetInfo> getDepartmentInfoListWithDegree(long degreeID, boolean isIncludeNormalSubject) {
