@@ -93,6 +93,13 @@ footer {
 .footer_menu div ul {
   list-style: none;
 }
+.footer_menu button {
+	margin:0px;
+	padding:0px;
+	border:none;
+	background:rgba(0,0,0,0);
+	color:#FFF;
+}
 /* フッター - サイトマップ */
 .sitemap {
   margin-left: 13%;
