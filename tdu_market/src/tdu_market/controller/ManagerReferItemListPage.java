@@ -14,23 +14,21 @@ import javax.servlet.http.HttpSession;
 
 import tdu_market.dto.ItemGetInfo;
 import tdu_market.dto.ItemSearchInfo;
-import tdu_market.dto.ReturnInfo;
 import tdu_market.entity_manager.ItemInfoManager;
 import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.ControllerUtil;
 
-import java.text.SimpleDateFormat;
 /**
  * Servlet implementation class ReferItemListPage
  */
-@WebServlet("/ReferItemListPage")
-public class ReferItemListPage extends HttpServlet {
+@WebServlet("/ManagerReferItemListPage")
+public class ManagerReferItemListPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ReferItemListPage() {
+	public ManagerReferItemListPage() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

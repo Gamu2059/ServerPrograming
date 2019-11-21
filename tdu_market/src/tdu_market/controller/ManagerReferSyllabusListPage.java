@@ -17,14 +17,14 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class ReferSyllabusListPage
  */
-@WebServlet("/ReferSyllabusListPage")
-public class ReferSyllabusListPage extends HttpServlet {
+@WebServlet("/ManagerReferSyllabusListPage")
+public class ManagerReferSyllabusListPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReferSyllabusListPage() {
+    public ManagerReferSyllabusListPage() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,7 +35,7 @@ public class ReferSyllabusListPage extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.err.println("ReferSyllabusListPage is non implementation!");
+	
 		
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			return;
