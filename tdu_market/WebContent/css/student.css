@@ -1,0 +1,538 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* レイアウト - ボタン */
+/* 虫眼鏡 */
+.first_container img {
+  object-fit: contain;
+  width: 30px;
+  height: 30px;
+}
+.search_button {
+  position: relative;
+  background-color: #00000000;
+  border: none;
+  right: 50px;
+  height: 35px;
+  text-align: center;
+}
+
+/* 出品 */
+.exhibit_button {
+  float: right;
+}
+.exhibit_button button {
+  background-color: #ffa251;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 30px;
+  padding: 5px 10px;
+}
+.exhibit_button button:hover {
+  background-color: #fd7b09;
+}
+/* すべて見る... */
+.aside_info {
+  float: right;
+  margin: 5px 0px;
+}
+/* もっと探す */
+.more_search {
+  margin: 30px 0px 50px 0px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+/* 学生情報編集 */
+.profile_edit_button {
+  float: right;
+}
+/* 退会 */
+.unsubscribe_button {
+  margin: 25px 30px 50px 0px;
+  text-align: right;
+}
+.unsubscribe_button button:hover {
+  background-color: #ff2222;
+}
+/* 商品画像 (出品物情報登録) */
+.add_item_img_button {
+  border: 1px solid #000000;
+  margin: 0px 20px 0px 0px;
+}
+.add_item_img_button h3 {
+  background: #ff5151;
+  color: #ffffff;
+  text-align: center;
+  margin: auto;
+  padding: 5px 0px;
+}
+.add_item_img_button h3:hover {
+  background: #ff2222;
+}
+.add_item_img_button_ver2 {
+  background: #ffffff;
+  height: 200px;
+  width: 180px;
+  border: 5px dashed #000000;
+  margin: auto 0px;
+}
+.add_item_img_button_ver2 h1 {
+  color: #000000;
+  text-align: center;
+  font-size: 8em;
+}
+.add_item_img_button_ver2:hover {
+}
+
+/* レイアウト - リスト */
+/* 新着商品リスト */
+.new_item_list {
+  margin: 0px auto;
+  padding: 0px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.item_image_list {
+  display: flex;
+}
+/* シラバス検索結果リスト */
+/* パネル */
+.syllabus_list {
+  margin: 0px auto;
+}
+/* タイトル */
+.syllabus_list thead {
+  background: rgb(239, 239, 239);
+  border: 1px solid #000000;
+  border-left: none;
+  border-right: none;
+}
+.syllabus_list thead tr th {
+  padding: 10px 0px 10px 10px;
+}
+/* 列設定 */
+.syllabus_list thead tr th#syllabus_column1 {
+  width: 700px;
+}
+.syllabus_list thead tr th#syllabus_column2 {
+  padding: 10px 0px 10px 0px;
+  width: 100px;
+  text-align: center;
+  border-left: 1px solid #000000;
+  border-right: 1px solid #000000;
+}
+.syllabus_list thead tr th#syllabus_column3 {
+  width: 200px;
+}
+/* 行設定 */
+.syllabus_list tbody tr td {
+  border: 1px solid #000000;
+  border-left: none;
+  border-right: none;
+  padding: 5px 0px;
+}
+
+/* レイアウト - 要素 */
+/* 商品 */
+.item {
+  background-color: #ffffff;
+  border: 1px solid black;
+  margin: 0px;
+  padding: 10px;
+  width: 16%;
+  overflow: hidden;
+}
+.item:hover {
+  background: #cbe3ff;
+}
+.item_title {
+  margin: 10px 0px;
+  font-size: 1em;
+  white-space: nowrap;
+  transition-duration: 7s;
+  transition-timing-function: linear;
+}
+.item_title:hover {
+  /* 試行錯誤中 - 文字の長さに合わせて移動量を変えたい */
+  transform: translateX(-500%);
+}
+.item_price {
+  text-align: right;
+  font-size: 1em;
+}
+.item_img {
+  object-fit: contain;
+  width: 100%;
+}
+
+/* その他レイアウト */
+/* ユーザー情報参照画面 - 自己紹介 */
+.detail_content_textarea {
+  border: 1px solid #000000;
+  width: 100%;
+  min-height: 100px;
+  height: fit-content;
+  padding: 5px;
+}
+/* ユーザー情報編集画面 - 名前・学科用 */
+.detail_content_text {
+  font-size: 1.8em;
+}
+/* ユーザー情報編集 - 注意書き */
+p#note_Text {
+  font-size: 0.8em;
+  color: red;
+}
+/* ユーザー情報編集 - 入力フィールド */
+.detail_input_textfield {
+  font-size: 1.8em;
+}
+/* ユーザー情報編集 - 学科入力フィールド */
+.detail_content select {
+  font-size: 1.8em;
+}
+/* ユーザー情報編集 - 自己紹介 */
+.detail_content #self_introduction_textfield {
+  margin: auto;
+  width: 100%;
+  min-height: 100px;
+  padding: 5px;
+  resize: none;
+}
+/* ユーザー情報編集 - パスワード入力欄 */
+.password_textfield {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+/* 出品物情報登録 - テキストフィールド */
+.detail_content #exhibit_textfield {
+  width: 400px;
+}
+
+/* 出品物情報登録 - 出品物説明 */
+.detail_content #exhibit_description_textfield {
+  margin: auto;
+  width: 100%;
+  min-height: 100px;
+  padding: 5px;
+  resize: none;
+}
+/* 出品物情報登録 - 状態 */
+.detail_content #condition {
+  width: 400px;
+  font-size: 100%;
+}
+/* 出品物情報登録 - 出品価格 - 円 */
+.detail_content .yen {
+  display: flex;
+  font-size: 100%;
+}
+.detail_content .yen h4 {
+  margin: auto 0;
+  font-size: 100%;
+}
+/* 出品物情報参照 - 出品物名 */
+.detail_content #item_name {
+  font-size: 1.8em;
+}
+/* 出品物情報参照 - 授業名 */
+.detail_content #syllabus_name {
+  font-size: 1em;
+}
+/* 出品物情報参照 - 出品物紹介文 */
+.detail_content #item_explanation {
+  font-size: 1em;
+}
+/* 出品物情報更新 - 商品名 */
+.detail_input_textfield #item_name {
+  margin: 20px 0px;
+  width: 600px;
+}
+/* 出品物情報更新 - 授業名 */
+.detail_input_textfield #syllabus_name {
+  margin: 0px 0px 20px 0px;
+  width: 600px;
+  font-size: 0.5em;
+}
+/* 出品物情報更新 - 出品物紹介文 */
+.detail_content #item_explanation_field {
+  margin: auto;
+  width: 100%;
+  min-height: 100px;
+  padding: 5px;
+  resize: none;
+}
+/* 出品物情報更新 - 金額入力フォーム */
+.detail_content_right #yen_field {
+  width: 150px;
+  text-align: right;
+}
+/* 出品物一覧 - タブレイアウト */
+.tab_content table {
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  background: #ffffff;
+}
+/* 出品物一覧 - タブアイテムレイアウト */
+.tab_content table tr {
+  margin: 0px;
+  padding: 10px 20px 10px;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #000000;
+}
+.tab_content table tr:hover {
+  background-color: #c5c5c5;
+}
+/* 出品物一覧 - タブ画像 */
+.tab_content table tr td img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+}
+/* 出品物一覧 - 商品名 */
+.tab_content #item_name {
+  width: 70%;
+  margin: 10px 0px 0px 0px;
+  font-size: 1.5em;
+}
+/* 出品物一覧 - 商品価格 */
+.tab_content #item_price {
+  margin-top: auto;
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-size: 1.8em;
+}
+/* 商品情報一覧 - ソート */
+.first_container_ver3 #sort_item {
+  font-size: 1.4em;
+}
+/* シラバス紹介 - 授業コード */
+.detail_content #class_code_field {
+  width: 400px;
+}
+/* シラバス紹介 - 学科組織 */
+.detail_content #department {
+  font-size: 1.3em;
+}
+/* シラバス照会 - 授業名 */
+.detail_content #class_name_field {
+  width: 400px;
+}
+/* シラバス照会 - 担当教員 */
+.detail_content #teacher_field {
+  width: 400px;
+}
+/* 商品検索 - 商品名 */
+.detail_content #item_name_field {
+  width: 400px;
+}
+/* 商品検索 - 状態 */
+.detail_content #condition {
+  font-size: 1.3em;
+}
+
+/* シラバス参照画面 - カラムタイトル */
+.detail_content_syllabus_top #title {
+  background-color: rgb(239, 239, 239);
+  border: 1px solid #000000;
+  border-top-style: none;
+  border-bottom-style: none;
+  border-left-style: none;
+}
+.detail_content_syllabus #title {
+  background-color: rgb(239, 239, 239);
+  border: 1px solid #000000;
+  border-top-style: none;
+  border-bottom-style: none;
+  border-left-style: none;
+}
+.detail_content_syllabus_textbox #title {
+  background-color: rgb(239, 239, 239);
+  border: 1px solid #000000;
+  border-top-style: none;
+  border-left-style: none;
+  border-right-style: none;
+}
+
+.card-body h5 {
+  font-size: 1em;
+}
+.card-body p {
+  display: inline-block;
+  float: right;
+}
+.card-body {
+  text-decoration-color: black;
+  border-color: black;
+}
+
+/*メッセージ画面*/
+
+.message_tab input {
+  display: none;
+}
+.message_tab {
+  /*タブの全体設定*/
+  background-color: #efefef;
+  border: solid 1px;
+  float: left;
+  margin: 0 auto;
+  display: inline;
+  width: 25vw;
+}
+.message_tab img {
+  margin-left: 8px;
+  width: 10%;
+  object-fit: contain;
+}
+.message_header {
+  background-color: #efefef;
+  font-weight: bold;
+  font-size: 1em;
+  height: 2.5em;
+  display: flex;
+  align-items: center;
+  padding: 0px 5px;
+}
+
+.message_header[name="message_room_panel"] {
+  border: solid 1px;
+  justify-content: space-between;
+  font-size: 1em;
+}
+.message_header div {
+  min-width: 1em;
+}
+
+input[name="trading_button"] {
+  margin: 5px 10px;
+  text-align: center;
+}
+input[name="end_button"] {
+  margin: 5px 10px;
+}
+
+/*メッセージ一覧画面*/
+.message_list_tab {
+  background-color: white;
+  border-top: solid 1px;
+  font-size: 1em;
+  text-align: center;
+  display: flex;
+  width: 100%;
+}
+.message_list_tab:hover {
+  background-color: #c5c5c5;
+}
+.message_content {
+  float: left;
+  text-align: left;
+  margin-left: 10px;
+}
+.message_sender {
+  font-size: 1.5em;
+  margin-top: 5px;
+}
+.message_text {
+  color: #4e4e4e;
+  font-size: 1em;
+  width: 100%;
+  word-wrap: break-word;
+  margin-bottom: 5px;
+  line-height: 1em;
+  height: 2em;
+  overflow: hidden;
+}
+
+/*メッセージ画面*/
+.message_room {
+  /*メッセージUIの枠*/
+  background-color: rgb(239, 239, 239);
+  display: flex;
+  width: 40vw;
+  height: 100%;
+  flex-direction: column;
+  flex-wrap: wrap;
+  min-width: 1em;
+}
+.message_post_list {
+  /*すべてのメッセージの枠*/
+  border: solid 1px;
+  border-top: none;
+  overflow-y: auto;
+  width: 40vw;
+  height: 600px;
+  background-color: #ffffff;
+}
+.message_post_list section {
+  padding-bottom: 90px;
+}
+
+.message_post {
+  /*一つ一つの投稿*/
+  display: flex;
+  margin: 10px;
+}
+.message_post img {
+  width: 10%;
+  object-fit: contain;
+}
+.message_post[name="opponent"] {
+  justify-content: flex-start;
+}
+.message_post[name="myself"] {
+  justify-content: flex-end;
+}
+.message_post[name="system"] {
+  justify-content: center;
+}
+.message_post_content {
+  margin-left: 10px;
+  width: 80%;
+  border-radius: 15px;
+  padding: 5px 10px;
+}
+.message_post_content[name="myself"] {
+  background-color: #51abff;
+}
+.message_post_content[name="opponent"] {
+  background-color: #efefef;
+}
+.message_post_content[name="system"] {
+  background: #b8b8b8;
+  border-radius: 5px !important;
+  margin: 20px;
+  width: 50%;
+}
+.message_room .textfield {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px auto;
+  position: relative;
+  left: 20px;
+  bottom: 80px;
+  background-color: rgba(0, 0, 0, 0);
+}
+.textfield #message_form {
+  background-color: #ffffff;
+  padding: 10px 50px 10px 10px;
+  border-radius: 30px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.textfield #message_form::-webkit-scrollbar {
+  display: none;
+}
+.textfield img {
+  position: relative;
+  bottom: 25px;
+  left: -50px;
+  z-index: 50;
+}

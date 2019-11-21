@@ -1,0 +1,57 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*汎用ボタン定義*/
+.button_flat_submit {
+  position: relative;
+  font-weight: bold;
+  background-color: #ffa251;
+  display: inline-block;
+  border-radius: 30px;
+  color: white;
+  padding: 0.5em 1.5em;
+  border: none;
+}
+.button_flat_submit:hover {
+  background-color: #f27000;
+}
+
+.button_flat_nega {
+  position: relative;
+  font-weight: bold;
+  background-color: #ff5151;
+  display: inline-block;
+  border-radius: 30px;
+  color: white;
+  padding: 0.2em 1em;
+  border: none;
+}
+.button_flat_nega:hover {
+  background-color: #ff2222;
+}
+.button_flat_normal {
+  position: relative;
+  font-weight: bold;
+  background-color: white;
+  display: inline-block;
+  border-radius: 30px;
+  color: black;
+  padding: 0.2em 1.3em;
+  border: solid 1px #505050;
+}
+.button_flat_normal:hover {
+  background-color: #cdcdcd;
+}
+
+/*丸めのテキストフォーム*/
+.radius_text_form {
+  position: relative;
+  border-radius: 10px;
+  border-width: thin;
+  padding: 5px;
+}
+
+p#waring_message {
+  font-weight: 900;
+  color: red;
+}
