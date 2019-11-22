@@ -11,21 +11,22 @@
 </head>
 <body>
 	<header>
-		<img id="title_log" src="/tdu_market/images/student_logo.png" alt="logo" />
+		<img id="title_log" src="/tdu_market/images/student_logo.png"
+			alt="logo" />
 	</header>
 	<div class="center_container">
 		<article>
 			<h1>電大マーケットへようこそ</h1>
-			<form action="#" method="post">
+			<form action="/tdu_market/tdu_market/controller/Login" method="post">
 				<div class="input_field">
-					<input type="text" name="mail" placeholder="メールアドレス" /> <input
+					<input type="text" name="mailaddress" placeholder="メールアドレス" /> <input
 						type="password" name="password" placeholder="パスワード" />
 				</div>
 				<button id="send_mailaddress_button" type="submit"
 					class="button_flat_blue">ログイン</button>
-				<button id="new_account_button" type="submit"
-					class="button_flat_blue">新規登録</button>
 			</form>
+			<button id="new_account_button" type="submit"
+				class="button_flat_blue" onclick="location.href='/tdu_market/general/send_mail.jsp'">新規登録</button>
 		</article>
 	</div>
 </body>

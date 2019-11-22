@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class Login
  */
-@WebServlet("/Login")
+@WebServlet("/tdu_market/controller/Login")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
