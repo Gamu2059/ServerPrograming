@@ -10,9 +10,9 @@
   <title>トップ画面</title>
   <!-- InstanceEndEditable -->
   <!-- Bootstrap -->
-  <link href="../css/import_student.css" rel="stylesheet">
+  <link href="/tdu_market/css/import_student.css" rel="stylesheet">
   <!-- InstanceBeginEditable name="scripts" -->
-  <script type="text/javascript" src="../js/student.js" defer="defer"></script>
+  <script type="text/javascript" src="/tdu_market/js/student.js" defer="defer"></script>
   <!-- InstanceEndEditable -->
 </head>
 
@@ -41,11 +41,11 @@
       Team.YAMAGAMI </div>
   </footer>
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <script src="../js/jquery-3.3.1.min.js"></script>
+  <script src="/tdu_market/js/jquery-3.3.1.min.js"></script>
 
   <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="../js/popper.min.js"></script>
-  <script src="../js/bootstrap-4.3.1.js"></script>
+  <script src="/tdu_market/js/popper.min.js"></script>
+  <script src="/tdu_market/js/bootstrap-4.3.1.js"></script>
 </body>
 <!-- InstanceEnd -->
 </html>

@@ -10,9 +10,9 @@
 <title>トップ画面</title>
 <!-- InstanceEndEditable -->
 <!-- Bootstrap -->
-<link href="../css/import_student.css" rel="stylesheet">
+<link href="/tdu_market/css/import_student.css" rel="stylesheet">
 <!-- InstanceBeginEditable name="scripts" -->
-<script type="text/javascript" src="../js/student.js" defer="defer"></script>
+<script type="text/javascript" src="/tdu_market/js/student.js" defer="defer"></script>
 <!-- InstanceEndEditable -->
 </head>
 <body>
@@ -28,7 +28,7 @@
 					<input type="text" name="item" class="radius_text_form" size="70"
 						placeholder="全ての商品から探す（教科書名、道具名など）" />
 					<button type="submit" name="item_search" class="search_button">
-						<img src="../images/search.png" alt="虫眼鏡" />
+						<img src="/tdu_market/images/search.png" alt="虫眼鏡" />
 					</button>
 				</div>
 			</form>
@@ -44,7 +44,7 @@
 			<!-- 新着商品一覧 -->
 			<div class="new_item_list">
 				<button id="item_button">
-					<img src="../images/item_image.png" alt="企業と社会" />
+					<img src="/tdu_market/images/item_image.png" alt="企業と社会" />
 					<h5>コーズ・リレーテッド・マーケティング</h5>
 					<h4>1000円</h4>
 				</button>

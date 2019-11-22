@@ -10,9 +10,9 @@
 <title>メッセージ</title>
 <!-- InstanceEndEditable -->
 <!-- Bootstrap -->
-<link href="../css/import_student.css" rel="stylesheet">
+<link href="/tdu_market/css/import_student.css" rel="stylesheet">
 <!-- InstanceBeginEditable name="scripts" -->
-<script type="text/javascript" src="../js/student.js" defer="defer"></script>
+<script type="text/javascript" src="/tdu_market/js/student.js" defer="defer"></script>
 <!-- InstanceEndEditable -->
 </head>
 <body>
@@ -34,7 +34,7 @@
 
 						<!--jsで繰り返しを行い、メッセージタブを作成する。-->
 						<label for="message1" class="message_list_tab" onclick="">
-							<img src="../images/icon.png" alt="アイコン" />
+							<img src="/tdu_market/images/icon.png" alt="アイコン" />
 							<div class="message_content">
 								<div class="message_sender">TestUser1</div>
 								<div class="message_text">今日はいい天気ですね。進捗はいかかでしょうか。</div>
@@ -42,7 +42,7 @@
 						</label>
 						<!--jsで繰り返しを行い、メッセージタブを作成する。-->
 						<label for="message2" class="message_list_tab" onclick="">
-							<img src="../images/icon.png" alt="アイコン" />
+							<img src="/tdu_market/images/icon.png" alt="アイコン" />
 							<div class="message_content">
 								<div class="message_sender">TestUser2</div>
 								<div class="message_text">今日はいい天気ですね。進捗はいかかでしょうか。</div>
@@ -50,7 +50,7 @@
 						</label>
 						<!--jsで繰り返しを行い、メッセージタブを作成する。-->
 						<label for="message3" class="message_list_tab" onclick="">
-							<img src="../images/icon.png" alt="アイコン" />
+							<img src="/tdu_market/images/icon.png" alt="アイコン" />
 							<div class="message_content">
 								<div class="message_sender">TestUser3</div>
 								<div class="message_text">今日はいい天気ですね。進捗はいかかでしょうか。</div>
@@ -79,7 +79,7 @@
 								</div>
 								<div class="message_post" name="opponent">
 									<!--メッセージ一つ-->
-									<img src="../images/icon.png" alt="icon" />
+									<img src="/tdu_market/images/icon.png" alt="icon" />
 									<div class="message_post_content" name="opponent">こんにちは！
 									</div>
 								</div>
@@ -90,7 +90,7 @@
 								</div>
 								<div class="message_post" name="opponent">
 									<!--メッセージ一つ-->
-									<img src="../images/icon.png" alt="icon" />
+									<img src="/tdu_market/images/icon.png" alt="icon" />
 									<div class="message_post_content" name="opponent">
 										ところで、サバプロの進捗はどうですか？</div>
 								</div>
@@ -101,7 +101,7 @@
 								</div>
 								<div class="message_post" name="opponent">
 									<!--メッセージ一つ-->
-									<img src="../images/icon.png" alt="icon" />
+									<img src="/tdu_market/images/icon.png" alt="icon" />
 									<div class="message_post_content" name="opponent">
 										お断りします。</div>
 								</div>
@@ -112,7 +112,7 @@
 								</div>
 								<div class="message_post" name="opponent">
 									<!--メッセージ一つ-->
-									<img src="../images/icon.png" alt="icon" />
+									<img src="/tdu_market/images/icon.png" alt="icon" />
 									<div class="message_post_content" name="opponent">
 										ん？今なんでもって言いましたよね？</div>
 								</div>
@@ -127,7 +127,7 @@
 							<form action="#" method="post">
 								<textarea id="message_form" name="message_form" cols="50"
 									rows="2" placeholder="メッセージを入力"></textarea>
-								<img src="../images/post.png" alt="post" />
+								<img src="/tdu_market/images/post.png" alt="post" />
 							</form>
 						</div>
 					</div>

@@ -10,9 +10,9 @@
 <title>商品情報参照</title>
 <!-- InstanceEndEditable -->
 <!-- Bootstrap -->
-<link href="../css/import_student.css" rel="stylesheet">
+<link href="/tdu_market/css/import_student.css" rel="stylesheet">
 <!-- InstanceBeginEditable name="scripts" -->
-<script type="text/javascript" src="../js/student.js" defer="defer"></script>
+<script type="text/javascript" src="/tdu_market/js/student.js" defer="defer"></script>
 <!-- InstanceEndEditable -->
 </head>
 <body>
@@ -32,9 +32,9 @@
 						<h5 id="syllabus_name">ぬこ先生のプログラミング青空教室</h5>
 					</div>
 					<div class="detail_content">
-						<img src="../images/item_image.png" alt="画像１" /> <img
-							src="../images/item_image.png" alt="画像１" /> <img
-							src="../images/item_image.png" alt="画像１" />
+						<img src="/tdu_market/images/item_image.png" alt="画像１" /> <img
+							src="/tdu_market/images/item_image.png" alt="画像１" /> <img
+							src="/tdu_market/images/item_image.png" alt="画像１" />
 					</div>
 					<div class="detail_content">
 						<h4 id="item_explanation">

@@ -10,9 +10,9 @@
 <title>出品物情報更新</title>
 <!-- InstanceEndEditable -->
 <!-- Bootstrap -->
-<link href="../css/import_student.css" rel="stylesheet">
+<link href="/tdu_market/css/import_student.css" rel="stylesheet">
 <!-- InstanceBeginEditable name="scripts" -->
-<script type="text/javascript" src="../js/student.js" defer="defer"></script>
+<script type="text/javascript" src="/tdu_market/js/student.js" defer="defer"></script>
 <!-- InstanceEndEditable -->
 </head>
 <body>
@@ -38,7 +38,7 @@
 						</div>
 						<div class="detail_content_left">
 							<div class="item_img_delete_button">
-								<img src="../images/item_image.png" alt="画像１" />
+								<img src="/tdu_market/images/item_image.png" alt="画像１" />
 								<button name="delete_img">削除</button>
 							</div>
 							<label class="item_img_add_button"> <input

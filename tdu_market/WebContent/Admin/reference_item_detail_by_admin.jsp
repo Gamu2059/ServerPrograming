@@ -7,7 +7,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <!-- Bootstrap -->
-<link rel="stylesheet" href="../css/import_admin.css" type="text/css" />
+<link rel="stylesheet" href="/tdu_market/css/import_admin.css" type="text/css" />
 <title>商品情報詳細</title>
 </head>
 <body>
@@ -27,9 +27,9 @@
 					<h2 id="title">ぬこ先生のやさしいJAVA入門書</h2>
 					<label>ぬこ先生のプログラミング青空教室</label> <br>
 					<div class="item_for_left">
-						<img src="../images/item_image.png" alt="商品画像"> <img
-							src="../images/item_image.png" alt="商品画像"> <img
-							src="../images/item_image.png" alt="商品画像">
+						<img src="/tdu_market/images/item_image.png" alt="商品画像"> <img
+							src="/tdu_market/images/item_image.png" alt="商品画像"> <img
+							src="/tdu_market/images/item_image.png" alt="商品画像">
 					</div>
 					<label>
 						商品説明文はここに出力します。ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ

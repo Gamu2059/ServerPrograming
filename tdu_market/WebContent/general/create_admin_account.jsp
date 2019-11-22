@@ -7,18 +7,18 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ユーザー登録画面</title>
-<link href="../css/import_general_admin.css" rel="stylesheet" />
+<link href="/tdu_market/css/import_general_admin.css" rel="stylesheet" />
 </head>
 <body>
 	<header>
-		<img id="title_log" src="../images/student_logo.png" alt="logo" />
+		<img id="title_log" src="/tdu_market/images/student_logo.png" alt="logo" />
 	</header>
 	<div class="center_container">
 		<article id="create">
 			<form action="#" method="post">
 				<div class="input_field_ver2">
 					<div class="input_content_img">
-						<img id="icon" src="../images/icon.png" alt="icon" />
+						<img id="icon" src="/tdu_market/images/icon.png" alt="icon" />
 						<div>
 							<label>
 								<h2>アイコン</h2>
