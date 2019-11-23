@@ -48,7 +48,6 @@ public class TopPage extends HttpServlet {
 		//新着商品を取得する
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		ArrayList<ItemGetInfo> newItemList = itemInfo.getNewItemList();
-		System.out.println("java "+newItemList.size());
 		//jspに情報を投げる。
 		session.setAttribute("newItemList", newItemList);
 		ControllerUtil.translatePage("/tdu_market/Student/student_top.jsp", request, response);

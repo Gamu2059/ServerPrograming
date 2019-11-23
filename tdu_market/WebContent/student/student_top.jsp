@@ -50,7 +50,6 @@
 				<!-- <form name ="newItemList" action="../TopPage" method="get"></form> -->
 				<% ArrayList<ItemGetInfo> newItemList = new ArrayList<ItemGetInfo>();
 	  				newItemList = (ArrayList<ItemGetInfo>)session.getAttribute("newItemList");
-	  				System.out.println("jsp "+newItemList.size());
 	  				if(newItemList == null){
 	  					out.print("新着商品はありません");
 	  				} else {
