@@ -12,7 +12,7 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class RegisterStudentInfo
  */
-@WebServlet("/RegisterSyllabusInfo")
+@WebServlet("/RegisterSyllabusPage")
 public class RegisterSyllabusPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

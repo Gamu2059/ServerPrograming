@@ -10,9 +10,9 @@
 <title>ユーザー情報参照</title>
 <!-- InstanceEndEditable -->
 <!-- Bootstrap -->
-<link href="../css/import_student.css" rel="stylesheet">
+<link href="/tdu_market/css/import_student.css" rel="stylesheet">
 <!-- InstanceBeginEditable name="scripts" -->
-<script type="text/javascript" src="../js/student.js" defer="defer"></script>
+<script type="text/javascript" src="/tdu_market/js/student.js" defer="defer"></script>
 <!-- InstanceEndEditable -->
 </head>
 <body>
@@ -33,7 +33,7 @@
 				<form action="" method="get">
 					<div class="top_content">
 						<div class="top_content_left">
-							<img src="../images/icon.png" alt="ユーザーアイコン" />
+							<img src="/tdu_market/images/icon.png" alt="ユーザーアイコン" />
 						</div>
 						<div class="top_content_right">
 							<div class="detail_content">

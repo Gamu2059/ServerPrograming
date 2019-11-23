@@ -10,9 +10,9 @@
 <title>出品物一覧</title>
 <!-- InstanceEndEditable -->
 <!-- Bootstrap -->
-<link href="../css/import_student.css" rel="stylesheet">
+<link href="/tdu_market/css/import_student.css" rel="stylesheet">
 <!-- InstanceBeginEditable name="scripts" -->
-<script type="text/javascript" src="../js/student.js" defer="defer"></script>
+<script type="text/javascript" src="/tdu_market/js/student.js" defer="defer"></script>
 <!-- InstanceEndEditable -->
 </head>
 <body>
@@ -36,17 +36,17 @@
 					<!--ここは一例です。必要に応じて補ってください。-->
 					<div class="tab_content" id="exhibiting_content">
 						<button id="exhibit_button">
-							<img src="../images/item_image.png" alt="教科書"> <label
+							<img src="/tdu_market/images/item_image.png" alt="教科書"> <label
 								id="item_name">デザイン入門</label> <label id="item_price">1000円</label>
 						</button>
 						<button id="exhibit_button">
-							<img src="../images/item_image.png" alt="教科書"> <label
+							<img src="/tdu_market/images/item_image.png" alt="教科書"> <label
 								id="item_name">デザイン入門</label> <label id="item_price">1000円</label>
 						</button>
 					</div>
 					<div class="tab_content" id="trading_content">
 						<button id="exhibit_button">
-							<img src="../images/item_image.png" alt="教科書"> <label
+							<img src="/tdu_market/images/item_image.png" alt="教科書"> <label
 								id="item_name">デザイン入門</label> <label id="item_price">1000円</label>
 						</button>
 					</div>

@@ -10,9 +10,9 @@
 <title>出品物登録</title>
 <!-- InstanceEndEditable -->
 <!-- Bootstrap -->
-<link href="../css/import_student.css" rel="stylesheet">
+<link href="/tdu_market/css/import_student.css" rel="stylesheet">
 <!-- InstanceBeginEditable name="scripts" -->
-<script type="text/javascript" src="../js/student.js" defer="defer"></script>
+<script type="text/javascript" src="/tdu_market/js/student.js" defer="defer"></script>
 <!-- InstanceEndEditable -->
 </head>
 <body>
@@ -46,7 +46,7 @@
 							<h3>画像をアップロード</h3>
 							<div class="item_image_list">
 								<div class="item_img_delete_button">
-									<img src="../images/item_image.png" alt="画像１" />
+									<img src="/tdu_market/images/item_image.png" alt="画像１" />
 									<button name="delete_img">削除</button>
 								</div>
 
@@ -119,13 +119,13 @@
 								<div class="dialog_detail">
 									<div class="item_image_list">
 										<div class="dialog_item_image">
-											<img src="../images/item_image.png" alt="商品画像" width="60%" />
+											<img src="/tdu_market/images/item_image.png" alt="商品画像" width="60%" />
 										</div>
 										<div class="dialog_item_image">
-											<img src="../images/item_image.png" alt="商品画像" width="60%" />
+											<img src="/tdu_market/images/item_image.png" alt="商品画像" width="60%" />
 										</div>
 										<div class="dialog_item_image">
-											<img src="../images/item_image.png" alt="商品画像" width="60%" />
+											<img src="/tdu_market/images/item_image.png" alt="商品画像" width="60%" />
 										</div>
 									</div>
 								</div>

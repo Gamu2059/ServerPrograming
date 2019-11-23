@@ -7,7 +7,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <!-- Bootstrap -->
-<link rel="stylesheet" href="../css/import_admin.css" type="text/css" />
+<link rel="stylesheet" href="/tdu_market/css/import_admin.css" type="text/css" />
 <title>学生情報一覧</title>
 </head>
 <body>
@@ -95,7 +95,7 @@
 			<!-- 絞り込みボタン -->
 			<div class="item_for_center">
 				<button class="search_button" type="button">
-					<img src="../images/search.png" />絞り込み
+					<img src="/tdu_market/images/search.png" />絞り込み
 				</button>
 			</div>
 		</article>

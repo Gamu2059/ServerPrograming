@@ -10,9 +10,9 @@
 <title>商品情報一覧</title>
 <!-- InstanceEndEditable -->
 <!-- Bootstrap -->
-<link href="../css/import_student.css" rel="stylesheet">
+<link href="/tdu_market/css/import_student.css" rel="stylesheet">
 <!-- InstanceBeginEditable name="scripts" -->
-<script type="text/javascript" src="../js/student.js" defer="defer"></script>
+<script type="text/javascript" src="/tdu_market/js/student.js" defer="defer"></script>
 <!-- InstanceEndEditable -->
 </head>
 <body>
@@ -38,12 +38,12 @@
 		<br>
 		<div class="new_item_list">
 			<button id="item_button">
-				<img src="../images/item_image.png" alt="企業と社会" />
+				<img src="/tdu_market/images/item_image.png" alt="企業と社会" />
 				<h5>コーズ・リレーテッド・マーケティング</h5>
 				<h4>1000円</h4>
 			</button>
 			<button id="item_button">
-				<img src="../images/item_image.png" alt="企業と社会" />
+				<img src="/tdu_market/images/item_image.png" alt="企業と社会" />
 				<h5>コーズ・リレーテッド・マーケティング</h5>
 				<h4>1000円</h4>
 			</button>

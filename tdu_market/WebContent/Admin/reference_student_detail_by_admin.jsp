@@ -8,7 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <!-- Bootstrap -->
-<link rel="stylesheet" href="../css/import_admin.css" type="text/css" />
+<link rel="stylesheet" href="/tdu_market/css/import_admin.css" type="text/css" />
 <title>学生情報詳細</title>
 </head>
 <body>
@@ -26,7 +26,7 @@
 				</div>
 				<div class="user_profile">
 					<div class="item_for_LeftAndRight_around">
-						<img src="../images/icon.png" />
+						<img src="/tdu_market/images/icon.png" />
 						<div>
 							<h3>ディスプレイネーム</h3>
 							<h2 id="user_name">電大太郎</h2>
