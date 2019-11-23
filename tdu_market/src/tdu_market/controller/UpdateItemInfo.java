@@ -39,6 +39,8 @@ public class UpdateItemInfo extends HttpServlet {
 			return;
 		}
 
+		渡された授業名（String）を関連授業コード（String）に変換する処理
+
 		//出品商品更新処理
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		ItemUpdateInfo updateInfo = new ItemUpdateInfo(Integer.valueOf(request.getParameter("itemID")).longValue(),
