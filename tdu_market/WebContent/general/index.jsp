@@ -17,6 +17,14 @@
 	<div class="center_container">
 		<article>
 			<h1>電大マーケットへようこそ</h1>
+			<h2>
+			<% 
+			String obj = (String)session.getAttribute("errorMessage");
+			if(obj != null && !obj.trim().isEmpty()){
+				out.println(obj);
+			}
+			%>
+			</h2>
 			<form action="/tdu_market/tdu_market/controller/Login" method="post">
 				<div class="input_field">
 					<input type="text" name="mailaddress" placeholder="メールアドレス" /> <input
@@ -26,7 +34,7 @@
 					class="button_flat_blue">ログイン</button>
 			</form>
 			<button id="new_account_button" type="submit"
-				class="button_flat_blue" onclick="location.href='/tdu_market/general/send_mail.jsp'">新規登録</button>
+				class="button_flat_blue" onclick="location.href='/general/send_mail.jsp'">新規登録</button>
 		</article>
 	</div>
 </body>

@@ -18,9 +18,7 @@
 <!-- InstanceEndEditable -->
 </head>
 <body onLoad="document.newItemList.submit();">
-
 	<%@ include file="header.jsp"%>
-
 	<!-- InstanceBeginEditable name="body" -->
 	<article class="content">
 		<!-- ファーストコンテナ -->
@@ -49,16 +47,19 @@
 			<!-- 新着商品一覧 -->
 			<div class="new_item_list">
 				<!-- ページを読み込んだ時に新着情報を取得（自動実行） -->
-				<form name ="newItemList" action="../TopPage" method="get"></form>
+				<!-- <form name ="newItemList" action="../TopPage" method="get"></form> -->
 				<% ArrayList<ItemGetInfo> newItemList = new ArrayList<ItemGetInfo>();
-	  				newItemList = (ArrayList<ItemGetInfo>)request.getAttribute("newItemList");
+	  				newItemList = (ArrayList<ItemGetInfo>)session.getAttribute("newItemList");
+	  				System.out.println("jsp "+newItemList.size());
 	  				if(newItemList == null){
 	  					out.print("新着商品はありません");
 	  				} else {
 	  					for(int i=0;i<newItemList.size();i++){
-		  					out.print("<button id=\"item_button\">");
+		  					//out.print("<button id=\"item_button\">"); これが何なのかよくわからない。
 		  					out.print("<button id=\"item_button\" type=\" submit \" value=\" "+ newItemList.get(i).getItemID() +"  \">");
-		  					out.print("<img src=\" " + newItemList.get(i).getItemImageBinaries()[0] +" \"/>");
+		  					if(newItemList.get(i).getItemImageBinaries() != null){
+		  						out.print("<img src=\" " + newItemList.get(i).getItemImageBinaries()[0] +" \"/>");
+		  					}
 		  					out.print("<h5>"+newItemList.get(i).getItemName()+"</h5>");
 		  					out.print("<h4>"+newItemList.get(i).getPrice()+"</h4>");
 		  					out.print("</button>");
