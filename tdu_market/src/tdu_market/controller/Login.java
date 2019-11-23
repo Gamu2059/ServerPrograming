@@ -14,6 +14,7 @@ import tdu_market.dto.ReturnInfo;
 import tdu_market.entity_manager.ManagerInfoManager;
 import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.AccountUtil;
+import tdu_market.util.ControllerUtil;
 
 /**
  * Servlet implementation class Login
@@ -71,11 +72,12 @@ public class Login extends HttpServlet {
 				if (registerdResult != null && registerdResult.isSuccess()) {
 
 					// 本登録されているのでトップへ
-					request.getRequestDispatcher("top_student.jsp").forward(request, response);
+					ControllerUtil.translatePage("/tdu_market/Student/student_top.jsp", request, response);
+
 				}else {
 
 					// 仮登録状態なのでアカウント作成へ
-					request.getRequestDispatcher("create_student_account.jsp").forward(request, response);
+					ControllerUtil.translatePage("/tdu_market/general/create_student_account.jsp", request, response);
 				}
 			} else {
 
@@ -95,11 +97,11 @@ public class Login extends HttpServlet {
 				if (registerdResult != null && registerdResult.isSuccess()) {
 
 					// 本登録されているのでトップへ
-					request.getRequestDispatcher("top_admin.jsp").forward(request, response);
+					request.getRequestDispatcher("admin/top_admin.jsp").forward(request, response);
 				}else {
 
 					// 仮登録状態なのでアカウント作成へ
-					request.getRequestDispatcher("create_admin_account.jsp").forward(request, response);
+					request.getRequestDispatcher("admin/create_admin_account.jsp").forward(request, response);
 				}
 			} else {
 
@@ -111,8 +113,8 @@ public class Login extends HttpServlet {
 
 	private void forwardToIndex(HttpServletRequest request, HttpServletResponse response, String errorMessage)
 			throws ServletException, IOException {
-
-		request.setAttribute(ERROR_MESSAGE, errorMessage);
-		request.getRequestDispatcher("index.jsp").forward(request, response);
+		HttpSession session = request.getSession();
+		session.setAttribute(ERROR_MESSAGE, errorMessage);
+		ControllerUtil.translatePage("/tdu_market/general/index.jsp", request, response);
 	}
 }
