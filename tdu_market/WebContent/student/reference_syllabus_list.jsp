@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="tdu_market.dto.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -38,12 +40,22 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr class="syllabusId">
-									<td hidden>0000000000000</td>
-									<td id="syllabus_column1">コンピュータープログラミング</td>
-									<td id="syllabus_column2">水3</td>
-									<td id="syllabus_column3">電大太郎</td>
-								</tr>
+								<!-- ReferSyllabusListPageからデータを受け取り、展開 -->
+								<% ArrayList<SyllabusGetInfo> searchResult = new ArrayList<SyllabusGetInfo>();
+									searchResult = (ArrayList<SyllabusGetInfo>)request.getAttribute("searchResult");
+									if(searchResult == null){
+										out.print("該当の商品が見つかりませんでした。");
+									} else {
+										for(int i = 0 ; i < searchResult.size() ; i++){
+											out.print("<tr class=\"syllabusId\">");
+											out.print("<td hidden>"+searchResult.get(i).getClassCode()+"</td>");
+											out.print("<td id=\"syllabus_column1\">"+searchResult.get(i).getClassName()+"</td>");
+											out.print("<td id=\"syllabus_column2\">"+searchResult.get(i).getDates()+"</td>");
+											out.print("<td id=\"syllabus_column3\">"+searchResult.get(i).getTeacherName()+"</td>");
+											out.print("</tr>");
+										}
+									}
+								%>
 							</tbody>
 						</table>
 						<!-- テーブル要素クリック -->
