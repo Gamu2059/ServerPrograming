@@ -12,26 +12,42 @@ import tdu_market.entity_manager.StudentInfoManager;
 
 public class ControllerUtil {
 
-	//ログイン状態の検証を行うクラス。ログインしていない場合は、トップ画面に遷移。
-	public static boolean verifyLogin(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException  {
+	// ログイン状態の検証を行うクラス。ログインしていない場合は、トップ画面に遷移。
+	public static boolean verifyLogin(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-		String mailAddress = getMailAddress(request,response);
+		String mailAddress = getMailAddress(request, response);
 		StudentInfoManager student = new StudentInfoManager();
 		ReturnInfo loginResult = student.existMailAddress(mailAddress);
 
-		if(!loginResult.isSuccess()) {
-			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+		if (!loginResult.isSuccess()) {
+			RequestDispatcher rd = request.getRequestDispatcher("general/index.jsp");
 			rd.forward(request, response);
 			return false;
 		}
 		return true;
 	}
 
-	//セッションからメールアドレスを取得する。
-	public static String getMailAddress(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException  {
+	// セッションからメールアドレスを取得する。
+	public static String getMailAddress(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		String mailAddress = (String)session.getAttribute("mailaddress");
+		String mailAddress = (String) session.getAttribute("mailaddress");
 
 		return mailAddress;
+	}
+
+	/**
+	 * ページ遷移を行う。いまはリダイレクト。
+	 *
+	 * @param path
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	public static void translatePage(String path, HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.sendRedirect(path);
 	}
 }

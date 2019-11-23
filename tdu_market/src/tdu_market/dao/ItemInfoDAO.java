@@ -287,7 +287,7 @@ public final class ItemInfoDAO extends DAOBase {
 			}
 
 			if (!isEmptyINK) {
-				builder.append("s.\"itemName\" like ? ");
+				builder.append("\"itemName\" like ? ");
 			}
 
 			if (!isEmptyCondition) {
@@ -295,7 +295,7 @@ public final class ItemInfoDAO extends DAOBase {
 					builder.append("and ");
 				}
 
-				builder.append("s.\"condition\" = ? ");
+				builder.append("\"condition\" = ? ");
 			}
 
 			if (!isEmptyMaxPrice) {
@@ -303,15 +303,15 @@ public final class ItemInfoDAO extends DAOBase {
 					builder.append("and ");
 				}
 
-				builder.append("s.\"price\" <= ? ");
+				builder.append("\"price\" <= ? ");
 			}
 
 			if (!isEmptyOldestDate) {
-				if (!isEmptyINK || !isEmptyCondition || !isEmptyOldestDate) {
+				if (!isEmptyINK || !isEmptyCondition || !isEmptyMaxPrice) {
 					builder.append("and ");
 				}
 
-				builder.append("s.\"exhibitDate\" >= ? ");
+				builder.append("\"exhibitDate\" >= ? ");
 			}
 
 			String sql = builder.toString();
