@@ -24,18 +24,18 @@
     <nav class="footer_menu">
       <div>
         <ul>
-          <li><a href="#">ユーザー情報</a></li>
-          <li><a href="#">出品物情報登録</a></li>
+          <li><a href="reference_profile_student.jsp">ユーザー情報</a></li>
+          <li><a href="register_exhibit.jsp">出品物情報登録</a></li>
         </ul>
       </div>
       <div>
         <ul>
-          <li><a href="#">商品情報</a></li>
-          <li><a href="#">商品検索</a></li>
+          <li><form name="ReferItemListPage" method="post"><input type="hidden" name="oldestDate " value=""><input type="hidden" name="itemNameKeyword " value=""><input type="hidden" name="condtion " value=""><input type="hidden" name="maxPrice " value=""><button type="submit"><a>商品情報</a></button></form></li>
+          <li><a href="search_from_exhibit.jsp">商品検索</a></li>
         </ul>
       </div>
-      <div> <a href="#">シラバス検索</a> </div>
-      <div> <a href="#">メッセージ一覧</a> </div>
+      <div> <a href="search_from_syllabus.jsp">シラバス検索</a> </div>
+      <div> <a href="message.jsp">メッセージ一覧</a> </div>
     </nav>
     <div class="team_name"> 東京電機大学 千住キャンパス 未来科学部 情報メディア学科<br>
       Team.YAMAGAMI </div>
