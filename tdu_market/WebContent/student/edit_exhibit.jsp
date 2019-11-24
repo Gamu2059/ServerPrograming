@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="tdu_market.dto.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -12,7 +14,8 @@
 <!-- Bootstrap -->
 <link href="/tdu_market/css/import_student.css" rel="stylesheet">
 <!-- InstanceBeginEditable name="scripts" -->
-<script type="text/javascript" src="/tdu_market/js/student.js" defer="defer"></script>
+<script type="text/javascript" src="/tdu_market/js/student.js"
+	defer="defer"></script>
 <!-- InstanceEndEditable -->
 </head>
 <body>
@@ -27,44 +30,102 @@
 			<!-- セカンドコンテナ -->
 			<div class="second_container_ver2">
 				<section>
-					<form>
-						<div class="detail_input_textfield">
-							<input id="item_name" type="text" name="exhibit_name"
-								value="やさしいJava" />
-						</div>
-						<div class="detail_input_textfield">
-							<input id="syllabus_name" type="text" name="class_name"
-								value="オブジェクト指向プログラミング" />
-						</div>
-						<div class="detail_content_left">
-							<div class="item_img_delete_button">
-								<img src="/tdu_market/images/item_image.png" alt="画像１" />
-								<button name="delete_img">削除</button>
+					<form action="../UpdateItemInfo" method="post">
+					<!-- フォームの初期設定 -->
+					<%
+					//１．更新対象の商品情報を取得
+					RelatedClassGetInfo info = (RelatedClassGetInfo)request.getAttribute("relatedClassGetInfo");
+					//２．更新対象の商品情報を展開して入力フォームを生成
+					out.print("<input type=\"hidden\" name=\"itemID\" value=\""+info.getItemGetInfo().getItemID()+"\" />");
+					out.print("<div class=\"detail_input_textfield\">");
+					out.print("<input id=\"item_name\" type=\"text\" name=\"itemName\" value=\" " + info.getItemGetInfo().getItemName() + " \" />");
+					out.print("</div>");
+					out.print("<div class=\"detail_input_textfield\">");
+					out.print("<input id=\"syllabus_name\" type=\"text\" name=\"class_name\" value=\""+ info.getSyllabusGetInfo().getClassName() +"\" />");
+					out.print("</div>");
+					out.print("<div class=\"detail_content_left\">");
+					//商品画像の表示
+					ArrayList<String> itemImageURLs = new ArrayList<>();
+					for(int i=0;i<info.getItemGetInfo().getItemImageBinaries().length;i++){
+						itemImageURLs.add(info.getItemGetInfo().getItemImageBinaries()[i]);
+					}
+					if(itemImageURLs == null){
+						//画像が0枚のとき（追加ボタンのみ表示）
+						out.print("<label class=\"item_img_add_button\"> <input class=\"item_img_input\" type=\"file\" name=\"itemImageURLs\"></input> <br><h3>+</h3></label>");
+					} else {
+						//画像が1枚４枚のとき
+						if(4 < itemImageURLs.size()){
+							//画像が４枚のとき（画像のみ表示）
+							for(int i=0; i < itemImageURLs.size(); i++){
+								out.print("<div class=\"item_img_delete_button\">");
+								out.print("<img src=\""+ itemImageURLs.get(i) +"\" alt=\"商品画像\" />");
+								out.print("<button name=\"itemImageURLs\" onClick=\""+ itemImageURLs.remove(i) +" \">削除</button>");
+								out.print("</div>");
+							}
+						} else {
+							//画像が３枚以下のとき（画像と追加ボタンを表示）
+							for(int i=0; i < itemImageURLs.size(); i++){
+								out.print("<div class=\"item_img_delete_button\">");
+								out.print("<img src=\""+ itemImageURLs.get(i) +"\" alt=\"商品画像\" />");
+								out.print("<button name=\"itemImageURLs\" onClick=\""+ itemImageURLs.remove(i) +" \" >削除</button>");
+								out.print("</div>");
+							}
+							out.print("<label class=\"item_img_add_button\"> <input class=\"item_img_input\" type=\"file\" name=\"itemImageURLs\"></input> <br><h3>+</h3></label>");
+						}
+					}
+					out.print("</div>");
+					out.print("<div class=\"detail_content\">");
+					out.print("<textarea id=\"item_explanation_field\" name=\"description\">"+info.getItemGetInfo().getDescription()+"</textarea>");
+					out.print("</div>");
+					out.print("<div class=\"detail_content_right\">");
+					out.print("<h4>状態： <select id=\"condition\" name=\"condition\">");
+					//汚損状態の選択
+					switch(info.getItemGetInfo().getCondition()){
+					case 0:
+						out.print("<option value=\"0\" selected>新品・未使用</option>");
+						out.print("<option value=\"1\">中古（書き込みなし）</option>");
+						out.print("<option value=\"2\">中古（書き込みあり）</option>");
+						out.print("<option value=\"3\">破損・汚れあり</option>");
+						break;
+					case 1:
+						out.print("<option value=\"0\">新品・未使用</option>");
+						out.print("<option value=\"1\" selected>中古（書き込みなし）</option>");
+						out.print("<option value=\"2\">中古（書き込みあり）</option>");
+						out.print("<option value=\"3\">破損・汚れあり</option>");
+						break;
+					case 2:
+						out.print("<option value=\"0\">新品・未使用</option>");
+						out.print("<option value=\"1\">中古（書き込みなし）</option>");
+						out.print("<option value=\"2\" selected>中古（書き込みあり）</option>");
+						out.print("<option value=\"3\">破損・汚れあり</option>");
+						break;
+					case 3:
+						out.print("<option value=\"0\">新品・未使用</option>");
+						out.print("<option value=\"1\">中古（書き込みなし）</option>");
+						out.print("<option value=\"2\">中古（書き込みあり）</option>");
+						out.print("<option value=\"3\" selected>破損・汚れあり</option>");
+						break;
+					default:
+						out.print("<option value=\"0\">新品・未使用</option>");
+						out.print("<option value=\"1\">中古（書き込みなし）</option>");
+						out.print("<option value=\"2\">中古（書き込みあり）</option>");
+						out.print("<option value=\"3\">破損・汚れあり</option>");
+						break;
+					}
+					out.print("</select>");
+					out.print("</h4>");
+					out.print("</div>");
+					out.print("<div class=\"detail_content_right\">");
+					out.print("<h4><input id=\"yen_field\" type=\"number\" name=\"price\" value=\""+ info.getItemGetInfo().getPrice()+"\" />円</h4>");
+					out.print("</div>");
+					%>
+					<!-- ３．更新ボタンを押して、Servletにデータを渡す -->
+						<div id="confirm_dialog">
+							<p>更新しますか？</p>
+							<div class="confirm_dialog_button">
+								<button id="yes" class="button_flat_submit" type="submit">確認</button>
+								<button id="no" class="button_flat_normal">キャンセル</button>
 							</div>
-							<label class="item_img_add_button"> <input
-								class="item_img_input" type="file"></input> <br>
-								<h3>+</h3>
-							</label>
-						</div>
-						<div class="detail_content">
-							<textarea id="item_explanation_field">
-                  この本を読むとよくわからなかったJAVAのことがよく分かるようになります！自宅にいる猫に読ませたところ、猫の手も借りたい状態だったプロジェクトを猫が手伝ってくれて無事に炎上せずに完遂しました。みなさんも一読すべきだと思いました。
-                </textarea>
-						</div>
-						<div class="detail_content_right">
-							<h4>
-								状態： <select id="condition" name="condition">
-									<option value="new">新品・未使用</option>
-									<option value="old">中古（書き込みなし）</option>
-									<option value="old_written">中古（書き込みあり）</option>
-									<option value="old_dirty">破損・汚れあり</option>
-								</select>
-							</h4>
-						</div>
-						<div class="detail_content_right">
-							<h4>
-								<input id="yen_field" type="number" name="price" value="1000" />円
-							</h4>
 						</div>
 					</form>
 				</section>
@@ -75,18 +136,14 @@
 					id="back_event">戻る</button>
 				<button type="button" name="back" class="button_flat_submit"
 					id="update_exhibit">更新</button>
-				<button type="button" name="delete" class="button_flat_nega"
+					<form>
+					<button type="button" name="delete" class="button_flat_nega"
 					id="delete_exhibit">削除</button>
+					</form>
 			</div>
 		</article>
 		<section>
-			<div id="confirm_dialog">
-				<p>更新しますか？</p>
-				<div class="confirm_dialog_button">
-					<button id="yes" class="button_flat_submit">確認</button>
-					<button id="no" class="button_flat_normal">キャンセル</button>
-				</div>
-			</div>
+
 			<div id="negative_dialog">
 				<p>削除しますか？</p>
 				<div class="negative_dialog_button">
@@ -110,9 +167,6 @@
 
 					yes.addEventListener('click', function() {
 						dialog.style.display = 'none';
-
-						//ここに内部処理をいれる
-
 						notify_dialog('更新しました。', 'reference_exhibit_detail');
 					});
 					no.addEventListener('click', function() {
@@ -128,9 +182,6 @@
 
 					yes.addEventListener('click', function() {
 						dialog.style.display = 'none';
-
-						//ここに内部処理をいれる
-
 						notify_dialog('削除しました。', 'reference_exhibit_list');
 					});
 					no.addEventListener('click', function() {
@@ -144,7 +195,7 @@
 
 					dialog.style.display = 'block';
 					ok.addEventListener('click', function() {
-						location.href = url + '.html';
+						location.href = url + '.jsp';
 						dialog.style.display = 'none';
 
 					});
