@@ -18,7 +18,7 @@
 		</h1>
 	</div>
 <%
-StudentGetInfo info = (StudentGetInfo)session.getAttribute("studentGet");
+StudentGetInfo info_header = (StudentGetInfo)session.getAttribute("studentGet");
 %>
 	<div class="header_menu">
 		<!-- メニュー -->
@@ -40,19 +40,25 @@ StudentGetInfo info = (StudentGetInfo)session.getAttribute("studentGet");
 		<div class="right">
 		<%
 		//学番とディスプレーネームを取得して表示
-		String number = info.getMailAddress().substring(0,7);
+		String number = info_header.getMailAddress().substring(0,7);
 		out.print("<h3>" + number + "</h3>");
-		out.print("<h2>" + info.getDisplayName() + "</h2>");
+		out.print("<h2>" + info_header.getDisplayName() + "</h2>");
 		%>
 		</div>
 	</div>
 	<div class="another">
 		<h2>
-			<a href="/tdu_market/Student/reference_exhibit_list.jsp">出品物情報</a>
+		<!-- 	<a href="/tdu_market/Student/reference_exhibit_list.jsp">出品物情報</a> -->
+			<form action="../ReferExhibitItemListPage" method="get">
+				<button type="submit" style="background: #ffffff;color: blue;border: none;">出品物情報</button>
+			</form>
 		</h2>
 		<h3>
-			<a href="/tdu_market/Student/reference_profile_student.jsp">ユーザー情報設定</a>
-		</h3>
+			<form action="../ReferStudentPage" method="get">
+				<button type="submit" style="background: #ffffff;color: blue;border: none;">ユーザー情報設定</button>
+			</form>
+<!-- 			<a href="/tdu_market/Student/reference_profile_student.jsp">ユーザー情報設定</a>
+ -->		</h3>
 		<button id="logout_button">ログアウト</button>
 	</div>
 </div>
