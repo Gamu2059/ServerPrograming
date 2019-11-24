@@ -1,3 +1,6 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="tdu_market.entity_bean.RelatedClassInfo"%>
+<%@page import="tdu_market.dto.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -23,34 +26,81 @@
 			<!-- ファーストコンテナ -->
 			<div class="first_container_ver3">
 				<h3>出品物詳細</h3>
-				<button type="submit" name="edit" class="button_flat_normal"
-					id="edit">編集</button>
+				<!-- EditExhibitItemPageへ処理を引き継ぐ -->
+				<form action="../EditExhibitItemPage" method="get">
+					<button type="submit" name="edit" class="button_flat_normal" id="edit">編集</button>
+				</form>
 			</div>
 			<!-- セカンドコンテナ -->
 			<div class="second_container_ver2">
 				<section>
-					<div class="detail_content">
-						<h2 id="item_name">やさしいぬこでもきっとわかるJAVA入門書</h2>
-					</div>
-					<div class="detail_content">
-						<h5 id="syllabus_name">授業名</h5>
-					</div>
-					<div class="detail_content">
-						<img src="/tdu_market/images/item_image.png" alt="画像１" /> <img
-							src="/tdu_market/images/item_image.png" alt="画像１" /> <img
-							src="/tdu_market/images/item_image.png" alt="画像１" />
-					</div>
-					<div class="detail_content">
-						<h4 id="item_explanation">
-							この本を読むとよくわからなかったJAVAのことがよく分かるようになります！自宅にいる猫に読ませたところ、猫の手も借りたい状態だったプロジェクトを猫が手伝ってくれて無事に炎上せずに完遂しました。みなさんも一読すべきだと思いました。
-						</h4>
-					</div>
-					<div class="detail_content_right">
-						<h4>状態：非常に良い</h4>
-					</div>
-					<div class="detail_content_right">
-						<h4>1000円</h4>
-					</div>
+					<!-- ReferExhibitItemPageからのセッションデータを展開・表示 -->
+					<%
+					RelatedClassGetInfo info = (RelatedClassGetInfo)request.getAttribute("exhibitInfo");
+					out.print("<div class=\"detail_content\">");
+					out.print("<h2 id=\"item_name\">"+ info.getItemGetInfo().getItemName() +"</h2>");
+					out.print("</div>");
+					out.print("<div class=\"detail_content\">");
+					out.print("<h5 id=\"syllabus_name\">"+ info.getSyllabusGetInfo().getClassName() +"</h5>");
+					out.print("</div>");
+					//商品画像の表示
+					out.print("<div class=\"detail_content\">");
+					ArrayList<String> itemImageURLs = new ArrayList<>();
+					for(int i=0;i<info.getItemGetInfo().getItemImageBinaries().length;i++){
+						itemImageURLs.add(info.getItemGetInfo().getItemImageBinaries()[i]);
+					}
+					if(itemImageURLs == null){
+						//画像が0枚のとき（追加ボタンのみ表示）
+						out.print("<label class=\"item_img_add_button\"> <input class=\"item_img_input\" type=\"file\" name=\"itemImageURLs\"></input> <br><h3>+</h3></label>");
+					} else {
+						//画像が1枚４枚のとき
+						if(4 < itemImageURLs.size()){
+							//画像が４枚のとき（画像のみ表示）
+							for(int i=0; i < itemImageURLs.size(); i++){
+								out.print("<div class=\"item_img_delete_button\">");
+								out.print("<img src=\""+ itemImageURLs.get(i) +"\" alt=\"商品画像\" />");
+								out.print("<button name=\"itemImageURLs\" onClick=\""+ itemImageURLs.remove(i) +" \">削除</button>");
+								out.print("</div>");
+							}
+						} else {
+							//画像が３枚以下のとき（画像と追加ボタンを表示）
+							for(int i=0; i < itemImageURLs.size(); i++){
+								out.print("<div class=\"item_img_delete_button\">");
+								out.print("<img src=\""+ itemImageURLs.get(i) +"\" alt=\"商品画像\" />");
+								out.print("<button name=\"itemImageURLs\" onClick=\""+ itemImageURLs.remove(i) +" \" >削除</button>");
+								out.print("</div>");
+							}
+							out.print("<label class=\"item_img_add_button\"> <input class=\"item_img_input\" type=\"file\" name=\"itemImageURLs\"></input> <br><h3>+</h3></label>");
+						}
+					}
+
+					out.print("</div>");
+					out.print("<div class=\"detail_content\">");
+					out.print("<h4 id=\"item_explanation\">"+ info.getItemGetInfo().getDescription() +"</h4>");
+					out.print("</div>");
+					out.print("<div class=\"detail_content_right\">");
+					switch(info.getItemGetInfo().getCondition()){
+					case 0:
+						out.print("<h4>状態：新品・未使用</h4>");
+						break;
+					case 1:
+						out.print("<h4>状態：中古（書き込みなし）</h4>");
+						break;
+					case 2:
+						out.print("<h4>状態：中古（書き込みあり）</h4>");
+						break;
+					case 3:
+						out.print("<h4>状態：破損・汚れあり</h4>");
+						break;
+					default:
+						out.print("<h4>状態：取得に失敗しました</h4>");
+						break;
+					}
+					out.print("</div>");
+					out.print("<div class=\"detail_content_right\">");
+					out.print("<h4>"+ info.getItemGetInfo().getPrice() +"</h4>");
+					out.print("</div>");
+					%>
 				</section>
 			</div>
 			<!-- サードコンテナ -->
@@ -70,7 +120,10 @@
 			<div id="negative_dialog">
 				<p>削除しますか？</p>
 				<div class="negative_dialog_button">
-					<button id="nega_yes" class="button_flat_nega">確認</button>
+					<!-- DeleteItemInfoに処理を引き継ぐ -->
+					<form action="../DeleteItemInfo" method="post">
+						<button id="nega_yes" class="button_flat_nega">確認</button>
+					</form>
 					<button id="nega_no" class="button_flat_normal">キャンセル</button>
 				</div>
 			</div>
