@@ -48,7 +48,6 @@ public class TopPage extends HttpServlet {
 		//学生情報を取得する
 		StudentInfoManager studentInfo = new StudentInfoManager();
 		StudentGetInfo studentGetInfo = studentInfo.getStudentInfo((String)session.getAttribute("mailaddress"));
-		System.out.println(studentGetInfo);
 		session.setAttribute("studentGet", studentGetInfo);
 		
 		//新着商品を取得する
