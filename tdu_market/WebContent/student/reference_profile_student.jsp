@@ -1,3 +1,4 @@
+<%@page import="tdu_market.dto.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -24,43 +25,46 @@
 			<div class="first_container_ver2">
 				<h2>ユーザー情報</h2>
 				<div class="profile_edit_button">
-					<button type="submit" name="edit" class="button_flat_normal"
-						id="edit">編集</button>
+					<!-- EditStudentPageへ処理を引き継ぐ -->
+					<form action="../EditStudentPage" method="get">
+						<button type="submit" class="button_flat_normal" id="edit">編集</button>
+					</form>
 				</div>
 			</div>
 			<!-- セカンドコンテナ -->
 			<div class="second_container_ver2">
-				<form action="" method="get">
-					<div class="top_content">
-						<div class="top_content_left">
-							<img src="/tdu_market/images/icon.png" alt="ユーザーアイコン" />
-						</div>
-						<div class="top_content_right">
-							<div class="detail_content">
-								<h3>ディスプレイネーム</h3>
-								<div class="detail_content_text">テストユーザー</div>
-							</div>
-							<div class="detail_content">
-								<h3>所属学科</h3>
-								<div class="detail_content_text">未来科学部情報メディア学科</div>
-							</div>
-						</div>
-					</div>
-					<div class="bottom_content">
-						<div class="detail_content">
-							<h3>自己紹介</h3>
-							<div class="detail_content_textarea">
-								最大自己紹介の文字は２００文字です。その文字数を入力した結果がこちらになります。最大自己紹介の文字は２００文字です。その文字数を入力した結果がこちらになります。最大自己紹介の文字は２００文字です。その文字数を入力した結果がこちらになります。最大自己紹介の文字は２００文字です。その文字数を入力した結果がこちらになります。最大自己紹介の文字は２００文字です。その文字数を入力した結果がこちらになります。
-							</div>
-						</div>
-					</div>
+				<form action="../ReferStudentPage" method="get">
+					<!-- ReferStudentPageからのセッションを展開・表示 -->
+					<%
+					StudentGetInfo info = (StudentGetInfo)request.getAttribute("studentInfo");
+					out.print("<div class=\"top_content\">");
+					out.print("<div class=\"top_content_left\">");
+					out.print("<img src=\""+ info.getIconImageBinary() +"\" alt=\"ユーザーアイコン\" />");
+					out.print("</div>");
+					out.print("<div class=\"top_content_right\">");
+					out.print("<div class=\"detail_content\">");
+					out.print("<h3>ディスプレイネーム</h3>");
+					out.print("<div class=\"detail_content_text\">"+ info.getDisplayName() +"</div>");
+					out.print("</div>");
+					out.print("<div class=\"detail_content\">");
+					out.print("<h3>所属学科</h3>");
+					out.print("<div class=\"detail_content_text\">"+ 所属学科をここに記載。場合によっては、所属学科IDを所属学科名に変換する処理をする。+"</div>");
+					out.print("</div>");
+					out.print("</div>");
+					out.print("</div>");
+					out.print("<div class=\"bottom_content\">");
+					out.print("<div class=\"detail_content\">");
+					out.print("<h3>自己紹介</h3>");
+					out.print("<div class=\"detail_content_textarea\">"+ info.getSelfIntroduction() +"</div>");
+					out.print("</div>");
+					out.print("</div>");
+					%>
 				</form>
 			</div>
 			<!-- サードコンテナ -->
 			<div class="third_container">
 				<div class="unsubscribe_button">
-					<button type="submit" name="unsubscribe" class="button_flat_nega"
-						id="delete">退会</button>
+					<button type="submit" name="unsubscribe" class="button_flat_nega" id="delete">退会</button>
 				</div>
 			</div>
 		</article>
@@ -73,7 +77,10 @@
 			<div id="negative_dialog">
 				<p>本当に退会しますか？</p>
 				<div class="negative_dialog_button">
-					<button id="nega_yes" class="button_flat_nega">確認</button>
+					<!-- DeleteStudentInfoに処理を引き継ぐ -->
+					<form action="../DeleteStudentInfo" method="post">
+						<button type="submit" id="nega_yes" class="button_flat_nega">確認</button>
+					</form>
 					<button id="nega_no" class="button_flat_normal">キャンセル</button>
 				</div>
 			</div>
@@ -85,9 +92,7 @@
 			</div>
 			<script type="text/javascript">
 				document.getElementById('edit').onclick = function() {
-					//ここに内部処理をかく。
-
-					location.href = 'edit_profile_student' + '.html';
+					location.href = 'edit_profile_student' + '.jsp';
 				}
 
 				document.getElementById('delete').onclick = function() {
@@ -100,9 +105,6 @@
 
 					yes.addEventListener('click', function() {
 						dialog.style.display = 'none';
-
-						//ここに内部処理をいれる
-
 						notify_dialog('退会しました。', 'index');
 					});
 					no.addEventListener('click', function() {
@@ -116,7 +118,7 @@
 
 					dialog.style.display = 'block';
 					ok.addEventListener('click', function() {
-						location.href = url + '.html';
+						location.href = url + '.jsp';
 						dialog.style.display = 'none';
 					});
 				}
