@@ -57,8 +57,10 @@
 							</div>
 							<div class="detail_content">
 								<h3>所属学科</h3>
-								<select name="department">
-									<% out.println("<option name=\"departmentID\" value=\""+ info.getDepartmentID() +"\">"+ "情報メディア学科" +"</option>"); %>
+								<select name="departmentID">
+									<% out.println("<option name=\"media\" value=\""+ info.getDepartmentID() +"\">"+ "情報メディア学科" +"</option>");
+									System.out.println(info.getSelfIntroduction());
+									%>
 								</select>
 								<p id="note_Text">※注意 - 転科した学生はサポートまで連絡をお願いします。</p>
 							</div>

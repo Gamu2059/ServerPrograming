@@ -1,6 +1,7 @@
 package tdu_market.controller;
 
 import java.io.IOException;
+import java.util.Collection;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,7 +23,7 @@ import tdu_market.util.ControllerUtil;
  * Servlet implementation class UpdateStudentPage
  */
 @WebServlet("/UpdateStudentPage")
-@MultipartConfig(location="WEB-INF/tmp", maxFileSize = 1048576)
+@MultipartConfig()
 public class UpdateStudentPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -46,10 +47,15 @@ public class UpdateStudentPage extends HttpServlet {
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			return;
 		}
-        Part part = request.getPart("file");
-        String fileName = this.getFileName(part);
-        part.write(getServletContext().getRealPath("WEB-INF/uploaded") + "/" + fileName);
-        
+		/* Part part = request.getPart("iconImageURL"); */
+		Collection<Part> parts = request.getParts();
+
+		
+		/*ファイル名の取得getSubmittedFilename()
+		 * String fileName = this.getFileName(part); System.out.println(fileName);
+		 * part.write(getServletContext().getRealPath("WEB-INF/uploaded") + "/" +
+		 * fileName);
+		 */
 		
 		//必要項目の入力チェック（jsp側）
 		HttpSession session = request.getSession();
@@ -91,15 +97,19 @@ public class UpdateStudentPage extends HttpServlet {
 
 	}
     private String getFileName(Part part) {
-        String name = null;
-        for (String dispotion : part.getHeader("Content-Disposition").split(";")) {
-            if (dispotion.trim().startsWith("filename")) {
-                name = dispotion.substring(dispotion.indexOf("=") + 1).replace("\"", "").trim();
-                name = name.substring(name.lastIndexOf("\\") + 1);
-                break;
+		/*
+		 * String name = null; for (String dispotion :
+		 * part.getHeader("Content-Disposition").split(";")) { if
+		 * (dispotion.trim().startsWith("filename")) { name =
+		 * dispotion.substring(dispotion.indexOf("=") + 1).replace("\"", "").trim();
+		 * name = name.substring(name.lastIndexOf("\\") + 1); break; } } return name;
+		 */
+        for (String cd : part.getHeader("Content-Disposition").split(";")) {
+            if (cd.trim().startsWith("filename")) {
+                return cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
             }
         }
-        return name;
+        return null;
     }
 
 }
