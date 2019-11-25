@@ -171,4 +171,31 @@ public final class StudentInfoManager {
 
 		return result;
 	}
+
+	public static void main(String[] args) {
+
+		StudentInfoManager manager = new StudentInfoManager();
+
+		final String mail = "17fi103@ms.dendai.ac.jp";
+		final String pass = "HSsm49Y55XmfFk";
+		final String name = "Gamu";
+
+		ReturnInfo existResult = manager.existMailAddress(mail);
+		if (existResult != null && existResult.isSuccess()) {
+			manager.deleteStudentInfo(mail);
+		}
+
+		ReturnInfo createResult = manager.createTemporaryAccount(mail);
+		System.out.println(createResult);
+
+		if (createResult.isSuccess()) {
+			System.out.println("初回パスワード : " + createResult.getMsg());
+			System.out.println("初回ログイン");
+			ReturnInfo loginResult = manager.login(new LoginInfo(mail, createResult.getMsg()));
+			System.out.println(loginResult);
+
+			System.out.println("初回アカウント設定");
+			manager.updateStudentInfo(new StudentUpdateInfo(mail, pass, name, 11, "", ""));
+		}
+	}
 }

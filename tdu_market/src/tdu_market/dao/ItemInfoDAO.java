@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import tdu_market.dto.ItemCreateInfo;
 import tdu_market.dto.ItemSearchInfo;
@@ -273,12 +274,12 @@ public final class ItemInfoDAO extends DAOBase {
 			String itemNameKeyword = itemSearchInfo.getItemNameKeyword();
 			int condition = itemSearchInfo.getCondition();
 			int maxPrice = itemSearchInfo.getMaxPrice();
-			java.util.Date oldestDate = itemSearchInfo.getOldestDate();
+			int oldestDate = itemSearchInfo.getOldestDate();
 
 			boolean isEmptyINK = itemNameKeyword == null;
 			boolean isEmptyCondition = condition < 1;
 			boolean isEmptyMaxPrice = maxPrice < 0;
-			boolean isEmptyOldestDate = oldestDate == null;
+			boolean isEmptyOldestDate = oldestDate < 0;
 
 			StringBuilder builder = new StringBuilder("select * from \"ItemInfo\" ");
 
@@ -335,7 +336,9 @@ public final class ItemInfoDAO extends DAOBase {
 			}
 
 			if (!isEmptyOldestDate) {
-				pstmt.setDate(setCount, new Date(oldestDate.getTime()));
+				Calendar calendar = Calendar.getInstance();
+				calendar.add(Calendar.DAY_OF_MONTH, oldestDate);
+				pstmt.setDate(setCount, new Date(calendar.getTime().getTime()));
 				setCount++;
 			}
 
