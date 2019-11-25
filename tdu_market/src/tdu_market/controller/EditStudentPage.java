@@ -50,6 +50,9 @@ public class EditStudentPage extends HttpServlet {
 		//jspに情報を投げる。
 		request.setAttribute("studentInfo", studentInfo);
 		
+		//遷移
+				ControllerUtil.translatePage("edit_profile_sutudent.jsp", request, response);
+				
 		/*
 		//取得した情報をviewに適用
 		request.setAttribute("mailaddress",studentInfo.getMailAddress());

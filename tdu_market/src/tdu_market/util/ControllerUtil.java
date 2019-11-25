@@ -21,8 +21,7 @@ public class ControllerUtil {
 		ReturnInfo loginResult = student.existMailAddress(mailAddress);
 
 		if(!loginResult.isSuccess()) {
-			RequestDispatcher rd = request.getRequestDispatcher("general/index.jsp");
-			rd.forward(request, response);
+			ControllerUtil.translatePage("index.jsp", request, response);
 			return false;
 		}
 		return true;
