@@ -1,15 +1,13 @@
 package tdu_market.dto;
 
-import java.util.Date;
-
 public class ItemSearchInfo {
 
 	private final String itemNameKeyword;
 	private final int condition;
 	private final int maxPrice;
-	private final Date oldestDate;
+	private final int oldestDate;
 
-	public ItemSearchInfo(String itemNameKeyword, int condition, int maxPrice, Date oldestDate) {
+	public ItemSearchInfo(String itemNameKeyword, int condition, int maxPrice, int oldestDate) {
 		super();
 		this.itemNameKeyword = itemNameKeyword;
 		this.condition = condition;
@@ -29,7 +27,7 @@ public class ItemSearchInfo {
 		return maxPrice;
 	}
 
-	public Date getOldestDate() {
+	public int getOldestDate() {
 		return oldestDate;
 	}
 }

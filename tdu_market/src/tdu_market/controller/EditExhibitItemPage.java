@@ -47,9 +47,11 @@ public class EditExhibitItemPage extends HttpServlet {
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		ItemGetInfo info =  itemInfo.getItemInfo(Integer.valueOf(request.getParameter("itemID")));
 
-		//取得した情報をviewに適用
 		//jspに情報を投げる。
 		request.setAttribute("info", info);
+		//遷移
+		ControllerUtil.translatePage("Edit_exhibit.jsp", request, response);
+		
 		/*
 		request.setAttribute("itemID",info.getItemID());
 		request.setAttribute("itemName",info.getItemName());
