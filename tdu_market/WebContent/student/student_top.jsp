@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="tdu_market.dto.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -10,31 +12,32 @@
 <title>トップ画面</title>
 <!-- InstanceEndEditable -->
 <!-- Bootstrap -->
-<link href="../css/import_student.css" rel="stylesheet">
+<link href="/tdu_market/css/import_student.css" rel="stylesheet">
 <!-- InstanceBeginEditable name="scripts" -->
-<script type="text/javascript" src="../js/student.js" defer="defer"></script>
+<script type="text/javascript" src="/tdu_market/js/student.js" defer="defer"></script>
 <!-- InstanceEndEditable -->
 </head>
-<body>
+<body onLoad="document.newItemList.submit();">
 	<%@ include file="header.jsp"%>
-
 	<!-- InstanceBeginEditable name="body" -->
 	<article class="content">
 		<!-- ファーストコンテナ -->
 		<div class="first_container">
 			<!-- 商品検索入力フォーム -->
-			<form class="input_form" action="#" method="post">
+			<form class="input_form" action="../ReferItemListPage" method="post">
 				<div>
-					<input type="text" name="item" class="radius_text_form" size="70"
+					<input type="text" name="itemNameKeyword" class="radius_text_form" size="70"
 						placeholder="全ての商品から探す（教科書名、道具名など）" />
 					<button type="submit" name="item_search" class="search_button">
+						<input type="hidden" name="condtion" value="">
+						<input type="hidden" name="maxPrice" value="">
 						<img src="../images/search.png" alt="虫眼鏡" />
 					</button>
 				</div>
 			</form>
 			<!-- 出品ボタン -->
 			<div class="exhibit_button">
-				<button type="button" name="exhibit">出品！</button>
+				<button type="button" name="exhibit" onclick="location.href='register_exhibit.jsp'">出品！</button>
 			</div>
 		</div>
 		<!-- セカンドコンテナ -->
@@ -43,23 +46,39 @@
 			<h2>新着</h2>
 			<!-- 新着商品一覧 -->
 			<div class="new_item_list">
-				<button id="item_button">
-					<img src="../images/item_image.png" alt="企業と社会" />
-					<h5>コーズ・リレーテッド・マーケティング</h5>
-					<h4>1000円</h4>
-				</button>
-
+				<!-- ページを読み込んだ時に新着情報を取得（自動実行） -->
+				<!-- <form name ="newItemList" action="../TopPage" method="get"></form> -->
+				<% ArrayList<ItemGetInfo> newItemList = new ArrayList<ItemGetInfo>();
+	  				newItemList = (ArrayList<ItemGetInfo>)session.getAttribute("newItemList");
+	  				if(newItemList == null){
+	  					out.print("新着商品はありません");
+	  				} else {
+	  					for(int i=0;i<newItemList.size();i++){
+		  					//out.print("<button id=\"item_button\">"); これが何なのかよくわからない。
+		  					out.print("<button id=\"item_button\" type=\" submit \" value=\" "+ newItemList.get(i).getItemID() +"  \">");
+		  					if(newItemList.get(i).getItemImageBinaries() != null){
+		  						out.print("<img src=\" " + newItemList.get(i).getItemImageBinaries()[0] +" \"/>");
+		  					}
+		  					out.print("<h5>"+newItemList.get(i).getItemName()+"</h5>");
+		  					out.print("<h4>"+newItemList.get(i).getPrice()+"</h4>");
+		  					out.print("</button>");
+		  				}
+	  				}
+	  				%>
 			</div>
 		</div>
 		<!-- サードコンテナ -->
 		<div class="third_container">
 			<!-- すべて見るボタン -->
 			<aside class="aside_info">
-				<a href="#">すべて見る...</a>
+
+			商品一覧画面へ遷移する
+
+				<button type="submit"><a href="#">すべて見る...</a></button>
 			</aside>
 			<!-- もっと探すボタン -->
 			<nav class="more_search">
-				<button type="submit" name="search" class="button_flat_submit">
+				<button type="submit" name="search" class="button_flat_submit" onclick="location.href='search_from_exhibit.jsp'">
 					もっと探す</button>
 			</nav>
 		</div>

@@ -20,7 +20,7 @@ public class ControllerUtil {
 		StudentInfoManager student = new StudentInfoManager();
 		ReturnInfo loginResult = student.existMailAddress(mailAddress);
 
-		if (!loginResult.isSuccess()) {
+		if(!loginResult.isSuccess()) {
 			RequestDispatcher rd = request.getRequestDispatcher("general/index.jsp");
 			rd.forward(request, response);
 			return false;

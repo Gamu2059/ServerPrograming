@@ -38,6 +38,7 @@ public class TopPage extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("TopPage is non implementation!");
+		HttpSession session = request.getSession();
 		
 		//ログイン状態の検証
 		if (!ControllerUtil.verifyLogin(request, response)) {
@@ -48,7 +49,8 @@ public class TopPage extends HttpServlet {
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		ArrayList<ItemGetInfo> newItemList = itemInfo.getNewItemList();
 		//jspに情報を投げる。
-		request.setAttribute("newItemList", newItemList);
+		session.setAttribute("newItemList", newItemList);
+		ControllerUtil.translatePage("/tdu_market/Student/student_top.jsp", request, response);
 	
 	}
 

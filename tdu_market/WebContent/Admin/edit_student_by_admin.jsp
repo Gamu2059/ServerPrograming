@@ -7,7 +7,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <!-- Bootstrap -->
-<link rel="stylesheet" href="../css/import_admin.css" type="text/css" />
+<link rel="stylesheet" href="/tdu_market/css/import_admin.css" type="text/css" />
 <title>学生情報詳細（編集中）</title>
 </head>
 <body>
@@ -25,7 +25,7 @@
 				</div>
 				<div class="user_profile">
 					<div class="item_for_LeftAndRight_around">
-						<label id="edit_img_button"> <img src="../images/icon.png" />
+						<label id="edit_img_button"> <img src="/tdu_market/images/icon.png" />
 							<input type="file" />
 							<h3>編集</h3>
 						</label>

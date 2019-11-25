@@ -7,7 +7,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <!-- Bootstrap -->
-<link rel="stylesheet" href="../css/import_admin.css" type="text/css" />
+<link rel="stylesheet" href="/tdu_market/css/import_admin.css" type="text/css" />
 <title>左パネル</title>
 </head>
 <body>
@@ -15,7 +15,7 @@
 	<div class="left_panel">
 		<!-- ロゴ -->
 		<div class="title_logo">
-			<a href="top_admin.jsp"><img src="../images/manager_logo.png"
+			<a href="top_admin.jsp"><img src="/tdu_market/images/manager_logo.png"
 				alt="ロゴ画像" /></a>
 		</div>
 		<!-- 左パネルメニュー -->

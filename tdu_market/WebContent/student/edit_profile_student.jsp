@@ -10,9 +10,9 @@
 <title>ユーザー情報編集</title>
 <!-- InstanceEndEditable -->
 <!-- Bootstrap -->
-<link href="../css/import_student.css" rel="stylesheet">
+<link href="/tdu_market/css/import_student.css" rel="stylesheet">
 <!-- InstanceBeginEditable name="scripts" -->
-<script type="text/javascript" src="../js/student.js" defer="defer"></script>
+<script type="text/javascript" src="/tdu_market/js/student.js" defer="defer"></script>
 <!-- InstanceEndEditable -->
 </head>
 <body>
@@ -32,7 +32,7 @@
 						<div class="top_content_left">
 							<label class="user_icon_button"> <input
 								class="user_icon_button2" type="file" /> <img
-								src="../images/icon.png" alt="ユーザーアイコン">
+								src="/tdu_market/images/icon.png" alt="ユーザーアイコン">
 								<h3>変更</h3>
 							</label>
 						</div>

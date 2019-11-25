@@ -19,7 +19,7 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class Login
  */
-@WebServlet("/Login")
+@WebServlet("/tdu_market/controller/Login")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -72,8 +72,10 @@ public class Login extends HttpServlet {
 				if (registerdResult != null && registerdResult.isSuccess()) {
 
 					// 本登録されているのでトップへ
-					ControllerUtil.translatePage("/tdu_market/Student/student_top.jsp", request, response);
-
+					TopPage topPage = new TopPage();
+					topPage.doGet(request, response);
+//					ControllerUtil.translatePage("/tdu_market/Student/student_top.jsp", request, response);
+					
 				}else {
 
 					// 仮登録状態なのでアカウント作成へ
@@ -97,11 +99,11 @@ public class Login extends HttpServlet {
 				if (registerdResult != null && registerdResult.isSuccess()) {
 
 					// 本登録されているのでトップへ
-					request.getRequestDispatcher("admin/top_admin.jsp").forward(request, response);
+					ControllerUtil.translatePage("/tdu_market/Admin/top_admin.jsp", request, response);
 				}else {
 
 					// 仮登録状態なのでアカウント作成へ
-					request.getRequestDispatcher("admin/create_admin_account.jsp").forward(request, response);
+					ControllerUtil.translatePage("/tdu_market/Admin/create_admin_account.jsp", request, response);
 				}
 			} else {
 

@@ -7,7 +7,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <!-- Bootstrap -->
-<link rel="stylesheet" href="../css/import_admin.css" type="text/css" />
+<link rel="stylesheet" href="/tdu_market/css/import_admin.css" type="text/css" />
 <title>学生情報検索</title>
 </head>
 <body>
