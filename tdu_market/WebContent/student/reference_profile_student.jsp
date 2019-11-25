@@ -33,10 +33,10 @@
 			</div>
 			<!-- セカンドコンテナ -->
 			<div class="second_container_ver2">
-				<form action="../ReferStudentPage" method="get">
+	<!-- 			<form action="../ReferStudentPage" method="get"> -->
 					<!-- ReferStudentPageからのセッションを展開・表示 -->
 					<%
-					StudentGetInfo info = (StudentGetInfo)request.getAttribute("studentInfo");
+					StudentGetInfo info = (StudentGetInfo)session.getAttribute("studentInfo");
 					out.print("<div class=\"top_content\">");
 					out.print("<div class=\"top_content_left\">");
 					out.print("<img src=\""+ info.getIconImageBinary() +"\" alt=\"ユーザーアイコン\" />");
@@ -48,7 +48,7 @@
 					out.print("</div>");
 					out.print("<div class=\"detail_content\">");
 					out.print("<h3>所属学科</h3>");
-					out.print("<div class=\"detail_content_text\">"+ 所属学科をここに記載。場合によっては、所属学科IDを所属学科名に変換する処理をする。+"</div>");
+					out.print("<div class=\"detail_content_text\">"+ "所属学科をここに記載。場合によっては、所属学科IDを所属学科名に変換する処理をする。"+"</div>");
 					out.print("</div>");
 					out.print("</div>");
 					out.print("</div>");
@@ -59,7 +59,7 @@
 					out.print("</div>");
 					out.print("</div>");
 					%>
-				</form>
+		<!-- 		</form> -->
 			</div>
 			<!-- サードコンテナ -->
 			<div class="third_container">
