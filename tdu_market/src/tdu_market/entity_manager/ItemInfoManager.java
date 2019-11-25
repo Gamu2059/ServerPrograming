@@ -1,8 +1,6 @@
 package tdu_market.entity_manager;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 import tdu_market.dao.ItemInfoDAO;
 import tdu_market.dto.ItemBuyInfo;
@@ -131,11 +129,7 @@ public final class ItemInfoManager {
 	/** 過去1日までに出品された商品を取得する。 */
 	public ArrayList<ItemGetInfo> getNewItemList() {
 
-		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.DATE, -1);
-		Date yesterdayDate = calendar.getTime();
-
-		ItemSearchInfo itemSearchInfo = new ItemSearchInfo(null, -1, -1, yesterdayDate);
+		ItemSearchInfo itemSearchInfo = new ItemSearchInfo(null, -1, -1, 1);
 		return searchItem(itemSearchInfo);
 	}
 
