@@ -47,6 +47,8 @@ public class DeleteItemInfo extends HttpServlet {
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		itemInfo.deleteItemInfo(Integer.valueOf(request.getParameter("itemID")));
 
+		//遷移
+		ControllerUtil.translatePage("reference_item_list.jsp", request, response);
 	}
 
 }

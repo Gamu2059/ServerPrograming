@@ -21,13 +21,13 @@ import tdu_market.util.ControllerUtil;
 public class DeleteStudentInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DeleteStudentInfo() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public DeleteStudentInfo() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 
 	/**
@@ -36,10 +36,10 @@ public class DeleteStudentInfo extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("DeleteStudentInfo is non implementation!");
-	
-		
+
+
 		StudentInfoManager student = new StudentInfoManager();
-		
+
 		//ログイン状態の検証
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			return;
@@ -48,6 +48,12 @@ public class DeleteStudentInfo extends HttpServlet {
 		String mailAddress = ControllerUtil.getMailAddress(request, response);
 		//学生情報削除
 		student.deleteStudentInfo(mailAddress);
+		//セッションの破棄
+		HttpSession session = request.getSession();
+		session.invalidate();
+		//遷移
+		ControllerUtil.translatePage("index.jsp", request, response);
+
 	}
 
 }
