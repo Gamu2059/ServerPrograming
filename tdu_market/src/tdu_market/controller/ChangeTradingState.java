@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import tdu_market.dto.MessageRoomChangeInfo;
+//import tdu_market.dto.MessageRoomChangeInfo;
 import tdu_market.util.ControllerUtil;
 
 /**
@@ -35,7 +35,8 @@ public class ChangeTradingState extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("ChangeTradingState is non implementation!");
-
+		//このサーブレット自体が必要ない
+/*
 		//ログイン状態の検証
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			return;
@@ -48,6 +49,7 @@ public class ChangeTradingState extends HttpServlet {
 		MessageRoomInfoManager roomInfo = new MessageRoomInfoManager();
 		MessageRoomChangeInfo changeInfo = new MessageRoomChangeInfo (roomID,roomState);
 		roomInfo.changeStateMessageRoomInfo(changeInfo);
+		*/
 		
 	}
 

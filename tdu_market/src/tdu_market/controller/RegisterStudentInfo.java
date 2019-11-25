@@ -33,6 +33,9 @@ public class RegisterStudentInfo extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	/**
+	 *
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
@@ -49,9 +52,10 @@ public class RegisterStudentInfo extends HttpServlet {
 		StudentUpdateInfo studentInfo = new StudentUpdateInfo(request.getParameter("mailaddress"), request.getParameter("nonHashedPassword"), request.getParameter("displayName"), Integer.valueOf(request.getParameter("departmentValue")).longValue(), request.getParameter("selfIntroduction"), request.getParameter("iconImageURL"));
 		
 		//アカウントの仮登録状態を登録済みに、各種情報を入力されたものに変更。
-		student.makeStudentInfoRegistered(studentInfo);
-		RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-		rd.forward(request, response);		
+		student.updateStudentInfo(studentInfo);
+		//遷移
+		ControllerUtil.translatePage("index.jsp", request, response);
+		
 	}
 
 }

@@ -42,10 +42,11 @@ public class UpdateManagerInfo extends HttpServlet {
 		//必要項目の入力チェック（jsp側）
 		
 		//アカウントの情報を変更
-		ManagerUpdateInfo updateInfo = new ManagerUpdateInfo( request.getParameter("nonHashedPassword"), request.getParameter("displayName"), Integer.valueOf(request.getParameter("departmentID")).longValue(),  request.getParameter("iconImageURL"));
+		ManagerUpdateInfo updateInfo = new ManagerUpdateInfo( request.getParameter("mailAddress"),request.getParameter("nonHashedPassword"), request.getParameter("displayName"),   request.getParameter("iconImageURL"));
 		manager.updateManagerInfo(updateInfo);
-		RequestDispatcher rd = request.getRequestDispatcher("edit_profile_admin.jsp");
-		rd.forward(request, response);		
+		//ページ遷移
+		ControllerUtil.translatePage("edit_profile_admin.jsp", request, response);
+	
 
 	}
 

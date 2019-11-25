@@ -39,8 +39,9 @@ public class UpdateSyllabusInfo extends HttpServlet {
 		}
 
 		SyllabusInfoManager syllabus = new SyllabusInfoManager();
-		SyllabusUpdateInfo updateInfo = new SyllabusUpdateInfo(request.getParameter("previousClassCode"),request.getParameter("classCode"), request.getParameter("className"), Integer.valueOf(request.getParameter("semesterID")).longValue(), request.getParameter("dates"), Integer.valueOf(request.getParameter("unitNum")).intValue()
-				, request.getParameter("classRoom"), Integer.valueOf(request.getParameter("teacherID")).longValue(), request.getParameter("overview"), request.getParameter("target")
+		SyllabusUpdateInfo updateInfo = new SyllabusUpdateInfo(request.getParameter("previousClassCode"),request.getParameter("classCode"), request.getParameter("className"), Integer.valueOf(request.getParameter("subjectID")).longValue(),
+				Integer.valueOf(request.getParameter("teacherID")).longValue(),request.getParameter("dates"), Integer.valueOf(request.getParameter("unitNum")).intValue()
+				, request.getParameter("classRoom"),  request.getParameter("overview"), request.getParameter("target")
 				, request.getParameter("requierments"), request.getParameter("evaluationMethod"));
 		//シラバス情報の更新
 		syllabus.updateSyllabusInfo(updateInfo);
