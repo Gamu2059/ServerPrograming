@@ -26,23 +26,23 @@
 			<div class="second_container_ver4">
 				<h3>商品検索</h3>
 				<br>
-				<form action="" method="post">
+				<form action="../ReferItemListPage" method="post">
 					<div class="detail_content">
 						<h3>商品名</h3>
-						<input id="item_name_field" type="text" name="item_name">
+						<input id="item_name_field" type="text" name="itemNameKeyword">
 					</div>
 					<div class="detail_content">
 						<h4>状態</h4>
-						<select id="condition" name="condition">
-							<option value="new">新品・未使用</option>
-							<option value="old">中古（書き込みなし）</option>
-							<option value="old_written">中古（書き込みあり）</option>
-							<option value="old_dirty">破損・汚れあり</option>
+						<select id="condition" name="condtion">
+							<option value="0">新品・未使用</option>
+							<option value="1">中古（書き込みなし）</option>
+							<option value="2">中古（書き込みあり）</option>
+							<option value="3">破損・汚れあり</option>
 						</select>
 					</div>
 					<div class="detail_content">
 						<h3>価格</h3>
-						<input type="text" name="item_price"> 円
+						<input type="text" name="maxPrice"> 円
 					</div>
 					<br>
 					<!-- サードコンテナ -->
