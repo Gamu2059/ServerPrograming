@@ -1,3 +1,5 @@
+<%@page import="tdu_market.dto.ItemGetInfo"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -34,22 +36,54 @@
 						id="trading_list" name="tab_item" type="radio"> <label
 						class="tab_item" for="trading_list">取引中</label>
 					<!--ここは一例です。必要に応じて補ってください。-->
+					<!-- ReferExhibitItemListPageからのセッションデータを展開する -->
+					<%
+					ArrayList<ItemGetInfo> itemList = new ArrayList<>();
+					itemList = (ArrayList<ItemGetInfo>)request.getAttribute("itemList");
+					%>
 					<div class="tab_content" id="exhibiting_content">
-						<button id="exhibit_button">
-							<img src="/tdu_market/images/item_image.png" alt="教科書"> <label
-								id="item_name">デザイン入門</label> <label id="item_price">1000円</label>
-						</button>
-						<button id="exhibit_button">
-							<img src="/tdu_market/images/item_image.png" alt="教科書"> <label
-								id="item_name">デザイン入門</label> <label id="item_price">1000円</label>
-						</button>
+						<!-- 取引待ち商品データを表示する -->
+						<%
+						int count = 0;
+						if(itemList != null){
+							for(int i=0; i<itemList.size();i++){
+								if(itemList.get(i).getTradingState() == 0){
+									out.print("<form action=\"../ReferExhibitItemPage\" method=\"get\">");
+									out.print("<button id=\"exhibit_button\" type=\"submit\">");
+									out.print("<img src=\"itemList.get(i).getItemImageBinaries()[0]\" alt=\"商品画像\">");
+									out.print("<label id=\"item_name\">"+itemList.get(i).getItemName()+"</label>");
+									out.print("<label id=\"item_price\">"+itemList.get(i).getPrice()+"円</label>");
+									out.print("</button>");
+									out.print("</form>");
+									count++;
+								}
+							}
+						}
+						if(count == 0){
+							out.print("取引待ちの商品が見つかりませんでした。");
+						}
+						%>
 					</div>
-					<div class="tab_content" id="trading_content">
-						<button id="exhibit_button">
-							<img src="/tdu_market/images/item_image.png" alt="教科書"> <label
-								id="item_name">デザイン入門</label> <label id="item_price">1000円</label>
-						</button>
-					</div>
+					<!-- 取引中の商品データを表示する -->
+					<%
+						int count2 = 0;
+						if(itemList != null){
+							for(int i=0; i<itemList.size();i++){
+								if(itemList.get(i).getTradingState() == 1){
+									out.print("<form action=\"../ReferExhibitItemPage\" method=\"get\">");
+									out.print("<button id=\"exhibit_button\" type=\"submit\">");
+									out.print("<img src=\"itemList.get(i).getItemImageBinaries()[0]\" alt=\"商品画像\">");
+									out.print("<label id=\"item_name\">"+itemList.get(i).getItemName()+"</label>");
+									out.print("<label id=\"item_price\">"+itemList.get(i).getPrice()+"円</label>");
+									out.print("</button>");
+									out.print("</form>");
+								}
+							}
+						}
+						if(count2 == 0){
+							out.print("取引中の商品が見つかりませんでした。");
+						}
+						%>
 				</div>
 			</div>
 		</article>
