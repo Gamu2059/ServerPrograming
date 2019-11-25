@@ -1,5 +1,5 @@
 <%@page import="java.util.ArrayList"%>
-<%@page import="tdu_market.dto.SyllabusGetInfo"%>
+<%@page import="tdu_market.dto.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -27,24 +27,23 @@
 			<div class="first_container_ver4">
 				<nav>
 					<!-- ReferSyllabusPageからのデータを展開する -->
-					<% SyllabusGetInfo info = (SyllabusGetInfo)request.getAttribute("getInfo"); %>
+					<% ArrayList<RelatedClassGetInfo> info = (ArrayList<RelatedClassGetInfo>)request.getAttribute("getInfo"); %>
 
-					<!-- SearchItemPageを使って関連商品を検索する -->
+					<!-- セッションに関連商品を記録して画面を遷移させる -->
 					<form action="../SearchItemPage" name="get">
-						<input type="hidden" name="サーブレットの授業コード引数" value="<% out.print(info.getClassCode()); %>"/>
-						<input type="submit" class="button_flat_normal" value="関連商品"/>
+						<%
+						ArrayList<ItemGetInfo> item_info = new ArrayList<>();
+						for(int i=0;i<info.size();i++){
+							item_info.add(info.get(i).getItemGetInfo());
+							if(100 < i){
+								//１００件を超える商品が登録されている場合は追加を打ち切りにする
+								break;
+							}
+						}
+						session.setAttribute("itemList", item_info);
+						%>
+						<input type="submit" class="button_flat_normal" value="関連商品" onClick="location.href='reference_item_list.jsp'"/>
 					</form>
-
-					<!-- SearchItemPageを使って関連商品を５つ検索する(自動実行) -->
-					<form name="searchItem" action="../SearchItemPage" method="get">
-						<input type="hidden" name=""サーブレットの検索引数（授業コード）を入力する"" value="<% out.print(info.getClassCode()); %>" />
-					</form>
-					<!-- 検索結果を格納する -->
-					<%
-					ArrayList<> searchResult = new ArrayLsit<>();
-					searchResult = (ArrayList<>)request.getAttribute("SearchItemPageで定義した引数を入力する");
-					%>
-
 					<!--ページ内の遷移-->
 				</nav>
 			</div>
@@ -52,48 +51,48 @@
 			<div class="second_container_syllabus">
 				<div class="detail_content_syllabus_top">
 					<h3 id="title">授業コード</h3>
-					<h3><% out.print(info.getClassCode()); %></h3>
+					<h3><% out.print(info.get(0).getSyllabusGetInfo().getClassCode()); %></h3>
 				</div>
 				<div class="detail_content_syllabus">
-					<h3><% out.print(info.getClassName()); %></h3>
+					<h3><% out.print(info.get(0).getSyllabusGetInfo().getClassName()); %></h3>
 				</div>
 				<div class="detail_content_syllabus">
 					<h3 id="title">開講年度</h3>
-					<h3><% out.print(info.getOpeningSemester()); %></h3>
+					<h3><% out.print(info.get(0).getSyllabusGetInfo().getOpeningSemester()); %></h3>
 				</div>
 				<div class="detail_content_syllabus">
 					<div class="detail_content_syllabus_ver2">
 						<h3 id="title">曜日</h3>
-						<h3><% out.print(info.getDates()); %></h3>
+						<h3><% out.print(info.get(0).getSyllabusGetInfo().getDates()); %></h3>
 					</div>
 					<div class="detail_content_syllabus_ver2">
 						<h3 id="title">単位数</h3>
-						<h3><% out.print(info.getUnitNum()); %></h3>
+						<h3><% out.print(info.get(0).getSyllabusGetInfo().getUnitNum()); %></h3>
 					</div>
 				</div>
 				<div class="detail_content_syllabus">
 					<h3 id="title">教室</h3>
-					<h3><% out.print(info.getClassRoom()); %></h3>
+					<h3><% out.print(info.get(0).getSyllabusGetInfo().getClassRoom()); %></h3>
 				</div>
 				<div class="detail_content_syllabus">
 					<h3 id="title">教員</h3>
-					<h3><% out.print(info.getTeacherName()); %></h3>
+					<h3><% out.print(info.get(0).getSyllabusGetInfo().getTeacherName()); %></h3>
 				</div>
 				<div class="detail_content_syllabus_textbox">
 					<h3 id="title">目的概要</h3>
-					<h3><% out.print(info.getTarget()); %></h3>
+					<h3><% out.print(info.get(0).getSyllabusGetInfo().getTarget()); %></h3>
 				</div>
 				<div class="detail_content_syllabus_textbox">
 					<h3 id="title">達成目標</h3>
-					<h3><% out.print(info.getRequirments());%></h3>
+					<h3><% out.print(info.get(0).getSyllabusGetInfo().getRequirments());%></h3>
 				</div>
 				<div class="detail_content_syllabus">
 					<h3 id="title">履修条件</h3>
-					<h3><% out.print(info.getRequirments()); %></h3>
+					<h3><% out.print(info.get(0).getSyllabusGetInfo().getRequirments()); %></h3>
 				</div>
 				<div class="detail_content_syllabus_textbox">
 					<h3 id="title">評価方法</h3>
-					<h3><% out.print(info.getEvaluationMethod()); %></h3>
+					<h3><% out.print(info.get(0).getSyllabusGetInfo().getEvaluationMethod()); %></h3>
 				</div>
 			</div>
 			<!-- サードコンテナ -->
@@ -103,55 +102,30 @@
 					<br />
 					<div class="new_item_list">
 					<%
-					if(searchResult == null){
+					if(item_info == null){
 						out.print("出品された教科書は見つかりませんでした。");
 					} else {
-						if(searchResult.size()<4){
-							for(int i=0;i<searchResult.size();i++){
-								out.print("<button id=\"item_button\">");
-								out.print("<img src=\""+searchResultから商品画像を取得する+"\" alt=\"商品画像\" />");
-								out.print("<h5>"+searchResultから商品名を取得する+"</h5>";)
-								out.print("<h4>"+searchResultから金額を取得する+"円</h4>");
+						if(item_info.size()<4){
+							for(int i=0;i<item_info.size(); i++){
+								out.print("<form action=\"../ReferItemPage\" method=\"get\">");
+								out.print("<input type=\"hidden\" name=\"itemID\" value=\""+item_info.get(i).getItemID()+"\" />");
+								out.print("<button id=\"item_button\" type=\"submit\">");
+								out.print("<img src=\""+item_info.get(i).getItemImageBinaries()[0]+"\" alt=\"商品画像\" />");
+								out.print("<h5>"+item_info.get(i).getItemName()+"</h5>");
+								out.print("<h4>"+item_info.get(i).getPrice()+"円</h4>");
 								out.print("</button>");
+								out.print("</form>");
 							}
 						} else {
 							for(int i=0;i<5;i++){
-								out.print("<button id=\"item_button\">");
-								out.print("<img src=\""+searchResultから商品画像を取得する+"\" alt=\"商品画像\" />");
-								out.print("<h5>"+searchResultから商品名を取得する+"</h5>";)
-								out.print("<h4>"+searchResultから金額を取得する+"円</h4>");
+								out.print("<form action=\"../ReferItemPage\" method=\"get\">");
+								out.print("<input type=\"hidden\" name=\"itemID\" value=\""+item_info.get(i).getItemID()+"\" />");
+								out.print("<button id=\"item_button\" type=\"submit\">");
+								out.print("<img src=\""+item_info.get(i).getItemImageBinaries()[0]+"\" alt=\"商品画像\" />");
+								out.print("<h5>"+item_info.get(i).getItemName()+"</h5>");
+								out.print("<h4>"+item_info.get(i).getPrice()+"円</h4>");
 								out.print("</button>");
-							}
-						}
-					}
-					%>
-					</div>
-				</nav>
-			</div>
-			<div class="third_container_ver4">
-				<nav>
-					<h4>出品された他の商品</h4>
-					<br />
-					<div class="new_item_list">
-						<%
-					if(searchResult == null){
-						out.print("出品された教科書は見つかりませんでした。");
-					} else {
-						if(searchResult.size()<4){
-							for(int i=0;i<searchResult.size();i++){
-								out.print("<button id=\"item_button\">");
-								out.print("<img src=\""+searchResultから商品画像を取得する+"\" alt=\"商品画像\" />");
-								out.print("<h5>"+searchResultから商品名を取得する+"</h5>";)
-								out.print("<h4>"+searchResultから金額を取得する+"円</h4>");
-								out.print("</button>");
-							}
-						} else {
-							for(int i=0;i<5;i++){
-								out.print("<button id=\"item_button\">");
-								out.print("<img src=\""+searchResultから商品画像を取得する+"\" alt=\"商品画像\" />");
-								out.print("<h5>"+searchResultから商品名を取得する+"</h5>";)
-								out.print("<h4>"+searchResultから金額を取得する+"円</h4>");
-								out.print("</button>");
+								out.print("</form>");
 							}
 						}
 					}
