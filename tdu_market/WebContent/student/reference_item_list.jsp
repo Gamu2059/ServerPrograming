@@ -1,3 +1,6 @@
+<%@page import="tdu_market.controller.ReferItemPage"%>
+<%@page import="tdu_market.dto.ItemGetInfo"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -37,17 +40,24 @@
 		</div>
 		<br>
 		<div class="new_item_list">
-			<button id="item_button">
-				<img src="/tdu_market/images/item_image.png" alt="企業と社会" />
-				<h5>コーズ・リレーテッド・マーケティング</h5>
-				<h4>1000円</h4>
-			</button>
-			<button id="item_button">
-				<img src="/tdu_market/images/item_image.png" alt="企業と社会" />
-				<h5>コーズ・リレーテッド・マーケティング</h5>
-				<h4>1000円</h4>
-			</button>
-
+			<!-- ReferSyllabusListPageからのセッションデータを展開する -->
+			<%
+			ArrayList<ItemGetInfo> itemList = new ArrayList<>();
+			itemList = (ArrayList<ItemGetInfo>)request.getAttribute("itemList");
+			if(itemList == null){
+				out.print("商品が見つかりませんでした。");
+			} else {
+				for(int i=0;i<itemList.size();i++){
+					out.print("<form action=\"../ReferItemPage\" method=\"get\">");
+					out.print("<button type=\"submit\" id=\"item_button\">");
+					out.print("<img src=\""+itemList.get(i).getItemImageBinaries()[0]+"\" alt=\"商品画像\" />");
+					out.print("<h5>"+itemList.get(i).getItemName()+"</h5>");
+					out.print("<h4>"+itemList.get(i).getPrice()+"円</h4>");
+					out.print("</button>");
+					out.print("</form>");
+				}
+			}
+			%>
 		</div>
 	</article>
 	<!-- InstanceEndEditable -->
