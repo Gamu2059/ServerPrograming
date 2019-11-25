@@ -13,7 +13,7 @@
 	<div class="title_logo">
 		<!-- ロゴ -->
 		<h1>
-			<a href="top.jsp"><img src="/tdu_market/images/student_logo.png"
+			<a href="/tdu_market/Student/student_top.jsp"><img src="/tdu_market/images/student_logo.png"
 				alt="ロゴ"></a>
 		</h1>
 	</div>
