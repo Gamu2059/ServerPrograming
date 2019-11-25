@@ -105,7 +105,6 @@
 
 					yes.addEventListener('click', function() {
 						dialog.style.display = 'none';
-						notify_dialog('退会しました。', 'index');
 					});
 					no.addEventListener('click', function() {
 						dialog.style.display = 'none';
