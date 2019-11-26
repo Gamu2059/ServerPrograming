@@ -23,7 +23,7 @@ import java.text.SimpleDateFormat;
 /**
  * Servlet implementation class ReferItemListPage
  */
-@WebServlet("/ReferItemListPage")
+@WebServlet("/tdu_market/controller/ReferItemListPage")
 public class ReferItemListPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -84,7 +84,8 @@ public class ReferItemListPage extends HttpServlet {
 		request.setAttribute("itemList", itemList);
 
 		//遷移
-		ControllerUtil.translatePage("hoge.jsp", request, response);
+		ControllerUtil.translatePage("/tdu_market/Student/reference_item_list.jsp", request, response);
+
 	}
 
 }

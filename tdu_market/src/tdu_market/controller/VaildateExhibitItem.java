@@ -20,7 +20,7 @@ import tdu_market.dto.ItemCreateInfo;
 /**
  * Servlet implementation class VaildateExhibitItem
  */
-@WebServlet("/VaildateExhibitItem")
+@WebServlet("/tdu_market/controller/VaildateExhibitItem")
 public class VaildateExhibitItem extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -39,6 +39,10 @@ public class VaildateExhibitItem extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.err.println("VaildateExhibitItem is non implementation!");
 
+		
+		//出品物情報の検証を行うクラス。正しい場合は、jspの確認画面へ遷移させる。
+		
+		
 		//ログイン状態の検証
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			return;
@@ -51,8 +55,14 @@ public class VaildateExhibitItem extends HttpServlet {
 		ReturnInfo itemResult = itemInfo.validateRegisterExhibitItem(createInfo);
 
 		if(itemResult.isSuccess()) {
-			RequestDispatcher rd = request.getRequestDispatcher("confirm_register_exhibit.jsp");
-			rd.forward(request, response);	
+			//ページ遷移(本当にこれで出品しますか？のようなjsp)
+			ControllerUtil.translatePage("/tdu_market/Student/confirm_register_exhibit.jsp", request, response);
+		}
+		else {
+			//ページ遷移
+			//入力値が不正だったときの遷移先
+			ControllerUtil.translatePage("/tdu_market/Student/register_exhibit.jsp", request, response);
+
 		}
 	}
 }

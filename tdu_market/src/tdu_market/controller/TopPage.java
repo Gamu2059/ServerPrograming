@@ -20,17 +20,17 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class TopPage
  */
-@WebServlet("/TopPage")
+@WebServlet("/tdu_market/controller/TopPage")
 public class TopPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public TopPage() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public TopPage() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -39,19 +39,21 @@ public class TopPage extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.err.println("TopPage is non implementation!");
 		HttpSession session = request.getSession();
-		
+
 		//ログイン状態の検証
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			return;
 		}
-		
+
 		//新着商品を取得する
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		ArrayList<ItemGetInfo> newItemList = itemInfo.getNewItemList();
 		//jspに情報を投げる。
 		session.setAttribute("newItemList", newItemList);
 		ControllerUtil.translatePage("/tdu_market/Student/student_top.jsp", request, response);
-	
+		//遷移
+		ControllerUtil.translatePage("/tdu_market/Student/student_top.jsp", request, response);
+
 	}
 
 

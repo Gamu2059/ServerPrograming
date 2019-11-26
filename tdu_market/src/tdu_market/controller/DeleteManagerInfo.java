@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import tdu_market.entity_manager.ManagerInfoManager;
 import tdu_market.util.ControllerUtil;
@@ -14,7 +15,7 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class DeleteManagerInfo
  */
-@WebServlet("/DeleteManagerInfo")
+@WebServlet("/tdu_market/controller/DeleteManagerInfo")
 public class DeleteManagerInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -43,6 +44,12 @@ public class DeleteManagerInfo extends HttpServlet {
 		String mailAddress = ControllerUtil.getMailAddress(request, response);
 		//運営情報削除
 		manager.deleteManagerInfo(mailAddress);
+		//セッションの破棄
+		HttpSession session = request.getSession();
+		session.invalidate();
+		// 遷移
+		ControllerUtil.translatePage("/tdu_market/general/index.jsp", request, response);
+
 	}
 
 }

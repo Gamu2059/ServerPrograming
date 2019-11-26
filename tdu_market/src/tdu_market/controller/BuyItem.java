@@ -15,7 +15,7 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class BuyItem
  */
-@WebServlet("/BuyItem")
+@WebServlet("/tdu_market/controller/BuyItem")
 public class BuyItem extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -44,6 +44,9 @@ public class BuyItem extends HttpServlet {
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		//アイテム購入処理
 		itemInfo.BuyItem(buyInfo);
+		
+		// メッセージ画面へ遷移
+		ControllerUtil.translatePage("/tdu_market/Student/message.jsp", request, response);
 	}
 
 }

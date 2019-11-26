@@ -19,7 +19,7 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class DeleteItemInfo
  */
-@WebServlet("/DeleteItemInfo")
+@WebServlet("/tdu_market/controller/DeleteItemInfo")
 public class DeleteItemInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -46,9 +46,9 @@ public class DeleteItemInfo extends HttpServlet {
 		//削除処理
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		itemInfo.deleteItemInfo(Integer.valueOf(request.getParameter("itemID")));
+		// 遷移
+		ControllerUtil.translatePage("/tdu_market/Student/reference_item_list.jsp", request, response);
 
-		//遷移
-		ControllerUtil.translatePage("reference_item_list.jsp", request, response);
 	}
 
 }

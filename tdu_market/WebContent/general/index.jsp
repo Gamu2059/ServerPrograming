@@ -34,7 +34,7 @@
 					class="button_flat_blue">ログイン</button>
 			</form>
 			<button id="new_account_button" type="submit"
-				class="button_flat_blue" onclick="location.href='/general/send_mail.jsp'">新規登録</button>
+				class="button_flat_blue" onclick="location.href='/tdu_market/general/send_mail.jsp'">新規登録</button>
 		</article>
 	</div>
 </body>

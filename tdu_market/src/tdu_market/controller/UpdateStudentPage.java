@@ -19,7 +19,7 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class UpdateStudentPage
  */
-@WebServlet("/UpdateStudentPage")
+@WebServlet("/tdu_market/controller/UpdateStudentPage")
 public class UpdateStudentPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -49,8 +49,8 @@ public class UpdateStudentPage extends HttpServlet {
 		//アカウントの情報を変更
 		StudentUpdateInfo updateInfo = new StudentUpdateInfo(request.getParameter("mailaddress"), request.getParameter("nonHashedPassword"), request.getParameter("displayName"), Integer.valueOf(request.getParameter("departmentID")).longValue(), request.getParameter("selfIntroduction"), request.getParameter("iconImageURL"));
 		student.updateStudentInfo(updateInfo);
-		RequestDispatcher rd = request.getRequestDispatcher("edit_profile_student.jsp");
-		rd.forward(request, response);		
+		//ページ遷移
+				ControllerUtil.translatePage("/tdu_market/Admin/edit_profile_student.jsp", request, response);
 
 
 	}

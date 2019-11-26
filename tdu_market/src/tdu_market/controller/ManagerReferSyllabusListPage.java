@@ -17,7 +17,7 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class ReferSyllabusListPage
  */
-@WebServlet("/ManagerReferSyllabusListPage")
+@WebServlet("/tdu_market/controller/ManagerReferSyllabusListPage")
 public class ManagerReferSyllabusListPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -48,6 +48,10 @@ public class ManagerReferSyllabusListPage extends HttpServlet {
 		ArrayList<SyllabusGetInfo> searchResult = syllabusInfo.searchSyllabus(searchInfo) ;
 		//jspに情報を投げる。
 		request.setAttribute("searchResult", searchResult);
+		
+		//遷移
+		ControllerUtil.translatePage("/tdu_market/Admin/reference_syllabus_list_by_admin.jsp", request, response);
+	
 
 	}
 

@@ -22,17 +22,17 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class ReferItemPage
  */
-@WebServlet("/ReferItemPage")
+@WebServlet("/tdu_market/controller/ReferItemPage")
 public class ReferItemPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ReferItemPage() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public ReferItemPage() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -40,7 +40,7 @@ public class ReferItemPage extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("ReferItemPage is non implementation!");
-		
+
 
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			return;
@@ -51,6 +51,9 @@ public class ReferItemPage extends HttpServlet {
 		ItemGetInfo itemGetInfo = itemInfo.getItemInfo(Integer.valueOf(request.getParameter("itemID")).longValue()) ;
 		//jspに情報を投げる。
 		request.setAttribute("itemInfo", itemGetInfo);
+		//遷移
+		ControllerUtil.translatePage("/tdu_market/Student/reference_item_detail.jsp", request, response);
+
 	}
 
 

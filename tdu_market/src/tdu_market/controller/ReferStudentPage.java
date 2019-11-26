@@ -18,7 +18,7 @@ import tdu_market.dto.StudentGetInfo;
 /**
  * Servlet implementation class ReferStudentPage
  */
-@WebServlet("/ReferStudentPage")
+@WebServlet("/tdu_market/controller/ReferStudentPage")
 public class ReferStudentPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -49,6 +49,9 @@ public class ReferStudentPage extends HttpServlet {
 		StudentGetInfo studentInfo = student.getStudentInfo(mailAddress);
 		//jspに情報を投げる。
 		request.setAttribute("studentInfo", studentInfo);
+		//遷移
+		ControllerUtil.translatePage("/tdu_market/Student/reference_profile_student.jsp", request, response);
+	
 	}
 
 

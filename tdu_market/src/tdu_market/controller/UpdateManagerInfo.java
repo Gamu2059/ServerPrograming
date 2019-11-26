@@ -16,7 +16,7 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class UpdateManagerInfo
  */
-@WebServlet("/UpdateManagerInfo")
+@WebServlet("/tdu_market/controller/UpdateManagerInfo")
 public class UpdateManagerInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -45,8 +45,7 @@ public class UpdateManagerInfo extends HttpServlet {
 		ManagerUpdateInfo updateInfo = new ManagerUpdateInfo( request.getParameter("mailAddress"),request.getParameter("nonHashedPassword"), request.getParameter("displayName"),   request.getParameter("iconImageURL"));
 		manager.updateManagerInfo(updateInfo);
 		//ページ遷移
-		ControllerUtil.translatePage("edit_profile_admin.jsp", request, response);
-	
+		ControllerUtil.translatePage("/tdu_market/Admin/edit_profile_admin.jsp", request, response);
 
 	}
 

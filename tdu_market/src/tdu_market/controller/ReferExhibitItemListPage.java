@@ -20,7 +20,7 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class ReferExhibitItemListPage
  */
-@WebServlet("/ReferExhibitItemListPage")
+@WebServlet("/tdu_market/controller/ReferExhibitItemListPage")
 public class ReferExhibitItemListPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -46,12 +46,16 @@ public class ReferExhibitItemListPage extends HttpServlet {
 		}
 		//セッションからメールアドレスを取得
 		String mailAddress = ControllerUtil.getMailAddress(request, response);
-		
+
 		//出品情報を取得
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		ArrayList<ItemGetInfo> itemList =  itemInfo.getExhibitItem(mailAddress);
 		//jspに情報を投げる。
 		request.setAttribute("itemList",itemList);
+
+		//遷移
+		ControllerUtil.translatePage("/tdu_market/Student/reference_exhibit_list.jsp", request, response);
+
 	}
 
 }

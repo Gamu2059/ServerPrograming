@@ -19,7 +19,7 @@ import tdu_market.dto.ItemUpdateInfo;
 /**
  * Servlet implementation class UpdateItemInfo
  */
-@WebServlet("/UpdateItemInfo")
+@WebServlet("/tdu_market/controller/UpdateItemInfo")
 public class UpdateItemInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -36,18 +36,22 @@ public class UpdateItemInfo extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	
+
 		//ログイン状態の検証
-				if (!ControllerUtil.verifyLogin(request, response)) {
-					return;
-				}
-		
+		if (!ControllerUtil.verifyLogin(request, response)) {
+			return;
+		}
+
 		//出品商品更新処理
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		ItemUpdateInfo updateInfo = new ItemUpdateInfo(Integer.valueOf(request.getParameter("itemID")).longValue(), request.getParameter("itemName"), request.getParameter("description"), 
 				Integer.valueOf(request.getParameter("condition")).intValue(), Integer.valueOf(request.getParameter("itemID")).intValue(),
 				request.getParameter("relatedClassCode") , request.getParameterValues("itemImageURLs"));
+
+		//出品商品更新処理
 		itemInfo.updateItemInfo(updateInfo);
+		//遷移
+		ControllerUtil.translatePage("/tdu_market/Student/reference_exhibit_list.jsp", request, response);
 	}
 
 }

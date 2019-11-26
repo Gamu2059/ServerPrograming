@@ -20,7 +20,7 @@ import javax.servlet.RequestDispatcher;
 /**
  * Servlet implementation class Logout
  */
-@WebServlet("/Logout")
+@WebServlet("/tdu_market/controller/Logout")
 public class Logout extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -54,10 +54,9 @@ public class Logout extends HttpServlet {
 			String nm = (String)vals.nextElement();
 			sess.removeAttribute(nm);
 		}	
-
-		RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-		rd.forward(request, response);
-
+		//遷移
+		ControllerUtil.translatePage("/tdu_market/general/index.jsp", request, response);
+	
 
 	}
 
