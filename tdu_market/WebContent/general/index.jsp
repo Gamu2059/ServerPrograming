@@ -1,3 +1,4 @@
+<%@page import="tdu_market.util.ServletPath"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -18,14 +19,14 @@
 		<article>
 			<h1>電大マーケットへようこそ</h1>
 			<h2>
-			<% 
+			<%
 			String obj = (String)session.getAttribute("errorMessage");
 			if(obj != null && !obj.trim().isEmpty()){
 				out.println(obj);
 			}
 			%>
 			</h2>
-			<form action="/tdu_market/tdu_market/controller/Login" method="post">
+			<form action=<%=ServletPath.Login%> method="post">
 				<div class="input_field">
 					<input type="text" name="mailaddress" placeholder="メールアドレス" /> <input
 						type="password" name="password" placeholder="パスワード" />

@@ -1,3 +1,4 @@
+<%@page import="tdu_market.util.ServletPath"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -16,7 +17,7 @@
 	</header>
 	<div class="center_container">
 		<article>
-			<form action="#" method="post">
+			<form action=<%=ServletPath.RegisterStudentInfo%>> method="post">
 				<div class="input_field_ver2">
 					<div class="input_content_img">
 						<img id="icon" src="/tdu_market/images/icon.png" alt="icon" />
