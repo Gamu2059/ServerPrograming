@@ -1,3 +1,5 @@
+package tdu_market.util;
+
 public class JspPath{
     //Student
     public static final String edit_exhibit = "/tdu_market/Student/edit_exhibit.jsp";
