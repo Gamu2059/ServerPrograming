@@ -17,7 +17,7 @@
 		<article>
 			<h1>電大マーケットへようこそ</h1>
 			<form action="#" method="post">
-				<input id="mailaddress_field" type="text" name="mail"
+				<input id="mailaddress_field" type="text" name="mailAdress"
 					placeholder="メールアドレス" />
 				<button id="send_mailaddress_button" type="submit"
 					class="button_flat_blue" onClick="notify_dialog()">
