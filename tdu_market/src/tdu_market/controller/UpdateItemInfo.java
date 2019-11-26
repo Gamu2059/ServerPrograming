@@ -49,14 +49,7 @@ public class UpdateItemInfo extends HttpServlet {
 
 		//渡された授業名（String）を関連授業コード（String）に変換する処理
 
-		
-		ItemInfoManager itemInfo = new ItemInfoManager();
-		ItemUpdateInfo updateInfo = new ItemUpdateInfo(Integer.valueOf(request.getParameter("itemID")).longValue(),
-				request.getParameter("itemName"), request.getParameter("description"),
-				Integer.valueOf(request.getParameter("condition")).intValue(),
-				Integer.valueOf(request.getParameter("price")).intValue(),
-				request.getParameter("relatedClassCode"), request.getParameterValues("itemImageURLs"));
-
+	
 		itemInfo.updateItemInfo(updateInfo);
 		//遷移
 		ControllerUtil.translatePage("/tdu_market/Student/reference_exhibit_list.jsp", request, response);

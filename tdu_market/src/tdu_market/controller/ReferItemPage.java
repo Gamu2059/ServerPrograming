@@ -36,23 +36,20 @@ public class ReferItemPage extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("ReferItemPage is non implementation!");
-		<<<<<<< HEAD
-
-		=======
-		>>>>>>> a7509a69c154cbd0bb5ea7853d322ce19d425fec
 
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			return;
 		}
 
-		RelatedClassInfoManager itemInfo = new RelatedClassInfoManager();
+		RelatedClassInfoManager relatedClassInfoManager = new RelatedClassInfoManager();
 		//出品商品情報をリストへ保持
-		ArrayList<RelatedClassGetInfo> relatedClassGetInfo = itemInfo
+		ArrayList<RelatedClassGetInfo> relatedClassGetInfo = relatedClassInfoManager
 				.getRelatedClassInfoWithItem(Integer.valueOf(request.getParameter("itemID")).longValue());
-		//jspに情報を投げる。
+		//jsp情報を投げる。
 
-		HttpSession session = request.getSession();。
-		session.setAttribute("itemInfo", itemGetInfo);
+		HttpSession session = request.getSession();
+		session.setAttribute("itemInfo", relatedClassGetInfo);
+
 		//遷移
 		ControllerUtil.translatePage("/tdu_market/Student/reference_item_detail.jsp", request, response);
 

@@ -158,40 +158,6 @@
 							<div class="detail_content">
 								<h3 class="exhibit_description">状態</h3>
 								<select id="dialog_condition" name="condition" disabled="disabled">
-									<%
-									switch( out.print("<script type=\"text/javascript\">document.write(description);</script>"); ){
-									case 0:
-										out.print("<option value=\"0\" selected>新品・未使用</option>");
-										out.print("<option value=\"1\">中古（書き込みなし）</option>");
-										out.print("<option value=\"2\">中古（書き込みあり）</option>");
-										out.print("<option value=\"3\">破損・汚れあり</option>");
-										break;
-									case 1:
-										out.print("<option value=\"0\">新品・未使用</option>");
-										out.print("<option value=\"1\" selected>中古（書き込みなし）</option>");
-										out.print("<option value=\"2\">中古（書き込みあり）</option>");
-										out.print("<option value=\"3\">破損・汚れあり</option>");
-										break;
-									case 2:
-										out.print("<option value=\"0\">新品・未使用</option>");
-										out.print("<option value=\"1\">中古（書き込みなし）</option>");
-										out.print("<option value=\"2\" selected>中古（書き込みあり）</option>");
-										out.print("<option value=\"3\">破損・汚れあり</option>");
-										break;
-									case 3:
-										out.print("<option value=\"0\">新品・未使用</option>");
-										out.print("<option value=\"1\">中古（書き込みなし）</option>");
-										out.print("<option value=\"2\">中古（書き込みあり）</option>");
-										out.print("<option value=\"3\" selected>破損・汚れあり</option>");
-										break;
-									default:
-										out.print("<option value=\"0\">新品・未使用</option>");
-										out.print("<option value=\"1\">中古（書き込みなし）</option>");
-										out.print("<option value=\"2\">中古（書き込みあり）</option>");
-										out.print("<option value=\"3\">破損・汚れあり</option>");
-										break;
-									}
-									%>
 								</select>
 							</div>
 							<br>
