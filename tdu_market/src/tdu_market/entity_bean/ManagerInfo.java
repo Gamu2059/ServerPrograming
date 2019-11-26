@@ -50,7 +50,7 @@ public final class ManagerInfo extends UseBase implements Serializable {
 		managerInfo.setMailAddress(resultSet.getString(MAIL_ADDRESS));
 		managerInfo.setHashedPassword(resultSet.getString(HASHED_PASSWORD));
 		managerInfo.setDisplayName(resultSet.getString(DISPLAY_NAME));
-		managerInfo.setIconImageBinary(resultSet.getString(ICON_IMAGE_BINARY));
+		managerInfo.setIconImageBinary(resultSet.getBinaryStream(ICON_IMAGE_BINARY));
 		managerInfo.setRegisterState(resultSet.getInt(REGISTER_STATE));
 		managerInfo.setCreatedDate(resultSet.getDate(CREATED_DATE));
 		managerInfo.setLastLoginDate(resultSet.getDate(LAST_LOGIN_DATE));

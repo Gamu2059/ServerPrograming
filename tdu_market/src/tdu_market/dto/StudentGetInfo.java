@@ -1,6 +1,7 @@
 package tdu_market.dto;
 
 import tdu_market.entity_bean.StudentInfo;
+import tdu_market.util.ImageUtil;
 
 public class StudentGetInfo {
 
@@ -50,7 +51,8 @@ public class StudentGetInfo {
 		String disp = studentInfo.getDisplayName();
 		long subID = studentInfo.getSubjectID();
 		String intro = studentInfo.getSelfIntroduction();
-		String icon = studentInfo.getIconImageBinary();
+		String icon = ImageUtil.getImage(studentInfo.getIconImageBinary());
+
 		return new StudentGetInfo(addr, disp, subID, intro, icon);
 	}
 }
