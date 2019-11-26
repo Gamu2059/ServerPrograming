@@ -11,6 +11,7 @@ public final class AccountUtil {
 	private static final String STUDENT_DOMAIN = "ms\\.dendai\\.ac\\.jp";
 	private static final String STUDENT_ADDRESS_MATCH = "^" + STUDENT_NUMBER_MATCH + "@" + STUDENT_DOMAIN + "$";
 	private static final String MANAGER_ADDRESS_MATCH = "^[0-9a-zA-Z._]*@[a-z]*\\.dendai\\.ac\\.jp(?<!" + STUDENT_DOMAIN + ")$";
+	private static final String SUBJECT_SYMBOL_MATCH = "[0-9]{2}(([a-z]{2,3}))[0-9]{3}";
 
 	public static boolean isMeetRequirementMailAddress( String mailAddress) {
 
@@ -88,6 +89,25 @@ public final class AccountUtil {
 			return null;
 		}
 
-		return m.group();
+		return m.group().toLowerCase();
+	}
+
+	public static String getSubjectSymbolFromStudentNumber(String studentNumber) {
+
+		if (studentNumber == null) {
+			System.err.println("getSubjectSymbolFromStudentNumber() : studentNumber is null");
+			return null;
+		}
+
+		Pattern p = Pattern.compile(SUBJECT_SYMBOL_MATCH);
+		Matcher m = p.matcher(studentNumber);
+
+		if (!m.find()) {
+			System.err.println("getSubjectSymbolFromStudentNumber() : student number is not found");
+			return null;
+		}
+
+		// パターンマッチングの仕方のせいで2番目が該当する
+		return m.group(2).toLowerCase();
 	}
 }

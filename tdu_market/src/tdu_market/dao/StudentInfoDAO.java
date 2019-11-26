@@ -31,19 +31,21 @@ public final class StudentInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "insert into \"StudentInfo\" (\"mailAddress\", \"hashedPassword\", \"studentNumber\", \"createdDate\") values (?, ?, ?, ?)";
+			String sql = "insert into \"StudentInfo\" (\"mailAddress\", \"hashedPassword\", \"studentNumber\", \"subjectID\", \"createdDate\") values (?, ?, ?, ?, ?)";
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 
 			String mailAddress = studentCreateInfo.getMailAddress();
 			String hashedPassword = PasswordUtil.getHashedPassword(studentCreateInfo.getNonHashedPassword(),
 					mailAddress);
 			String studentNumber = studentCreateInfo.getStudentNumber();
+			long subjectID = studentCreateInfo.getSubjectID();
 			Timestamp createdTimestamp = new Timestamp(new java.util.Date().getTime());
 
 			pstmt.setString(1, mailAddress);
 			pstmt.setString(2, hashedPassword);
 			pstmt.setString(3, studentNumber);
-			pstmt.setTimestamp(4, createdTimestamp);
+			pstmt.setLong(4, subjectID);
+			pstmt.setTimestamp(5, createdTimestamp);
 
 			int result = pstmt.executeUpdate();
 			System.out.println("createStudentInfo : " + result + "件のデータを作成");
@@ -392,7 +394,7 @@ public final class StudentInfoDAO extends DAOBase {
 		showInfo(dao.searchStudentInfo(searchInfo));
 
 		StudentCreateInfo studentCreateInfo = new StudentCreateInfo("18fi005@ms.dendai.ac.jp", "agiab6BYhr4",
-				"18fi005");
+				"18fi005", 11);
 		dao.createStudentInfo(studentCreateInfo);
 		showInfo(dao.getAllStudentInfo());
 
