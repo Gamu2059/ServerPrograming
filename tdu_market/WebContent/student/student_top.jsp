@@ -1,4 +1,4 @@
-<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.*"%>
 <%@page import="tdu_market.dto.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -17,7 +17,7 @@
 <script type="text/javascript" src="/tdu_market/js/student.js" defer="defer"></script>
 <!-- InstanceEndEditable -->
 </head>
-<body onLoad="document.newItemList.submit();">
+<body>
 	<%@ include file="header.jsp"%>
 	<!-- InstanceBeginEditable name="body" -->
 	<article class="content">
@@ -47,7 +47,6 @@
 			<!-- 新着商品一覧 -->
 			<div class="new_item_list">
 				<!-- ページを読み込んだ時に新着情報を取得（自動実行） -->
-				<!-- <form name ="newItemList" action="../TopPage" method="get"></form> -->
 				<% ArrayList<ItemGetInfo> newItemList = new ArrayList<ItemGetInfo>();
 	  				newItemList = (ArrayList<ItemGetInfo>)session.getAttribute("newItemList");
 	  				if(newItemList == null){
