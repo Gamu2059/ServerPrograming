@@ -1,3 +1,5 @@
+<%@page import="tdu_market.dto.*"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -27,47 +29,45 @@
 				<section class="sec_message_list">
 					<div class="message_tab">
 						<div class="message_header">メッセージ一覧</div>
-						<!--for文で何とかしたい（希望）-->
-						<input type="radio" id="message1" name="m1" /> <input
-							type="radio" id="message2" name="m2" /> <input type="radio"
-							id="message3" name="m3" />
+						<!--for文で何とかしたい（希望）
+						<input type="radio" id="message1" name="m1" />
+						<input type="radio" id="message2" name="m2" />
+						<input type="radio" id="message3" name="m3" />
+						-->
 
-						<!--jsで繰り返しを行い、メッセージタブを作成する。-->
-						<label for="message1" class="message_list_tab" onclick="">
-							<img src="/tdu_market/images/icon.png" alt="アイコン" />
-							<div class="message_content">
-								<div class="message_sender">TestUser1</div>
-								<div class="message_text">今日はいい天気ですね。進捗はいかかでしょうか。</div>
-							</div>
-						</label>
-						<!--jsで繰り返しを行い、メッセージタブを作成する。-->
-						<label for="message2" class="message_list_tab" onclick="">
-							<img src="/tdu_market/images/icon.png" alt="アイコン" />
-							<div class="message_content">
-								<div class="message_sender">TestUser2</div>
-								<div class="message_text">今日はいい天気ですね。進捗はいかかでしょうか。</div>
-							</div>
-						</label>
-						<!--jsで繰り返しを行い、メッセージタブを作成する。-->
-						<label for="message3" class="message_list_tab" onclick="">
-							<img src="/tdu_market/images/icon.png" alt="アイコン" />
-							<div class="message_content">
-								<div class="message_sender">TestUser3</div>
-								<div class="message_text">今日はいい天気ですね。進捗はいかかでしょうか。</div>
-							</div>
-						</label>
+						<!-- メッセージルームを取得、展開 -->
+						<%
+						ArrayList<MessageRoomGetInfo> messageRoomList = new ArrayList<>();
+						messageRoomList = (ArrayList<MessageRoomGetInfo>)session.getAttribute("messageRoomInfoList");
+						if(messageRoomList != null){
+							for(int i=0;i<messageRoomList.size();i++){
+								out.print("<form action=\"../ReferMessageBoxListPage\" method=\"post\">");
+								out.print("<input type=\"hidden\" name=\"studentNumber\" value=\""+messageRoomList.get(i).getOpponentStudentGetInfo().getMailAddress()+"\" />");
+								out.print("<button type=\"submit\" for=\"message1\" class=\"message_list_tab\">");
+								out.print("<img src=\""+messageRoomList.get(i).getOpponentStudentGetInfo().getIconImageBinary()+"\" alt=\"アイコン\" />");
+								out.print("<div class=\"message_content\">");
+								out.print("<div class=\"message_sender\">"+messageRoomList.get(i).getOpponentStudentGetInfo().getDisplayName()+"</div>");
+								out.print("<div class=\"message_text\">"+messageRoomList.get(i).getLatestPostMessageGetInfo().getPostContent()+"</div>");
+								out.print("</div>");
+								out.print("</button>");
+								out.print("</form>");
+							}
+						}
+						%>
 					</div>
 				</section>
 				<!--メッセージ画面-->
 				<section class="sec_message_room">
 					<div class="message_room">
 						<!--メッセージヘッダー-->
+						<!-- メッセージの取得 -->
+						<%
+						ArrayList<MessageGetInfo> messageList = new ArrayList<>();
+						StudentGetInfo info = (StudentGetInfo)session.getAttribute("studentInfo");
+						%>
 						<div class="message_header" name="message_room_panel">
-							<div>TestUser</div>
-							<input type="button" name="trading_button"
-								class="button_flat_normal" value="取引中の商品" /> <input
-								type="button" name="end_button" class="button_flat_nega"
-								value="取引終了" id="end_trade" />
+							<div><% out.print(info.getDisplayName()); %></div>
+							<input type="button" name="trading_button" class="button_flat_normal" value="取引中の商品" />
 						</div>
 						<!--メッセージコンテンツ-->
 						<div class="message_post_list">
@@ -75,59 +75,37 @@
 								<div class="message_post" name="system">
 									<!--メッセージ一つ-->
 									<div class="message_post_content" name="system">
-										TestUserさんが取引を申し込みました。</div>
-								</div>
-								<div class="message_post" name="opponent">
-									<!--メッセージ一つ-->
-									<img src="/tdu_market/images/icon.png" alt="icon" />
-									<div class="message_post_content" name="opponent">こんにちは！
+										<% out.print(info.getDisplayName()); %>さんが取引を申し込みました。
 									</div>
 								</div>
-								<div class="message_post" name="myself">
-									<!--メッセージ一つ-->
-									<div class="message_post_content" name="myself">
-										こんにちは！取引お願いします</div>
-								</div>
-								<div class="message_post" name="opponent">
-									<!--メッセージ一つ-->
-									<img src="/tdu_market/images/icon.png" alt="icon" />
-									<div class="message_post_content" name="opponent">
-										ところで、サバプロの進捗はどうですか？</div>
-								</div>
-								<div class="message_post" name="myself">
-									<!--メッセージ一つ-->
-									<div class="message_post_content" name="myself">
-										死んでますね。まもなくプロジェクトが火車になりそうになってます。よろしければ手伝ってもらえませんか？</div>
-								</div>
-								<div class="message_post" name="opponent">
-									<!--メッセージ一つ-->
-									<img src="/tdu_market/images/icon.png" alt="icon" />
-									<div class="message_post_content" name="opponent">
-										お断りします。</div>
-								</div>
-								<div class="message_post" name="myself">
-									<!--メッセージ一つ-->
-									<div class="message_post_content" name="myself">
-										お願いします！なんでもしまｓ</div>
-								</div>
-								<div class="message_post" name="opponent">
-									<!--メッセージ一つ-->
-									<img src="/tdu_market/images/icon.png" alt="icon" />
-									<div class="message_post_content" name="opponent">
-										ん？今なんでもって言いましたよね？</div>
-								</div>
-								<div class="message_post" name="myself">
-									<!--メッセージ一つ-->
-									<div class="message_post_content" name="myself">言ってないです</div>
-								</div>
+								<%
+								for(int i=0;i<messageList.size();i++){
+									if( messageList.get(i).getPostStudentNumber().equals(info.getMailAddress()) ){
+										//取引相手のメッセージならば
+										out.print("<div class=\"message_post\" name=\"opponent\">");
+										out.print("<img src=\""+info.getIconImageBinary()+"\" alt=\"icon\" />");
+										out.print("<div class=\"message_post_content\" name=\"opponent\">");
+										out.print(messageList.get(i).getPostContent());
+										out.print("</div>");
+										out.print("</div>");
+									} else {
+										out.print("<div class=\"message_post\" name=\"myself\">");
+										out.print("<img src=\""+info.getIconImageBinary()+"\" alt=\"icon\" />");
+										out.print("<div class=\"message_post_content\" name=\"opponent\">");
+										out.print(messageList.get(i).getPostContent());
+										out.print("</div>");
+										out.print("</div>");
+									}
+								}
+								%>
 							</section>
 						</div>
 						<!--メッセージフォーム-->
 						<div class="textfield">
-							<form action="#" method="post">
+							<form action="../PostMessage" method="post">
 								<textarea id="message_form" name="message_form" cols="50"
 									rows="2" placeholder="メッセージを入力"></textarea>
-								<img src="/tdu_market/images/post.png" alt="post" />
+								<button type="submit"><img src="/tdu_market/images/post.png" alt="post" /></button>
 							</form>
 						</div>
 					</div>
