@@ -88,13 +88,14 @@
 /*通知ダイアログ*/
 #notify_dialog {
   position: fixed;
-  top: 0;
+  top: 40vh;
+  left:40vw;
   display: none;
   text-align: center;
   background-color: white;
   width: 300px;
   height: 180px;
-  margin: 40vh 40vw;
+  margin:auto;
   border: solid 1px #aaa;
   border-radius: 10px;
   box-shadow: 10px 5px 10px #B7B5B5;

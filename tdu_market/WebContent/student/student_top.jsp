@@ -1,4 +1,4 @@
-<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.*"%>
 <%@page import="tdu_market.dto.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -17,7 +17,7 @@
 <script type="text/javascript" src="/tdu_market/js/student.js" defer="defer"></script>
 <!-- InstanceEndEditable -->
 </head>
-<body onLoad="document.newItemList.submit();">
+<body>
 	<%@ include file="header.jsp"%>
 	<!-- InstanceBeginEditable name="body" -->
 	<article class="content">
@@ -47,14 +47,12 @@
 			<!-- 新着商品一覧 -->
 			<div class="new_item_list">
 				<!-- ページを読み込んだ時に新着情報を取得（自動実行） -->
-				<!-- <form name ="newItemList" action="../TopPage" method="get"></form> -->
 				<% ArrayList<ItemGetInfo> newItemList = new ArrayList<ItemGetInfo>();
 	  				newItemList = (ArrayList<ItemGetInfo>)session.getAttribute("newItemList");
 	  				if(newItemList == null){
 	  					out.print("新着商品はありません");
 	  				} else {
 	  					for(int i=0;i<newItemList.size();i++){
-		  					//out.print("<button id=\"item_button\">"); これが何なのかよくわからない。
 		  					out.print("<button id=\"item_button\" type=\" submit \" value=\" "+ newItemList.get(i).getItemID() +"  \">");
 		  					if(newItemList.get(i).getItemImageBinaries() != null){
 		  						out.print("<img src=\" " + newItemList.get(i).getItemImageBinaries()[0] +" \"/>");
@@ -71,10 +69,10 @@
 		<div class="third_container">
 			<!-- すべて見るボタン -->
 			<aside class="aside_info">
-
-			商品一覧画面へ遷移する
-
-				<button type="submit"><a href="#">すべて見る...</a></button>
+			<form action="../ReferItemListPage" method="post">
+				<input type="hidden" name="oldestDate" value="1"/>
+				<button type="submit"><a>すべて見る...</a></button>
+			</form>
 			</aside>
 			<!-- もっと探すボタン -->
 			<nav class="more_search">
