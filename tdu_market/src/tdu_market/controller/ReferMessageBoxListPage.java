@@ -12,8 +12,10 @@ import javax.servlet.http.HttpSession;
 
 import tdu_market.dto.MessageGetInfo;
 import tdu_market.dto.MessageRoomGetInfo;
+import tdu_market.dto.StudentGetInfo;
 import tdu_market.entity_manager.MessageInfoManager;
 import tdu_market.entity_manager.MessageRoomInfoManager;
+import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.ControllerUtil;
 
 /**
@@ -46,6 +48,9 @@ public class ReferMessageBoxListPage extends HttpServlet {
 
 		MessageInfoManager messageInfo = new MessageInfoManager();
 		MessageRoomInfoManager messageRoomInfo = new MessageRoomInfoManager();
+
+		StudentInfoManager studentInfoManager = new StudentInfoManager();
+
 		String mailAddress = ControllerUtil.getMailAddress(request, response);
 
 		//jsp側から、isSelectに"true"or"false"という文字列を送る必要あり。
@@ -62,8 +67,11 @@ public class ReferMessageBoxListPage extends HttpServlet {
 
 		if (isSelect) {
 			int roomID = Integer.valueOf(request.getParameter("roomID")).intValue();
+			String studentNumberString = (String) request.getParameter("studentNumber");
 			ArrayList<MessageGetInfo> messageInfoList = messageInfo.getMessageInfoWithRoomInfo(roomID);
+			StudentGetInfo studentGetInfo = studentInfoManager.getStudentInfo(studentNumberString);
 			session.setAttribute("messageInfoList", messageInfoList);
+			session.setAttribute("studentInfo", studentGetInfo);
 		}
 		//遷移
 		ControllerUtil.translatePage("/tdu_market/Student/message.jsp", request, response);
