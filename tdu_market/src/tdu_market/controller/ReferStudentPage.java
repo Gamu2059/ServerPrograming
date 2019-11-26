@@ -48,7 +48,9 @@ public class ReferStudentPage extends HttpServlet {
 		//DBから学生情報を取得する
 		StudentGetInfo studentInfo = student.getStudentInfo(mailAddress);
 		//jspに情報を投げる。
-		request.setAttribute("studentInfo", studentInfo);
+		HttpSession session = request.getSession();
+		session.setAttribute("studentInfo", studentInfo);
+		ControllerUtil.translatePage("/tdu_market/Student/reference_profile_student.jsp", request, response);
 	}
 
 

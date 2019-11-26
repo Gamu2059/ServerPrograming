@@ -36,22 +36,25 @@ public class EditStudentPage extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("EditStudentPage is non implementation!");
+		HttpSession session = request.getSession();
 
 		StudentInfoManager student = new StudentInfoManager();
 		//ログイン状態の検証
 		if (!ControllerUtil.verifyLogin(request, response)) {
-			return;
+			response.sendRedirect("/tdu_market/general/index.jsp"); return; 
 		}
+
 		//セッションからメールアドレスを取得
 		String mailAddress = ControllerUtil.getMailAddress(request, response);
 		
 		//DBから学生情報を取得する
 		StudentGetInfo studentInfo = student.getStudentInfo(mailAddress);
 		//jspに情報を投げる。
-		request.setAttribute("studentInfo", studentInfo);
+		session.setAttribute("studentInfo", studentInfo);
+		
+		ControllerUtil.translatePage("/tdu_market/Student/edit_profile_student.jsp", request, response);
 		
 		//遷移
-				ControllerUtil.translatePage("edit_profile_sutudent.jsp", request, response);
 				
 		/*
 		//取得した情報をviewに適用
