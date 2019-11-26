@@ -17,7 +17,7 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class SearchItemPage
  */
-@WebServlet("/SearchItemPage")
+@WebServlet("/tdu_market/controller/SearchItemPage")
 public class SearchItemPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -39,6 +39,8 @@ public class SearchItemPage extends HttpServlet {
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			return;
 		}
-		
+		//遷移
+		ControllerUtil.translatePage("/tdu_market/Student/search_from_exhibit.jsp", request, response);
+
 	}
 }

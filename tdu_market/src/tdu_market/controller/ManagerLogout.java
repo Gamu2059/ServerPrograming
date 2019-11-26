@@ -17,7 +17,7 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class ManagerLogout
  */
-@WebServlet("/ManagerLogout")
+@WebServlet("/tdu_market/controller/ManagerLogout")
 public class ManagerLogout extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -51,8 +51,8 @@ public class ManagerLogout extends HttpServlet {
 				sess.removeAttribute(nm);
 			}	
 			//ログインページに遷移
-			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-			rd.forward(request, response);
+			ControllerUtil.translatePage("/tdu_market/general/index.jsp", request, response);
+		
 	}
 
 }

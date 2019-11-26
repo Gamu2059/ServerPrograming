@@ -13,7 +13,7 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class ManagerEditStudentPage
  */
-@WebServlet("/ManagerEditStudentPage")
+@WebServlet("/tdu_market/controller/ManagerEditStudentPage")
 public class ManagerEditStudentPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -35,6 +35,10 @@ public class ManagerEditStudentPage extends HttpServlet {
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			return;
 		}
+		
+		//遷移
+		ControllerUtil.translatePage("/tdu_market/Admin/edit_student_by_admin.jsp", request, response);
+	
 	}
 
 

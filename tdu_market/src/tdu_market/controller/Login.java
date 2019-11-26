@@ -1,23 +1,20 @@
 package tdu_market.controller;
-import tdu_market.entity_manager.ManagerInfoManager;
-import tdu_market.entity_manager.StudentInfoManager;
+
 import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import tdu_market.dto.LoginInfo;
 import tdu_market.dto.ReturnInfo;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpServletResponse;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import tdu_market.entity_manager.ManagerInfoManager;
+import tdu_market.entity_manager.StudentInfoManager;
+import tdu_market.util.AccountUtil;
+import tdu_market.util.ControllerUtil;
 
 /**
  * Servlet implementation class Login
@@ -26,82 +23,100 @@ import javax.servlet.http.HttpSession;
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	//�����ł͕֋X�I�ɃA�h���X�ƃp�X��^���Ă���
-	private final String loginId = "1@gmail.com";
-	private final String password = "123";
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public Login() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-
+	private static final String MAIL_ADDRESS = "mailaddress";
+	private static final String PASSWORD = "password";
+	private static final String ERROR_MESSAGE = "errorMessage";
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		System.err.println("Login is non implementation!");
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		/*  ' メールアドレスがメールアドレスの体をなしているかチェック
-    ' パスワードがパスワードの体をなしているかをチェック
-    ' メールアドレスから学生か運営かを判定する
-    ' 学生ならStudentInfoManagerにメールアドレスとパスワードを渡し、ログインできるかチェックする
-    '   チェックがOKなら、StudentInfoManagerのloginを呼ぶ
-    ' 運営ならManagerInfoManagerにメールアドレスとパスワードを渡し、ログインできるかチェックする
-    '   チェックがOKなら、ManagerInfoManagerのloginを呼ぶ
-    ' セッションにメールアドレスを保存する(他にいい実装があるかもしれない...)
-    ' アカウントが仮登録状態ならば、新規登録画面に遷移する
-    ' アカウントが登録済み状態ならば、トップ画面に遷移する
+		' パスワードがパスワードの体をなしているかをチェック
+		' メールアドレスから学生か運営かを判定する
+		' 学生ならStudentInfoManagerにメールアドレスとパスワードを渡し、ログインできるかチェックする
+		'   チェックがOKなら、StudentInfoManagerのloginを呼ぶ
+		' 運営ならManagerInfoManagerにメールアドレスとパスワードを渡し、ログインできるかチェックする
+		'   チェックがOKなら、ManagerInfoManagerのloginを呼ぶ
+		' セッションにメールアドレスを保存する(他にいい実装があるかもしれない...)
+		' アカウントが仮登録状態ならば、新規登録画面に遷移する
+		' アカウントが登録済み状態ならば、トップ画面に遷移する
 
-*/
+		*/
 
-		ManagerInfoManager manage = new ManagerInfoManager();
-		StudentInfoManager student = new StudentInfoManager();
-		LoginInfo info = new LoginInfo(request.getParameter("mailaddress"),request.getParameter("password"));
-	
-	
-		if (info.getMailAddress().endsWith("@ms.dendai.ac.jp")) {			
-			ReturnInfo result = student.isRegisteredState(info.getMailAddress());
-			if(result.isSuccess()) {
-			student.login(info);
-			}
-			
-		}
+		request.setCharacterEncoding("UTF-8");
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 
-		else if (info.getMailAddress().endsWith("@ms.dendai.ac.jp")) {
-		
-			manage.login(info);
-		}
-
-		//セッションにアドレスを保存
 		HttpSession session = request.getSession();
-		session.setAttribute("mailaddress", info.getMailAddress());
-		
-		
+		String mailAddress = request.getParameter(MAIL_ADDRESS);
+		String password = request.getParameter(PASSWORD);
 
-		/*����Ă��܂������O�C�������@
-	        if (sentaddress.equals(loginId) && sentPw.equals(password)) {
-	            HttpSession session = request.getSession();
-	            session.setAttribute("loginUser", true);
-	            RequestDispatcher rd = request.getRequestDispatcher("NewFile.jsp");
-	            rd.forward(request, response);
-	        } else {
-	            request.setAttribute("loginErrorMsg", "���O�C����񂪕s���ł��B");
-	            request.setAttribute("errorFlg", true);
-	            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-	            rd.forward(request, response);
-	        }
-		 */
+		if (!AccountUtil.isMeetRequirementMailAddress(mailAddress)) {
+			// メールアドレスの体をなしていない
+			forwardToIndex(request, response, "メールアドレスを入力して下さい。");
+			return;
+		}
 
+		if (AccountUtil.isStudentMailAddress(mailAddress)) {
+
+			// 学生アカウントの場合
+			StudentInfoManager studentInfoManager = new StudentInfoManager();
+			ReturnInfo loginResult = studentInfoManager.login(new LoginInfo(mailAddress, password));
+			if (loginResult != null && loginResult.isSuccess()) {
+
+				// ログイン成功
+				session.setAttribute(MAIL_ADDRESS, mailAddress);
+				ReturnInfo registerdResult = studentInfoManager.isRegisteredState(mailAddress);
+				if (registerdResult != null && registerdResult.isSuccess()) {
+
+					// 本登録されているのでトップへ
+					TopPage topPage = new TopPage();
+					topPage.doGet(request, response);
+//					ControllerUtil.translatePage("/tdu_market/Student/student_top.jsp", request, response);
+					
+				}else {
+
+					// 仮登録状態なのでアカウント作成へ
+					ControllerUtil.translatePage("/tdu_market/general/create_student_account.jsp", request, response);
+				}
+			} else {
+
+				// ログイン失敗
+				forwardToIndex(request, response, loginResult != null ? loginResult.getMsg() : "不明なエラーが発生しました。");
+			}
+		} else if (AccountUtil.isManagerMailAddress(mailAddress)) {
+
+			// 運営アカウントの場合
+			ManagerInfoManager managerInfoManager = new ManagerInfoManager();
+			ReturnInfo loginResult = managerInfoManager.login(new LoginInfo(mailAddress, password));
+			if (loginResult != null && loginResult.isSuccess()) {
+
+				// ログイン成功
+				session.setAttribute(MAIL_ADDRESS, mailAddress);
+				ReturnInfo registerdResult = managerInfoManager.isRegisteredState(mailAddress);
+				if (registerdResult != null && registerdResult.isSuccess()) {
+
+					// 本登録されているのでトップへ
+					ControllerUtil.translatePage("/tdu_market/Admin/top_admin.jsp", request, response);
+				}else {
+
+					// 仮登録状態なのでアカウント作成へ
+					ControllerUtil.translatePage("/tdu_market/Admin/create_admin_account.jsp", request, response);
+				}
+			} else {
+
+				// ログイン失敗
+				forwardToIndex(request, response, loginResult != null ? loginResult.getMsg() : "不明なエラーが発生しました。");
+			}
+		}
 	}
 
-
+	private void forwardToIndex(HttpServletRequest request, HttpServletResponse response, String errorMessage)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		session.setAttribute(ERROR_MESSAGE, errorMessage);
+		ControllerUtil.translatePage("/tdu_market/general/index.jsp", request, response);
+	}
 }
-
-
-

@@ -17,6 +17,14 @@
 	<div class="center_container">
 		<article>
 			<h1>電大マーケットへようこそ</h1>
+			<h2>
+			<% 
+			String obj = (String)session.getAttribute("errorMessage");
+			if(obj != null && !obj.trim().isEmpty()){
+				out.println(obj);
+			}
+			%>
+			</h2>
 			<form action="/tdu_market/tdu_market/controller/Login" method="post">
 				<div class="input_field">
 					<input type="text" name="mailaddress" placeholder="メールアドレス" /> <input

@@ -19,7 +19,7 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class RegisterStudentInfo
  */
-@WebServlet("/RegisterSyllabusInfo")
+@WebServlet("/tdu_market/controller/RegisterSyllabusInfo")
 public class RegisterSyllabusInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -43,17 +43,19 @@ public class RegisterSyllabusInfo extends HttpServlet {
 		}
 
 		SyllabusInfoManager syllabus = new SyllabusInfoManager();
-		SyllabusCreateInfo createInfo = new SyllabusCreateInfo(request.getParameter("classCode"), request.getParameter("className"), Integer.valueOf(request.getParameter("semesterID")).longValue(), request.getParameter("dates"), Integer.valueOf(request.getParameter("unitNum")).intValue()
-				, request.getParameter("classRoom"), Integer.valueOf(request.getParameter("teacherID")).longValue(), request.getParameter("overview"), request.getParameter("target")
-				, request.getParameter("requierments"), request.getParameter("evaluationMethod"));
+		SyllabusCreateInfo createInfo = new SyllabusCreateInfo(request.getParameter("classCode"), request.getParameter("className"), Integer.valueOf(request.getParameter("subjectID")).longValue(), Integer.valueOf(request.getParameter("teacherID")).longValue(),request.getParameter("dates"), Integer.valueOf(request.getParameter("unitNum")).intValue()
+				, request.getParameter("classRoom"),  request.getParameter("overview"), request.getParameter("target")
+				, request.getParameter("requierments"), request.getParameter("evaluationMethod"),Integer.valueOf(request.getParameter("semesterID")).longValue());
 
+		//入力情報の検証
 		ReturnInfo retunResult = syllabus.validateRegisterSyllabus(createInfo);
-
 
 		//シラバス情報の登録
 		if(retunResult.isSuccess())	{
 			syllabus.createSyllabusInfo(createInfo);
 		}
-	}
+		//遷移
+		ControllerUtil.translatePage("/tdu_market/Admin/register_syllbus_by_admin.jsp", request, response);
 
+	}
 }

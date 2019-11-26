@@ -16,7 +16,7 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class RegisterManagerInfo
  */
-@WebServlet("/RegisterManagerInfo")
+@WebServlet("/tdu_market/controller/RegisterManagerInfo")
 public class RegisterManagerInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -43,15 +43,14 @@ public class RegisterManagerInfo extends HttpServlet {
 		//ここではjsp側でしているため、していない
 		//
 
-		/*
-		 * StudentUpdateInfoでは引数にメールアドレスも受け取っているが、こちらではいらないのか？
-		 */
-		ManagerUpdateInfo managerInfo = new ManagerUpdateInfo( request.getParameter("nonHashedPassword"), request.getParameter("displayName"), Integer.valueOf(request.getParameter("departmentValue")).longValue(), request.getParameter("iconImageURL"));
+
+		ManagerUpdateInfo managerInfo = new ManagerUpdateInfo(request.getParameter("mailAddress"), request.getParameter("nonHashedPassword"), request.getParameter("displayName"), request.getParameter("iconImageURL"));
 
 		//アカウントの仮登録状態を登録済みに、各種情報を入力されたものに変更。
-		manager.makeManagerInfoRegistered(managerInfo);
-		RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-		rd.forward(request, response);		
+		manager.updateManagerInfo(managerInfo);
+		//遷移
+		ControllerUtil.translatePage("/tdu_market/general/index.jsp", request, response);
+			
 	}
 
 }

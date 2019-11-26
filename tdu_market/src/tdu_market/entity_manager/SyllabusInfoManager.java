@@ -104,4 +104,11 @@ public final class SyllabusInfoManager {
 		SyllabusInfoDAO syllabusInfoDAO = new SyllabusInfoDAO();
 		return syllabusInfoDAO.searchSyllabusInfo(syllabusSearchInfo);
 	}
+
+	/** シラバスを全取得する。 */
+	public ArrayList<SyllabusGetInfo> getAllSyllabus(){
+
+		SyllabusInfoDAO syllabusInfoDAO = new SyllabusInfoDAO();
+		return syllabusInfoDAO.getAllSyllabusInfo();
+	}
 }

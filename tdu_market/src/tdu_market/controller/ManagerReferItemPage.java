@@ -22,7 +22,7 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class ReferItemPage
  */
-@WebServlet("/ManagerReferItemPage")
+@WebServlet("/tdu_market/controller/ManagerReferItemPage")
 public class ManagerReferItemPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -51,6 +51,11 @@ public class ManagerReferItemPage extends HttpServlet {
 		ItemGetInfo itemGetInfo = itemInfo.getItemInfo(Integer.valueOf(request.getParameter("itemID")).longValue()) ;
 		//jspに情報を投げる。
 		request.setAttribute("itemInfo", itemGetInfo);
+		
+		//遷移
+		ControllerUtil.translatePage("/tdu_market/Admin/reference_item_detail_by_admin.jsp", request, response);
+	
+		
 	}
 
 

@@ -15,17 +15,17 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class DeleteSyllabusInfo
  */
-@WebServlet("/DeleteSyllabusInfo")
+@WebServlet("/tdu_market/controller/DeleteSyllabusInfo")
 public class DeleteSyllabusInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DeleteSyllabusInfo() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public DeleteSyllabusInfo() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -33,15 +33,18 @@ public class DeleteSyllabusInfo extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("DeleteSyllabusInfo is non implementation!");
-		
+
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			return;
 		}
 
 		SyllabusInfoManager syllabus = new SyllabusInfoManager();
-	
+
 		//シラバス情報の更新
 		syllabus.deleteSyllabusInfo(request.getParameter("classCode"));
+		// 遷移
+		ControllerUtil.translatePage("/tdu_market/Admin/reference_syylabus_by_admin.jsp", request, response);
+
 	}
 
 }

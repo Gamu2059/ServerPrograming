@@ -16,7 +16,7 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class ManagerPostMail
  */
-@WebServlet("/ManagerPostMail")
+@WebServlet("/tdu_market/controller/ManagerPostMail")
 public class ManagerPostMail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -52,16 +52,13 @@ public class ManagerPostMail extends HttpServlet {
 		ReturnInfo createResult = manager.createTemporaryAccount(mailAddress);
 		
 		if(createResult.isSuccess()) {
-			SendMail mailer = new SendMail(); 
 			//仮パスワード送信
-			mailer.sendPassword(mailAddress,createResult.getMsg());
-			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-			rd.forward(request, response);
+			SendMail.sendPassword(mailAddress,createResult.getMsg());
+			ControllerUtil.translatePage("/tdu_market/general/index.jsp", request, response);
 		}
 		else {
 			request.setAttribute("ErrorMessage",createResult.getMsg());
-			RequestDispatcher rd = request.getRequestDispatcher("hoge.jsp");
-			rd.forward(request, response);
+			ControllerUtil.translatePage("/tdu_market/general/index.jsp", request, response);
 		}
 	}
 

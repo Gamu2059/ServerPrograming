@@ -21,7 +21,7 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class ReferItemListPage
  */
-@WebServlet("/ManagerReferItemListPage")
+@WebServlet("/tdu_market/controller/ManagerReferItemListPage")
 public class ManagerReferItemListPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -44,17 +44,45 @@ public class ManagerReferItemListPage extends HttpServlet {
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			return;
 		}
+		//Stringはnull, intは-1が渡された場合に、
+		//その項目を反映しない検索結果が出力される仕様になっている。
 
-		//String to Date型変換  
-		Date sqlDate = java.sql.Date.valueOf(request.getParameter("oldestDate"));
+		String itemNameKeyword = request.getParameter("itemNameKeyword");
+		if (itemNameKeyword != null && itemNameKeyword.trim().isEmpty()) {
+			itemNameKeyword = null;
+		}
+
+		int condition = -1;
+		try {
+			condition = Integer.valueOf(request.getParameter("condtion")).intValue();			
+		} catch(NumberFormatException e) {
+
+		}
+
+		int maxPrice = 0;
+		try {
+			maxPrice = Integer.valueOf(request.getParameter("maxPrice")).intValue();			
+		} catch(NumberFormatException e) {
+
+		}
+		int oldestDate = -1;
+		try {
+			oldestDate = Integer.valueOf(request.getParameter("oldestDate")).intValue();	
+		} catch(NumberFormatException e) {
+
+		}
 
 		//検索キーワードから検索をかける
-		ItemSearchInfo searchInfo = new ItemSearchInfo(request.getParameter("itemNameKeyword"), Integer.valueOf(request.getParameter("condtion")).intValue(), Integer.valueOf(request.getParameter("maxPrice")).intValue(), sqlDate);
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		//検索結果をリストへ保持
+		ItemSearchInfo searchInfo = new ItemSearchInfo(itemNameKeyword,condition,maxPrice,oldestDate);
 		ArrayList<ItemGetInfo> itemList = itemInfo.searchItem(searchInfo) ;
 		//jspに情報を投げる。
 		request.setAttribute("itemList", itemList);
+		
+		//遷移
+		ControllerUtil.translatePage("/tdu_market/Admin/reference_item_list_by_admin.jsp", request, response);
+	
 		
 	}
 
