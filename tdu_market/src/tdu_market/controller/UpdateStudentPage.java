@@ -1,6 +1,7 @@
 package tdu_market.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
 
 import javax.servlet.ServletException;
@@ -21,9 +22,7 @@ import tdu_market.util.ControllerUtil;
  */
 
 @WebServlet("/tdu_market/controller/UpdateStudentPage")
-
 @MultipartConfig()
-
 public class UpdateStudentPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -64,12 +63,15 @@ public class UpdateStudentPage extends HttpServlet {
 		String pass2 = request.getParameter("nonHashedPassword2");
 		String name = request.getParameter("displayName");
 		String intro = request.getParameter("selfIntroduction");
-		String url = request.getParameter("iconImageURL");
+//		String url = request.getParameter("iconImageURL");
+
+		Part part = request.getPart("iconImageURL");
+		InputStream is = part.getInputStream();
+
 
 		System.out.println(pass1);
 		System.out.println(name);
 		System.out.println(intro);
-		System.out.println(url);
 
 		if(!pass1.equals(pass2)) {
 			ControllerUtil.translatePage("/tdu_market/Student/edit_profile_student.jsp", request, response);
@@ -84,7 +86,7 @@ public class UpdateStudentPage extends HttpServlet {
 				name,
 				-1,
 				intro,
-				url
+				is
 				);
 		student.updateStudentInfo(updateInfo);
 

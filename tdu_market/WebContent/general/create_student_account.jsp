@@ -17,14 +17,14 @@
 	</header>
 	<div class="center_container">
 		<article>
-			<form action=<%=ServletPath.RegisterStudentInfo%>> method="post">
+			<form action=<%=ServletPath.RegisterStudentInfo%> method="post" enctype="multipart/form-data">
 				<div class="input_field_ver2">
 					<div class="input_content_img">
 						<img id="icon" src="/tdu_market/images/icon.png" alt="icon" />
 						<div>
 							<label>
 								<h2>アイコン</h2>
-							</label> <input type="file" name="" /> <label> <br /> 画像形式：.png
+							</label> <input type="file" name="iconImageURL" /> <label> <br /> 画像形式：.png
 								.jpg <br /> 画像のサイズ：400px*400px未満
 							</label>
 						</div>
@@ -35,13 +35,13 @@
 					</div>
 					<div class="input_content">
 						<h2>パスワード</h2>
-						<input type="password" id="password" name="password"
+						<input type="password" id="password" name="nonHashedPassword"
 							placeholder="パスワード" /> <input type="password"
-							id="password" name="password" placeholder="確認用" />
+							id="password" name="nonHashedPassword" placeholder="確認用" />
 					</div>
 					<div class="input_content">
 						<h2>自己紹介</h2>
-						<textarea></textarea>
+						<textarea name ="selfIntroduction"></textarea>
 					</div>
 					<button id="new_account_button" type="submit"
 						class="button_flat_blue">登録</button>

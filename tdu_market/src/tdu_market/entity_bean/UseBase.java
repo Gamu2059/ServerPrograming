@@ -1,5 +1,6 @@
 package tdu_market.entity_bean;
 
+import java.io.InputStream;
 import java.util.Date;
 
 public abstract class UseBase {
@@ -15,7 +16,7 @@ public abstract class UseBase {
 	protected String mailAddress;
 	protected String hashedPassword;
 	protected String displayName;
-	protected String iconImageBinary;
+	protected InputStream iconImageBinary;
 	protected int registerState;
 	protected Date createdDate;
 	protected Date lastLoginDate;
@@ -48,11 +49,11 @@ public abstract class UseBase {
 		this.displayName = displayName;
 	}
 
-	public String getIconImageBinary() {
+	public InputStream getIconImageBinary() {
 		return iconImageBinary;
 	}
 
-	public void setIconImageBinary(String iconImageBinary) {
+	public void setIconImageBinary(InputStream iconImageBinary) {
 		this.iconImageBinary = iconImageBinary;
 	}
 

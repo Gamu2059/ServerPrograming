@@ -83,7 +83,7 @@ public final class StudentInfo extends UseBase implements Serializable {
 		studentInfo.setMailAddress(resultSet.getString(MAIL_ADDRESS));
 		studentInfo.setHashedPassword(resultSet.getString(HASHED_PASSWORD));
 		studentInfo.setDisplayName(resultSet.getString(DISPLAY_NAME));
-		studentInfo.setIconImageBinary(resultSet.getString(ICON_IMAGE_BINARY));
+		studentInfo.setIconImageBinary(resultSet.getBinaryStream(ICON_IMAGE_BINARY));
 		studentInfo.setRegisterState(resultSet.getInt(REGISTER_STATE));
 		studentInfo.setCreatedDate(resultSet.getDate(CREATED_DATE));
 		studentInfo.setLastLoginDate(resultSet.getDate(LAST_LOGIN_DATE));

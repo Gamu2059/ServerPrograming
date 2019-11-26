@@ -1,5 +1,7 @@
 package tdu_market.dto;
 
+import java.io.InputStream;
+
 public class StudentUpdateInfo {
 
 	private final String mailAddress;
@@ -7,9 +9,9 @@ public class StudentUpdateInfo {
 	private final String displayName;
 	private final long subjectID;
 	private final String selfIntroduction;
-	private final String iconImageBinary;
+	private final InputStream iconImageBinary;
 
-	public StudentUpdateInfo(String mailAddress, String nonHashedPassword, String displayName, long subjectID, String selfIntroduction, String iconImageBinary) {
+	public StudentUpdateInfo(String mailAddress, String nonHashedPassword, String displayName, long subjectID, String selfIntroduction, InputStream iconImageBinary) {
 		super();
 		this.mailAddress = mailAddress;
 		this.nonHashedPassword = nonHashedPassword;
@@ -39,7 +41,7 @@ public class StudentUpdateInfo {
 		return selfIntroduction;
 	}
 
-	public String getIconImageBinary() {
+	public InputStream getIconImageBinary() {
 		return iconImageBinary;
 	}
 }

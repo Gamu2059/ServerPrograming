@@ -1,3 +1,4 @@
+<%@page import="tdu_market.util.ServletPath"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -24,7 +25,7 @@
     <nav class="footer_menu">
       <div>
         <ul>
-          <li><a href="reference_profile_student.jsp">ユーザー情報</a></li>
+          <li><a href=<%=ServletPath.ReferStudentPage%>>ユーザー情報</a></li>
           <li><a href="register_exhibit.jsp">出品物情報登録</a></li>
         </ul>
       </div>

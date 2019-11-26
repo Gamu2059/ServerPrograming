@@ -1,12 +1,15 @@
 package tdu_market.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import tdu_market.dto.StudentUpdateInfo;
 import tdu_market.entity_manager.StudentInfoManager;
@@ -16,6 +19,7 @@ import tdu_market.util.ControllerUtil;
  * Servlet implementation class RegisterStudentInfo
  */
 @WebServlet("/tdu_market/controller/RegisterStudentInfo")
+@MultipartConfig(maxFileSize = 1024*1024)
 public class RegisterStudentInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -41,10 +45,11 @@ public class RegisterStudentInfo extends HttpServlet {
 
 		//入力フォームの必要事項が入力されているかチェック
 		//ここではjsp側でしているため、していない
-		String mailAddress = request.getParameter("mailaddress");
+		String mailAddress = ControllerUtil.getMailAddress(request, response);
 		String password = request.getParameter("nonHashedPassword");
 		String name = request.getParameter("selfIntroduction");
-		String url = request.getParameter("iconImageURL");
+		Part part = request.getPart("iconImageURL");
+		InputStream is = part.getInputStream();
 
 		// 学生は仮登録時点で所属学科が確定するので subjectID = -1
 		// TODO urlは後々に変更する
@@ -54,7 +59,7 @@ public class RegisterStudentInfo extends HttpServlet {
 				request.getParameter("displayName"),
 				-1,
 				name,
-				url
+				is
 				);
 
 		//アカウントの仮登録状態を登録済みに、各種情報を入力されたものに変更。
