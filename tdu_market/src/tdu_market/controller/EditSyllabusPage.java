@@ -13,17 +13,17 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class EditSyllabusPage
  */
-@WebServlet("/EditSyllabusPage")
+@WebServlet("/tdu_market/controller/EditSyllabusPage")
 public class EditSyllabusPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public EditSyllabusPage() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public EditSyllabusPage() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -34,6 +34,10 @@ public class EditSyllabusPage extends HttpServlet {
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			return;
 		}
+
+		// 遷移
+		ControllerUtil.translatePage("/tdu_market/Admin/edit_syllabus_by_admin.jsp", request, response);
+
 	}
 
 }

@@ -16,7 +16,7 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class ManagerUpdateStudentInfo
  */
-@WebServlet("/ManagerUpdateStudentInfo")
+@WebServlet("/tdu_market/controller/ManagerUpdateStudentInfo")
 public class ManagerUpdateStudentInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -45,8 +45,10 @@ public class ManagerUpdateStudentInfo extends HttpServlet {
 		//アカウントの情報を変更
 		StudentUpdateInfo updateInfo = new StudentUpdateInfo(request.getParameter("mailaddress"), request.getParameter("nonHashedPassword"), request.getParameter("displayName"), Integer.valueOf(request.getParameter("departmentID")).longValue(), request.getParameter("selfIntroduction"), request.getParameter("iconImageURL"));
 		student.updateStudentInfo(updateInfo);
-		RequestDispatcher rd = request.getRequestDispatcher("edit_profile_student.jsp");
-		rd.forward(request, response);		
+		//遷移
+		ControllerUtil.translatePage("/tdu_market/Admin/edit_student_by_admin.jsp", request, response);
+	
+	
 	}
 
 }

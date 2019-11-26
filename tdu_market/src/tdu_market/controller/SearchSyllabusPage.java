@@ -21,17 +21,17 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class SearchSyllabusPage
  */
-@WebServlet("/SearchSyllabusPage")
+@WebServlet("/tdu_market/controller/SearchSyllabusPage")
 public class SearchSyllabusPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SearchSyllabusPage() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public SearchSyllabusPage() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -43,5 +43,8 @@ public class SearchSyllabusPage extends HttpServlet {
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			return;
 		}
+		//遷移
+		ControllerUtil.translatePage("/tdu_market/Student/search_from_syllabus.jsp", request, response);
+
 	}
 }

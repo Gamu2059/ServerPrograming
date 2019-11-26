@@ -15,17 +15,17 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class EditManagerPage
  */
-@WebServlet("/EditManagerPage")
+@WebServlet("/tdu_market/controller/EditManagerPage")
 public class EditManagerPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public EditManagerPage() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public EditManagerPage() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -45,6 +45,9 @@ public class EditManagerPage extends HttpServlet {
 		ManagerGetInfo managerInfo = manager.getManagerInfo(mailAddress);
 		//jspに情報を投げる。
 		request.setAttribute("manaerInfo", managerInfo);
-	
+		// 遷移
+		ControllerUtil.translatePage("/tdu_market/Admin/edit_profile_admin.jsp", request, response);
+
+
 	}
 }

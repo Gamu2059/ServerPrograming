@@ -21,7 +21,7 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class ReferItemListPage
  */
-@WebServlet("/ManagerReferItemListPage")
+@WebServlet("/tdu_market/controller/ManagerReferItemListPage")
 public class ManagerReferItemListPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -79,6 +79,10 @@ public class ManagerReferItemListPage extends HttpServlet {
 		ArrayList<ItemGetInfo> itemList = itemInfo.searchItem(searchInfo) ;
 		//jspに情報を投げる。
 		request.setAttribute("itemList", itemList);
+		
+		//遷移
+		ControllerUtil.translatePage("/tdu_market/Admin/reference_item_list_by_admin.jsp", request, response);
+	
 		
 	}
 

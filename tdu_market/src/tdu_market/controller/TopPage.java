@@ -2,7 +2,7 @@ package tdu_market.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
+import javax.servlet.http.HttpSession;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,17 +21,17 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class TopPage
  */
-@WebServlet("/TopPage")
+@WebServlet("/tdu_market/controller/TopPage")
 public class TopPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public TopPage() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public TopPage() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -40,11 +40,12 @@ public class TopPage extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.err.println("TopPage is non implementation!");
 		HttpSession session = request.getSession();
-		
+
 		//ログイン状態の検証
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			return;
 		}
+
 		//学生情報を取得する
 		StudentInfoManager studentInfo = new StudentInfoManager();
 		StudentGetInfo studentGetInfo = studentInfo.getStudentInfo((String)session.getAttribute("mailaddress"));
@@ -56,6 +57,10 @@ public class TopPage extends HttpServlet {
 		//jspに情報を投げる。
 		session.setAttribute("newItemList", newItemList);
 		ControllerUtil.translatePage("/tdu_market/Student/student_top.jsp", request, response);
+
+		//遷移
+		ControllerUtil.translatePage("/tdu_market/Student/student_top.jsp", request, response);
+
 
 	}
 

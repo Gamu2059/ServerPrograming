@@ -19,7 +19,7 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class RegisterItemInfo
  */
-@WebServlet("/RegisterItemInfo")
+@WebServlet("/tdu_market/controller/RegisterItemInfo")
 public class RegisterItemInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -37,6 +37,8 @@ public class RegisterItemInfo extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
+		//出品物情報の作成そのものを行うクラス。値の検証はValidateExhibitItem
+		
 		//ログイン状態の検証
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			return;
@@ -45,7 +47,12 @@ public class RegisterItemInfo extends HttpServlet {
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		ItemCreateInfo createInfo = new ItemCreateInfo(request.getParameter("exhibitorMailAddress"), request.getParameter("itemName"), request.getParameter("description"),Integer.valueOf(request.getParameter("condtion")).intValue() , Integer.valueOf(request.getParameter("price")).intValue(),
 				request.getParameter("relatedClassCode"), request.getParameterValues("itemImageURLs"));
+		//アイテム情報の作成	
 		itemInfo.createItemInfo(createInfo);
+		
+		//遷移
+		ControllerUtil.translatePage("/tdu_market/Student/reference_item_list.jsp", request, response);
+
 	}
 
 }

@@ -15,7 +15,7 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class UpdateSyllabusInfo
  */
-@WebServlet("/UpdateSyllabusInfo")
+@WebServlet("/tdu_market/controller/UpdateSyllabusInfo")
 public class UpdateSyllabusInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -45,6 +45,9 @@ public class UpdateSyllabusInfo extends HttpServlet {
 				, request.getParameter("requierments"), request.getParameter("evaluationMethod"));
 		//シラバス情報の更新
 		syllabus.updateSyllabusInfo(updateInfo);
+		//ページ遷移
+		ControllerUtil.translatePage("/tdu_market/Admin/reference_syllabus_list_by_admin.jsp", request, response);
+
 	}
 
 }

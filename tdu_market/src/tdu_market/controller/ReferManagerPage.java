@@ -15,17 +15,17 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class ReferManagerPage
  */
-@WebServlet("/ReferManagerPage")
+@WebServlet("/tdu_market/controller/ReferManagerPage")
 public class ReferManagerPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ReferManagerPage() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public ReferManagerPage() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -33,7 +33,7 @@ public class ReferManagerPage extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("ReferManagerPage is non implementation!");
-		
+
 		ManagerInfoManager manager = new ManagerInfoManager();
 		//ログイン状態の検証
 		if (!ControllerUtil.verifyLogin(request, response)) {
@@ -46,6 +46,9 @@ public class ReferManagerPage extends HttpServlet {
 		ManagerGetInfo managerInfo = manager.getManagerInfo(mailAddress);
 		//jspに情報を投げる。
 		request.setAttribute("manaerInfo", managerInfo);
+		//遷移
+		ControllerUtil.translatePage("/tdu_market/Admin/edit_profile_admin.jsp", request, response);
+
 	}
 
 

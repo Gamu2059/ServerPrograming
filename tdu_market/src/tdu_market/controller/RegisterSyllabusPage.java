@@ -12,7 +12,7 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class RegisterStudentInfo
  */
-@WebServlet("/RegisterSyllabusPage")
+@WebServlet("/tdu_market/controller/RegisterSyllabusPage")
 public class RegisterSyllabusPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -34,8 +34,9 @@ public class RegisterSyllabusPage extends HttpServlet {
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			return;
 		}
+		//遷移
+		ControllerUtil.translatePage("/tdu_market/Admin/register_syllbus_by_admin.jsp", request, response);
 
-		
 	}
 
 }

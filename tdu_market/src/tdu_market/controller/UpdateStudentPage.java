@@ -22,8 +22,11 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class UpdateStudentPage
  */
-@WebServlet("/UpdateStudentPage")
+
+@WebServlet("/tdu_market/controller/UpdateStudentPage")
+
 @MultipartConfig()
+
 public class UpdateStudentPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -91,8 +94,10 @@ public class UpdateStudentPage extends HttpServlet {
 				request.getParameter("iconImageURL")
 				);
 		student.updateStudentInfo(updateInfo);
-		RequestDispatcher rd = request.getRequestDispatcher("Student/edit_profile_student.jsp");
-		rd.forward(request, response);		
+
+		//ページ遷移
+				ControllerUtil.translatePage("/tdu_market/Admin/edit_profile_student.jsp", request, response);
+
 
 
 	}

@@ -59,14 +59,11 @@ public class PostMail extends HttpServlet {
 		if(createResult.isSuccess()) {
 			//仮パスワード送信
 			SendMail.sendPassword(mailAddress,createResult.getMsg());
-			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-			rd.forward(request, response);
+			ControllerUtil.translatePage("/tdu_market/general/index.jsp", request, response);
 		}
 		else {
-			System.err.println("PostMentation!");
 			request.setAttribute("ErrorMessage",createResult.getMsg());
-			RequestDispatcher rd = request.getRequestDispatcher("hoge.jsp");
-			rd.forward(request, response);
+			ControllerUtil.translatePage("/tdu_market/general/index.jsp", request, response);
 		}
 	}
 }
