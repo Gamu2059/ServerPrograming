@@ -16,8 +16,8 @@
 	<div class="center_container">
 		<article>
 			<h1>電大マーケットへようこそ</h1>
-			<form action="#" method="post">
-				<input id="mailaddress_field" type="text" name="mailAdress"
+			<form action="/tdu_market/tdu_market/controller/PostMail" method="post">
+				<input id="mailaddress_field" type="text" name="mailAddress"
 					placeholder="メールアドレス" />
 				<button id="send_mailaddress_button" type="submit"
 					class="button_flat_blue" onClick="notify_dialog()">
