@@ -1,3 +1,4 @@
+package tdu_market.util;
 public class ServletPath{
     public static final String BuyItem = "/tdu_market/tdu_market/controller/BuyItem.java";
     public static final String ChangeTradingState = "/tdu_market/tdu_market/controller/ChangeTradingState.java";
