@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -26,18 +27,17 @@
 			</div>
 			<!-- セカンドコンテナ -->
 			<div class="second_container_ver2">
-				<form action="" method="get">
+				<!-- RegisterExhibitItemPageへ処理を引き継ぐ -->
+				<form action="../RegisterExhibitItemPage" method="get" id="exhibit_form">
 					<!-- 上部コンテンツ -->
 					<div class="top_content_ver2">
 						<div class="detail_content">
 							<h3>出品物名</h3>
-							<input id="exhibit_textfield" type="text" name="exhibit_name"
-								placeholder="例：やさしい〇〇" />
+							<input id="exhibit_textfield" type="text" name="itemName" placeholder="例：やさしい〇〇" />
 						</div>
 						<div class="detail_content">
 							<h3>授業名</h3>
-							<input id="exhibit_textfield" type="text" name="class_name"
-								placeholder="例：コンピュータプログラミングⅠ" />
+							<input id="exhibit_textfield" type="text" name="relatedClassCode" placeholder="例：コンピュータプログラミングⅠ" />
 						</div>
 					</div>
 					<!-- 中部コンテンツ -->
@@ -45,32 +45,56 @@
 						<div class="detail_content_ver2">
 							<h3>画像をアップロード</h3>
 							<div class="item_image_list">
-								<div class="item_img_delete_button">
-									<img src="/tdu_market/images/item_image.png" alt="画像１" />
-									<button name="delete_img">削除</button>
-								</div>
-
-								<label class="item_img_add_button"> <input
-									class="item_img_input" type="file"></input> <br>
-									<h3>+</h3>
-								</label>
+							<!-- 画像の登録に関して -->
+							<%
+							ArrayList<String> imageList = new ArrayList<>();
+							String[] sendImagelist = new String[3];
+							%>
+							<%
+							if(imageList == null){
+								//登録枚数が0のとき
+								out.print("<label class=\"item_img_add_button\">");
+								out.print("<input id=\"fileItem\" class=\"item_img_input\" type=\"file\" onClick=\""+imageList.add("+document.getElementById('fileItem')+")+"\"></input> <br>");
+								out.print("<h3>+</h3>");
+								out.print("</label>");
+							}else{
+								if(imageList.size() < 3){
+									//もし登録枚数が３枚以下なら
+									for(int i = 0;i<imageList.size();i++){
+										out.print("<div class=\"item_img_delete_button\">");
+										out.print("<img src=\""+imageList.get(i)+"\" alt=\"商品画像\" />");
+										out.print("<button name=\"delete_img\">削除</button>");
+										out.print("</div>");
+									}
+									out.print("<label class=\"item_img_add_button\">");
+									out.print("<input id=\"fileItem\" class=\"item_img_input\" type=\"file\" onClick=\""+imageList.add("+document.getElementById('fileItem')+")+"\"></input> <br>");
+									out.print("<h3>+</h3>");
+									out.print("</label>");
+								} else {
+									for(int i = 0;i<imageList.size();i++){
+										out.print("<div class=\"item_img_delete_button\">");
+										out.print("<img src=\""+imageList.get(i)+"\" alt=\"商品画像\" />");
+										out.print("<button name=\"delete_img\">削除</button>");
+										out.print("</div>");
+									}
+								}
+							}
+							%>
+							<input type="hidden" name="itemImageURLs" value="<%for(int i = 0 ; i< sendImagelist.length;i++){sendImagelist[i] = imageList.get(i);}%>"/>
 
 							</div>
 						</div>
 						<div class="detail_content">
 							<h3>出品物の説明</h3>
-							<textarea id="exhibit_description_textfield"
-								name="exhibit_description_textfield">
-                最大自己紹介の文字は２００文字です。その文字数を入力した結果がこちらになります。最大自己紹介の文字は２００文字です。その文字数を入力した結果がこちらになります。最大自己紹介の文字は２００文字です。その文字数を入力した結果がこちらになります。最大自己紹介の文字は２００文字です。その文字数を入力した結果がこちらになります。最大自己紹介の文字は２００文字です。その文字数を入力した結果がこちらになります。
-              				</textarea>
+							<textarea id="exhibit_description_textfield" name="description"></textarea>
 						</div>
 						<div class="detail_content">
 							<h3>状態</h3>
-							<select id="condition" name="condition">
-								<option value="new">新品・未使用</option>
-								<option value="old">中古（書き込みなし）</option>
-								<option value="old_written">中古（書き込みあり）</option>
-								<option value="old_dirty">破損・汚れあり</option>
+							<select id="condition" name="condtion">
+								<option value="0">新品・未使用</option>
+								<option value="1">中古（書き込みなし）</option>
+								<option value="2">中古（書き込みあり）</option>
+								<option value="3">破損・汚れあり</option>
 							</select>
 						</div>
 						<div class="detail_content">
@@ -99,61 +123,83 @@
 				<article class="exhibit_dialog_content">
 					<!-- セカンドコンテナ -->
 					<div class="dialog_info_base" id="exhibit_information">
-						<form action="" method="get">
+						<form  action="../RegisterExhibitItemPage" method="get">
 							<!-- 上部コンテンツ -->
 							<div class="dialog_exhibit_top">
+								<input type="hidden" name="exhibitorMailAddress" value="<% out.print(session.getAttribute("mailaddress")); %>" />
 								<div class="detail_content">
 									<h3>出品物名</h3>
-									<input id="exhibit_textfield_confirm" type="text"
-										name="exhibit_name" placeholder="入力された値" disabled="disabled" />
-
+									<input id="exhibit_textfield_confirm" type="text" name="exhibit_name" value="<script type="text/javascript">document.write(itemName);</script>" placeholder="<script type="text/javascript">document.write(itemName);</script>" disabled="disabled" />
 								</div>
 								<div class="detail_content">
 									<h3>授業名</h3>
-									<input id="exhibit_textfield_confirm" type="text"
-										name="class_name" placeholder="入力された値" disabled="disabled" />
+									<input id="exhibit_textfield_confirm" type="text" name="class_name" value="<script type="text/javascript">document.write(relatedClassCode);</script>" placeholder="<script type="text/javascript">document.write(relatedClassCode);</script>" disabled="disabled" />
 								</div>
 							</div>
 							<!-- 中部コンテンツ -->
 							<div class="middle_content">
 								<div class="dialog_detail">
 									<div class="item_image_list">
-										<div class="dialog_item_image">
-											<img src="/tdu_market/images/item_image.png" alt="商品画像" width="60%" />
-										</div>
-										<div class="dialog_item_image">
-											<img src="/tdu_market/images/item_image.png" alt="商品画像" width="60%" />
-										</div>
-										<div class="dialog_item_image">
-											<img src="/tdu_market/images/item_image.png" alt="商品画像" width="60%" />
-										</div>
+										<%
+										for(int i=0; i< 3 ; i++){
+											out.print("<div class=\"dialog_item_image\">");
+											out.print("<img src=\"<script type=\"text/javascript\">document.write(itemImages["+i+"]);</script>\" alt=\"商品画像\" width=\"60%\" higth=\"60%\" />");
+											out.print("</div>");
+										}
+										%>
 									</div>
 								</div>
 							</div>
 							<div class="detail_content">
 								<h3 class="exhibit_description">出品物の説明</h3>
 								<textarea id="exhibit_description_textfield"
-									name="exhibit_description_textfield" disabled="disabled">
-                最大自己紹介の文字は２００文字です。その文字数を入力した結果がこちらになります。最大自己紹介の文字は２００文字です。その文字数を入力した結果がこちらになります。最大自己紹介の文字は２００文字です。その文字数を入力した結果がこちらになります。最大自己紹介の文字は２００文字です。その文字数を入力した結果がこちらになります。最大自己紹介の文字は２００文字です。その文字数を入力した結果がこちらになります。
-              					</textarea>
+									name="exhibit_description_textfield" disabled="disabled"><script type="text/javascript">document.write(condtion);</script></textarea>
 							</div>
 							<div class="detail_content">
 								<h3 class="exhibit_description">状態</h3>
-								<select id="dialog_condition" name="condition"
-									disabled="disabled">
-									<option value="new">新品・未使用</option>
-									<option value="old">中古（書き込みなし）</option>
-									<option value="old_written">中古（書き込みあり）</option>
-									<option value="old_dirty">破損・汚れあり</option>
+								<select id="dialog_condition" name="condition" disabled="disabled">
+									<%
+									switch( out.print("<script type=\"text/javascript\">document.write(description);</script>"); ){
+									case 0:
+										out.print("<option value=\"0\" selected>新品・未使用</option>");
+										out.print("<option value=\"1\">中古（書き込みなし）</option>");
+										out.print("<option value=\"2\">中古（書き込みあり）</option>");
+										out.print("<option value=\"3\">破損・汚れあり</option>");
+										break;
+									case 1:
+										out.print("<option value=\"0\">新品・未使用</option>");
+										out.print("<option value=\"1\" selected>中古（書き込みなし）</option>");
+										out.print("<option value=\"2\">中古（書き込みあり）</option>");
+										out.print("<option value=\"3\">破損・汚れあり</option>");
+										break;
+									case 2:
+										out.print("<option value=\"0\">新品・未使用</option>");
+										out.print("<option value=\"1\">中古（書き込みなし）</option>");
+										out.print("<option value=\"2\" selected>中古（書き込みあり）</option>");
+										out.print("<option value=\"3\">破損・汚れあり</option>");
+										break;
+									case 3:
+										out.print("<option value=\"0\">新品・未使用</option>");
+										out.print("<option value=\"1\">中古（書き込みなし）</option>");
+										out.print("<option value=\"2\">中古（書き込みあり）</option>");
+										out.print("<option value=\"3\" selected>破損・汚れあり</option>");
+										break;
+									default:
+										out.print("<option value=\"0\">新品・未使用</option>");
+										out.print("<option value=\"1\">中古（書き込みなし）</option>");
+										out.print("<option value=\"2\">中古（書き込みあり）</option>");
+										out.print("<option value=\"3\">破損・汚れあり</option>");
+										break;
+									}
+									%>
 								</select>
 							</div>
 							<br>
 							<div class="detail_content">
 								<h3 class="exhibit_description">出品価格</h3>
 								<div class="yen">
-									<input type="number" name="price" disabled="disabled"
-										placeholder="100" />
-									<h4>円</h4>
+									<input type="number" name="price" disabled="disabled"/>
+									<h4><script type="text/javascript">document.write(description);</script>円</h4>
 								</div>
 							</div>
 						</form>
@@ -179,6 +225,15 @@
 					let dialog = document.getElementById('exhibit_infomation');
 					let yes = document.getElementById('yes');
 					let no = document.getElementById('no');
+					//入力値の取得
+					ver item_name =document.getElementsByName('itemName');
+					ver class_code =document.getElementsByName('relatedClassCode');
+					ver itemImages = [3];
+					itemImgaes = document.getElementsByName('itemImageURLs');
+					ver item_description = document.getElementsByName('description');
+					ver item_condtion = document.getElementsByName('condtion');
+					ver item_price = document.getElementsByName('price');
+
 					dialog.style.display = 'block';
 
 					yes.addEventListener('click', function() {

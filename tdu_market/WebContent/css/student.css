@@ -421,7 +421,7 @@ input[name="end_button"] {
 /*メッセージ一覧画面*/
 .message_list_tab {
   background-color: white;
-  border-top: solid 1px;
+  border:none;
   font-size: 1em;
   text-align: center;
   display: flex;
@@ -535,4 +535,11 @@ input[name="end_button"] {
   bottom: 25px;
   left: -50px;
   z-index: 50;
+}
+.textfield button {
+  position: relative;
+  bottom: 50px;
+  left: 450px;
+  background: #00000000;
+  border: none;
 }
