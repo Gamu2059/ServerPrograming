@@ -71,7 +71,7 @@
 			<aside class="aside_info">
 			<form action="../ReferItemListPage" method="post">
 				<input type="hidden" name="oldestDate" value="1"/>
-				<button type="submit"><a >すべて見る...</a></button>
+				<button type="submit"><a>すべて見る...</a></button>
 			</form>
 			</aside>
 			<!-- もっと探すボタン -->
