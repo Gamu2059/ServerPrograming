@@ -21,34 +21,34 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class RegisterExhibitItemPage
  */
-@WebServlet("/RegisterExhibitItemPage")
+@WebServlet("/tdu_market/controller/RegisterExhibitItemPage")
 public class RegisterExhibitItemPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public RegisterExhibitItemPage() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public RegisterExhibitItemPage() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	
+
 		//ログイン状態の検証
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			return;
 		}
 		else {
-			RequestDispatcher rd = request.getRequestDispatcher("confirm_register_exhibit.jsp");
-			rd.forward(request, response);		
-			
+			//遷移
+			ControllerUtil.translatePage("/tdu_market/Student/register_exhibit.jsp", request, response);
+
 		}
-		
+
 	}
 
 

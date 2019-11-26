@@ -17,7 +17,7 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class DeleteStudentInfo
  */
-@WebServlet("/DeleteStudentInfo")
+@WebServlet("/tdu_market/controller/DeleteStudentInfo")
 public class DeleteStudentInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -51,8 +51,8 @@ public class DeleteStudentInfo extends HttpServlet {
 		//セッションの破棄
 		HttpSession session = request.getSession();
 		session.invalidate();
-		//遷移
-		ControllerUtil.translatePage("index.jsp", request, response);
+		// 遷移
+		ControllerUtil.translatePage("/tdu_market/general/index.jsp", request, response);
 
 	}
 

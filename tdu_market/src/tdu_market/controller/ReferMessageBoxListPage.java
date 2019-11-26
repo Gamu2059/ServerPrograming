@@ -19,7 +19,7 @@ import tdu_market.entity_manager.MessageInfoManager;
 /**
  * Servlet implementation class ReferMessageBoxListPage
  */
-@WebServlet("/ReferMessageBoxListPage")
+@WebServlet("/tdu_market/controller/ReferMessageBoxListPage")
 public class ReferMessageBoxListPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -62,5 +62,8 @@ public class ReferMessageBoxListPage extends HttpServlet {
 			ArrayList<MessageGetInfo> messageInfoList  = messageInfo.getMessageInfoWithRoomInfo(roomID);
 			request.setAttribute("messageInfoList", messageInfoList);
 		}
+		//遷移
+		ControllerUtil.translatePage("/tdu_market/Student/message.jsp", request, response);
+
 	}
 }

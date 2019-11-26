@@ -16,7 +16,7 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class PostMessage
  */
-@WebServlet("/PostMessage")
+@WebServlet("/tdu_market/controller/PostMessage")
 public class PostMessage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -43,6 +43,9 @@ public class PostMessage extends HttpServlet {
 		MessageInfoManager messageInfo = new MessageInfoManager();
 		MessageCreateInfo createInfo = new MessageCreateInfo(Integer.valueOf(request.getParameter("roomID")).longValue(),request.getParameter("studentNumber"),request.getParameter("content"));
 		messageInfo.createMessageInfo(createInfo);
+		//遷移
+		ControllerUtil.translatePage("/tdu_market/Student/message.jsp", request, response);
+
 	}
 
 }

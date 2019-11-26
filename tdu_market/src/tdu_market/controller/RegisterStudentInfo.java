@@ -17,7 +17,7 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class RegisterStudentInfo
  */
-@WebServlet("/RegisterStudentInfo")
+@WebServlet("/tdu_market/controller/RegisterStudentInfo")
 public class RegisterStudentInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -54,8 +54,7 @@ public class RegisterStudentInfo extends HttpServlet {
 		//アカウントの仮登録状態を登録済みに、各種情報を入力されたものに変更。
 		student.updateStudentInfo(studentInfo);
 		//遷移
-		ControllerUtil.translatePage("index.jsp", request, response);
-		
+		ControllerUtil.translatePage("/tdu_market/general/index.jsp", request, response);		
 	}
 
 }

@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import tdu_market.dto.RelatedClassGetInfo;
 import tdu_market.entity_manager.RelatedClassInfoManager;
@@ -16,7 +17,7 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class ReferItemPage
  */
-@WebServlet("/ReferItemPage")
+@WebServlet("/tdu_market/controller/ReferItemPage")
 public class ReferItemPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -35,6 +36,10 @@ public class ReferItemPage extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("ReferItemPage is non implementation!");
+		<<<<<<< HEAD
+
+		=======
+		>>>>>>> a7509a69c154cbd0bb5ea7853d322ce19d425fec
 
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			return;
@@ -45,8 +50,15 @@ public class ReferItemPage extends HttpServlet {
 		ArrayList<RelatedClassGetInfo> relatedClassGetInfo = itemInfo
 				.getRelatedClassInfoWithItem(Integer.valueOf(request.getParameter("itemID")).longValue());
 		//jspに情報を投げる。
-		request.setAttribute("relatedClassGetInfo", relatedClassGetInfo);
+
+		HttpSession session = request.getSession();。
+		session.setAttribute("itemInfo", itemGetInfo);
+		//遷移
+		ControllerUtil.translatePage("/tdu_market/Student/reference_item_detail.jsp", request, response);
 
 	}
 
+
 }
+
+

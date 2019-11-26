@@ -16,7 +16,7 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class RegisterManagerInfo
  */
-@WebServlet("/RegisterManagerInfo")
+@WebServlet("/tdu_market/controller/RegisterManagerInfo")
 public class RegisterManagerInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -49,7 +49,7 @@ public class RegisterManagerInfo extends HttpServlet {
 		//アカウントの仮登録状態を登録済みに、各種情報を入力されたものに変更。
 		manager.updateManagerInfo(managerInfo);
 		//遷移
-		ControllerUtil.translatePage("index.jsp", request, response);
+		ControllerUtil.translatePage("/tdu_market/general/index.jsp", request, response);
 			
 	}
 

@@ -14,7 +14,7 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class ManagerDeleteStudentInfo
  */
-@WebServlet("/ManagerDeleteStudentInfo")
+@WebServlet("/tdu_market/controller/ManagerDeleteStudentInfo")
 public class ManagerDeleteStudentInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -43,6 +43,10 @@ public class ManagerDeleteStudentInfo extends HttpServlet {
 		String mailAddress = ControllerUtil.getMailAddress(request, response);
 		//学生情報削除
 		student.deleteStudentInfo(mailAddress);
+		
+		//遷移
+		ControllerUtil.translatePage("/tdu_market/Admin/reference_student_list.jsp", request, response);
+	
 	}
 
 

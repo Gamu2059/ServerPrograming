@@ -16,7 +16,7 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class ReferExhibitItemPage
  */
-@WebServlet("/ReferExhibitItemPage")
+@WebServlet("/tdu_market/controller/ReferExhibitItemPage")
 public class ReferExhibitItemPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -46,7 +46,11 @@ public class ReferExhibitItemPage extends HttpServlet {
 		ArrayList<RelatedClassGetInfo> relatedClassGetInfo = itemInfo
 				.getRelatedClassInfoWithItem(Integer.valueOf(request.getParameter("itemID")).longValue());
 		//jspに情報を投げる。
+
 		request.setAttribute("exhibitInfo", relatedClassGetInfo);
+		//遷移
+		ControllerUtil.translatePage("/tdu_market/Student/reference_exhibit_detail.jsp", request, response);
+
 
 	}
 

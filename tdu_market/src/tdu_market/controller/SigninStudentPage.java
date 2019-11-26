@@ -17,7 +17,8 @@ import tdu_market.util.ControllerUtil;
 /**
  * Servlet implementation class SigninStudentPage
  */
-@WebServlet("/SigninStudentPage")
+
+@WebServlet("/tdu_market/controller/SigninStudentPage")
 public class SigninStudentPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -36,13 +37,15 @@ public class SigninStudentPage extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.err.println("SigninStudentPage is non implementation!");
 
-
+/*不要なサーブレット
 		//ログイン状態の検証
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			return;
 		}
+		//遷移
+		ControllerUtil.translatePage("/tdu_market/Student/student_top.jsp", request, response);
 
+	
+	*/
 	}
-
-
 }
