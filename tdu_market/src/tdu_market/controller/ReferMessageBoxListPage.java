@@ -57,13 +57,13 @@ public class ReferMessageBoxListPage extends HttpServlet {
 
 		//左
 		ArrayList<MessageRoomGetInfo> messageRoomInfoList = messageRoomInfo.getMessageRoomInfo(mailAddress);
-		request.setAttribute("messageRoomInfoList", messageRoomInfoList);
+		session.setAttribute("messageRoomInfoList", messageRoomInfoList);
 		//右
 
 		if (isSelect) {
 			int roomID = Integer.valueOf(request.getParameter("roomID")).intValue();
 			ArrayList<MessageGetInfo> messageInfoList = messageInfo.getMessageInfoWithRoomInfo(roomID);
-			request.setAttribute("messageInfoList", messageInfoList);
+			session.setAttribute("messageInfoList", messageInfoList);
 		}
 		//遷移
 		ControllerUtil.translatePage("/tdu_market/Student/message.jsp", request, response);
