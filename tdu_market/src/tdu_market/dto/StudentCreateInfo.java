@@ -5,12 +5,14 @@ public final class StudentCreateInfo {
 	private final String mailAddress;
 	private final String nonHashedPassword;
 	private final String studentNumber;
+	private final long subjectID;
 
-	public StudentCreateInfo(String mailAddress, String nonHashedPassword, String studentNumber) {
+	public StudentCreateInfo(String mailAddress, String nonHashedPassword, String studentNumber, long subjectID) {
 		super();
 		this.mailAddress = mailAddress;
 		this.nonHashedPassword = nonHashedPassword;
 		this.studentNumber = studentNumber;
+		this.subjectID = subjectID;
 	}
 
 	public String getMailAddress() {
@@ -23,5 +25,9 @@ public final class StudentCreateInfo {
 
 	public String getStudentNumber() {
 		return studentNumber;
+	}
+
+	public long getSubjectID() {
+		return subjectID;
 	}
 }

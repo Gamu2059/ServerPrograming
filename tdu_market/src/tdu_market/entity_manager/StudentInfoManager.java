@@ -3,6 +3,7 @@ package tdu_market.entity_manager;
 import java.util.ArrayList;
 
 import tdu_market.dao.StudentInfoDAO;
+import tdu_market.dto.DepartmentGetInfo;
 import tdu_market.dto.LoginInfo;
 import tdu_market.dto.ReturnInfo;
 import tdu_market.dto.RoomMemberGetInfo;
@@ -110,11 +111,26 @@ public final class StudentInfoManager {
 				return new ReturnInfo("このメールアドレスは学生アカウントとして登録できません。");
 			}
 
-			String studnetNumber = AccountUtil.getStudentNumber(mailAddress);
+			String studentNumber = AccountUtil.getStudentNumber(mailAddress);
 			String password = PasswordUtil.createNonHashedPassword();
 
+			String subjectSymbol = AccountUtil.getSubjectSymbolFromStudentNumber(studentNumber);
+			DepartmentInfoManager departmentInfoManager = new DepartmentInfoManager();
+			ArrayList<DepartmentGetInfo> depList = departmentInfoManager.getAllDepartmentInfoList(false);
+			long subjectID = -1;
+			for(DepartmentGetInfo dep : depList) {
+				if (subjectSymbol.equals(dep.getSubjectSymbol().toLowerCase())) {
+					subjectID = dep.getSubjectID();
+					break;
+				}
+			}
+
+			if (subjectID < 1) {
+				return new ReturnInfo("このメールアドレスから所属学科を推定できません。");
+			}
+
 			StudentInfoDAO studentInfoDAO = new StudentInfoDAO();
-			studentInfoDAO.createStudentInfo(new StudentCreateInfo(mailAddress, password, studnetNumber));
+			studentInfoDAO.createStudentInfo(new StudentCreateInfo(mailAddress, password, studentNumber, subjectID));
 
 			return new ReturnInfo(password, true);
 		} catch (Exception e) {
