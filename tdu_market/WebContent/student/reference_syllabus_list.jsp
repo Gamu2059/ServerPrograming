@@ -28,7 +28,8 @@
 				<section>
 					<h2>検索結果</h2>
 					<br />
-					<form name="select_syllabus">
+					<!-- クリックしたらReferSyllabusPageにデータを渡して、表示を依頼する。 -->
+					<form name="select_syllabus" action="../ReferSyllabusPage" method="get">
 						<table class="syllabus_list">
 							<!-- テーブルタイトル -->
 							<thead>

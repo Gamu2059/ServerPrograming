@@ -51,11 +51,12 @@ public class ReferExhibitItemListPage extends HttpServlet {
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		ArrayList<ItemGetInfo> itemList =  itemInfo.getExhibitItem(mailAddress);
 		//jspに情報を投げる。
-		request.setAttribute("itemList",itemList);
+		HttpSession session = request.getSession();
+		session.setAttribute("itemList",itemList);
+
 
 		//遷移
 		ControllerUtil.translatePage("/tdu_market/Student/reference_exhibit_list.jsp", request, response);
-
 	}
 
 }

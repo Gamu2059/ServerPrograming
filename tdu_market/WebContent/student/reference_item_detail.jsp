@@ -1,3 +1,5 @@
+<%@page import="tdu_market.dto.RelatedClassGetInfo"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -25,28 +27,52 @@
 			<!-- セカンドコンテナ -->
 			<div class="second_container_ver2">
 				<section>
-					<div class="detail_content">
-						<h2 id="item_name">やさしいぬこでもきっとわかるJAVA入門書</h2>
-					</div>
-					<div class="detail_content">
-						<h5 id="syllabus_name">ぬこ先生のプログラミング青空教室</h5>
-					</div>
-					<div class="detail_content">
-						<img src="/tdu_market/images/item_image.png" alt="画像１" /> <img
-							src="/tdu_market/images/item_image.png" alt="画像１" /> <img
-							src="/tdu_market/images/item_image.png" alt="画像１" />
-					</div>
-					<div class="detail_content">
-						<h4 id="item_explanation">
-							この本を読むとよくわからなかったJAVAのことがよく分かるようになります！自宅にいる猫に読ませたところ、猫の手も借りたい状態だったプロジェクトを猫が手伝ってくれて無事に炎上せずに完遂しました。みなさんも一読すべきだと思いました。
-						</h4>
-					</div>
-					<div class="detail_content_right">
-						<h4>状態：非常に良い</h4>
-					</div>
-					<div class="detail_content_right">
-						<h4>1000円</h4>
-					</div>
+					<!-- ReferItemPageから渡されるデータを展開・表示 -->
+					<%
+					ArrayList<RelatedClassGetInfo> info = (ArrayList<RelatedClassGetInfo>)request.getAttribute("relatedClassGetInfo");
+					out.print("<div class=\"detail_content\">");
+					out.print("<h2 id=\"item_name\">"+info.get(0).getItemGetInfo().getItemName()+"</h2>");
+					out.print("</div>");
+					out.print("<div class=\"detail_content\">");
+					out.print("<h5 id=\"syllabus_name\">"+ info.get(0).getSyllabusGetInfo().getClassName() +"</h5>");
+					out.print("</div>");
+					out.print("<div class=\"detail_content\">");
+					//画像の表示
+					if(info.get(0).getItemGetInfo().getItemImageBinaries() != null){
+						//画像が登録されているのであれば。
+						for(int i=0;i < info.get(0).getItemGetInfo().getItemImageBinaries().length; i++){
+							out.print("<img src=\""+ info.get(0).getItemGetInfo().getItemImageBinaries()[i] +"\" alt=\"商品画像\" />");
+						}
+					} else {
+						out.print("この商品には画像が登録されていません。");
+					}
+					out.print("</div>");
+					out.print("<div class=\"detail_content\">");
+					out.print("<h4 id=\"item_explanation\">"+ info.get(0).getItemGetInfo().getDescription() +"</h4>");
+					out.print("</div>");
+					out.print("<div class=\"detail_content_right\">");
+					switch(info.get(0).getItemGetInfo().getCondition()){
+					case 0:
+						out.print("<h4>状態：新品・未使用</h4>");
+						break;
+					case 1:
+						out.print("<h4>状態：中古（書き込みなし）</h4>");
+						break;
+					case 2:
+						out.print("<h4>状態：中古（書き込みあり）</h4>");
+						break;
+					case 3:
+						out.print("<h4>状態：破損・汚れあり</h4>");
+						break;
+					default:
+						out.print("<h4>状態を取得出来ませんでした</h4>");
+						break;
+					}
+					out.print("</div>");
+					out.print("<div class=\"detail_content_right\">");
+					out.print("<h4>"+ info.get(0).getItemGetInfo().getPrice() +"円</h4>");
+					out.print("</div>");
+					%>
 					<div class="detail_content_center">
 						<button class="button_flat_submit" type="submit" name="trade"
 							value="trade" id="buy_item">取引する</button>
@@ -63,7 +89,14 @@
 			<div id="confirm_dialog">
 				<p>取引を申し込みますか？</p>
 				<div class="confirm_dialog_button">
-					<button id="yes" class="button_flat_submit">確認</button>
+					<!-- BuyItemに処理を引き継ぐ -->
+					<form action="../BuyItem" method="post">
+						<%
+						out.print("<input type=\"hidden\" name=\"beginTraderMailAddress\" value=\""+ session.getAttribute("meiladdress") +"\"/>");
+						out.print("<input type=\"hidden\" name=\"tradedItemID\" value=\""+ info.get(0).getItemGetInfo().getItemID() +"\"/>");
+						%>
+						<button type="submit" id="yes" class="button_flat_submit">確認</button>
+					</form>
 					<button id="no" class="button_flat_normal">キャンセル</button>
 				</div>
 			</div>

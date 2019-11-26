@@ -2,19 +2,15 @@ package tdu_market.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import tdu_market.dto.ReturnInfo;
-import tdu_market.entity_manager.ItemInfoManager;
-import tdu_market.entity_manager.StudentInfoManager;
-import tdu_market.util.ControllerUtil;
 import tdu_market.dto.ItemUpdateInfo;
+import tdu_market.entity_manager.ItemInfoManager;
+import tdu_market.util.ControllerUtil;
 
 /**
  * Servlet implementation class UpdateItemInfo
@@ -34,7 +30,8 @@ public class UpdateItemInfo extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
 		//ログイン状態の検証
@@ -42,13 +39,24 @@ public class UpdateItemInfo extends HttpServlet {
 			return;
 		}
 
+
 		//出品商品更新処理
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		ItemUpdateInfo updateInfo = new ItemUpdateInfo(Integer.valueOf(request.getParameter("itemID")).longValue(), request.getParameter("itemName"), request.getParameter("description"), 
 				Integer.valueOf(request.getParameter("condition")).intValue(), Integer.valueOf(request.getParameter("itemID")).intValue(),
 				request.getParameter("relatedClassCode") , request.getParameterValues("itemImageURLs"));
 
-		//出品商品更新処理
+
+		//渡された授業名（String）を関連授業コード（String）に変換する処理
+
+		
+		ItemInfoManager itemInfo = new ItemInfoManager();
+		ItemUpdateInfo updateInfo = new ItemUpdateInfo(Integer.valueOf(request.getParameter("itemID")).longValue(),
+				request.getParameter("itemName"), request.getParameter("description"),
+				Integer.valueOf(request.getParameter("condition")).intValue(),
+				Integer.valueOf(request.getParameter("price")).intValue(),
+				request.getParameter("relatedClassCode"), request.getParameterValues("itemImageURLs"));
+
 		itemInfo.updateItemInfo(updateInfo);
 		//遷移
 		ControllerUtil.translatePage("/tdu_market/Student/reference_exhibit_list.jsp", request, response);
