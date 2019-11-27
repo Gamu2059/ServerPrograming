@@ -467,7 +467,7 @@ label.item_img_add_button > input.item_img_input {
   display:none;
 }
 .item_img_add_button {
-  margin: 10px;
+  margin: 10px 10px 0px 10px;
   padding: 0px;
   width: 210px;
   height: 230px;
@@ -476,15 +476,14 @@ label.item_img_add_button > input.item_img_input {
 .item_img_add_button:hover {
   background: rgb(239, 239, 239);
 }
-.item_img_add_button input#deleteButton {
-	position:absolute;
-	width:200px;
-	margin-top:190px;
+div#deleteButton {
+	margin: 0px 10px;
+	text-align:center;
 	background:#00000000;
 	border:none;
 	color:rgba(0,0,0,0);
 }
-.item_img_add_button input#deleteButton:hover {
+div#deleteButton:hover {
 	background:rgba(255,0,0,0.5);
 	color:#000000;
 }

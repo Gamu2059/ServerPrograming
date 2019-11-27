@@ -48,20 +48,27 @@
 							<div class="item_image_list">
 							<!-- 画像の登録に関して -->
 							<!-- HTML -->
+							<div>
 							<label class="item_img_add_button">
 								<input id="fileItem" class="item_img_input" type="file" name="itemImageURLs[]"></input>
 								<img id="plus" src="/tdu_market/images/plus.png">
 							</label>
-							<input type="button" id="deleteButton" name="delete_img" onClick="deleteActiont()">削除</input>
+							<div id="deleteButton" onClick="deleteAction();">
+								削除
+							</div>
+							</div>
+
 							<!-- JavaScript（jQuery） -->
-							<!-- 削除 -->
+							<!-- 削除（input） -->
 							<script>
-        					function deleteActiont() {
-        						document.getElementById( "fileItem" ).value = "";
-        						document.getElementById("plus").src = "/tdu_market/images/plus.png"
+        					function deleteAction() {
+        						var obj = document.getElementById("fileItem");
+        						obj.value = "";
+        						var img = document.getElementById("plus");
+        						img.src = "/tdu_market/images/plus.png";
         					}
     						</script>
-							<!-- プレビュー -->
+    						<!-- プレビュー -->
 							<script>
 							$('#fileItem').on('change', function (e) {
 							    var reader = new FileReader();
