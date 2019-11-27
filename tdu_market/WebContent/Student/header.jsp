@@ -25,7 +25,7 @@
 		<ul>
 			<li><a href="search_from_exhibit.jsp">名前から検索</a>
 			<li><a href="search_from_syllabus.jsp">シラバスから検索</a>
-			<li><form action="../ReferMessageBoxListPage" method="post"><button type="submit"><a><img src="/tdu_market/images/message.png" alt="メッセージアイコン"></a></button></form>
+			<li><form action="../ReferMessageBoxListPage" method="post"><button type="submit" class="noneButton"><a><img src="/tdu_market/images/message.png" alt="メッセージアイコン"></a></button></form>
 			<li><img src="/tdu_market/images/icon.png" alt="ユーザーアイコン"
 				id="user_information_controller">
 		</ul>

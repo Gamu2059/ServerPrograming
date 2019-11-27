@@ -543,3 +543,7 @@ input[name="end_button"] {
   background: #00000000;
   border: none;
 }
+Button.noneButton {
+	border:none;
+	background:rgba(0,0,0,0);
+}
