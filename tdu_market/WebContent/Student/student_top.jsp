@@ -1,5 +1,6 @@
 <%@page import="java.util.*"%>
 <%@page import="tdu_market.dto.*" %>
+<%@page import="tdu_market.util.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -24,7 +25,7 @@
 		<!-- ファーストコンテナ -->
 		<div class="first_container">
 			<!-- 商品検索入力フォーム -->
-			<form class="input_form" action="../ReferItemListPage" method="post">
+			<form class="input_form" action="<%=ServletPath.ReferItemListPage %>" method="post">
 				<div>
 					<input type="text" name="itemNameKeyword" class="radius_text_form" size="70"
 						placeholder="全ての商品から探す（教科書名、道具名など）" />
@@ -37,7 +38,7 @@
 			</form>
 			<!-- 出品ボタン -->
 			<div class="exhibit_button">
-				<button type="button" name="exhibit" onclick="location.href='register_exhibit.jsp'">出品！</button>
+				<button type="button" name="exhibit" onclick="location.href='<%=JspPath.register_exhibit %>'">出品！</button>
 			</div>
 		</div>
 		<!-- セカンドコンテナ -->
@@ -69,14 +70,14 @@
 		<div class="third_container">
 			<!-- すべて見るボタン -->
 			<aside class="aside_info">
-			<form action="../ReferItemListPage" method="post">
+			<form action="<%=ServletPath.ReferItemListPage %>" method="post">
 				<input type="hidden" name="oldestDate" value="1"/>
-				<button type="submit"><a>すべて見る...</a></button>
+				<button type="submit"class="noneButton"><a>すべて見る...</a></button>
 			</form>
 			</aside>
 			<!-- もっと探すボタン -->
 			<nav class="more_search">
-				<button type="submit" name="search" class="button_flat_submit" onclick="location.href='search_from_exhibit.jsp'">
+				<button type="submit" name="search" class="button_flat_submit" onclick="location.href='<%=JspPath.search_from_exhibit %>'">
 					もっと探す</button>
 			</nav>
 		</div>
