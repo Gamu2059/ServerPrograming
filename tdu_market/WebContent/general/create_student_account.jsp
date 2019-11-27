@@ -9,6 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ログイン画面</title>
 <link href="/tdu_market/css/import_general_student.css" rel="stylesheet" />
+<script type="text/javascript" src="/tdu_market/js/jquery-3.3.1.min.js"></script>
 </head>
 
 <body>
@@ -24,10 +25,24 @@
 						<div>
 							<label>
 								<h2>アイコン</h2>
-							</label> <input type="file" name="iconImageURL" /> <label> <br /> 画像形式：.png
-								.jpg <br /> 画像のサイズ：400px*400px未満
+							</label>
+							<input id="iconFile" type="file" name="iconImageURL" />
+							<label>
+							<br />
+							画像形式：.png .jpg<br />
+							画像のサイズ：400px*400px未満
 							</label>
 						</div>
+						<!-- アイコン画像のプレビュー -->
+						<script>
+						$('#iconFile').on('change', function (e) {
+						    var reader = new FileReader();
+						    reader.onload = function (e) {
+						        $("#icon").attr('src', e.target.result);
+						    }
+						    reader.readAsDataURL(e.target.files[0]);
+						});
+						</script>
 					</div>
 					<div class="input_content">
 						<h2>ディスプレイネーム</h2>
