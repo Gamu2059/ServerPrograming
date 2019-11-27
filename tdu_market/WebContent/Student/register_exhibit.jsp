@@ -18,7 +18,7 @@
 <!-- InstanceEndEditable -->
 </head>
 <body>
-	<%@ include file="header.jsp"%>
+	<!-- ヘッダー挿入位置 -->
 	<!-- InstanceBeginEditable name="body" -->
 	<div class="scroll">
 		<article class="content">
@@ -166,6 +166,7 @@
 							    }
 							    reader.readAsDataURL(e.target.files[0]);
 							});
+							</script>
 							</div>
 						</div>
 						<div class="detail_content">
