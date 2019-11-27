@@ -494,7 +494,7 @@ label.item_img_add_button {
     justify-content: center;
     align-items: center;
 }
-img#plus {
+label.item_img_add_button img {
 	width:200px;
 	height:220px;
 	object-fit:contain;
