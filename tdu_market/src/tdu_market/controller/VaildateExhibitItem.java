@@ -45,8 +45,7 @@ public class VaildateExhibitItem extends HttpServlet {
 		}
 
 		ItemInfoManager itemInfo = new ItemInfoManager();
-		request.getParameter("mailaddress");
-		ItemCreateInfo createInfo = new ItemCreateInfo(request.getParameter("exhibitorMailAddress"),
+		ItemCreateInfo createInfo = new ItemCreateInfo(ControllerUtil.getMailAddress(request, response),
 				request.getParameter("itemName"), request.getParameter("description"),
 				Integer.valueOf(request.getParameter("condtion")).intValue(),
 				Integer.valueOf(request.getParameter("price")).intValue(),
@@ -64,6 +63,7 @@ public class VaildateExhibitItem extends HttpServlet {
 			//入力データを差し戻す
 			HttpSession session = request.getSession();
 			session.setAttribute("info", createInfo);
+			System.out.println(itemResult);
 			//入力値が不正だったときの遷移先
 			ControllerUtil.translatePage("/tdu_market/Student/register_exhibit.jsp", request, response);
 
