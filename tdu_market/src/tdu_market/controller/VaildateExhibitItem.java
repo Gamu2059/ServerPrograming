@@ -61,6 +61,9 @@ public class VaildateExhibitItem extends HttpServlet {
 			ControllerUtil.translatePage("/tdu_market/Student/confirm_register_exhibit.jsp", request, response);
 		} else {
 			//ページ遷移
+			//入力データを差し戻す
+			HttpSession session = request.getSession();
+			session.setAttribute("info", createInfo);
 			//入力値が不正だったときの遷移先
 			ControllerUtil.translatePage("/tdu_market/Student/register_exhibit.jsp", request, response);
 
