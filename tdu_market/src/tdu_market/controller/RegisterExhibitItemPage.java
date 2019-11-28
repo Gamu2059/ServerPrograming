@@ -1,6 +1,7 @@
 package tdu_market.controller;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -15,8 +16,10 @@ import tdu_market.dto.ItemGetInfo;
 import tdu_market.dto.ReturnInfo;
 import tdu_market.entity_manager.ItemInfoManager;
 import tdu_market.entity_manager.StudentInfoManager;
+import tdu_market.entity_manager.SyllabusInfoManager;
 import tdu_market.util.ControllerUtil;
-
+import tdu_market.util.JspPath;
+import tdu_market.dto.*;
 
 /**
  * Servlet implementation class RegisterExhibitItemPage
@@ -45,9 +48,24 @@ public class RegisterExhibitItemPage extends HttpServlet {
 		}
 		else {
 			//遷移
-			ControllerUtil.translatePage("/tdu_market/Student/register_exhibit.jsp", request, response);
-
+//			ControllerUtil.translatePage("/tdu_market/Student/register_exhibit.jsp", request, response);
 		}
+		SyllabusInfoManager syllabusInfoManager = new SyllabusInfoManager();
+		ArrayList<SyllabusGetInfo> syllabusInfo = syllabusInfoManager.getAllSyllabus();
+		
+		System.out.println(syllabusInfo.size());
+		
+		
+		HttpSession session = request.getSession();
+		
+		session.setAttribute("classNameList", syllabusInfo);
+
+		/*
+		 * RequestDispatcher rd =
+		 * request.getRequestDispatcher("Student/register_exhibit.jsp");//
+		 * 確認画面に投げてたけど（ないけど）そもそも登録画面に遷移でいいよね？ rd.forward(request, response);
+		 */
+		ControllerUtil.translatePage(JspPath.register_exhibit, request, response);
 
 	}
 

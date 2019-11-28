@@ -38,7 +38,9 @@
 			</form>
 			<!-- 出品ボタン -->
 			<div class="exhibit_button">
-				<button type="button" name="exhibit" onclick="location.href='<%=JspPath.register_exhibit %>'">出品！</button>
+				<form action="<%=ServletPath.RegisterExhibitItemPage%>">
+					<button type="submit" name="exhibit">出品！</button>
+				</form>
 			</div>
 		</div>
 		<!-- セカンドコンテナ -->

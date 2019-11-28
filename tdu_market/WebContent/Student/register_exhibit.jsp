@@ -1,4 +1,5 @@
 <%@page import="java.util.ArrayList"%>
+<%@page import="tdu_market.dto.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -29,17 +30,47 @@
 			<!-- セカンドコンテナ -->
 			<div class="second_container_ver2">
 				<!-- RegisterExhibitItemPageへ処理を引き継ぐ -->
-				<form action="../RegisterExhibitItemPage" method="get" id="exhibit_form">
+				<form action="../RegisterExhibitItemPage" method="get"
+					id="exhibit_form">
 					<!-- 上部コンテンツ -->
 					<div class="top_content_ver2">
 						<div class="detail_content">
 							<h3>出品物名</h3>
-							<input id="exhibit_textfield" type="text" name="itemName" placeholder="例：やさしい〇〇" />
+							<input id="exhibit_textfield" type="text" name="itemName"
+								placeholder="例：やさしい〇〇" />
 						</div>
 						<div class="detail_content">
 							<h3>授業名</h3>
-							<input id="exhibit_textfield" type="text" name="relatedClassCode" placeholder="例：コンピュータプログラミングⅠ" />
+							<input id="exhibit_textfield" type="text" name="relatedClassCode"
+								placeholder="例：コンピュータプログラミングⅠ" />
 						</div>
+						<%
+						ArrayList<SyllabusGetInfo> syllabusInfo = (ArrayList<SyllabusGetInfo>) session.getAttribute("classNameList");
+						
+						if(syllabusInfo==null){System.out.print(syllabusInfo.getClass());}
+						%>
+						<script type="text/javascript">
+							let input = document.createElement('input');
+							input.autocomplete = true;
+							input.setAttribute('id', 'exhibit_textfield');
+							input.setAttribute('list', 'class_name_list');
+							document.getElementById('class_name_box')
+								.appendChild(input);
+
+							let datalist = document.createElement('datalist');
+							datalist.id = 'class_name_list';
+							let names = '<%=syllabusInfo.clone().toString()%>';
+							for (let i = 0; i < names.length; i++) {
+								console.log(names[i]);
+							}
+							names.forEach(function(name) {
+								let option = document.createElement('option');
+								option.value = name;
+								datalist.appendChild(option);
+							});
+							document.getElementById('class_name_box')
+									.appendChild(datalist);
+						</script>
 					</div>
 					<!-- 中部コンテンツ -->
 					<div class="dialog_middle_content">
@@ -208,17 +239,26 @@
 				<article class="exhibit_dialog_content">
 					<!-- セカンドコンテナ -->
 					<div class="dialog_info_base" id="exhibit_information">
-						<form  action="../RegisterExhibitItemPage" method="get">
+						<form action="../RegisterExhibitItemPage" method="get">
 							<!-- 上部コンテンツ -->
 							<div class="dialog_exhibit_top">
-								<input type="hidden" name="exhibitorMailAddress" value="<% out.print(session.getAttribute("mailaddress")); %>" />
+								<input type="hidden" name="exhibitorMailAddress"
+									value="<%out.print(session.getAttribute("mailaddress"));%>" />
 								<div class="detail_content">
 									<h3>出品物名</h3>
-									<input id="exhibit_textfield_confirm" type="text" name="exhibit_name" value="<script type="text/javascript">document.write(itemName);</script>" placeholder="<script type="text/javascript">document.write(itemName);</script>" disabled="disabled" />
+									<input id="exhibit_textfield_confirm" type="text"
+										name="exhibit_name"
+										value="<script type="text/javascript">document.write(itemName);</script>"
+										placeholder="<script type="text/javascript">document.write(itemName);</script>"
+										disabled="disabled" />
 								</div>
 								<div class="detail_content">
 									<h3>授業名</h3>
-									<input id="exhibit_textfield_confirm" type="text" name="class_name" value="<script type="text/javascript">document.write(relatedClassCode);</script>" placeholder="<script type="text/javascript">document.write(relatedClassCode);</script>" disabled="disabled" />
+									<input id="exhibit_textfield_confirm" type="text"
+										name="class_name"
+										value="<script type="text/javascript">document.write(relatedClassCode);</script>"
+										placeholder="<script type="text/javascript">document.write(relatedClassCode);</script>"
+										disabled="disabled" />
 								</div>
 							</div>
 							<!-- 中部コンテンツ -->
@@ -226,11 +266,12 @@
 								<div class="dialog_detail">
 									<div class="item_image_list">
 										<%
-										for(int i=0; i< 3 ; i++){
-											out.print("<div class=\"dialog_item_image\">");
-											out.print("<img src=\"<script type=\"text/javascript\">document.write(itemImages["+i+"]);</script>\" alt=\"商品画像\" width=\"60%\" higth=\"60%\" />");
-											out.print("</div>");
-										}
+											for (int i = 0; i < 3; i++) {
+												out.print("<div class=\"dialog_item_image\">");
+												out.print("<img src=\"<script type=\"text/javascript\">document.write(itemImages[" + i
+														+ "]);</script>\" alt=\"商品画像\" width=\"60%\" higth=\"60%\" />");
+												out.print("</div>");
+											}
 										%>
 									</div>
 								</div>
@@ -238,19 +279,28 @@
 							<div class="detail_content">
 								<h3 class="exhibit_description">出品物の説明</h3>
 								<textarea id="exhibit_description_textfield"
-									name="exhibit_description_textfield" disabled="disabled"><script type="text/javascript">document.write(condtion);</script></textarea>
+									name="exhibit_description_textfield" disabled="disabled"><script
+										type="text/javascript">
+										document.write(condtion);
+									</script></textarea>
 							</div>
 							<div class="detail_content">
 								<h3 class="exhibit_description">状態</h3>
-								<select id="dialog_condition" name="condition" disabled="disabled">
+								<select id="dialog_condition" name="condition"
+									disabled="disabled">
 								</select>
 							</div>
 							<br>
 							<div class="detail_content">
 								<h3 class="exhibit_description">出品価格</h3>
 								<div class="yen">
-									<input type="number" name="price" disabled="disabled"/>
-									<h4><script type="text/javascript">document.write(description);</script>円</h4>
+									<input type="number" name="price" disabled="disabled" />
+									<h4>
+										<script type="text/javascript">
+											document.write(description);
+										</script>
+										円
+									</h4>
 								</div>
 							</div>
 						</form>
@@ -277,13 +327,20 @@
 					let yes = document.getElementById('yes');
 					let no = document.getElementById('no');
 					//入力値の取得
-					ver item_name =document.getElementsByName('itemName');
-					ver class_code =document.getElementsByName('relatedClassCode');
-					ver itemImages = [3];
+					ver
+					item_name = document.getElementsByName('itemName');
+					ver
+					class_code = document.getElementsByName('relatedClassCode');
+					ver
+					itemImages = [ 3 ];
 					itemImgaes = document.getElementsByName('itemImageURLs');
-					ver item_description = document.getElementsByName('description');
-					ver item_condtion = document.getElementsByName('condtion');
-					ver item_price = document.getElementsByName('price');
+					ver
+					item_description = document
+							.getElementsByName('description');
+					ver
+					item_condtion = document.getElementsByName('condtion');
+					ver
+					item_price = document.getElementsByName('price');
 
 					dialog.style.display = 'block';
 
