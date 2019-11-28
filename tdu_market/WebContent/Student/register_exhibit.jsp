@@ -14,10 +14,11 @@
 <link href="/tdu_market/css/import_student.css" rel="stylesheet">
 <!-- InstanceBeginEditable name="scripts" -->
 <script type="text/javascript" src="/tdu_market/js/student.js" defer="defer"></script>
+<script type="text/javascript" src="/tdu_market/js/jquery-3.3.1.min.js"></script>
 <!-- InstanceEndEditable -->
 </head>
 <body>
-	<%@ include file="header.jsp"%>
+	<!-- ヘッダー挿入位置 -->
 	<!-- InstanceBeginEditable name="body" -->
 	<div class="scroll">
 		<article class="content">
@@ -46,42 +47,126 @@
 							<h3>画像をアップロード</h3>
 							<div class="item_image_list">
 							<!-- 画像の登録に関して -->
-							<%
-							ArrayList<String> imageList = new ArrayList<>();
-							String[] sendImagelist = new String[3];
-							%>
-							<%
-							if(imageList == null){
-								//登録枚数が0のとき
-								out.print("<label class=\"item_img_add_button\">");
-								out.print("<input id=\"fileItem\" class=\"item_img_input\" type=\"file\" onClick=\""+imageList.add("+document.getElementById('fileItem')+")+"\"></input> <br>");
-								out.print("<h3>+</h3>");
-								out.print("</label>");
-							}else{
-								if(imageList.size() < 3){
-									//もし登録枚数が３枚以下なら
-									for(int i = 0;i<imageList.size();i++){
-										out.print("<div class=\"item_img_delete_button\">");
-										out.print("<img src=\""+imageList.get(i)+"\" alt=\"商品画像\" />");
-										out.print("<button name=\"delete_img\">削除</button>");
-										out.print("</div>");
-									}
-									out.print("<label class=\"item_img_add_button\">");
-									out.print("<input id=\"fileItem\" class=\"item_img_input\" type=\"file\" onClick=\""+imageList.add("+document.getElementById('fileItem')+")+"\"></input> <br>");
-									out.print("<h3>+</h3>");
-									out.print("</label>");
-								} else {
-									for(int i = 0;i<imageList.size();i++){
-										out.print("<div class=\"item_img_delete_button\">");
-										out.print("<img src=\""+imageList.get(i)+"\" alt=\"商品画像\" />");
-										out.print("<button name=\"delete_img\">削除</button>");
-										out.print("</div>");
-									}
-								}
-							}
-							%>
-							<input type="hidden" name="itemImageURLs" value="<%for(int i = 0 ; i< sendImagelist.length;i++){sendImagelist[i] = imageList.get(i);}%>"/>
-
+							<!-- HTML -->
+							<div>
+							<label class="item_img_add_button">
+								<input id="fileItem" class="item_img_input" type="file" name="itemImageURLs[]"></input>
+								<img id="plus" src="/tdu_market/images/plus.png">
+							</label>
+							<div id="deleteButton" onClick="deleteAction();">
+								削除
+							</div>
+							</div>
+							<!-- JavaScript（jQuery） -->
+							<!-- 削除（input） -->
+							<script>
+        					function deleteAction() {
+        						var obj = document.getElementById("fileItem");
+        						obj.value = "";
+        						var img = document.getElementById("plus");
+        						img.src = "/tdu_market/images/plus.png";
+        					}
+    						</script>
+    						<!-- プレビュー -->
+							<script>
+							$('#fileItem').on('change', function (e) {
+							    var reader = new FileReader();
+							    reader.onload = function (e) {
+							        $("#plus").attr('src', e.target.result);
+							    }
+							    reader.readAsDataURL(e.target.files[0]);
+							});
+							</script>
+							<!-- HTML -->
+							<div>
+							<label class="item_img_add_button">
+								<input id="fileItem2" class="item_img_input" type="file" name="itemImageURLs[]"></input>
+								<img id="plus2" src="/tdu_market/images/plus.png">
+							</label>
+							<div id="deleteButton" onClick="deleteAction2();">
+								削除
+							</div>
+							</div>
+							<!-- JavaScript（jQuery） -->
+							<!-- 削除（input） -->
+							<script>
+        					function deleteAction2() {
+        						var obj = document.getElementById("fileItem2");
+        						obj.value = "";
+        						var img = document.getElementById("plus2");
+        						img.src = "/tdu_market/images/plus.png";
+        					}
+    						</script>
+    						<!-- プレビュー -->
+							<script>
+							$('#fileItem2').on('change', function (e) {
+							    var reader = new FileReader();
+							    reader.onload = function (e) {
+							        $("#plus2").attr('src', e.target.result);
+							    }
+							    reader.readAsDataURL(e.target.files[0]);
+							});
+							</script>
+							<!-- HTML -->
+							<div>
+							<label class="item_img_add_button">
+								<input id="fileItem3" class="item_img_input" type="file" name="itemImageURLs[]"></input>
+								<img id="plus3" src="/tdu_market/images/plus.png">
+							</label>
+							<div id="deleteButton" onClick="deleteAction3();">
+								削除
+							</div>
+							</div>
+							<!-- JavaScript（jQuery） -->
+							<!-- 削除（input） -->
+							<script>
+        					function deleteAction3() {
+        						var obj = document.getElementById("fileItem3");
+        						obj.value = "";
+        						var img = document.getElementById("plus3");
+        						img.src = "/tdu_market/images/plus.png";
+        					}
+    						</script>
+    						<!-- プレビュー -->
+							<script>
+							$('#fileItem3').on('change', function (e) {
+							    var reader = new FileReader();
+							    reader.onload = function (e) {
+							        $("#plus3").attr('src', e.target.result);
+							    }
+							    reader.readAsDataURL(e.target.files[0]);
+							});
+							</script>
+							<!-- HTML -->
+							<div>
+							<label class="item_img_add_button">
+								<input id="fileItem4" class="item_img_input" type="file" name="itemImageURLs[]"></input>
+								<img id="plus4" src="/tdu_market/images/plus.png">
+							</label>
+							<div id="deleteButton" onClick="deleteAction4();">
+								削除
+							</div>
+							</div>
+							<!-- JavaScript（jQuery） -->
+							<!-- 削除（input） -->
+							<script>
+        					function deleteAction4() {
+        						var obj = document.getElementById("fileItem4");
+        						obj.value = "";
+        						var img = document.getElementById("plus4");
+        						img.src = "/tdu_market/images/plus.png";
+        					}
+    						</script>
+    						<!-- プレビュー -->
+							<script>
+							$('#fileItem4').on('change', function (e) {
+							    var reader = new FileReader();
+							    reader.onload = function (e) {
+							        $("#plus4").attr('src', e.target.result);
+							    }
+							    reader.readAsDataURL(e.target.files[0]);
+							});
+							</script>
 							</div>
 						</div>
 						<div class="detail_content">
