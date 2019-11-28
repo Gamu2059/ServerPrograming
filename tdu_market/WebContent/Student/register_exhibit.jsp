@@ -28,8 +28,8 @@
 			</div>
 			<!-- セカンドコンテナ -->
 			<div class="second_container_ver2">
-				<!-- RegisterExhibitItemPageへ処理を引き継ぐ -->
-				<form action="../RegisterExhibitItemPage" method="get" id="exhibit_form">
+				<!-- VaildateExhibitItemへ処理を引き継ぐ -->
+				<form action="<%=ServletPath.VaildateExhibitItem %>" method="post" id="exhibit_form">
 					<!-- 上部コンテンツ -->
 					<div class="top_content_ver2">
 						<div class="detail_content">
@@ -167,6 +167,7 @@
 							    reader.readAsDataURL(e.target.files[0]);
 							});
 							</script>
+        
 							</div>
 						</div>
 						<div class="detail_content">
@@ -190,11 +191,12 @@
 							</div>
 						</div>
 					</div>
-				</form>
-				<!-- 中部コンテンツ２ -->
-				<div class="middle2_content">
+					<div class="middle2_content">
 					<button type="submit" name="submit" class="button_flat_submit"
 						id="upload">確認</button>
+				</form>
+				<!-- 中部コンテンツ２ -->
+
 				</div>
 			</div>
 		</article>
@@ -270,7 +272,7 @@
 					<button id="ok" class="button_flat_normal">了解</button>
 				</div>
 			</div>
-			<script type="text/javascript">
+			<!-- <script type="text/javascript">
 				document.getElementById('upload').onclick = function() {
 					//各ボタンの要素の取得
 					let dialog = document.getElementById('exhibit_infomation');
@@ -309,8 +311,9 @@
 						dialog.style.display = 'none';
 					});
 				}
-			</script>
+			</script> -->
 		</section>
+
 	</div>
 	<!-- InstanceEndEditable -->
 
