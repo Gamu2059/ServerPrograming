@@ -31,17 +31,17 @@
 			<div class="second_container_ver2">
 				<!-- RegisterExhibitItemPageへ処理を引き継ぐ -->
 				<!-- VaildateExhibitItemから取得したデータを展開する -->
-				<% ReturnInfo info = (ReturnInfo)session.getAttribute("itemResult"); %>
-				<form action="../RegisterExhibitItemPage" method="get" id="exhibit_form">
+				<% ItemCreateInfo info = (ItemCreateInfo)session.getAttribute("createInfo"); %>
+				<form action="<%= ServletPath.RegisterItemInfo %>" method="post" id="exhibit_form">
 					<!-- 上部コンテンツ -->
 					<div class="top_content_ver2">
 						<div class="detail_content">
 							<h3>出品物名</h3>
-							<input id="exhibit_textfield" type="text" name="itemName" placeholder="例：やさしい〇〇" />
+							<input id="exhibit_textfield" type="text" name="itemName" placeholder="<% info.getItemName(); %>" readonly="readonly" />
 						</div>
 						<div class="detail_content">
 							<h3>授業名</h3>
-							<input id="exhibit_textfield" type="text" name="relatedClassCode" placeholder="例：コンピュータプログラミングⅠ" />
+							<input id="exhibit_textfield" type="text" name="relatedClassCode" placeholder="<% info.getRelatedClassCode(); %>" readonly="readonly"  />
 						</div>
 					</div>
 					<!-- 中部コンテンツ -->
@@ -49,157 +49,79 @@
 						<div class="detail_content_ver2">
 							<h3>画像をアップロード</h3>
 							<div class="item_image_list">
-							<!-- 画像の登録に関して -->
-							<!-- HTML -->
-							<div>
-							<label class="item_img_add_button">
-								<input id="fileItem" class="item_img_input" type="file" name="itemImageURLs[]"></input>
-								<img id="plus" src="/tdu_market/images/plus.png">
-							</label>
-							<div id="deleteButton" onClick="deleteAction();">
-								削除
-							</div>
-							</div>
-							<!-- JavaScript（jQuery） -->
-							<!-- 削除（input） -->
-							<script>
-        					function deleteAction() {
-        						var obj = document.getElementById("fileItem");
-        						obj.value = "";
-        						var img = document.getElementById("plus");
-        						img.src = "/tdu_market/images/plus.png";
-        					}
-    						</script>
-    						<!-- プレビュー -->
-							<script>
-							$('#fileItem').on('change', function (e) {
-							    var reader = new FileReader();
-							    reader.onload = function (e) {
-							        $("#plus").attr('src', e.target.result);
-							    }
-							    reader.readAsDataURL(e.target.files[0]);
-							});
-							</script>
-							<!-- HTML -->
-							<div>
-							<label class="item_img_add_button">
-								<input id="fileItem2" class="item_img_input" type="file" name="itemImageURLs[]"></input>
-								<img id="plus2" src="/tdu_market/images/plus.png">
-							</label>
-							<div id="deleteButton" onClick="deleteAction2();">
-								削除
-							</div>
-							</div>
-							<!-- JavaScript（jQuery） -->
-							<!-- 削除（input） -->
-							<script>
-        					function deleteAction2() {
-        						var obj = document.getElementById("fileItem2");
-        						obj.value = "";
-        						var img = document.getElementById("plus2");
-        						img.src = "/tdu_market/images/plus.png";
-        					}
-    						</script>
-    						<!-- プレビュー -->
-							<script>
-							$('#fileItem2').on('change', function (e) {
-							    var reader = new FileReader();
-							    reader.onload = function (e) {
-							        $("#plus2").attr('src', e.target.result);
-							    }
-							    reader.readAsDataURL(e.target.files[0]);
-							});
-							</script>
-							<!-- HTML -->
-							<div>
-							<label class="item_img_add_button">
-								<input id="fileItem3" class="item_img_input" type="file" name="itemImageURLs[]"></input>
-								<img id="plus3" src="/tdu_market/images/plus.png">
-							</label>
-							<div id="deleteButton" onClick="deleteAction3();">
-								削除
-							</div>
-							</div>
-							<!-- JavaScript（jQuery） -->
-							<!-- 削除（input） -->
-							<script>
-        					function deleteAction3() {
-        						var obj = document.getElementById("fileItem3");
-        						obj.value = "";
-        						var img = document.getElementById("plus3");
-        						img.src = "/tdu_market/images/plus.png";
-        					}
-    						</script>
-    						<!-- プレビュー -->
-							<script>
-							$('#fileItem3').on('change', function (e) {
-							    var reader = new FileReader();
-							    reader.onload = function (e) {
-							        $("#plus3").attr('src', e.target.result);
-							    }
-							    reader.readAsDataURL(e.target.files[0]);
-							});
-							</script>
-							<!-- HTML -->
-							<div>
-							<label class="item_img_add_button">
-								<input id="fileItem4" class="item_img_input" type="file" name="itemImageURLs[]"></input>
-								<img id="plus4" src="/tdu_market/images/plus.png">
-							</label>
-							<div id="deleteButton" onClick="deleteAction4();">
-								削除
-							</div>
-							</div>
-							<!-- JavaScript（jQuery） -->
-							<!-- 削除（input） -->
-							<script>
-        					function deleteAction4() {
-        						var obj = document.getElementById("fileItem4");
-        						obj.value = "";
-        						var img = document.getElementById("plus4");
-        						img.src = "/tdu_market/images/plus.png";
-        					}
-    						</script>
-    						<!-- プレビュー -->
-							<script>
-							$('#fileItem4').on('change', function (e) {
-							    var reader = new FileReader();
-							    reader.onload = function (e) {
-							        $("#plus4").attr('src', e.target.result);
-							    }
-							    reader.readAsDataURL(e.target.files[0]);
-							});
-							</script>
-
+							<!-- 画像の表示に関して -->
+							<%
+							if(info.getItemImageBinaries() == null){
+								out.print("登録された商品画像はありません。");
+							} else {
+								for(int i = 0 ; i < info.getItemImageBinaries().length;i++){
+									out.print("<label class=\"item_img_add_button\">");
+									out.print("<input id=\"fileItem\" class=\"item_img_input\" type=\"file\" name=\"itemImageURLs[]\" value=\""+info.getItemImageBinaries()[i]+"\" disabled=\"disabled\" ></input>");
+									out.print("<img id=\"plus\" src=\""+info.getItemImageBinaries()[i]+"\">");
+									out.print("</label>");
+								}
+							}
+							%>
 							</div>
 						</div>
 						<div class="detail_content">
 							<h3>出品物の説明</h3>
-							<textarea id="exhibit_description_textfield" name="description"></textarea>
+							<textarea id="exhibit_description_textfield" name="description" readonly="readonly"><% info.getDescription(); %></textarea>
 						</div>
 						<div class="detail_content">
 							<h3>状態</h3>
-							<select id="condition" name="condtion">
-								<option value="0">新品・未使用</option>
-								<option value="1">中古（書き込みなし）</option>
-								<option value="2">中古（書き込みあり）</option>
-								<option value="3">破損・汚れあり</option>
+							<select id="condition" name="condtion" disabled="disabled">
+							<%
+							//汚損状態の選択
+							switch(info.getCondition()){
+							case 0:
+								out.print("<option value=\"0\" selected>新品・未使用</option>");
+								out.print("<option value=\"1\">中古（書き込みなし）</option>");
+								out.print("<option value=\"2\">中古（書き込みあり）</option>");
+								out.print("<option value=\"3\">破損・汚れあり</option>");
+								break;
+							case 1:
+								out.print("<option value=\"0\">新品・未使用</option>");
+								out.print("<option value=\"1\" selected>中古（書き込みなし）</option>");
+								out.print("<option value=\"2\">中古（書き込みあり）</option>");
+								out.print("<option value=\"3\">破損・汚れあり</option>");
+								break;
+							case 2:
+								out.print("<option value=\"0\">新品・未使用</option>");
+								out.print("<option value=\"1\">中古（書き込みなし）</option>");
+								out.print("<option value=\"2\" selected>中古（書き込みあり）</option>");
+								out.print("<option value=\"3\">破損・汚れあり</option>");
+								break;
+							case 3:
+								out.print("<option value=\"0\">新品・未使用</option>");
+								out.print("<option value=\"1\">中古（書き込みなし）</option>");
+								out.print("<option value=\"2\">中古（書き込みあり）</option>");
+								out.print("<option value=\"3\" selected>破損・汚れあり</option>");
+								break;
+							default:
+								out.print("<option value=\"0\">新品・未使用</option>");
+								out.print("<option value=\"1\">中古（書き込みなし）</option>");
+								out.print("<option value=\"2\">中古（書き込みあり）</option>");
+								out.print("<option value=\"3\">破損・汚れあり</option>");
+								break;
+							}
+							%>
 							</select>
 						</div>
 						<div class="detail_content">
 							<h3>出品価格</h3>
 							<div class="yen">
-								<input type="number" name="price" />
-								<h4>円</h4>
+								<input type="number" name="price" readonly="readonly" />
+								<h4><%out.print(info.getPrice());%>円</h4>
 							</div>
 						</div>
 					</div>
-				</form>
-				<!-- 中部コンテンツ２ -->
-				<div class="middle2_content">
+					<div class="middle2_content">
 					<button type="submit" name="submit" class="button_flat_submit"
 						id="upload">確認</button>
 				</div>
+				</form>
+				<!-- 中部コンテンツ２ -->
 			</div>
 		</article>
 	</div>
