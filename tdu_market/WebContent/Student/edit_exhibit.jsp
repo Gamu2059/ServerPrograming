@@ -31,7 +31,7 @@
 			<!-- セカンドコンテナ -->
 			<div class="second_container_ver2">
 				<section>
-					<form action="<%=ServletPath.UpdateItemInfo%>" method="post">
+					<form action="<%=ServletPath.UpdateStudentPage%>" method="post">
 					<!-- フォームの初期設定 -->
 					<%
 					//１．更新対象の商品情報を取得
@@ -133,6 +133,7 @@
 			</div>
 			<!-- サードコンテナ -->
 			<div class="third_container_ver2">
+			
 				<button type="button" name="back" class="button_flat_normal"
 					id="back_event">戻る</button>
 				<button type="button" name="back" class="button_flat_submit"

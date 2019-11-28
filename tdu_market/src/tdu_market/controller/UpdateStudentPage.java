@@ -91,7 +91,7 @@ public class UpdateStudentPage extends HttpServlet {
 		student.updateStudentInfo(updateInfo);
 
 		//ページ遷移
-		ControllerUtil.translatePage("/tdu_market/Student/edit_profile_student.jsp", request, response);
+		ControllerUtil.translatePage("/tdu_market/Student/reference_profile_student.jsp", request, response);
 	}
 
     private String getFileName(Part part) {
