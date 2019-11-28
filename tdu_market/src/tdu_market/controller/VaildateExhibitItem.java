@@ -2,7 +2,6 @@ package tdu_market.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,12 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import tdu_market.dto.ReturnInfo;
-import tdu_market.entity_manager.StudentInfoManager;
-import tdu_market.util.ControllerUtil;
-import tdu_market.entity_manager.ItemInfoManager;
 import tdu_market.dto.ItemCreateInfo;
-
+import tdu_market.dto.ReturnInfo;
+import tdu_market.entity_manager.ItemInfoManager;
+import tdu_market.util.ControllerUtil;
 
 /**
  * Servlet implementation class VaildateExhibitItem
@@ -35,14 +32,13 @@ public class VaildateExhibitItem extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("VaildateExhibitItem is non implementation!");
 
-		
 		//出品物情報の検証を行うクラス。正しい場合は、jspの確認画面へ遷移させる。
-		
-		
+
 		//ログイン状態の検証
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			return;
@@ -50,15 +46,20 @@ public class VaildateExhibitItem extends HttpServlet {
 
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		request.getParameter("mailaddress");
-		ItemCreateInfo createInfo = new ItemCreateInfo(request.getParameter("exhibitorMailAddress"), request.getParameter("itemName"), request.getParameter("description"),Integer.valueOf(request.getParameter("condtion")).intValue() , Integer.valueOf(request.getParameter("price")).intValue(),
+		ItemCreateInfo createInfo = new ItemCreateInfo(request.getParameter("exhibitorMailAddress"),
+				request.getParameter("itemName"), request.getParameter("description"),
+				Integer.valueOf(request.getParameter("condtion")).intValue(),
+				Integer.valueOf(request.getParameter("price")).intValue(),
 				request.getParameter("relatedClassCode"), request.getParameterValues("itemImageURLs"));
 		ReturnInfo itemResult = itemInfo.validateRegisterExhibitItem(createInfo);
 
-		if(itemResult.isSuccess()) {
+		if (itemResult.isSuccess()) {
+			//確定したデータをjspに送る
+			HttpSession session = request.getSession();
+			session.setAttribute("itemResult", itemResult);
 			//ページ遷移(本当にこれで出品しますか？のようなjsp)
 			ControllerUtil.translatePage("/tdu_market/Student/confirm_register_exhibit.jsp", request, response);
-		}
-		else {
+		} else {
 			//ページ遷移
 			//入力値が不正だったときの遷移先
 			ControllerUtil.translatePage("/tdu_market/Student/register_exhibit.jsp", request, response);
@@ -66,5 +67,3 @@ public class VaildateExhibitItem extends HttpServlet {
 		}
 	}
 }
-
-
