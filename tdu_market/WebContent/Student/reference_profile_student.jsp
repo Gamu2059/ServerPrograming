@@ -26,7 +26,7 @@
 				<h2>ユーザー情報</h2>
 				<div class="profile_edit_button">
 					<!-- EditStudentPageへ処理を引き継ぐ -->
-					<form action="../EditStudentPage" method="get">
+					<form action="<%=ServletPath.EditStudentPage %>" method="get">
 						<button type="submit" class="button_flat_normal" id="edit">編集</button>
 					</form>
 				</div>

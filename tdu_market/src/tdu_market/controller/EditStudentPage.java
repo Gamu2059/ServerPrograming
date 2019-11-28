@@ -14,6 +14,7 @@ import tdu_market.dto.ReturnInfo;
 import tdu_market.dto.StudentGetInfo;
 import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class EditStudentPage
@@ -54,7 +55,7 @@ public class EditStudentPage extends HttpServlet {
 		session.setAttribute("studentInfo", studentInfo);
 
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Student/edit_profile_sutudent.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.edit_profile_student, request, response);
 		
 
 		/*
