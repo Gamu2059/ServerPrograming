@@ -46,7 +46,7 @@
 					</div>
 					<div class="input_content">
 						<h2>ディスプレイネーム</h2>
-						<input type="text" name="text" placeholder="" />
+						<input type="text" name="displayName" placeholder="" />
 					</div>
 					<div class="input_content">
 						<h2>パスワード</h2>
