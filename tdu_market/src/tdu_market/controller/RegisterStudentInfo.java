@@ -19,7 +19,7 @@ import tdu_market.util.ControllerUtil;
  * Servlet implementation class RegisterStudentInfo
  */
 @WebServlet("/tdu_market/controller/RegisterStudentInfo")
-@MultipartConfig(maxFileSize = 1024*1024)
+@MultipartConfig(maxFileSize = 1024 * 1024)
 public class RegisterStudentInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -36,31 +36,26 @@ public class RegisterStudentInfo extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 
 		StudentInfoManager student = new StudentInfoManager();
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			return;
 		}
 
+		request.setCharacterEncoding("UTF-8");
+
 		//入力フォームの必要事項が入力されているかチェック
 		//ここではjsp側でしているため、していない
 		String mailAddress = ControllerUtil.getMailAddress(request, response);
 		String password = request.getParameter("nonHashedPassword");
-		String name = request.getParameter("selfIntroduction");
+		String name = request.getParameter("displayName");
+		String intro = request.getParameter("selfIntroduction");
 		Part part = request.getPart("iconImageURL");
 		InputStream is = part.getInputStream();
 
 		// 学生は仮登録時点で所属学科が確定するので subjectID = -1
 		// TODO urlは後々に変更する
-		StudentUpdateInfo studentInfo = new StudentUpdateInfo(
-				mailAddress,
-				password,
-				request.getParameter("displayName"),
-				-1,
-				name,
-				is
-				);
+		StudentUpdateInfo studentInfo = new StudentUpdateInfo(mailAddress, password, name, -1, intro, is);
 
 		//アカウントの仮登録状態を登録済みに、各種情報を入力されたものに変更。
 		student.updateStudentInfo(studentInfo);
@@ -68,6 +63,5 @@ public class RegisterStudentInfo extends HttpServlet {
 		//遷移
 		TopPage topPage = new TopPage();
 		topPage.doGet(request, response);
-//		ControllerUtil.translatePage("/tdu_market/general/index.jsp", request, response);
 	}
 }
