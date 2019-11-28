@@ -2,7 +2,6 @@ package tdu_market.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,16 +38,16 @@ public class ManagerUpdateStudentInfo extends HttpServlet {
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			return;
 		}
-		
+
 		//必要項目の入力チェック（jsp側）
-		
+
 		//アカウントの情報を変更
 		StudentUpdateInfo updateInfo = new StudentUpdateInfo(request.getParameter("mailaddress"), request.getParameter("nonHashedPassword"), request.getParameter("displayName"), Integer.valueOf(request.getParameter("departmentID")).longValue(), request.getParameter("selfIntroduction"), request.getParameter("iconImageURL"));
 		student.updateStudentInfo(updateInfo);
 		//遷移
 		ControllerUtil.translatePage("/tdu_market/Admin/edit_student_by_admin.jsp", request, response);
-	
-	
+
+
 	}
 
 }

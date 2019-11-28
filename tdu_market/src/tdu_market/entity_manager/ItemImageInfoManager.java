@@ -6,6 +6,7 @@ import tdu_market.dao.ItemImageInfoDAO;
 import tdu_market.dto.ItemImageCreateInfo;
 import tdu_market.dto.ItemImageGetInfo;
 import tdu_market.entity_bean.ItemImageInfo;
+import tdu_market.util.ImageUtil;
 
 /** 原則として、ItemInfoManagerから呼び出される前提になっています。 */
 public final class ItemImageInfoManager {
@@ -21,7 +22,7 @@ public final class ItemImageInfoManager {
 
 		String[] binaries = new String[getResult.size()];
 		for (int i = 0; i < getResult.size(); i++) {
-			binaries[i] = getResult.get(i).getImageBinary();
+			binaries[i] = ImageUtil.getImage(getResult.get(i).getImageBinary());
 		}
 
 		return new ItemImageGetInfo(itemID, binaries);

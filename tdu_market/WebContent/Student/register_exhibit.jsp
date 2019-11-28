@@ -167,7 +167,7 @@
 							    reader.readAsDataURL(e.target.files[0]);
 							});
 							</script>
-
+        
 							</div>
 						</div>
 						<div class="detail_content">

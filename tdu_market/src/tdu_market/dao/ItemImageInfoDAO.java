@@ -1,5 +1,6 @@
 package tdu_market.dao;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -70,7 +71,7 @@ public final class ItemImageInfoDAO extends DAOBase {
 
 		try {
 
-			String[] imageBinaries = itemImageCreateInfo.getItemImageBinaries();
+			InputStream[] imageBinaries = itemImageCreateInfo.getItemImageBinaries();
 			StringBuilder builder = new StringBuilder("insert into \"ItemImageInfo\" (\"itemID\", \"imageBinary\") values");
 			for (int i = 0; i < imageBinaries.length; i++) {
 				if (i > 0) {
@@ -84,7 +85,7 @@ public final class ItemImageInfoDAO extends DAOBase {
 
 			for (int i = 0; i < imageBinaries.length; i++) {
 				pstmt.setLong(i * 2 + 1, itemImageCreateInfo.getItemID());
-				pstmt.setString(i * 2 + 2, imageBinaries[i]);
+				pstmt.setBinaryStream(i * 2 + 2, imageBinaries[i]);
 			}
 
 			int result = pstmt.executeUpdate();

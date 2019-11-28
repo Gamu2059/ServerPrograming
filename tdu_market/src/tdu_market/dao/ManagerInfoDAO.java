@@ -1,5 +1,6 @@
 package tdu_market.dao;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -124,11 +125,11 @@ public final class ManagerInfoDAO extends DAOBase {
 			String hashedPassword = PasswordUtil.getHashedPassword(managerUpdateInfo.getNonHashedPassword(),
 					mailAddress);
 			String displayName = managerUpdateInfo.getDisplayName();
-			String iconImageBinary = managerUpdateInfo.getIconImageBinary();
+			InputStream iconImageBinary = managerUpdateInfo.getIconImageBinary();
 
 			pstmt.setString(1, hashedPassword);
 			pstmt.setString(2, displayName);
-			pstmt.setString(3, iconImageBinary);
+			pstmt.setBinaryStream(3, iconImageBinary);
 			pstmt.setString(4, mailAddress);
 
 			int result = pstmt.executeUpdate();

@@ -18,8 +18,8 @@ public final class ManagerInfo extends UseBase implements Serializable {
 	@Override
 	public String toString() {
 		return "ManagerInfo [mailAddress=" + mailAddress + ", hashedPassword=" + hashedPassword + ", displayName="
-				+ displayName + ", iconImageBinary=" + iconImageBinary + ", registerState=" + registerState
-				+ ", createdDate=" + createdDate + ", lastLoginDate=" + lastLoginDate + "]";
+				+ displayName + ", registerState=" + registerState + ", createdDate=" + createdDate + ", lastLoginDate="
+				+ lastLoginDate + "]";
 	}
 
 	@Override
