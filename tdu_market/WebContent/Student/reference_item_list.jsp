@@ -1,6 +1,7 @@
 <%@page import="tdu_market.controller.ReferItemPage"%>
 <%@page import="tdu_market.dto.ItemGetInfo"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="tdu_market.util.ServletPath"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -48,7 +49,7 @@
 				out.print("商品が見つかりませんでした。");
 			} else {
 				for(int i=0;i<itemList.size();i++){
-					out.print("<form action=\"../ReferItemPage\" method=\"get\">");
+					out.print("<form action=\"/tdu_market/tdu_market/controller/ReferItemPage\" method=\"get\">");
 					out.print("<button type=\"submit\" id=\"item_button\">");
 					out.print("<img src=\""+itemList.get(i).getItemImageBinaries()[0]+"\" alt=\"商品画像\" />");
 					out.print("<h5>"+itemList.get(i).getItemName()+"</h5>");

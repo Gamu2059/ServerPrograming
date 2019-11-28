@@ -1,5 +1,6 @@
 <%@page import="tdu_market.dto.*"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="tdu_market.util.ServletPath"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -41,7 +42,7 @@
 						messageRoomList = (ArrayList<MessageRoomGetInfo>)session.getAttribute("messageRoomInfoList");
 						if(messageRoomList != null){
 							for(int i=0;i<messageRoomList.size();i++){
-								out.print("<form action=\"../ReferMessageBoxListPage\" method=\"post\">");
+								out.print("<form action=\"/tdu_market/tdu_market/controller/ReferMessageBoxListPage\" method=\"post\">");
 								out.print("<input type=\"hidden\" name=\"studentNumber\" value=\""+messageRoomList.get(i).getOpponentStudentGetInfo().getMailAddress()+"\" />");
 								out.print("<button type=\"submit\" for=\"message1\" class=\"message_list_tab\">");
 								out.print("<img src=\""+messageRoomList.get(i).getOpponentStudentGetInfo().getIconImageBinary()+"\" alt=\"アイコン\" />");
@@ -102,7 +103,7 @@
 						</div>
 						<!--メッセージフォーム-->
 						<div class="textfield">
-							<form action="../PostMessage" method="post">
+							<form action="<%=ServletPath.PostMessage%>" method="post">
 								<textarea id="message_form" name="message_form" cols="50"
 									rows="2" placeholder="メッセージを入力"></textarea>
 								<button type="submit"><img src="/tdu_market/images/post.png" alt="post" /></button>

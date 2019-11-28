@@ -54,7 +54,7 @@ public class EditStudentPage extends HttpServlet {
 		session.setAttribute("studentInfo", studentInfo);
 
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Student/edit_profile_sutudent.jsp", request, response);
+		ControllerUtil.translatePage("/tdu_market/Student/edit_profile_student.jsp", request, response);
 		
 
 		/*

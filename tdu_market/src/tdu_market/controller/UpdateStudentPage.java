@@ -55,6 +55,7 @@ public class UpdateStudentPage extends HttpServlet {
 		StudentInfoManager student = new StudentInfoManager();
 		ReturnInfo updateResult = student.updateStudentInfo(updateInfo);
 
+
 		if (updateResult.isSuccess()) {
 			session.setAttribute("errorInfo", null);
 		} else {

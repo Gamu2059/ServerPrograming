@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@page import="tdu_market.util.ServletPath"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +27,7 @@
 			<div class="second_container_ver4">
 				<h3>シラバス照会</h3>
 				<br>
-				<form action="ReferSyllabusListPage" method="post">
+				<form action="<%=ServletPath.ReferSyllabusListPage%>" method="post">
 					<div class="detail_content">
 						<h3>授業コード</h3>
 						<input id="class_code_field" type="text" name="classCode">

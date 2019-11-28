@@ -1,5 +1,6 @@
 <%@page import="tdu_market.entity_bean.StudentInfo"%>
 <%@page import="tdu_market.dto.*"%>
+<%@page import="tdu_market.util.ServletPath"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -29,7 +30,7 @@
 			</div>
 			<!-- セカンドコンテナ -->
 			<div class="second_container_ver2">		
-				<form action="../UpdateStudentPage" method="post" enctype="multipart/form-data">
+				<form action="<%=ServletPath.UpdateStudentPage%>" method="post" enctype="multipart/form-data">
 				<%
 				//Get information
 				StudentGetInfo info = (StudentGetInfo)session.getAttribute("studentInfo");

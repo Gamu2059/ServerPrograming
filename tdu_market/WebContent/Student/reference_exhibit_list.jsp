@@ -1,5 +1,6 @@
 <%@page import="tdu_market.dto.ItemGetInfo"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="tdu_market.util.ServletPath"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -48,7 +49,7 @@
 						if(itemList != null){
 							for(int i=0; i<itemList.size();i++){
 								if(itemList.get(i).getTradingState() == 0){
-									out.print("<form action=\"../ReferExhibitItemPage\" method=\"get\">");
+									out.print("<form action=\"/tdu_market/tdu_market/controller/ReferExhibitItemPage\" method=\"get\">");
 									out.print("<button id=\"exhibit_button\" type=\"submit\">");
 									out.print("<img src=\"itemList.get(i).getItemImageBinaries()[0]\" alt=\"商品画像\">");
 									out.print("<label id=\"item_name\">"+itemList.get(i).getItemName()+"</label>");
@@ -70,7 +71,7 @@
 						if(itemList != null){
 							for(int i=0; i<itemList.size();i++){
 								if(itemList.get(i).getTradingState() == 1){
-									out.print("<form action=\"../ReferExhibitItemPage\" method=\"get\">");
+									out.print("<form action=\"/tdu_market/tdu_market/controller/ReferExhibitItemPage\" method=\"get\">");
 									out.print("<button id=\"exhibit_button\" type=\"submit\">");
 									out.print("<img src=\"itemList.get(i).getItemImageBinaries()[0]\" alt=\"商品画像\">");
 									out.print("<label id=\"item_name\">"+itemList.get(i).getItemName()+"</label>");
