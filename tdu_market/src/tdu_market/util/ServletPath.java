@@ -39,6 +39,10 @@ public class ServletPath{
     public static final String ReferSyllabusPage = "/tdu_market/tdu_market/controller/ReferSyllabusPage";
     public static final String RegisterManagerInfo = "/tdu_market/tdu_market/controller/RegisterManagerInfo";
     public static final String RegisterStudentInfo = "/tdu_market/tdu_market/controller/RegisterStudentInfo";
+    public static final String RegisterExhibitItemPage = "/tdu_market/tdu_market/controller/ExhibitItemPage";
+    public static final String RegisterItemInfo = "/tdu_market/tdu_market/controller/RegisterItemInfo";
+    public static final String RegisterSyllabusInfo = "/tdu_market/tdu_market/controller/RegisterSyllabusInfo";
+    public static final String RegisterSyllabusPage = "/tdu_market/tdu_market/controller/RegisterSyllabusPage";
     public static final String SearchItemPage = "/tdu_market/tdu_market/controller/SearchItemPage";
     public static final String SearchSyllabusPage = "/tdu_market/tdu_market/controller/SearchSyllabusPage";
     public static final String SendMail = "/tdu_market/tdu_market/controller/SendMail";
