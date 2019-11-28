@@ -1,71 +1,86 @@
 package tdu_market.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Collection;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import tdu_market.dto.ItemCreateInfo;
 import tdu_market.dto.ReturnInfo;
 import tdu_market.entity_manager.ItemInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
-/**
- * Servlet implementation class VaildateExhibitItem
- */
 @WebServlet("/tdu_market/controller/VaildateExhibitItem")
+@MultipartConfig(maxFileSize = 1024 * 1024)
 public class VaildateExhibitItem extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public VaildateExhibitItem() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.err.println("VaildateExhibitItem is non implementation!");
 
-		//出品物情報の検証を行うクラス。正しい場合は、jspの確認画面へ遷移させる。
-
-		//ログイン状態の検証
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 
-		ItemInfoManager itemInfo = new ItemInfoManager();
-		ItemCreateInfo createInfo = new ItemCreateInfo(ControllerUtil.getMailAddress(request, response),
-				request.getParameter("itemName"), request.getParameter("description"),
-				Integer.valueOf(request.getParameter("condtion")).intValue(),
-				Integer.valueOf(request.getParameter("price")).intValue(),
-				request.getParameter("relatedClassCode"), request.getParameterValues("itemImageURLs"));
-		ReturnInfo itemResult = itemInfo.validateRegisterExhibitItem(createInfo);
+		request.setCharacterEncoding("UTF-8");
 
-		if (itemResult.isSuccess()) {
-			//確定したデータをjspに送る
-			HttpSession session = request.getSession();
+		String mailAddress = ControllerUtil.getMailAddress(request, response);
+		String itemName = request.getParameter("itemName");
+		String description = request.getParameter("description");
+		String conditionStr = request.getParameter("condtion");
+		String priceStr = request.getParameter("price");
+		String relatedClassCode = request.getParameter("relatedClassCode");
+
+		int condition = -1;
+		try {
+			condition = Integer.parseInt(conditionStr);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		}
+
+		int price = -1;
+		try {
+			price = Integer.parseInt(priceStr);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		}
+
+		InputStream[] iss = null;
+		Collection<Part> parts = request.getParts();
+		if (parts != null) {
+			iss = new InputStream[parts.size()];
+			int i = 0;
+			for (Part p : parts) {
+				iss[i] = p.getInputStream();
+				i++;
+			}
+		}
+
+		ItemCreateInfo createInfo = new ItemCreateInfo(mailAddress, itemName, description, condition, price,
+				relatedClassCode, iss);
+		ItemInfoManager itemInfo = new ItemInfoManager();
+		ReturnInfo validateResult = itemInfo.validateRegisterExhibitItem(createInfo);
+
+		HttpSession session = request.getSession();
+
+		if (validateResult.isSuccess()) {
+
 			session.setAttribute("createInfo", createInfo);
-			//ページ遷移(本当にこれで出品しますか？のようなjsp)
-			ControllerUtil.translatePage("/tdu_market/Student/confirm_register_exhibit.jsp", request, response);
+			ControllerUtil.translatePage(JspPath.confirm_register_exhibit, request, response);
 		} else {
-			//ページ遷移
-			//入力データを差し戻す
-			HttpSession session = request.getSession();
+
 			session.setAttribute("info", createInfo);
-			System.out.println(itemResult);
-			//入力値が不正だったときの遷移先
-			ControllerUtil.translatePage("/tdu_market/Student/register_exhibit.jsp", request, response);
+			ControllerUtil.translatePage(JspPath.register_exhibit, request, response);
 
 		}
 	}
