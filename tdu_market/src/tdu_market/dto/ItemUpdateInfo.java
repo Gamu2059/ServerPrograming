@@ -1,5 +1,7 @@
 package tdu_market.dto;
 
+import java.io.InputStream;
+
 public class ItemUpdateInfo {
 
 	private final long itemID;
@@ -8,10 +10,10 @@ public class ItemUpdateInfo {
 	private final int condition;
 	private final int price;
 	private final String relatedClassCode;
-	private final String[] itemImageBinaries;
+	private final InputStream[] itemImageBinaries;
 
 	public ItemUpdateInfo(long itemID, String itemName, String description, int condition, int price,
-			String relatedClassCode, String[] itemImageBinaries) {
+			String relatedClassCode, InputStream[] itemImageBinaries) {
 		super();
 		this.itemID = itemID;
 		this.itemName = itemName;
@@ -46,7 +48,7 @@ public class ItemUpdateInfo {
 		return relatedClassCode;
 	}
 
-	public String[] getItemImageBinaries() {
+	public InputStream[] getItemImageBinaries() {
 		return itemImageBinaries;
 	}
 }

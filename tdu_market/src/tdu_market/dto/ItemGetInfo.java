@@ -85,7 +85,7 @@ public class ItemGetInfo {
 		String[] binaries = null;
 
 		if (itemImageGetInfo != null) {
-			binaries = itemImageGetInfo.getItemImageURLs();
+			binaries = itemImageGetInfo.getItemImageBinaries();
 		}
 
 		return new ItemGetInfo(itemID, name, desc, cond, price, state, exhibitDate, exhibitorMailAddress, binaries);

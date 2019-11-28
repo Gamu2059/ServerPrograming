@@ -1,5 +1,6 @@
 package tdu_market.entity_bean;
 
+import java.io.InputStream;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +15,7 @@ public final class ItemImageInfo implements Serializable {
 
 	private long imageID;
 	private long itemID;
-	private String imageBinary;
+	private InputStream imageBinary;
 
 	public ItemImageInfo() {
 		super();
@@ -36,17 +37,18 @@ public final class ItemImageInfo implements Serializable {
 		this.itemID = itemID;
 	}
 
-	public String getImageBinary() {
+	public InputStream getImageBinary() {
 		return imageBinary;
 	}
 
-	public void setImageBinary(String imageBinary) {
+	public void setImageBinary(InputStream imageBinary) {
 		this.imageBinary = imageBinary;
 	}
 
 	@Override
 	public String toString() {
-		return "ItemImageInfo [imageID=" + imageID + ", itemID=" + itemID + ", imageBinary=" + imageBinary + "]";
+		// 画像はとても重いので表示しない
+		return "ItemImageInfo [imageID=" + imageID + ", itemID=" + itemID + "]";
 	}
 
 	public static ItemImageInfo create(ResultSet resultSet) throws SQLException {
@@ -59,7 +61,7 @@ public final class ItemImageInfo implements Serializable {
 
 		itemImageInfo.setImageID(resultSet.getLong(IMAGE_ID));
 		itemImageInfo.setItemID(resultSet.getLong(ITEM_ID));
-		itemImageInfo.setImageBinary(resultSet.getString(IMAGE_BINARY));
+		itemImageInfo.setImageBinary(resultSet.getBinaryStream(IMAGE_BINARY));
 
 		return itemImageInfo;
 	}

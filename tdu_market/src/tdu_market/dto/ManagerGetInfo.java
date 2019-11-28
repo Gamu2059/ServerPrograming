@@ -1,6 +1,7 @@
 package tdu_market.dto;
 
 import tdu_market.entity_bean.ManagerInfo;
+import tdu_market.util.ImageUtil;
 
 public class ManagerGetInfo {
 
@@ -42,7 +43,7 @@ public class ManagerGetInfo {
 
 		String addr = managerInfo.getMailAddress();
 		String disp = managerInfo.getDisplayName();
-		String icon = managerInfo.getIconImageBinary();
+		String icon = ImageUtil.getImage(managerInfo.getIconImageBinary());
 		return new ManagerGetInfo(addr, disp, icon);
 	}
 }
