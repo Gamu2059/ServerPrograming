@@ -118,7 +118,7 @@ public final class StudentInfoManager {
 			DepartmentInfoManager departmentInfoManager = new DepartmentInfoManager();
 			ArrayList<DepartmentGetInfo> depList = departmentInfoManager.getAllDepartmentInfoList(false);
 			long subjectID = -1;
-			for(DepartmentGetInfo dep : depList) {
+			for (DepartmentGetInfo dep : depList) {
 				if (subjectSymbol.equals(dep.getSubjectSymbol().toLowerCase())) {
 					subjectID = dep.getSubjectID();
 					break;
@@ -145,11 +145,31 @@ public final class StudentInfoManager {
 		return StudentGetInfo.create(studentInfo);
 	}
 
-	/** アカウントを更新する。 */
-	public void updateStudentInfo(StudentUpdateInfo studentUpdateInfo) {
+	/** アカウントを更新する。 更新に成功した場合は、trueの情報を返す。*/
+	public ReturnInfo updateStudentInfo(StudentUpdateInfo studentUpdateInfo) {
+
+		String mailAddress = studentUpdateInfo.getMailAddress();
+		String nonHashedPassword = studentUpdateInfo.getNonHashedPassword();
+
+		// メールアドレスがメールアドレスの体を成しているか確認
+		if (!AccountUtil.isMeetRequirementMailAddress(mailAddress)) {
+			return new ReturnInfo("これはメールアドレスではありません。");
+		}
+
+		// メールアドレスが学生メールアドレスであるか確認
+		if (!AccountUtil.isStudentMailAddress(mailAddress)) {
+			return new ReturnInfo("このメールアドレスは学生アカウントとして使用できません。");
+		}
+
+		// パスワードが条件を満たしているか確認
+		if (!AccountUtil.isMeetRequirementPassword(nonHashedPassword)) {
+			return new ReturnInfo("パスワードは、8～16文字の英数字で設定して下さい。");
+		}
 
 		StudentInfoDAO studentInfoDAO = new StudentInfoDAO();
 		studentInfoDAO.updateStudentInfo(studentUpdateInfo);
+
+		return new ReturnInfo("", true);
 	}
 
 	/** アカウントを削除する。 */
@@ -163,7 +183,7 @@ public final class StudentInfoManager {
 
 		// ルーム情報を削除する
 		MessageRoomInfoManager messageRoomInfoManager = new MessageRoomInfoManager();
-		for(long roomID : roomMemberGetInfo.getRoomIDs()) {
+		for (long roomID : roomMemberGetInfo.getRoomIDs()) {
 			messageRoomInfoManager.deleteMessageRoomInfo(roomID);
 		}
 
@@ -188,30 +208,30 @@ public final class StudentInfoManager {
 		return result;
 	}
 
-//	public static void main(String[] args) {
-//
-//		StudentInfoManager manager = new StudentInfoManager();
-//
-//		final String mail = "17fi103@ms.dendai.ac.jp";
-//		final String pass = "HSsm49Y55XmfFk";
-//		final String name = "Gamu";
-//
-//		ReturnInfo existResult = manager.existMailAddress(mail);
-//		if (existResult != null && existResult.isSuccess()) {
-//			manager.deleteStudentInfo(mail);
-//		}
-//
-//		ReturnInfo createResult = manager.createTemporaryAccount(mail);
-//		System.out.println(createResult);
-//
-//		if (createResult.isSuccess()) {
-//			System.out.println("初回パスワード : " + createResult.getMsg());
-//			System.out.println("初回ログイン");
-//			ReturnInfo loginResult = manager.login(new LoginInfo(mail, createResult.getMsg()));
-//			System.out.println(loginResult);
-//
-//			System.out.println("初回アカウント設定");
-//			manager.updateStudentInfo(new StudentUpdateInfo(mail, pass, name, 11, "", ""));
-//		}
-//	}
+	//	public static void main(String[] args) {
+	//
+	//		StudentInfoManager manager = new StudentInfoManager();
+	//
+	//		final String mail = "17fi103@ms.dendai.ac.jp";
+	//		final String pass = "HSsm49Y55XmfFk";
+	//		final String name = "Gamu";
+	//
+	//		ReturnInfo existResult = manager.existMailAddress(mail);
+	//		if (existResult != null && existResult.isSuccess()) {
+	//			manager.deleteStudentInfo(mail);
+	//		}
+	//
+	//		ReturnInfo createResult = manager.createTemporaryAccount(mail);
+	//		System.out.println(createResult);
+	//
+	//		if (createResult.isSuccess()) {
+	//			System.out.println("初回パスワード : " + createResult.getMsg());
+	//			System.out.println("初回ログイン");
+	//			ReturnInfo loginResult = manager.login(new LoginInfo(mail, createResult.getMsg()));
+	//			System.out.println(loginResult);
+	//
+	//			System.out.println("初回アカウント設定");
+	//			manager.updateStudentInfo(new StudentUpdateInfo(mail, pass, name, 11, "", ""));
+	//		}
+	//	}
 }
