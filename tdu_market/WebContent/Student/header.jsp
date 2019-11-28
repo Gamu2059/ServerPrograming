@@ -1,4 +1,5 @@
 <%@page import="tdu_market.dto.StudentGetInfo"%>
+<%@page import="tdu_market.util.ServletPath"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -23,11 +24,16 @@
 	<div class="header_menu">
 		<!-- メニュー -->
 		<ul>
-			<li><a href="search_from_exhibit.jsp">名前から検索</a>
-			<li><a href="search_from_syllabus.jsp">シラバスから検索</a>
-			<li><form action="../ReferMessageBoxListPage" method="post"><button type="submit" class="noneButton"><a><img src="/tdu_market/images/message.png" alt="メッセージアイコン"></a></button></form>
-			<li><img src="/tdu_market/images/icon.png" alt="ユーザーアイコン"
-				id="user_information_controller">
+			<li><a href=<%=ServletPath.SearchItemPage%>>名前から検索</a>
+			<li><a href=<%=ServletPath.SearchSyllabusPage%>>シラバスから検索</a>
+			<li><form action="<%=ServletPath.ReferMessageBoxListPage%>" method="post">
+			<button type="submit" class="noneButton">
+			<a><img src="/tdu_market/images/message.png" alt="メッセージアイコン"></a></button></form>
+			<li>
+			<form action="<%=ServletPath.ReferStudentPage%>" method="get">
+			<button type="submit" class="noneButton">
+			<img src="/tdu_market/images/icon.png" alt="ユーザーアイコン"
+				id="user_information_controller"></button></form>
 		</ul>
 	</div>
 </header>
@@ -48,13 +54,13 @@
 	<div class="another">
 		<h2>
 			<!-- 	<a href="/tdu_market/Student/reference_exhibit_list.jsp">出品物情報</a> -->
-			<form action="../ReferExhibitItemListPage" method="get">
+			<form action="<%=ServletPath.ReferExhibitItemListPage%>" method="get">
 				<button type="submit"
 					style="background: #ffffff; color: blue; border: none;">出品物情報</button>
 			</form>
 		</h2>
 		<h3>
-			<form action="../ReferStudentPage" method="get">
+			<form action="<%=ServletPath.ReferStudentPage%>" method="get">
 				<button type="submit"
 					style="background: #ffffff; color: blue; border: none;">ユーザー情報設定</button>
 			</form>

@@ -1,5 +1,6 @@
 <%@page import="tdu_market.dto.RelatedClassGetInfo"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="tdu_market.util.ServletPath"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -90,7 +91,7 @@
 				<p>取引を申し込みますか？</p>
 				<div class="confirm_dialog_button">
 					<!-- BuyItemに処理を引き継ぐ -->
-					<form action="../BuyItem" method="post">
+					<form action="<%=ServletPath.BuyItem%>" method="post">
 						<%
 						out.print("<input type=\"hidden\" name=\"beginTraderMailAddress\" value=\""+ session.getAttribute("meiladdress") +"\"/>");
 						out.print("<input type=\"hidden\" name=\"tradedItemID\" value=\""+ info.get(0).getItemGetInfo().getItemID() +"\"/>");

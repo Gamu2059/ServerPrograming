@@ -1,4 +1,5 @@
 <%@page import="java.util.ArrayList"%>
+<%@page import="tdu_market.util.ServletPath"%>
 <%@page import="tdu_market.dto.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -30,7 +31,7 @@
 			<!-- セカンドコンテナ -->
 			<div class="second_container_ver2">
 				<section>
-					<form action="../UpdateItemInfo" method="post">
+					<form action="<%=ServletPath.UpdateItemInfo%>" method="post">
 					<!-- フォームの初期設定 -->
 					<%
 					//１．更新対象の商品情報を取得

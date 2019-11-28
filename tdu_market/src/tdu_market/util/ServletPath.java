@@ -31,6 +31,7 @@ public class ServletPath{
     public static final String ReferExhibitItemPage = "/tdu_market/tdu_market/controller/ReferExhibitItemPage";
     public static final String ReferItemListPage = "/tdu_market/tdu_market/controller/ReferItemListPage";
     public static final String ReferItemPage = "/tdu_market/tdu_market/controller/ReferItemPage";
+    public static final String RegisterItemPage = "/tdu_market/tdu_market/controller/RegisterItemPage";
     public static final String ReferManagerPage = "/tdu_market/tdu_market/controller/ReferManagerPage";
     public static final String ReferMessageBoxListPage = "/tdu_market/tdu_market/controller/ReferMessageBoxListPage";
     public static final String ReferStudentListPage = "/tdu_market/tdu_market/controller/ReferStudentListPage";

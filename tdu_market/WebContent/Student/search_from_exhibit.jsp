@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@page import="tdu_market.util.ServletPath"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +27,7 @@
 			<div class="second_container_ver4">
 				<h3>商品検索</h3>
 				<br>
-				<form action="../ReferItemListPage" method="post">
+				<form action="<%=ServletPath.ReferItemListPage%>" method="post">
 					<div class="detail_content">
 						<h3>商品名</h3>
 						<input id="item_name_field" type="text" name="itemNameKeyword">
