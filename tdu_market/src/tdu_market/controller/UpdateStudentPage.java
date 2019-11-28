@@ -13,10 +13,18 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import tdu_market.dto.ReturnInfo;
+import tdu_market.dto.StudentGetInfo;
+
 import tdu_market.dto.StudentUpdateInfo;
 import tdu_market.entity_manager.StudentInfoManager;
+import tdu_market.util.AccountUtil;
 import tdu_market.util.ControllerUtil;
 import tdu_market.util.JspPath;
+import tdu_market.util.ServletPath;
+
+/**
+ * Servlet implementation class UpdateStudentPage
+ */
 
 @WebServlet("/tdu_market/controller/UpdateStudentPage")
 @MultipartConfig(maxFileSize = 1024 * 1024)
@@ -32,6 +40,7 @@ public class UpdateStudentPage extends HttpServlet {
 		}
 
 		request.setCharacterEncoding("UTF-8");
+		//必要項目の入力チェック（jsp側）
 		HttpSession session = request.getSession();
 
 		//入力フォームの必要事項が入力されているかチェック
@@ -51,17 +60,28 @@ public class UpdateStudentPage extends HttpServlet {
 		}
 
 		// 学生自身は所属学科を変更できないため、subjectID = -1
-		StudentUpdateInfo updateInfo = new StudentUpdateInfo(mailAddress,pass1,name,-1,intro,is);
-		StudentInfoManager student = new StudentInfoManager();
-		ReturnInfo updateResult = student.updateStudentInfo(updateInfo);
-
+		// TODO urlは、後々バイナリで受け取る用の処理の変更する
+		StudentUpdateInfo updateInfo = new StudentUpdateInfo(
+				mailAddress,
+				pass1,
+				name,
+				-1,
+				intro,
+				is
+				);
+		student.updateStudentInfo(updateInfo);
 
 		if (updateResult.isSuccess()) {
 			session.setAttribute("errorInfo", null);
 		} else {
 			session.setAttribute("errorInfo", updateResult.getMsg());
 		}
+		//セッションの値を更新
+		StudentInfoManager studentInfoManager = new StudentInfoManager();
+		StudentGetInfo studentInfo = studentInfoManager.getStudentInfo((String)session.getAttribute("mailaddress"));
+		session.setAttribute("studentInfo", studentInfo);
 
-		ControllerUtil.translatePage(JspPath.edit_profile_student, request, response);
+		//ページ遷移
+		ControllerUtil.translatePage(ServletPath.ReferStudentPage, request, response);
 	}
 }
