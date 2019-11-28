@@ -56,7 +56,7 @@ public class VaildateExhibitItem extends HttpServlet {
 		if (itemResult.isSuccess()) {
 			//確定したデータをjspに送る
 			HttpSession session = request.getSession();
-			session.setAttribute("itemResult", itemResult);
+			session.setAttribute("createInfo", createInfo);
 			//ページ遷移(本当にこれで出品しますか？のようなjsp)
 			ControllerUtil.translatePage("/tdu_market/Student/confirm_register_exhibit.jsp", request, response);
 		} else {
