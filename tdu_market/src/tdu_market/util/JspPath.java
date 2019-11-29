@@ -1,7 +1,9 @@
 package tdu_market.util;
 
 public class JspPath{
+
     //Student
+	public static final String confirm_register_exhibit = "/tdu_market/Student/confirm_register_exhibit.jsp";
     public static final String edit_exhibit = "/tdu_market/Student/edit_exhibit.jsp";
     public static final String edit_profile_student = "/tdu_market/Student/edit_profile_student.jsp";
     public static final String header = "/tdu_market/Student/header.jsp";

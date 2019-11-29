@@ -1,58 +1,74 @@
 package tdu_market.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Collection;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import tdu_market.dto.ItemCreateInfo;
-import tdu_market.dto.ReturnInfo;
 import tdu_market.entity_manager.ItemInfoManager;
-import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
-/**
- * Servlet implementation class RegisterItemInfo
- */
 @WebServlet("/tdu_market/controller/RegisterItemInfo")
+@MultipartConfig(maxFileSize = 1024 * 1024)
 public class RegisterItemInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public RegisterItemInfo() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-
-		//出品物情報の作成そのものを行うクラス。値の検証はValidateExhibitItem
-		
-		//ログイン状態の検証
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 
+		request.setCharacterEncoding("UTF-8");
+
+		String mailAddress = ControllerUtil.getMailAddress(request, response);
+		String itemName = request.getParameter("itemName");
+		String description = request.getParameter("description");
+		String conditionStr = request.getParameter("condtion");
+		String priceStr = request.getParameter("price");
+		String relatedClassCode = request.getParameter("relatedClassCode");
+
+		int condition = -1;
+		try {
+			condition = Integer.parseInt(conditionStr);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		}
+
+		int price = -1;
+		try {
+			price = Integer.parseInt(priceStr);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		}
+
+		InputStream[] iss = null;
+		Collection<Part> parts = request.getParts();
+		if (parts != null) {
+			iss = new InputStream[parts.size()];
+			int i = 0;
+			for (Part p : parts) {
+				iss[i] = p.getInputStream();
+				i++;
+			}
+		}
+
+		ItemCreateInfo createInfo = new ItemCreateInfo(mailAddress, itemName, description, condition, price,
+				relatedClassCode, iss);
 		ItemInfoManager itemInfo = new ItemInfoManager();
-		ItemCreateInfo createInfo = new ItemCreateInfo(request.getParameter("exhibitorMailAddress"), request.getParameter("itemName"), request.getParameter("description"),Integer.valueOf(request.getParameter("condtion")).intValue() , Integer.valueOf(request.getParameter("price")).intValue(),
-				request.getParameter("relatedClassCode"), request.getParameterValues("itemImageURLs"));
-		//アイテム情報の作成	
 		itemInfo.createItemInfo(createInfo);
-		
-		//遷移
-		ControllerUtil.translatePage("/tdu_market/Student/reference_item_list.jsp", request, response);
 
+		ControllerUtil.translatePage(JspPath.reference_item_list, request, response);
 	}
-
 }
