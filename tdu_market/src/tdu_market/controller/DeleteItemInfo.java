@@ -15,6 +15,7 @@ import tdu_market.dto.ReturnInfo;
 import tdu_market.entity_manager.ItemInfoManager;
 import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class DeleteItemInfo
@@ -47,7 +48,7 @@ public class DeleteItemInfo extends HttpServlet {
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		itemInfo.deleteItemInfo(Integer.valueOf(request.getParameter("itemID")));
 		// 遷移
-		ControllerUtil.translatePage("/tdu_market/Student/reference_item_list.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.reference_item_list, request, response);
 
 	}
 

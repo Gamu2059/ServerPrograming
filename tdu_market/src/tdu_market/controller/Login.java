@@ -15,6 +15,7 @@ import tdu_market.entity_manager.ManagerInfoManager;
 import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.AccountUtil;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class Login
@@ -79,7 +80,7 @@ public class Login extends HttpServlet {
 				}else {
 
 					// 仮登録状態なのでアカウント作成へ
-					ControllerUtil.translatePage("/tdu_market/general/create_student_account.jsp", request, response);
+					ControllerUtil.translatePage(JspPath.create_student_account, request, response);
 				}
 			} else {
 
@@ -99,11 +100,11 @@ public class Login extends HttpServlet {
 				if (registerdResult != null && registerdResult.isSuccess()) {
 
 					// 本登録されているのでトップへ
-					ControllerUtil.translatePage("/tdu_market/Admin/top_admin.jsp", request, response);
+					ControllerUtil.translatePage(JspPath.top_admin, request, response);
 				}else {
 
 					// 仮登録状態なのでアカウント作成へ
-					ControllerUtil.translatePage("/tdu_market/Admin/create_admin_account.jsp", request, response);
+					ControllerUtil.translatePage(JspPath.create_admin_account, request, response);
 				}
 			} else {
 
@@ -117,6 +118,6 @@ public class Login extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		session.setAttribute(ERROR_MESSAGE, errorMessage);
-		ControllerUtil.translatePage("/tdu_market/general/index.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.index, request, response);
 	}
 }

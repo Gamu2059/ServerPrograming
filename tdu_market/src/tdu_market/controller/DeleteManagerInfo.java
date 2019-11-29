@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import tdu_market.entity_manager.ManagerInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class DeleteManagerInfo
@@ -48,7 +49,7 @@ public class DeleteManagerInfo extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.invalidate();
 		// 遷移
-		ControllerUtil.translatePage("/tdu_market/general/index.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.index, request, response);
 
 	}
 
