@@ -1,4 +1,3 @@
-<%@page import="tdu_market.util.ServletPath"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -26,30 +25,27 @@
 					<h2>運営操作メニュー</h2>
 				</li>
 				<li>
-					<form action=<%=ServletPath.ManagerTopPage %> method="get">
-						<button type="submit" class="menu">トップ画面</button>
-					</form>
+					<button type="button" class="menu"
+						onclick="location.href='top_admin.jsp'">トップ画面</button>
 				</li>
 				<li>
-					<form action=<%=ServletPath.ReferStudentListPage %> method="get">
-						<button type="submit" class="menu">学生情報一覧</button>
-					</form>
+					<button type="button" class="menu"
+						onclick="location.href='reference_student_list.jsp'">
+						学生情報一覧</button>
 				</li>
 				<li>
-					<form action=<%=ServletPath.ReferSyllabusListPage %> method="get">
-						<button type="submit" class="menu">シラバス情報一覧</button>
-					</form>
+					<button type="button" class="menu"
+						onclick="location.href='reference_syllabus_list.jsp'">
+						シラバス情報一覧</button>
 				</li>
 				<li>
-					<form action=<%=ServletPath.ReferExhibitItemListPage %> method="get">
-						<button type="submit" class="menu">商品情報一覧</button>
-					</form>
+					<button type="button" class="menu"
+						onclick="location.href='rederece_item_list.jsp'">商品情報一覧</button>
 				</li>
 			</ul>
 			<br>
-				<form action=<%=ServletPath.EditManagerPage %> method="get">
-					<button type="submit" class="edit_profile" >運営情報編集</button>
-				</form>
+			<button type="button" class="edit_profile"
+				onclick="location.href='edit_profile_admin.jsp'">運営情報編集</button>
 		</div>
 	</div>
 </body>
