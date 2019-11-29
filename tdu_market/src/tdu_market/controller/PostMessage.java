@@ -1,8 +1,6 @@
 package tdu_market.controller;
 
 import java.io.IOException;
-import tdu_market.entity_manager.MessageRoomInfoManager;
-import tdu_market.entity_manager.MessageInfoManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import tdu_market.dto.MessageCreateInfo;
+import tdu_market.entity_manager.MessageInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class PostMessage
@@ -36,8 +36,8 @@ public class PostMessage extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.err.println("PostMessage is non implementation!");
 
-		//ログイン状態の検証
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 		MessageInfoManager messageInfo = new MessageInfoManager();

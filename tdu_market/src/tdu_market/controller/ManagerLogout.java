@@ -3,7 +3,6 @@ package tdu_market.controller;
 import java.io.IOException;
 import java.util.Enumeration;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import tdu_market.entity_manager.ManagerInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class ManagerLogout
@@ -37,6 +37,11 @@ public class ManagerLogout extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.err.println("ManagerLogout is non implementation!");
 
+		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
+			return;
+		}
+
 			ManagerInfoManager manager = new ManagerInfoManager();
 			//セッションからメールアドレスを取得
 			String mailAddress = ControllerUtil.getMailAddress(request, response);
@@ -49,10 +54,10 @@ public class ManagerLogout extends HttpServlet {
 			while(vals.hasMoreElements()){
 				String nm = (String)vals.nextElement();
 				sess.removeAttribute(nm);
-			}	
+			}
 			//ログインページに遷移
 			ControllerUtil.translatePage("/tdu_market/general/index.jsp", request, response);
-		
+
 	}
 
 }

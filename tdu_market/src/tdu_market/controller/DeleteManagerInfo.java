@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import tdu_market.entity_manager.ManagerInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class DeleteManagerInfo
@@ -33,11 +34,11 @@ public class DeleteManagerInfo extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("DeleteManagerInfo is non implementation!");
-		
+
 		ManagerInfoManager manager = new ManagerInfoManager();
-		
-		//ログイン状態の検証
+
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 		//セッションからメールアドレスを取得

@@ -13,6 +13,7 @@ import tdu_market.dto.SyllabusGetInfo;
 import tdu_market.dto.SyllabusSearchInfo;
 import tdu_market.entity_manager.SyllabusInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class ReferSyllabusListPage
@@ -38,9 +39,10 @@ public class ReferSyllabusListPage extends HttpServlet {
 		System.err.println("ReferSyllabusListPage is non implementation!");
 
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
-		
+
 
 		SyllabusInfoManager syllabusInfo = new SyllabusInfoManager();
 		//Stringはnull, intは-1が渡された場合に、
@@ -53,7 +55,7 @@ public class ReferSyllabusListPage extends HttpServlet {
 
 				long departmentID = -1;
 				try {
-					departmentID = Integer.valueOf(request.getParameter("departmentID")).longValue();			
+					departmentID = Integer.valueOf(request.getParameter("departmentID")).longValue();
 				} catch(NumberFormatException e) {
 
 				}
@@ -69,12 +71,12 @@ public class ReferSyllabusListPage extends HttpServlet {
 				}
 				long semesterID = -1;
 				try {
-					semesterID = Integer.valueOf(request.getParameter("semesterID")).longValue();			
+					semesterID = Integer.valueOf(request.getParameter("semesterID")).longValue();
 				} catch(NumberFormatException e) {
 
 				}
 
-				
+
 		SyllabusSearchInfo searchInfo = new SyllabusSearchInfo(classCode,departmentID,classNameKeyword,searcherNameKeyword,semesterID);
 		//シラバス検索情報を格納
 		ArrayList<SyllabusGetInfo> searchResult = syllabusInfo.searchSyllabus(searchInfo) ;

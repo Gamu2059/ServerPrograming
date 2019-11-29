@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class ManagerDeleteStudentInfo
@@ -32,21 +33,22 @@ public class ManagerDeleteStudentInfo extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("ManagerDeleteStudentInfo is non implementation!");
-		
+
 		StudentInfoManager student = new StudentInfoManager();
-		
-		//ログイン状態の検証
+
+
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 		//セッションからメールアドレスを取得
 		String mailAddress = ControllerUtil.getMailAddress(request, response);
 		//学生情報削除
 		student.deleteStudentInfo(mailAddress);
-		
+
 		//遷移
 		ControllerUtil.translatePage("/tdu_market/Admin/reference_student_list.jsp", request, response);
-	
+
 	}
 
 

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import tdu_market.dto.RelatedClassGetInfo;
 import tdu_market.entity_manager.RelatedClassInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class ReferSyllabusPage
@@ -37,6 +38,7 @@ public class ReferSyllabusPage extends HttpServlet {
 		System.err.println("ReferSyllabusPage is non implementation!");
 
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 

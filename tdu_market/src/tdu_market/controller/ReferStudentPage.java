@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import tdu_market.dto.StudentGetInfo;
 import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 @WebServlet("/tdu_market/controller/ReferStudentPage")
 public class ReferStudentPage extends HttpServlet {
@@ -21,6 +22,7 @@ public class ReferStudentPage extends HttpServlet {
 			throws ServletException, IOException {
 
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 

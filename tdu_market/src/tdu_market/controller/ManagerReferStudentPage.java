@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import tdu_market.dto.StudentGetInfo;
 import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class ManagerReferStudentPage
@@ -35,8 +36,9 @@ public class ManagerReferStudentPage extends HttpServlet {
 		System.err.println("ManagerReferStudentPage is non implementation!");//ログイン状態の検証
 
 		StudentInfoManager student = new StudentInfoManager();
-		//ログイン状態の検証
+
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 		//セッションからメールアドレスを取得
@@ -46,11 +48,11 @@ public class ManagerReferStudentPage extends HttpServlet {
 		StudentGetInfo studentInfo = student.getStudentInfo(mailAddress);
 		//jspに情報を投げる。
 		request.setAttribute("studentInfo", studentInfo);
-		
+
 		//遷移
 		ControllerUtil.translatePage("/tdu_market/Admin/reference_student_detal_by_admin.jsp", request, response);
-	
-		
+
+
 	}
 
 

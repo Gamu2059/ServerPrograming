@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import tdu_market.dto.RelatedClassGetInfo;
 import tdu_market.entity_manager.RelatedClassInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class ReferItemPage
@@ -38,6 +39,7 @@ public class ReferItemPage extends HttpServlet {
 		System.err.println("ReferItemPage is non implementation!");
 
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 

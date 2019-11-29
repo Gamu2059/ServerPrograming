@@ -11,10 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import tdu_market.dto.StudentGetInfo;
 import tdu_market.dto.StudentSearchInfo;
-import tdu_market.dto.SyllabusGetInfo;
-import tdu_market.dto.SyllabusSearchInfo;
 import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class ReferStudentListPage
@@ -37,11 +36,9 @@ public class ReferStudentListPage extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("ReferStudentListPage is non implementation!");
-		//ログイン状態の検証
+
 		if (!ControllerUtil.verifyLogin(request, response)) {
-			return;
-		}
-		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 

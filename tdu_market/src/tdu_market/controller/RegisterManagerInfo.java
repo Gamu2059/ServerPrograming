@@ -27,7 +27,6 @@ public class RegisterManagerInfo extends HttpServlet {
 			throws ServletException, IOException {
 
 		if (!ControllerUtil.verifyLogin(request, response)) {
-			System.out.print("AAAAA");
 			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}

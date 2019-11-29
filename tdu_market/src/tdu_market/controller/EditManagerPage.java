@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import tdu_market.dto.ManagerGetInfo;
 import tdu_market.entity_manager.ManagerInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class EditManagerPage
@@ -34,8 +35,9 @@ public class EditManagerPage extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.err.println("EditManagerPage is non implementation!");
 		ManagerInfoManager manager = new ManagerInfoManager();
-		//ログイン状態の検証
+
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 		//セッションからメールアドレスを取得
