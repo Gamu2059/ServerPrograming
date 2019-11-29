@@ -38,7 +38,7 @@ public class SearchItemPage extends HttpServlet {
 			return;
 		}
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Student/search_from_exhibit.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.search_from_exhibit, request, response);
 
 	}
 }

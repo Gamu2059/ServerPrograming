@@ -28,7 +28,7 @@
 			<div class="first_container_ver4">
 				<nav>
 					<!-- ReferSyllabusPageからのデータを展開する -->
-					<% ArrayList<RelatedClassGetInfo> info = (ArrayList<RelatedClassGetInfo>)request.getAttribute("getInfo"); %>
+					<% ArrayList<RelatedClassGetInfo> info = (ArrayList<RelatedClassGetInfo>)session.getAttribute("getInfo"); %>
 
 					<!-- セッションに関連商品を記録して画面を遷移させる -->
 					<form action="<%=ServletPath.SearchItemPage%>" name="get">

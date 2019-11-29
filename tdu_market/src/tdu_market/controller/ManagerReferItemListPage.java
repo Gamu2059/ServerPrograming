@@ -79,9 +79,9 @@ public class ManagerReferItemListPage extends HttpServlet {
 		request.setAttribute("itemList", itemList);
 
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Admin/reference_item_list_by_admin.jsp", request, response);
-
-
+		ControllerUtil.translatePage(JspPath.reference_item_list_by_admin, request, response);
+	
+		
 	}
 
 }

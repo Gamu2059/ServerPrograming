@@ -38,6 +38,7 @@ public class JspPath{
     public static final String search_student = "/tdu_market/Admin/search_student.jsp";
     public static final String search_syllabus_by_admin = "/tdu_market/Admin/search_syllabus_by_admin.jsp";
     public static final String top_admin = "/tdu_market/Admin/top_admin.jsp";
+    public static final String reference_syllabus_list_by_admin = "/tdu_market/Admin/reference_syllabus_list_by_admin.jsp";
 
     //general
     public static final String index = "/tdu_market/general/index.jsp";

@@ -44,8 +44,8 @@ public class ManagerDeleteItemInfo extends HttpServlet {
 		itemInfo.deleteItemInfo(Integer.valueOf(request.getParameter("itemID")));
 
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Admin/reference_item_list_by_admin.jsp", request, response);
-
+		ControllerUtil.translatePage(JspPath.reference_item_list_by_admin, request, response);
+	
 	}
 
 }

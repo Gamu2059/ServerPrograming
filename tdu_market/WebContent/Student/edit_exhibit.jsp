@@ -35,7 +35,7 @@
 					<!-- フォームの初期設定 -->
 					<%
 					//１．更新対象の商品情報を取得
-					RelatedClassGetInfo info = (RelatedClassGetInfo)request.getAttribute("relatedClassGetInfo");
+					RelatedClassGetInfo info = (RelatedClassGetInfo)session.getAttribute("relatedClassGetInfo");
 					//２．更新対象の商品情報を展開して入力フォームを生成
 					out.print("<input type=\"hidden\" name=\"itemID\" value=\""+info.getItemGetInfo().getItemID()+"\" />");
 					out.print("<div class=\"detail_input_textfield\">");
@@ -197,7 +197,6 @@
 
 					dialog.style.display = 'block';
 					ok.addEventListener('click', function() {
-						location.href = url + '.jsp';
 						dialog.style.display = 'none';
 
 					});

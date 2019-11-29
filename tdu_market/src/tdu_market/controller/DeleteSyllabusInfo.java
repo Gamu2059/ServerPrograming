@@ -44,7 +44,7 @@ public class DeleteSyllabusInfo extends HttpServlet {
 		//シラバス情報の更新
 		syllabus.deleteSyllabusInfo(request.getParameter("classCode"));
 		// 遷移
-		ControllerUtil.translatePage("/tdu_market/Admin/reference_syylabus_by_admin.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.reference_syllabus_by_admin, request, response);
 
 	}
 

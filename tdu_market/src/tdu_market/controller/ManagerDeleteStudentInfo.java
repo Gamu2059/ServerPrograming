@@ -47,8 +47,8 @@ public class ManagerDeleteStudentInfo extends HttpServlet {
 		student.deleteStudentInfo(mailAddress);
 
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Admin/reference_student_list.jsp", request, response);
-
+		ControllerUtil.translatePage(JspPath.reference_student_list, request, response);
+	
 	}
 
 

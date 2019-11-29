@@ -48,7 +48,7 @@ public class EditManagerPage extends HttpServlet {
 		//jspに情報を投げる。
 		request.setAttribute("manaerInfo", managerInfo);
 		// 遷移
-		ControllerUtil.translatePage("/tdu_market/Admin/edit_profile_admin.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.edit_profile_admin, request, response);
 
 
 	}

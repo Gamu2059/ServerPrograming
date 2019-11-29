@@ -49,7 +49,7 @@ public class ReferStudentListPage extends HttpServlet {
 		//jspに情報を投げる。
 		request.setAttribute("searchResult", searchResult);
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Admin/reference_student_list.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.reference_student_list, request, response);
 
 	}
 

@@ -46,7 +46,7 @@ public class BuyItem extends HttpServlet {
 		itemInfo.BuyItem(buyInfo);
 
 		// メッセージ画面へ遷移
-		ControllerUtil.translatePage("/tdu_market/Student/message.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.message, request, response);
 	}
 
 }

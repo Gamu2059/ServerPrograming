@@ -51,8 +51,8 @@ public class ManagerReferSyllabusListPage extends HttpServlet {
 		request.setAttribute("searchResult", searchResult);
 
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Admin/reference_syllabus_list_by_admin.jsp", request, response);
-
+		ControllerUtil.translatePage(JspPath.reference_syllabus_list_by_admin, request, response);
+	
 
 	}
 

@@ -44,7 +44,7 @@ public class PostMessage extends HttpServlet {
 		MessageCreateInfo createInfo = new MessageCreateInfo(Integer.valueOf(request.getParameter("roomID")).longValue(),request.getParameter("studentNumber"),request.getParameter("content"));
 		messageInfo.createMessageInfo(createInfo);
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Student/message.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.message, request, response);
 
 	}
 

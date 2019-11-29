@@ -40,8 +40,8 @@ public class ManagerEditStudentPage extends HttpServlet {
 		}
 
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Admin/edit_student_by_admin.jsp", request, response);
-
+		ControllerUtil.translatePage(JspPath.edit_student_by_admin, request, response);
+	
 	}
 
 

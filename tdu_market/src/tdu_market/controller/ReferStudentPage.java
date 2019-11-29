@@ -34,6 +34,6 @@ public class ReferStudentPage extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("studentInfo", studentInfo);
 
-		ControllerUtil.translatePage("/tdu_market/Student/reference_profile_student.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.reference_profile_student, request, response);
 	}
 }

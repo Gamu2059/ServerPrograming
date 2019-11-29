@@ -50,8 +50,8 @@ public class ManagerReferExhibitItemListPage extends HttpServlet {
 		//jspに情報を投げる。
 		request.setAttribute("itemList",itemList);
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Admin/reference_exhibit_item_by_admin.jsp", request, response);
-
+		ControllerUtil.translatePage(JspPath.reference_exhibit_item_by_admin, request, response);
+	
 	}
 
 

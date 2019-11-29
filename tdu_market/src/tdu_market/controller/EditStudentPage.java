@@ -54,8 +54,8 @@ public class EditStudentPage extends HttpServlet {
 		session.setAttribute("studentInfo", studentInfo);
 
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Student/edit_profile_student.jsp", request, response);
-
+		ControllerUtil.translatePage(JspPath.edit_profile_student, request, response);
+		
 
 		/*
 		//取得した情報をviewに適用

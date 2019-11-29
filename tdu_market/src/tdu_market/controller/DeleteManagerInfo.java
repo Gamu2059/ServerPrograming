@@ -49,7 +49,7 @@ public class DeleteManagerInfo extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.invalidate();
 		// 遷移
-		ControllerUtil.translatePage("/tdu_market/general/index.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.index, request, response);
 
 	}
 

@@ -75,7 +75,7 @@ public class ReferMessageBoxListPage extends HttpServlet {
 			session.setAttribute("studentInfo", studentGetInfo);
 		}
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Student/message.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.message, request, response);
 
 	}
 }

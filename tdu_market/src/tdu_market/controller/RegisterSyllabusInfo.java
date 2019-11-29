@@ -54,7 +54,7 @@ public class RegisterSyllabusInfo extends HttpServlet {
 			syllabus.createSyllabusInfo(createInfo);
 		}
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Admin/register_syllbus_by_admin.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.register_syllabus_by_admin, request, response);
 
 	}
 }

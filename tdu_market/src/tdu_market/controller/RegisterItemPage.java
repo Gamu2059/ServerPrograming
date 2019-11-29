@@ -38,7 +38,7 @@ public class RegisterItemPage extends HttpServlet {
 			return;
 		}
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Student/register_exhibit.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.register_exhibit, request, response);
 
 	}
 

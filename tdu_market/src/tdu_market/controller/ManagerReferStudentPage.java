@@ -50,9 +50,9 @@ public class ManagerReferStudentPage extends HttpServlet {
 		request.setAttribute("studentInfo", studentInfo);
 
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Admin/reference_student_detal_by_admin.jsp", request, response);
-
-
+		ControllerUtil.translatePage(JspPath.reference_student_detail_by_admin, request, response);
+	
+		
 	}
 
 

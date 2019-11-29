@@ -53,7 +53,7 @@ public class ReferItemPage extends HttpServlet {
 		session.setAttribute("itemInfo", relatedClassGetInfo);
 
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Student/reference_item_detail.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.reference_item_detail, request, response);
 
 	}
 

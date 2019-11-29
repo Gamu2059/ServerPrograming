@@ -14,6 +14,8 @@ import tdu_market.dto.ItemSearchInfo;
 import tdu_market.entity_manager.ItemInfoManager;
 import tdu_market.util.ControllerUtil;
 import tdu_market.util.JspPath;
+
+import java.text.SimpleDateFormat;
 /**
  * Servlet implementation class ReferItemListPage
  */
@@ -75,10 +77,11 @@ public class ReferItemListPage extends HttpServlet {
 		//検索結果をリストへ保持
 		ArrayList<ItemGetInfo> itemList = itemInfo.searchItem(searchInfo) ;
 		//jspに情報を投げる。
-		request.setAttribute("itemList", itemList);
+		HttpSession session = request.getSession();
+		session.setAttribute("itemList", itemList);
 
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Student/reference_item_list.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.reference_item_list, request, response);
 
 	}
 

@@ -39,7 +39,7 @@ public class EditSyllabusPage extends HttpServlet {
 		}
 
 		// 遷移
-		ControllerUtil.translatePage("/tdu_market/Admin/edit_syllabus_by_admin.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.edit_syllabus_by_admin, request, response);
 
 	}
 
