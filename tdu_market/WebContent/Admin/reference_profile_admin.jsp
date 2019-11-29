@@ -49,7 +49,9 @@
 				<br>
 				<div class="item_for_LeftAndRight_between">
 					<button id="red_button">削除</button>
-					<button id="blue_button">編集</button>
+					<form action="<%=ServletPath.EditManagerPage%>" method="get">
+						<button id="blue_button" type="submit" >編集</button>
+					</form>
 				</div>
 			</div>
 		</article>
