@@ -44,7 +44,7 @@ public class Login extends HttpServlet {
 		' セッションにメールアドレスを保存する(他にいい実装があるかもしれない...)
 		' アカウントが仮登録状態ならば、新規登録画面に遷移する
 		' アカウントが登録済み状態ならば、トップ画面に遷移する
-
+		
 		*/
 
 		request.setCharacterEncoding("UTF-8");
@@ -75,9 +75,9 @@ public class Login extends HttpServlet {
 					// 本登録されているのでトップへ
 					TopPage topPage = new TopPage();
 					topPage.doGet(request, response);
-//					ControllerUtil.translatePage("/tdu_market/Student/student_top.jsp", request, response);
-					
-				}else {
+					//						ControllerUtil.translatePage(JspPath.student_top, request, response);
+
+				} else {
 
 					// 仮登録状態なのでアカウント作成へ
 					ControllerUtil.translatePage(JspPath.create_student_account, request, response);
@@ -101,8 +101,7 @@ public class Login extends HttpServlet {
 
 					// 本登録されているのでトップへ
 					ControllerUtil.translatePage(JspPath.top_admin, request, response);
-				}else {
-
+				} else {
 					// 仮登録状態なのでアカウント作成へ
 					ControllerUtil.translatePage(JspPath.create_admin_account, request, response);
 				}

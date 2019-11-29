@@ -29,7 +29,8 @@ public class ManagerTopPage extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("ManagerTopPage is non implementation!");
 
@@ -39,8 +40,7 @@ public class ManagerTopPage extends HttpServlet {
 		}
 		//遷移
 		ControllerUtil.translatePage(JspPath.top_admin, request, response);
-	
-	}
 
+	}
 
 }

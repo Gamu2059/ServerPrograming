@@ -309,7 +309,8 @@ public final class SyllabusInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "select * from \"SyllabusInfo\"";
+			String sql = "select * from \"SyllabusInfo\" as s, \"OpeningSemesterInfo\" as o, \"SemesterInfo\" as se, \"TeacherInfo\" as t "
+					+ "where s.\"classCode\" = o.\"classCode\" and o.\"semesterID\" = se.\"semesterID\" and s.\"teacherID\" = t.\"teacherID\"";
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 
 			resultSet = pstmt.executeQuery();
