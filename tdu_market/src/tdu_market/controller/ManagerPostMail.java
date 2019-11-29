@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import tdu_market.dto.ReturnInfo;
 import tdu_market.entity_manager.ManagerInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class ManagerPostMail
@@ -54,11 +55,11 @@ public class ManagerPostMail extends HttpServlet {
 		if(createResult.isSuccess()) {
 			//仮パスワード送信
 			SendMail.sendPassword(mailAddress,createResult.getMsg());
-			ControllerUtil.translatePage("/tdu_market/general/index.jsp", request, response);
+			ControllerUtil.translatePage(JspPath.index, request, response);
 		}
 		else {
 			request.setAttribute("ErrorMessage",createResult.getMsg());
-			ControllerUtil.translatePage("/tdu_market/general/index.jsp", request, response);
+			ControllerUtil.translatePage(JspPath.index, request, response);
 		}
 	}
 

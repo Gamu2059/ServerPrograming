@@ -8,11 +8,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import tdu_market.dto.SyllabusGetInfo;
 import tdu_market.dto.SyllabusSearchInfo;
 import tdu_market.entity_manager.SyllabusInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class ReferSyllabusListPage
@@ -79,9 +81,10 @@ public class ReferSyllabusListPage extends HttpServlet {
 		//シラバス検索情報を格納
 		ArrayList<SyllabusGetInfo> searchResult = syllabusInfo.searchSyllabus(searchInfo) ;
 		//jspに情報を投げる。
-		request.setAttribute("searchResult", searchResult);
+		HttpSession session = request.getSession();
+		session.setAttribute("searchResult", searchResult);
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Student/reference_syllabus_list.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.reference_syllabus_list, request, response);
 
 	}
 

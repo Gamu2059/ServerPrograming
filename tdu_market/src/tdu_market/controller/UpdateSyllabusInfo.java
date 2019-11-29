@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import tdu_market.dto.SyllabusUpdateInfo;
 import tdu_market.entity_manager.SyllabusInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class UpdateSyllabusInfo
@@ -46,7 +47,7 @@ public class UpdateSyllabusInfo extends HttpServlet {
 		//シラバス情報の更新
 		syllabus.updateSyllabusInfo(updateInfo);
 		//ページ遷移
-		ControllerUtil.translatePage("/tdu_market/Admin/reference_syllabus_list_by_admin.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.reference_syllabus_list_by_admin, request, response);
 
 	}
 

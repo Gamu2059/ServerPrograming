@@ -16,6 +16,7 @@ import tdu_market.dto.ReturnInfo;
 import tdu_market.entity_manager.ItemInfoManager;
 import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class ReferExhibitItemListPage
@@ -56,7 +57,7 @@ public class ReferExhibitItemListPage extends HttpServlet {
 
 
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Student/reference_exhibit_list.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.reference_exhibit_list, request, response);
 	}
 
 }

@@ -15,6 +15,7 @@ import tdu_market.dto.SyllabusCreateInfo;
 import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.entity_manager.SyllabusInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class RegisterStudentInfo
@@ -55,7 +56,7 @@ public class RegisterSyllabusInfo extends HttpServlet {
 			syllabus.createSyllabusInfo(createInfo);
 		}
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Admin/register_syllbus_by_admin.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.register_syllabus_by_admin, request, response);
 
 	}
 }

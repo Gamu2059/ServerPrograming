@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class ManagerDeleteStudentInfo
@@ -45,7 +46,7 @@ public class ManagerDeleteStudentInfo extends HttpServlet {
 		student.deleteStudentInfo(mailAddress);
 		
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Admin/reference_student_list.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.reference_student_list, request, response);
 	
 	}
 

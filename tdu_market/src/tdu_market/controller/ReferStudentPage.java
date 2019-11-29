@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import tdu_market.dto.StudentGetInfo;
 import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 @WebServlet("/tdu_market/controller/ReferStudentPage")
 public class ReferStudentPage extends HttpServlet {
@@ -32,6 +33,6 @@ public class ReferStudentPage extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("studentInfo", studentInfo);
 
-		ControllerUtil.translatePage("/tdu_market/Student/reference_profile_student.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.reference_profile_student, request, response);
 	}
 }

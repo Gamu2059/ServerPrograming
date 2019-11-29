@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import tdu_market.dto.RelatedClassGetInfo;
 import tdu_market.entity_manager.RelatedClassInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class ReferExhibitItemPage
@@ -49,7 +50,7 @@ public class ReferExhibitItemPage extends HttpServlet {
 
 		request.setAttribute("exhibitInfo", relatedClassGetInfo);
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Student/reference_exhibit_detail.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.reference_exhibit_detail, request, response);
 
 
 	}

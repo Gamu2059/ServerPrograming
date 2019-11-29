@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import tdu_market.dto.ManagerGetInfo;
 import tdu_market.entity_manager.ManagerInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class ReferManagerPage
@@ -47,7 +48,7 @@ public class ReferManagerPage extends HttpServlet {
 		//jspに情報を投げる。
 		request.setAttribute("manaerInfo", managerInfo);
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Admin/edit_profile_admin.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.edit_profile_admin, request, response);
 
 	}
 

@@ -17,6 +17,7 @@ import tdu_market.dto.SyllabusSearchInfo;
 import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.entity_manager.SyllabusInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class SearchSyllabusPage
@@ -44,7 +45,7 @@ public class SearchSyllabusPage extends HttpServlet {
 			return;
 		}
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Student/search_from_syllabus.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.search_from_syllabus, request, response);
 
 	}
 }

@@ -15,6 +15,7 @@ import tdu_market.dto.SyllabusGetInfo;
 import tdu_market.dto.SyllabusSearchInfo;
 import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class ReferStudentListPage
@@ -52,7 +53,7 @@ public class ReferStudentListPage extends HttpServlet {
 		//jspに情報を投げる。
 		request.setAttribute("searchResult", searchResult);
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Admin/reference_student_list.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.reference_student_list, request, response);
 
 	}
 

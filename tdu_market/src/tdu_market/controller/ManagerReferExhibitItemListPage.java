@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import tdu_market.dto.ItemGetInfo;
 import tdu_market.entity_manager.ItemInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class ManagerReferExhibitItemListPage
@@ -48,7 +49,7 @@ public class ManagerReferExhibitItemListPage extends HttpServlet {
 		//jspに情報を投げる。
 		request.setAttribute("itemList",itemList);
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Admin/reference_exhibit_item_by_admin.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.reference_exhibit_item_by_admin, request, response);
 	
 	}
 

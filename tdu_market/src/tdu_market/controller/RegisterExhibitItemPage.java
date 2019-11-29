@@ -16,6 +16,7 @@ import tdu_market.dto.ReturnInfo;
 import tdu_market.entity_manager.ItemInfoManager;
 import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 
 /**
@@ -45,7 +46,7 @@ public class RegisterExhibitItemPage extends HttpServlet {
 		}
 		else {
 			//遷移
-			ControllerUtil.translatePage("/tdu_market/Student/register_exhibit.jsp", request, response);
+			ControllerUtil.translatePage(JspPath.register_exhibit, request, response);
 
 		}
 
