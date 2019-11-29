@@ -44,7 +44,7 @@
 			<!-- ReferSyllabusListPageからのセッションデータを展開する -->
 			<%
 			ArrayList<ItemGetInfo> itemList = new ArrayList<>();
-			itemList = (ArrayList<ItemGetInfo>)request.getAttribute("itemList");
+			itemList = (ArrayList<ItemGetInfo>)session.getAttribute("itemList");
 			if(itemList == null){
 				out.print("商品が見つかりませんでした。");
 			} else {
