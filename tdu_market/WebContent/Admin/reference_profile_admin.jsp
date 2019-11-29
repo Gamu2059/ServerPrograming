@@ -1,3 +1,4 @@
+<%@page import="tdu_market.dto.ManagerGetInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,6 +18,8 @@
 		<!-- タイトル -->
 		<h2 id="page_title">ユーザー情報</h2>
 		<!-- メインコンテンツ -->
+		<!-- セッションデータの受け取り -->
+		<% ManagerGetInfo profileInfo = (ManagerGetInfo)session.getAttribute("managerProfileInfo"); %>
 		<article>
 			<div class="content_margin_400px">
 				<br>
