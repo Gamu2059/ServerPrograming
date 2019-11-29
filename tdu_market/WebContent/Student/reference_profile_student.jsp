@@ -1,4 +1,5 @@
 <%@page import="tdu_market.dto.*"%>
+<%@page import="tdu_market.util.ServletPath"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -26,14 +27,14 @@
 				<h2>ユーザー情報</h2>
 				<div class="profile_edit_button">
 					<!-- EditStudentPageへ処理を引き継ぐ -->
-					<form action="../EditStudentPage" method="get">
+					<form action=<%=ServletPath.EditStudentPage%> method="get">
 						<button type="submit" class="button_flat_normal" id="edit">編集</button>
 					</form>
 				</div>
 			</div>
 			<!-- セカンドコンテナ -->
 			<div class="second_container_ver2">
-	<!-- 			<form action="../ReferStudentPage" method="get"> -->
+	<!-- 			<form action="ReferStudentPage" method="get"> -->
 					<!-- ReferStudentPageからのセッションを展開・表示 -->
 					<%
 					StudentGetInfo info = (StudentGetInfo)session.getAttribute("studentInfo");
@@ -78,7 +79,7 @@
 				<p>本当に退会しますか？</p>
 				<div class="negative_dialog_button">
 					<!-- DeleteStudentInfoに処理を引き継ぐ -->
-					<form action="../DeleteStudentInfo" method="post">
+					<form action="<%=ServletPath.DeleteStudentInfo%>" method="post">
 						<button type="submit" id="nega_yes" class="button_flat_nega">確認</button>
 					</form>
 					<button id="nega_no" class="button_flat_normal">キャンセル</button>

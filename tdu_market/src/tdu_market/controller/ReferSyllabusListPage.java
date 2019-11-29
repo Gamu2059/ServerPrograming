@@ -40,10 +40,42 @@ public class ReferSyllabusListPage extends HttpServlet {
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			return;
 		}
+		
 
 		SyllabusInfoManager syllabusInfo = new SyllabusInfoManager();
-		SyllabusSearchInfo searchInfo = new SyllabusSearchInfo(request.getParameter("classCode"), Integer.valueOf(request.getParameter("departmentID")).longValue(), request.getParameter("classNameKeyword"),request.getParameter("seacherNameKeyword"),
-				Integer.valueOf(request.getParameter("semesterID")).longValue());
+		//Stringはnull, intは-1が渡された場合に、
+				//その項目を反映しない検索結果が出力される仕様になっている。
+
+				String classCode = request.getParameter("classCode");
+				if (classCode != null && classCode.trim().isEmpty()) {
+					classCode = null;
+				}
+
+				long departmentID = -1;
+				try {
+					departmentID = Integer.valueOf(request.getParameter("departmentID")).longValue();			
+				} catch(NumberFormatException e) {
+
+				}
+
+				String classNameKeyword = request.getParameter("classNameKeyword");
+				if (classNameKeyword != null && classNameKeyword.trim().isEmpty()) {
+					classNameKeyword = null;
+				}
+
+				String searcherNameKeyword = request.getParameter("searcherNameKeyword");
+				if (searcherNameKeyword != null && searcherNameKeyword.trim().isEmpty()) {
+					searcherNameKeyword = null;
+				}
+				long semesterID = -1;
+				try {
+					semesterID = Integer.valueOf(request.getParameter("semesterID")).longValue();			
+				} catch(NumberFormatException e) {
+
+				}
+
+				
+		SyllabusSearchInfo searchInfo = new SyllabusSearchInfo(classCode,departmentID,classNameKeyword,searcherNameKeyword,semesterID);
 		//シラバス検索情報を格納
 		ArrayList<SyllabusGetInfo> searchResult = syllabusInfo.searchSyllabus(searchInfo) ;
 		//jspに情報を投げる。

@@ -1,6 +1,7 @@
 <%@page import="java.util.*"%>
 <%@page import="tdu_market.dto.*" %>
 <%@page import="tdu_market.util.*" %>
+<%@page import="tdu_market.util.ServletPath"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -25,7 +26,7 @@
 		<!-- ファーストコンテナ -->
 		<div class="first_container">
 			<!-- 商品検索入力フォーム -->
-			<form class="input_form" action="<%=ServletPath.ReferItemListPage %>" method="post">
+			<form class="input_form" action=<%=ServletPath.ReferItemListPage %> method="post">
 				<div>
 					<input type="text" name="itemNameKeyword" class="radius_text_form" size="70"
 						placeholder="全ての商品から探す（教科書名、道具名など）" />

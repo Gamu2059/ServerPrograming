@@ -1,5 +1,6 @@
 <%@page import="tdu_market.entity_bean.StudentInfo"%>
 <%@page import="tdu_market.dto.*"%>
+<%@page import="tdu_market.util.ServletPath"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -28,8 +29,8 @@
 				<h2>ユーザー情報（編集中）</h2>
 			</div>
 			<!-- セカンドコンテナ -->
-			<div class="second_container_ver2">		
-				<form action="../UpdateStudentPage" method="post" enctype="multipart/form-data">
+			<div class="second_container_ver2">
+				<form action=<%=ServletPath.UpdateStudentPage %> method="post" enctype="multipart/form-data">
 				<%
 				//Get information
 				StudentGetInfo info = (StudentGetInfo)session.getAttribute("studentInfo");
@@ -38,21 +39,31 @@
 					<div class="top_content">
 						<div class="top_content_left">
 							<label class="user_icon_button">
-							<input class="user_icon_button2" type="file" />
+							<input class="user_icon_button2" type="file" name="iconImageURL" id="iconFile"/>
 							<%
  							if(info.getIconImageBinary() != null){
-								/* out.println("<img name=\"iconImageURL\" src=\" "+ info.getIconImageBinary() +" \" alt=\"ユーザーアイコン\">"); */
-								out.print("<input name=\"iconImageURL\" type=\"file\" src=\" "+ info.getIconImageBinary() +" \" alt=\"ユーザーアイコン\">");
-							}
+								out.print("<img src=\""+ info.getIconImageBinary() +" \" alt=\"ユーザーアイコン\" id=\"icon\">");
+/* 								out.print("<input name=\"iconImageURL\" type=\"file\" src=\" "+ info.getIconImageBinary() +" \" alt=\"ユーザーアイコン\">");
+ */							}
 							%>
 								<h3>変更</h3>
 							</label>
 						</div>
+						<!-- アイコン画像のプレビュー -->
+						<script>
+ 						$('#iconFile').on('change', function (e) {
+						    var reader = new FileReader();
+						    reader.onload = function (e) {
+						        $("#icon").attr('src', e.target.result);
+						    }
+						    reader.readAsDataURL(e.target.files[0]);
+						});
+						</script>
 						<div class="top_content_right">
 							<div class="detail_content">
 								<h3>ディスプレイネーム</h3>
 								<div class="detail_input_textfield">
-								<% out.println("<input name=\"displayName\" type=\"text\" value=\"" + info.getDisplayName() +"\" />"); %>	
+								<% out.println("<input name=\"displayName\" type=\"text\" value=\"" + info.getDisplayName() +"\" />"); %>
 								</div>
 							</div>
 							<div class="detail_content">
@@ -134,7 +145,7 @@
 
 					dialog.style.display = 'block';
 					ok.addEventListener('click', function() {
-						location.href = url + '.html';
+						//location.href = url + '.html';
 						dialog.style.display = 'none';
 					});
 				}

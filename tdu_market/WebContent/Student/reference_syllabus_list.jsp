@@ -1,5 +1,6 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="tdu_market.dto.*" %>
+<%@page import="tdu_market.util.ServletPath"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -29,7 +30,7 @@
 					<h2>検索結果</h2>
 					<br />
 					<!-- クリックしたらReferSyllabusPageにデータを渡して、表示を依頼する。 -->
-					<form name="select_syllabus" action="../ReferSyllabusPage" method="get">
+					<form name="select_syllabus" action="<%=ServletPath.ReferSyllabusPage%>" method="get">
 						<table class="syllabus_list">
 							<!-- テーブルタイトル -->
 							<thead>
