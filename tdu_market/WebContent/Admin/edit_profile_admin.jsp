@@ -23,6 +23,13 @@
 			<form action="<%= ServletPath.UpdateManagerInfo %>" method="post">
 				<br />
 				<div class="user_profile">
+					<div class="errorMessage">
+						<%
+						if((String)session.getAttribute("errorUserEditMessages") != null){
+							out.println("<p>"+(String)session.getAttribute("errorUserEditMessages")+"</p>");
+						}
+						%>
+					</div>
 					<div class="item_for_LeftAndRight_around">
 					<!-- セッションデータの受け取り -->
 					<%

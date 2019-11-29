@@ -54,10 +54,10 @@ public class UpdateManagerInfo extends HttpServlet {
 		ReturnInfo updateResult = manager.updateManagerInfo(updateInfo);
 
 		if (updateResult.isSuccess()) {
-			session.setAttribute("errorInfo", null);
+			session.setAttribute("errorUserEditMessages", null);
 			ControllerUtil.translatePage(JspPath.reference_profile_admin, request, response);
 		} else {
-			session.setAttribute("errorInfo", updateResult.getMsg());
+			session.setAttribute("errorUserEditMessages", updateResult.getMsg());
 			ControllerUtil.translatePage(JspPath.edit_profile_admin, request, response);
 		}
 
