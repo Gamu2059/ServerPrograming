@@ -14,6 +14,7 @@ import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.AccountUtil;
 import tdu_market.util.ControllerUtil;
 import tdu_market.util.JspPath;
+import tdu_market.controller.SendMail;
 
 /**
  * Servlet implementation class PostMail
@@ -68,10 +69,10 @@ public class PostMail extends HttpServlet {
 		/*if (createResult.isSuccess()) {
 			//仮パスワード送信
 			SendMail.sendPassword(mailAddress, createResult.getMsg());
-			ControllerUtil.translatePage("/tdu_market/general/index.jsp", request, response);
+			ControllerUtil.translatePage(JspPath.index, request, response);
 		} else {
 			request.setAttribute("ErrorMessage", createResult.getMsg());
-			ControllerUtil.translatePage("/tdu_market/general/index.jsp", request, response);
+			ControllerUtil.translatePage(JspPath.index, request, response);
 		}*/
 	}
 }

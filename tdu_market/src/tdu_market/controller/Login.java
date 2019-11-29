@@ -102,7 +102,6 @@ public class Login extends HttpServlet {
 					// 本登録されているのでトップへ
 					ControllerUtil.translatePage(JspPath.top_admin, request, response);
 				} else {
-
 					// 仮登録状態なのでアカウント作成へ
 					ControllerUtil.translatePage(JspPath.create_admin_account, request, response);
 				}

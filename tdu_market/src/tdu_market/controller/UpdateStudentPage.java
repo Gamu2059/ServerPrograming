@@ -69,10 +69,6 @@ public class UpdateStudentPage extends HttpServlet {
 			session.setAttribute("errorInfo", updateResult.getMsg());
 		}
 
-		//セッションの値を更新
-		StudentGetInfo studentInfo = studentInfoManager.getStudentInfo(mailAddress);
-		session.setAttribute("studentInfo", studentInfo);
-
 		//ページ遷移
 		ControllerUtil.translatePage(ServletPath.ReferStudentPage, request, response);
 	}

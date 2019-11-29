@@ -29,7 +29,7 @@
 			<!-- セカンドコンテナ -->
 			<div class="second_container_ver2">
 				<!-- VaildateExhibitItemへ処理を引き継ぐ -->
-				<form action="<%=ServletPath.VaildateExhibitItem %>" method="post" id="exhibit_form">
+				<form action=<%=ServletPath.VaildateExhibitItem %> method="post" id="exhibit_form">
 					<!-- 上部コンテンツ -->
 					<div class="top_content_ver2">
 						<div class="detail_content">
@@ -210,7 +210,7 @@
 				<article class="exhibit_dialog_content">
 					<!-- セカンドコンテナ -->
 					<div class="dialog_info_base" id="exhibit_information">
-						<form  action="../RegisterExhibitItemPage" method="get">
+						<form  action=<%=ServletPath.RegisterExhibitItemPage %> method="get">
 							<!-- 上部コンテンツ -->
 							<div class="dialog_exhibit_top">
 								<input type="hidden" name="exhibitorMailAddress" value="<% out.print(session.getAttribute("mailaddress")); %>" />

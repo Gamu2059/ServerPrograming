@@ -75,6 +75,6 @@ public class UpdateItemInfo extends HttpServlet {
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		itemInfo.updateItemInfo(updateInfo);
 
-		ControllerUtil.translatePage("/tdu_market/Student/reference_exhibit_list.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.reference_exhibit_list, request, response);
 	}
 }

@@ -14,6 +14,7 @@ import tdu_market.dto.ReturnInfo;
 import tdu_market.dto.StudentGetInfo;
 import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class EditStudentPage
@@ -41,7 +42,7 @@ public class EditStudentPage extends HttpServlet {
 		StudentInfoManager student = new StudentInfoManager();
 		//ログイン状態の検証
 		if (!ControllerUtil.verifyLogin(request, response)) {
-			response.sendRedirect("/tdu_market/general/index.jsp"); return; 
+			response.sendRedirect(JspPath.index); return; 
 		}
 
 		//セッションからメールアドレスを取得
@@ -54,7 +55,7 @@ public class EditStudentPage extends HttpServlet {
 		session.setAttribute("studentInfo", studentInfo);
 
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Student/edit_profile_student.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.edit_profile_student, request, response);
 		
 
 		/*

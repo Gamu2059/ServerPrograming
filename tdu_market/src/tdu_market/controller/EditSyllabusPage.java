@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class EditSyllabusPage
@@ -36,7 +37,7 @@ public class EditSyllabusPage extends HttpServlet {
 		}
 
 		// 遷移
-		ControllerUtil.translatePage("/tdu_market/Admin/edit_syllabus_by_admin.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.edit_syllabus_by_admin, request, response);
 
 	}
 

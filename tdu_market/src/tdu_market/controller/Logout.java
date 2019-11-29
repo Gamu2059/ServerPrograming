@@ -1,6 +1,7 @@
 package tdu_market.controller;
 import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 import java.io.IOException;
 import tdu_market.entity_manager.ManagerInfoManager;
@@ -55,7 +56,7 @@ public class Logout extends HttpServlet {
 			sess.removeAttribute(nm);
 		}	
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/general/index.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.index, request, response);
 	
 
 	}

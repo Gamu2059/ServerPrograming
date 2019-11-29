@@ -15,6 +15,7 @@ import tdu_market.dto.ReturnInfo;
 import tdu_market.entity_manager.ItemInfoManager;
 import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class EditExhibitItemPage
@@ -47,10 +48,12 @@ public class EditExhibitItemPage extends HttpServlet {
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		ItemGetInfo info =  itemInfo.getItemInfo(Integer.valueOf(request.getParameter("itemID")));
 
+		HttpSession session = request.getSession();
+		
 		//jspに情報を投げる。
-		request.setAttribute("info", info);
+		session.setAttribute("info", info);//ここはどこのjspで取得している？？？
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Student/Edit_exhibit.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.edit_exhibit, request, response);
 
 
 		/*

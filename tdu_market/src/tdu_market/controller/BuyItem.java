@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import tdu_market.entity_manager.ItemInfoManager;
 import tdu_market.dto.ItemBuyInfo;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class BuyItem
@@ -46,7 +47,7 @@ public class BuyItem extends HttpServlet {
 		itemInfo.BuyItem(buyInfo);
 		
 		// メッセージ画面へ遷移
-		ControllerUtil.translatePage("/tdu_market/Student/message.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.message, request, response);
 	}
 
 }

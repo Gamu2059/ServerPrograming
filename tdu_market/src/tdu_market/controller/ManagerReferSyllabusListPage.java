@@ -13,6 +13,7 @@ import tdu_market.dto.SyllabusGetInfo;
 import tdu_market.dto.SyllabusSearchInfo;
 import tdu_market.entity_manager.SyllabusInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class ReferSyllabusListPage
@@ -50,7 +51,7 @@ public class ManagerReferSyllabusListPage extends HttpServlet {
 		request.setAttribute("searchResult", searchResult);
 		
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Admin/reference_syllabus_list_by_admin.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.reference_syllabus_list_by_admin, request, response);
 	
 
 	}
