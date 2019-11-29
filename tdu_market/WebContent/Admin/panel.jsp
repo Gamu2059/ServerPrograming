@@ -52,7 +52,7 @@
 				</form>
 			<br>
 			<br>
-				<form action="">
+				<form action="<%=ServletPath.Logout %>" method="post">
 				<button type="submit" class="logout_button" >ログアウト</button>
 				</form>
 		</div>
