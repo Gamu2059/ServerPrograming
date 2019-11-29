@@ -29,7 +29,7 @@
 				<h2>ユーザー情報（編集中）</h2>
 			</div>
 			<!-- セカンドコンテナ -->
-			<div class="second_container_ver2">		
+			<div class="second_container_ver2">
 				<form action=<%=ServletPath.UpdateStudentPage %> method="post" enctype="multipart/form-data">
 				<%
 				//Get information
@@ -145,7 +145,7 @@
 
 					dialog.style.display = 'block';
 					ok.addEventListener('click', function() {
-						location.href = url + '.html';
+						//location.href = url + '.html';
 						dialog.style.display = 'none';
 					});
 				}

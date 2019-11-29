@@ -14,10 +14,8 @@ import javax.servlet.http.Part;
 
 import tdu_market.dto.ReturnInfo;
 import tdu_market.dto.StudentGetInfo;
-
 import tdu_market.dto.StudentUpdateInfo;
 import tdu_market.entity_manager.StudentInfoManager;
-import tdu_market.util.AccountUtil;
 import tdu_market.util.ControllerUtil;
 import tdu_market.util.JspPath;
 import tdu_market.util.ServletPath;
@@ -61,24 +59,18 @@ public class UpdateStudentPage extends HttpServlet {
 
 		// 学生自身は所属学科を変更できないため、subjectID = -1
 		// TODO urlは、後々バイナリで受け取る用の処理の変更する
-		StudentUpdateInfo updateInfo = new StudentUpdateInfo(
-				mailAddress,
-				pass1,
-				name,
-				-1,
-				intro,
-				is
-				);
-		student.updateStudentInfo(updateInfo);
+		StudentUpdateInfo updateInfo = new StudentUpdateInfo(mailAddress,pass1,name,-1,intro,is);
+		StudentInfoManager studentInfoManager = new StudentInfoManager();
+		ReturnInfo updateResult = studentInfoManager.updateStudentInfo(updateInfo);
 
 		if (updateResult.isSuccess()) {
 			session.setAttribute("errorInfo", null);
 		} else {
 			session.setAttribute("errorInfo", updateResult.getMsg());
 		}
+
 		//セッションの値を更新
-		StudentInfoManager studentInfoManager = new StudentInfoManager();
-		StudentGetInfo studentInfo = studentInfoManager.getStudentInfo((String)session.getAttribute("mailaddress"));
+		StudentGetInfo studentInfo = studentInfoManager.getStudentInfo(mailAddress);
 		session.setAttribute("studentInfo", studentInfo);
 
 		//ページ遷移

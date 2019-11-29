@@ -20,7 +20,8 @@
 		</h1>
 	</div>
 	<%
-		StudentGetInfo info_header = (StudentGetInfo) session.getAttribute("studentGet");
+		//StudentGetInfo info_header = (StudentGetInfo) session.getAttribute("studentGet");
+		StudentGetInfo info_header = (StudentGetInfo)session.getAttribute("studentInfo");
 	%>
 	<div class="header_menu">
 		<!-- メニュー -->

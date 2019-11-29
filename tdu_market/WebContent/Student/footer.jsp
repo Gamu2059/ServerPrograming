@@ -25,9 +25,9 @@
     <nav class="footer_menu">
       <div>
         <ul>
-        
+
           <li><a href=<%=ServletPath.ReferStudentPage%>>ユーザー情報</a></li>
-           <li><form action="<%=ServletPath.RegisterItemPage %>" method="post">
+           <li><form action=<%=ServletPath.ReferExhibitItemPage %> method="post">
           <button type="submit">
           <a>出品物情報登録</a></li></button></form>
         </ul>
@@ -41,18 +41,18 @@
           <input type="hidden" name="maxPrice " value="">
           <button type="submit">
           <a>商品情報</a></button></form></li>
-          
+
           <li><form action="<%=ServletPath.SearchItemPage%>" method="get">
           <button type="submit">
           <a>商品検索</a></button></form></li>
           </ul></div>
-          
-      <div> 
+
+      <div>
       <form action="<%=ServletPath.SearchSyllabusPage%>" method="get">
       <button type="submit">
       <a>シラバス検索</a></button></form></div>
-      
-      <div> 
+
+      <div>
       <form action="<%=ServletPath.ReferMessageBoxListPage%>" method="post">
       <button type="submit">
       <a>メッセージ一覧</a></button></form></div>
