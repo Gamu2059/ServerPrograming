@@ -50,6 +50,11 @@
 				<form action=<%=ServletPath.EditManagerPage %> method="get">
 					<button type="submit" class="edit_profile" >運営情報編集</button>
 				</form>
+			<br>
+			<br>
+				<form action="">
+				<button type="submit" class="logout_button" >ログアウト</button>
+				</form>
 		</div>
 	</div>
 </body>
