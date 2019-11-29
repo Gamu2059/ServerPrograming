@@ -1,3 +1,4 @@
+<%@page import="javax.sound.midi.MidiDevice.Info"%>
 <%@page import="tdu_market.dto.ManagerGetInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -18,20 +19,30 @@
 		<!-- タイトル -->
 		<h2 id="page_title">ユーザー情報</h2>
 		<!-- メインコンテンツ -->
-		<!-- セッションデータの受け取り -->
-		<% ManagerGetInfo profileInfo = (ManagerGetInfo)session.getAttribute("managerProfileInfo"); %>
+
 		<article>
 			<div class="content_margin_400px">
 				<br>
 				<div class="user_profile">
 					<div class="item_for_LeftAndRight_around">
-						<img src="/tdu_market/images/icon.png" />
+						<!-- セッションデータの受け取り -->
+						<%
+						ManagerGetInfo profileInfo = (ManagerGetInfo)session.getAttribute("managerProfileInfo");
+						String iconURL = "/tdu_market/images/icon.png";
+						String name = "未登録";
+						if(profileInfo != null){
+							iconURL = profileInfo.getIconImageBinary();
+							name = profileInfo.getDisplayName();
+						}
+						%>
+						<img src="<%= iconURL %>" />
 						<div>
 							<h3>ディスプレイネーム</h3>
-							<h2 id="user_name">電大太郎</h2>
+							<h2 id="user_name"><%= name %></h2>
 							<h3>アカウント種別</h3>
 							<h2>運営アカウント</h2>
 						</div>
+
 					</div>
 					<br>
 				</div>
