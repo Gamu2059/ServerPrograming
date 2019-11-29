@@ -17,7 +17,7 @@
 	</header>
 	<div class="center_container">
 		<article id="create">
-			<form action="<%=ServletPath.RegisterManagerInfo %> method="post">
+			<form action="<%=ServletPath.RegisterManagerInfo %>"  method="post">
 				<div class="input_field_ver2">
 					<div class="input_content_img">
 						<img id="icon" src="/tdu_market/images/icon.png" alt="icon" />
