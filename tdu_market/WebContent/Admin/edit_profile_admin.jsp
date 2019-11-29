@@ -20,7 +20,7 @@
 		<!-- メインコンテンツ -->
 		<article>
 			<div class="content_margin_300px">
-			<form action="<%= ServletPath.UpdateManagerInfo %>" method="post">
+			<form action="<%= ServletPath.UpdateManagerInfo %>" method="post" enctype="multipart/form-data">
 				<br />
 				<div class="user_profile">
 					<div class="errorMessage">
