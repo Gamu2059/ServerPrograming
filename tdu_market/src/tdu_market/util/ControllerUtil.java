@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import tdu_market.dto.ReturnInfo;
+import tdu_market.entity_manager.ManagerInfoManager;
 import tdu_market.entity_manager.StudentInfoManager;
 
 public class ControllerUtil {
@@ -16,11 +17,27 @@ public class ControllerUtil {
 	public static boolean verifyLogin(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String mailAddress = getMailAddress(request, response);
-		StudentInfoManager student = new StudentInfoManager();
-		ReturnInfo loginResult = student.existMailAddress(mailAddress);
+		Object mailAddressObj = getMailAddress(request, response);
+		if (mailAddressObj == null) {
+			return false;
+		}
 
-		return loginResult.isSuccess();
+		String mailAddress = (String) mailAddressObj;
+		if (!AccountUtil.isMeetRequirementMailAddress(mailAddress)) {
+			return false;
+		}
+
+		if (AccountUtil.isStudentMailAddress(mailAddress)) {
+			StudentInfoManager student = new StudentInfoManager();
+			ReturnInfo loginResult = student.existMailAddress(mailAddress);
+			return loginResult.isSuccess();
+		} else if (AccountUtil.isManagerMailAddress(mailAddress)) {
+			ManagerInfoManager manager = new ManagerInfoManager();
+			ReturnInfo loginResult = manager.existMailAddress(mailAddress);
+			return loginResult.isSuccess();
+		}
+
+		return false;
 	}
 
 	// セッションからメールアドレスを取得する。
