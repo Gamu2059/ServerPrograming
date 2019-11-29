@@ -1,4 +1,5 @@
 package tdu_market.util;
+
 public class ServletPath{
     public static final String BuyItem = "/tdu_market/tdu_market/controller/BuyItem";
     public static final String ChangeTradingState = "/tdu_market/tdu_market/controller/ChangeTradingState";
@@ -39,7 +40,7 @@ public class ServletPath{
     public static final String ReferSyllabusPage = "/tdu_market/tdu_market/controller/ReferSyllabusPage";
     public static final String RegisterManagerInfo = "/tdu_market/tdu_market/controller/RegisterManagerInfo";
     public static final String RegisterStudentInfo = "/tdu_market/tdu_market/controller/RegisterStudentInfo";
-    public static final String RegisterExhibitItemPage = "/tdu_market/tdu_market/controller/ExhibitItemPage";
+    public static final String RegisterExhibitItemPage = "/tdu_market/tdu_market/controller/RegisterExhibitItemPage";
     public static final String RegisterItemInfo = "/tdu_market/tdu_market/controller/RegisterItemInfo";
     public static final String RegisterSyllabusInfo = "/tdu_market/tdu_market/controller/RegisterSyllabusInfo";
     public static final String RegisterSyllabusPage = "/tdu_market/tdu_market/controller/RegisterSyllabusPage";
