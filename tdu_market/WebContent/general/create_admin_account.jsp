@@ -24,7 +24,7 @@
 						<div>
 							<label>
 								<h2>アイコン</h2>
-							</label> <input type="fileFile" name="iconImageURL" /> <label> <br /> 画像形式：.png
+							</label> <input id="iconFile" type="file" name="iconImageURL" /> <label> <br /> 画像形式：.png
 								.jpg <br /> 画像のサイズ：400px*400px未満
 							</label>
 						</div>
