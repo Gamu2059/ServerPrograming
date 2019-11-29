@@ -48,7 +48,7 @@ public class ReferManagerPage extends HttpServlet {
 		//jspに情報を投げる。
 		request.setAttribute("manaerInfo", managerInfo);
 		//遷移
-		ControllerUtil.translatePage(JspPath.edit_profile_admin, request, response);
+		ControllerUtil.translatePage(JspPath.reference_profile_admin, request, response);
 
 	}
 
