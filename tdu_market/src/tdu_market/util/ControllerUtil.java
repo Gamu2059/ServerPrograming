@@ -1,7 +1,7 @@
 package tdu_market.util;
 
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,11 +20,7 @@ public class ControllerUtil {
 		StudentInfoManager student = new StudentInfoManager();
 		ReturnInfo loginResult = student.existMailAddress(mailAddress);
 
-		if(!loginResult.isSuccess()) {
-			ControllerUtil.translatePage("index.jsp", request, response);
-			return false;
-		}
-		return true;
+		return loginResult.isSuccess();
 	}
 
 	// セッションからメールアドレスを取得する。
