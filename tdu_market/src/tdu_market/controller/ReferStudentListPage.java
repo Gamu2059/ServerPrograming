@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import tdu_market.dto.StudentGetInfo;
 import tdu_market.dto.StudentSearchInfo;
-import tdu_market.dto.SyllabusGetInfo;
-import tdu_market.dto.SyllabusSearchInfo;
 import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.ControllerUtil;
 import tdu_market.util.JspPath;
@@ -42,9 +40,9 @@ public class ReferStudentListPage extends HttpServlet {
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			return;
 		}
-		if (!ControllerUtil.verifyLogin(request, response)) {
-			return;
-		}
+//		if (!ControllerUtil.verifyLogin(request, response)) {
+//			return;
+//		}
 
 		StudentInfoManager studentInfo = new StudentInfoManager();
 		StudentSearchInfo searchInfo = new StudentSearchInfo(request.getParameter("studentNumberKeyword"),Integer.valueOf(request.getParameter("subjectID;")).longValue(),request.getParameter("displayNameKeyword"));
