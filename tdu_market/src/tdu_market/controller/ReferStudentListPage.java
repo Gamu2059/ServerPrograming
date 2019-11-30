@@ -51,7 +51,7 @@ public class ReferStudentListPage extends HttpServlet {
 
 		//jspに情報を投げる。
 		HttpSession session = request.getSession();
-		session.setAttribute("searchResult", searchResult);
+		session.setAttribute("studentList", searchResult);
 
 		//遷移
 		ControllerUtil.translatePage(JspPath.reference_student_list, request, response);
