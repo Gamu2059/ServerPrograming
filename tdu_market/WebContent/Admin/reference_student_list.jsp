@@ -60,7 +60,7 @@
 										out.print("<tr class=\"studentId\">");
 										out.print("<th class=\"check_column1\"><input type=\"checkbox\" /></th>");
 										out.print("<tb class=\"hidden_column\">"+studentList.get(i).getMailAddress()+"</tb>");
-										out.print("<td class=\"student_column1\">未習得</td>");
+										out.print("<td class=\"student_column1\">"+studentList.get(i).getMailAddress().split("@", 0)[0]+"</td>");
 										out.print("<td class=\"student_column2\">"+studentList.get(i).getDisplayName()+"</td>");
 										out.print("<td class=\"student_column3\">"+studentList.get(i).getDepartmentID()+"</td>");
 										out.print("<td class=\"student_column4\">"+studentList.get(i).getDepartmentID()+"</td>");
