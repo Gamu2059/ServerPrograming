@@ -35,7 +35,6 @@ public class ReferExhibitItemListPage extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.err.println("ReferExhibitItemListPage is non implementation!");
 
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			ControllerUtil.translatePage(JspPath.index, request, response);
@@ -50,7 +49,6 @@ public class ReferExhibitItemListPage extends HttpServlet {
 		//jspに情報を投げる。
 		HttpSession session = request.getSession();
 		session.setAttribute("itemList",itemList);
-
 
 		//遷移
 		ControllerUtil.translatePage(JspPath.reference_exhibit_list, request, response);

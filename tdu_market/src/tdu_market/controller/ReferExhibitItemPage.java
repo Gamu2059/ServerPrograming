@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import tdu_market.dto.RelatedClassGetInfo;
 import tdu_market.entity_manager.RelatedClassInfoManager;
@@ -21,37 +22,27 @@ import tdu_market.util.JspPath;
 public class ReferExhibitItemPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public ReferExhibitItemPage() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.err.println("ReferExhibitItemPage is non implementation!");
 
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 
-		//出品情報を取得
-		RelatedClassInfoManager itemInfo = new RelatedClassInfoManager();
-		ArrayList<RelatedClassGetInfo> relatedClassGetInfo = itemInfo
+		RelatedClassInfoManager relatedClassInfoManager = new RelatedClassInfoManager();
+		ArrayList<RelatedClassGetInfo> relatedClassGetInfo = relatedClassInfoManager
 				.getRelatedClassInfoWithItem(Integer.valueOf(request.getParameter("itemID")).longValue());
-		//jspに情報を投げる。
 
-		request.setAttribute("exhibitInfo", relatedClassGetInfo);
+		HttpSession session = request.getSession();
+		if (relatedClassGetInfo == null) {
+			session.setAttribute("exhibitInfo", null);
+		} else {
+			session.setAttribute("exhibitInfo", relatedClassGetInfo.get(0));
+		}
+
 		//遷移
 		ControllerUtil.translatePage(JspPath.reference_exhibit_detail, request, response);
-
 
 	}
 
