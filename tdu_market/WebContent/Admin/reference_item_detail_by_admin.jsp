@@ -1,3 +1,4 @@
+<%@page import="tdu_market.dto.ItemGetInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,12 +18,23 @@
 		<!-- タイトル -->
 		<h2 id="page_title">商品情報詳細</h2>
 		<!-- メインコンテンツ -->
+		<!-- 商品情報の取得 -->
+		<%
+		ItemGetInfo itemInfo = (ItemGetInfo)session.getAttribute("itemInfo");
+		String mailAddress = "";
+		if(itemInfo != null){
+			mailAddress = itemInfo.getExhibitorMailAddress();
+		}
+		%>
 		<article>
 			<div class="content_margin_200px">
 				<br>
 				<div class="exhibit_profile">
 					<div class="item_for_right">
-						<button id="white_button">学生情報へ→</button>
+						<form action="<%= ServletPath.ManagerReferStudentPage %>" method="get">
+							<input type="hidden" name="mailAddress" value="<%= mailAddress %>">
+							<button type="submit" id="white_button">学生情報へ→</button>
+						</form>
 					</div>
 					<h2 id="title">ぬこ先生のやさしいJAVA入門書</h2>
 					<label>ぬこ先生のプログラミング青空教室</label> <br>
@@ -101,10 +113,11 @@
 						dialog.style.display = 'none';
 					});
 				}
-				document.getElementById('white_button').onclick = function() {
+				/* 以下は、有効化すると学生情報ボタンに不具合が発生する */
+				/* document.getElementById('white_button').onclick = function() {
 					window.history.back(-1);
 					return false;
-				}
+				} */
 			</script>
 		</section>
 	</div>
