@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import tdu_market.dto.StudentGetInfo;
 import tdu_market.entity_manager.StudentInfoManager;
@@ -47,7 +48,8 @@ public class ManagerReferStudentPage extends HttpServlet {
 		//DBから学生情報を取得する
 		StudentGetInfo studentInfo = student.getStudentInfo(mailAddress);
 		//jspに情報を投げる。
-		request.setAttribute("studentInfo", studentInfo);
+		HttpSession session = request.getSession();
+		session.setAttribute("studentInfo", studentInfo);
 
 		//遷移
 		ControllerUtil.translatePage(JspPath.reference_student_detail_by_admin, request, response);
