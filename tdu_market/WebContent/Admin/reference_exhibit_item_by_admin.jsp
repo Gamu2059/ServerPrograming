@@ -1,3 +1,6 @@
+<%@page import="tdu_market.dto.ItemGetInfo"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="tdu_market.dto.StudentGetInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,35 +20,45 @@
 		<!-- タイトル -->
 		<h2 id="page_title">学生情報詳細</h2>
 		<!-- メインコンテンツ -->
+		<!-- 出品者情報・出品情報の取得 -->
+		<%
+		StudentGetInfo studentInfo = (StudentGetInfo)session.getAttribute("studentInfo");
+		ArrayList<ItemGetInfo> itemListInfo = (ArrayList<ItemGetInfo>)session.getAttribute("exhibitItemList");
+		String studentName = "未設定";
+		if(studentInfo != null){
+			studentName = studentInfo.getDisplayName();
+		}
+		%>
 		<article>
 			<div class="content_margin_200px">
 				<br />
-				<h2>電大太郎さんの出品物</h2>
+				<h2><%= studentName %>さんの出品物</h2>
 				<ul id="user_exhibit_list">
+				<!-- 出品商品の表示 -->
+				<%
+				if(itemListInfo == null) {
+					out.print("出品している商品は有りません");
+				} else {
+					for(int i=0 ; i<itemListInfo.size();i++){
+					%>
 					<li>
+					<form action="">
 						<button>
 							<!-- 商品画像 -->
-							<img src="/tdu_market/images/item_image.png" />
+							<img src="<%= itemListInfo.get(i).getItemImageBinaries()[0] %>" />
 							<!-- 商品名 -->
-							<h3>ぬこでもわかるJAVA入門書</h3>
+							<h3><%= itemListInfo.get(i).getItemName() %></h3>
 							<div class="item_for_bottom">
 								<!-- 商品価格 -->
-								<h3>1000円</h3>
+								<h3><%= itemListInfo.get(i).getPrice() %>円</h3>
 							</div>
 						</button>
+					</form>
 					</li>
-					<li>
-						<button>
-							<!-- 商品画像 -->
-							<img src="/tdu_market/images/item_image.png" />
-							<!-- 商品名 -->
-							<h3>ぬこでもわかるJAVA入門書</h3>
-							<div class="item_for_bottom">
-								<!-- 商品価格 -->
-								<h3>1000円</h3>
-							</div>
-						</button>
-					</li>
+					<%
+					}
+				}
+				%>
 				</ul>
 				<br />
 				<!-- 戻るボタン -->
