@@ -19,6 +19,13 @@
 		<article id="create">
 			<form action="<%=ServletPath.RegisterManagerInfo %>"  method="post"  enctype="multipart/form-data">
 				<div class="input_field_ver2">
+					<div class="errorMessage">
+						<%
+						if((String)session.getAttribute("errorMessages") != null){
+							out.println("<p>"+(String)session.getAttribute("errorMessages")+"</p>");
+						}
+						%>
+					</div>
 					<div class="input_content_img">
 						<img id="icon" src="/tdu_market/images/icon.png" alt="icon" />
 						<div>

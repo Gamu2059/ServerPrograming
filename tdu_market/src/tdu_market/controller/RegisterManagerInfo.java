@@ -27,7 +27,6 @@ public class RegisterManagerInfo extends HttpServlet {
 			throws ServletException, IOException {
 
 		if (!ControllerUtil.verifyLogin(request, response)) {
-			System.out.print("AAAAA");
 			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
@@ -50,11 +49,10 @@ public class RegisterManagerInfo extends HttpServlet {
 		if (createResult.isSuccess()) {
 
 			ManagerTopPage topPage = new ManagerTopPage();
-			System.out.println("テスト");
 			topPage.doGet(request, response);
 		} else {
 
-			session.setAttribute("errorInfo", createResult.getMsg());
+			session.setAttribute("errorMessages", createResult.getMsg());
 			ControllerUtil.translatePage(JspPath.create_admin_account, request, response);
 		}
 	}

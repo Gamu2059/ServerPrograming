@@ -1,21 +1,19 @@
 package tdu_market.controller;
-import tdu_market.entity_manager.StudentInfoManager;
-import tdu_market.util.ControllerUtil;
-import tdu_market.util.JspPath;
-
-import java.io.IOException;
-import tdu_market.entity_manager.ManagerInfoManager;
-import tdu_market.entity_manager.StudentInfoManager;
 import java.io.IOException;
 import java.util.Enumeration;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import javax.servlet.RequestDispatcher;
+import tdu_market.entity_manager.ManagerInfoManager;
+import tdu_market.entity_manager.StudentInfoManager;
+import tdu_market.util.AccountUtil;
+import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 
 /**
@@ -41,12 +39,21 @@ public class Logout extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.err.println("Logout is non implementation!");
 
-
-		StudentInfoManager student = new StudentInfoManager();
 		//セッションからメールアドレスを取得
 		String mailAddress = ControllerUtil.getMailAddress(request, response);
-		// StudentInfoManagerのlogoutを呼ぶ。
-		student.logout(mailAddress);
+
+		//学生の場合
+		if(AccountUtil.isStudentMailAddress(mailAddress)) {
+			StudentInfoManager student = new StudentInfoManager();
+
+			// StudentInfoManagerのlogoutを呼ぶ。
+			student.logout(mailAddress);
+		} else if(AccountUtil.isManagerMailAddress(mailAddress)) {
+			ManagerInfoManager manager = new ManagerInfoManager();
+
+			//ManagerInfoManagerのlogoutを呼ぶ。
+			manager.logout(mailAddress);
+		}
 
 		//セッションに保存されたデータの削除
 		HttpSession sess = request.getSession();
@@ -54,10 +61,10 @@ public class Logout extends HttpServlet {
 		while(vals.hasMoreElements()){
 			String nm = (String)vals.nextElement();
 			sess.removeAttribute(nm);
-		}	
+		}
 		//遷移
 		ControllerUtil.translatePage(JspPath.index, request, response);
-	
+
 
 	}
 

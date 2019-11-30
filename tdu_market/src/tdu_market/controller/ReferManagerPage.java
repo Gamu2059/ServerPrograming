@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import tdu_market.dto.ManagerGetInfo;
 import tdu_market.entity_manager.ManagerInfoManager;
@@ -46,9 +47,10 @@ public class ReferManagerPage extends HttpServlet {
 		//DBから運営情報を取得する
 		ManagerGetInfo managerInfo = manager.getManagerInfo(mailAddress);
 		//jspに情報を投げる。
-		request.setAttribute("manaerInfo", managerInfo);
+		HttpSession session = request.getSession();
+		session.setAttribute("managerProfileInfo", managerInfo);
 		//遷移
-		ControllerUtil.translatePage(JspPath.edit_profile_admin, request, response);
+		ControllerUtil.translatePage(JspPath.reference_profile_admin, request, response);
 
 	}
 
