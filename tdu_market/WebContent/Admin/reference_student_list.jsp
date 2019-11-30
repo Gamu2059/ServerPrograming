@@ -33,7 +33,7 @@
 			<!-- テーブル -->
 			<div class="item_for_center">
 				<div class="list">
-					<form action="<%= ServletPath.ReferStudentPage %>" name="select_student" method="get">
+					<form action="<%= ServletPath.ManagerReferStudentPage %>" name="select_student" method="get">
 						<table>
 							<!-- テーブルタイトル -->
 							<thead class="list_title">
@@ -53,18 +53,22 @@
 								<%
 								ArrayList<StudentGetInfo> studentList = new ArrayList<>();
 								studentList = (ArrayList<StudentGetInfo>)session.getAttribute("studentList");
+								if(studentList==null){
+									out.print("登録されている学生情報はありません。");
+								}else{
+									for(int i=0;i<studentList.size();i++){
+										out.print("<tr class=\"studentId\">");
+										out.print("<th class=\"check_column1\"><input type=\"checkbox\" /></th>");
+										out.print("<tb class=\"hidden_column\">"+studentList.get(i).getMailAddress()+"</tb>");
+										out.print("<td class=\"student_column1\">未習得</td>");
+										out.print("<td class=\"student_column2\">"+studentList.get(i).getDisplayName()+"</td>");
+										out.print("<td class=\"student_column3\">"+studentList.get(i).getDepartmentID()+"</td>");
+										out.print("<td class=\"student_column4\">"+studentList.get(i).getDepartmentID()+"</td>");
+										out.print("<td class=\"student_column5\">未習得</td>");
+										out.print("</tr>");
+									}
+								}
 								%>
-
-								<tr class="studentId">
-									<th class="check_column1"><input type="checkbox" /></th>
-									<tb class="hidden_column">99FI999@ms.dendai.ac.jp</tb>
-									<td class="student_column1">99FI999</td>
-									<td class="student_column2">Hogeの民</td>
-									<td class="student_column3">未来科学部</td>
-									<td class="student_column4">情報メディア学科</td>
-									<td class="student_column5">3</td>
-								</tr>
-
 							</tbody>
 						</table>
 						<!-- テーブル要素クリック -->
@@ -87,7 +91,7 @@
 												"selectStudent");
 										//valueの設定
 										element.setAttribute("value",
-												student_mailaddress);
+												"");
 										//取得したIDデータをsetattributeする
 										document.select_student
 												.appendChild(element);
