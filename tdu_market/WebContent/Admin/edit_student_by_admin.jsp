@@ -30,12 +30,8 @@
 	<!-- 初期input入力 -->
 	<script type="text/javascript">
 		function autoinupt() {
-			document.getElementById("user_name").value =
-	<%=name%>
-		;
-			document.getElementById("selfintroduction").value =
-	<%=selfintroduction%>
-		;
+			document.getElementById("user_name").value = <%=name%>;
+			document.getElementById("selfintroduction").value = <%=selfintroduction%>;
 		}
 	</script>
 	<%@ include file="panel.jsp"%>
@@ -51,10 +47,11 @@
 					<button class="exhibit_list_button" type="button">出品一覧</button>
 				</div>
 				<form action="<%=ServletPath.ManagerUpdateStudentInfo%>" method="post">
+					<input type="hidden" name="mailAddress" value="<%= studentInfo.getMailAddress()%>"/>
 					<div class="user_profile">
 						<div class="item_for_LeftAndRight_around">
-							<label id="edit_img_button"> <img id="icon"
-								src="<%=iconURL%>" /> <input type="file" id="iconFile" />
+							<label id="edit_img_button"> <img id="icon" src="<%=iconURL%>" />
+								<input type="file" id="iconFile" name="iconImageURL" />
 								<h3>編集</h3>
 							</label>
 							<!-- プレビュー機能 -->
@@ -69,9 +66,9 @@
 							</script>
 							<div>
 								<h3>ディスプレイネーム</h3>
-								<input id="user_name" type="text" />
+								<input id="user_name" type="text" name="displayName"/>
 								<h3>所属学科</h3>
-								<select>
+								<select name="departmentID">
 									<option value="media">未来科学部-情報メディア学科</option>
 									<option value="robot">未来科学部-ロボット・メカトロニクス学科</option>
 								</select>
@@ -80,7 +77,7 @@
 						<br />
 						<h3>自己紹介</h3>
 						<div class="selfintroduction">
-							<textarea id="selfintroduction"></textarea>
+							<textarea id="selfintroduction" name="selfIntroduction"></textarea>
 						</div>
 					</div>
 				<br />
