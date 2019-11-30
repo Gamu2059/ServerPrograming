@@ -41,7 +41,8 @@
 }
 /* リスト - 列設定 */
 .hidden_column {
-  visibility: collapse;
+	display:none;
+  visibility: hidden;
   width: 0px;
 }
 .check_column1 {
@@ -199,6 +200,9 @@ ul#user_exhibit_list li:hover {
 ul#user_exhibit_list li * {
   background: rgba(0, 0, 0, 0);
   object-fit: contain;
+}
+ul#user_exhibit_list li form {
+	width: 100%;
 }
 /* リストボタン設定 */
 ul#user_exhibit_list li button {

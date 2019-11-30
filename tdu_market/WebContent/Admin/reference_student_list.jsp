@@ -59,7 +59,7 @@
 									for(int i=0;i<studentList.size();i++){
 										out.print("<tr class=\"studentId\">");
 										out.print("<th class=\"check_column1\"><input type=\"checkbox\" /></th>");
-										out.print("<tb class=\"hidden_column\"><input type=\"hidden\" name=\"mailAddress\" value=\""+studentList.get(i).getMailAddress()+"\"></tb>");
+										out.print("<td class=\"hidden_column\">"+studentList.get(i).getMailAddress()+"</td>");
 										out.print("<td class=\"student_column1\">"+studentList.get(i).getMailAddress().split("@", 0)[0]+"</td>");
 										out.print("<td class=\"student_column2\">"+studentList.get(i).getDisplayName()+"</td>");
 										out.print("<td class=\"student_column3\">"+studentList.get(i).getDepartmentID()+"</td>");
@@ -75,17 +75,15 @@
 						<script type="text/javascript"
 							src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 						<script type="text/javascript">
-							$(".studentId").on(
-									"click",
-									function() {
+							$(".studentId").on("click", function() {
 										//メールアドレスの取得
-										var student_mailaddress = $(this).children("td")[1].innerText;
+										var student_mailaddress = $(this).children("td")[0].innerText;
 										//Input型エレメントの生成
 										var element = document.createElement("input");
 										//typeの設定
-										element.setAttribute("type", "submit");
+										element.setAttribute("type", "hidden");
 										//nameの設定
-										element.setAttribute("name","selectStudent");
+										element.setAttribute("name","mailAddress");
 										//valueの設定
 										element.setAttribute("value",student_mailaddress);
 										//取得したIDデータをsetattributeする

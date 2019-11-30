@@ -34,31 +34,25 @@ public class ManagerUpdateStudentInfo extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 
-		//入力フォームの必要事項が入力されているかチェック
-		//ここではjsp側でしているため、していない
-		String mailAddress = ControllerUtil.getMailAddress(request, response);
-		String pass1 = request.getParameter("nonHashedPassword1");
-		String pass2 = request.getParameter("nonHashedPassword2");
-		String name = request.getParameter("displayName");
-		String subjectIdStr = request.getParameter("departmentID");
-		String intro = request.getParameter("selfIntroduction");
+		//編集対象の学生メールアドレスを取得する
+		final String mailAddress = request.getParameter("mailAddress");
+		//変更するデータを取得する
 		Part part = request.getPart("iconImageURL");
+		String name = request.getParameter("displayName");
+		String departmentID = request.getParameter("departmentID");
+		String selfIntroduction = request.getParameter("selfIntroduction");
 		InputStream is = part.getInputStream();
 
-		if (!pass1.equals(pass2)) {
-			session.setAttribute("errorInfo", "パスワードが一致しません。");
-			ControllerUtil.translatePage(JspPath.edit_student_by_admin, request, response);
-			return;
-		}
-
+		//学科IDをStringからlongに変換する
 		long subjectID = -1;
 		try {
-			subjectID = Integer.parseInt(subjectIdStr);
+			subjectID = Integer.parseInt(departmentID);
 		} catch (NumberFormatException e) {
 
 		}
 
-		// 学生自身は所属学科を変更できないため、subjectID = -1
+		//パスワードがnullでも更新できなければならない。
+
 		StudentUpdateInfo updateInfo = new StudentUpdateInfo(mailAddress, pass1, name, subjectID, intro, is);
 		StudentInfoManager student = new StudentInfoManager();
 		ReturnInfo updateResult = student.updateStudentInfo(updateInfo);

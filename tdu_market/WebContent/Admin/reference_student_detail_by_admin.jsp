@@ -1,4 +1,5 @@
 
+<%@page import="tdu_market.dto.StudentGetInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -18,30 +19,52 @@
 		<!-- タイトル -->
 		<h2 id="page_title">学生情報詳細</h2>
 		<!-- メインコンテンツ -->
+		<!-- データの受け取りと展開 -->
+			<%
+			StudentGetInfo studentInfo = (StudentGetInfo)session.getAttribute("studentInfo");
+			String studentMailAddress = "";
+			String iconURL = "";
+			String name = "";
+			long department = 0;
+			String selfIntroduction = "";
+			if(studentInfo != null){
+				studentMailAddress = studentInfo.getMailAddress();
+				iconURL = studentInfo.getIconImageBinary();
+				name = studentInfo.getDisplayName();
+				department = studentInfo.getDepartmentID();
+				selfIntroduction = studentInfo.getSelfIntroduction();
+			}
+			%>
 		<article>
 			<div class="content_margin_200px">
 				<br>
 				<div class="item_for_right">
-					<button class="exhibit_list_button" type="button">出品一覧</button>
+					<form action="<%= ServletPath.ManagerReferExhibitItemListPage %>" method="get">
+						<input type="hidden" name="studentMailAddress" value="<%= studentMailAddress %>">
+						<button class="exhibit_list_button" type="submit">出品一覧</button>
+					</form>
 				</div>
 				<div class="user_profile">
+
 					<div class="item_for_LeftAndRight_around">
-						<img src="/tdu_market/images/icon.png" />
+						<img src="<%= iconURL %>" />
 						<div>
 							<h3>ディスプレイネーム</h3>
-							<h2 id="user_name">電大太郎</h2>
+							<h2 id="user_name"><%= name %></h2>
 							<h3>所属学科</h3>
-							<h2>未来科学部情報メディア学科</h2>
+							<h2><%= department %></h2>
 						</div>
 					</div>
 					<br>
 					<h3>自己紹介</h3>
-					<h4 id="selfintroduction">自己紹介文はここに記載されます。ああああああああああああああああああああああああああああ</h4>
+					<h4 id="selfintroduction"><%= selfIntroduction %></h4>
 				</div>
 				<br>
 				<div class="item_for_LeftAndRight_between">
 					<button id="red_button">削除</button>
-					<button id="blue_button">編集</button>
+					<form action="<%= ServletPath.ManagerEditStudentPage %>" method="get">
+						<button id="blue_button">編集</button>
+					</form>
 				</div>
 			</div>
 		</article>
