@@ -72,7 +72,10 @@
 			<div id="confirm_dialog_admin">
 				<p>削除しますか？</p>
 				<div class="confirm_dialog_button">
-					<button id="yes" class="button_flat_nega">確認</button>
+					<form action="<%= ServletPath.ManagerDeleteStudentInfo %>" method="get">
+						<input type="hidden" name="mailAddress" value="<%= studentInfo.getMailAddress() %>" />
+						<button id="yes" class="button_flat_nega">確認</button>
+					</form>
 					<button id="no" class="button_flat_normal">キャンセル</button>
 				</div>
 			</div>
