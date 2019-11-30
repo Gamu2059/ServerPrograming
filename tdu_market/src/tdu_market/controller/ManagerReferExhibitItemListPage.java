@@ -49,7 +49,7 @@ public class ManagerReferExhibitItemListPage extends HttpServlet {
 		ArrayList<ItemGetInfo> itemList =  itemInfo.getExhibitItem(mailAddress);
 		//jspに情報を投げる。
 		HttpSession session = request.getSession();
-		session.setAttribute("exhibititemList",itemList);
+		session.setAttribute("exhibitItemList",itemList);
 		//遷移
 		ControllerUtil.translatePage(JspPath.reference_exhibit_item_by_admin, request, response);
 
