@@ -8,29 +8,34 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <!-- Bootstrap -->
-<link rel="stylesheet" href="/tdu_market/css/import_admin.css" type="text/css" />
+<link rel="stylesheet" href="/tdu_market/css/import_admin.css"
+	type="text/css" />
 <title>学生情報詳細（編集中）</title>
 </head>
 <body onLoad="autoinput()">
 	<!-- 編集データの取得 -->
 	<%
-	StudentGetInfo studentInfo = (StudentGetInfo)session.getAttribute("studentInfo");
-	String iconURL = "/tdu_market/images/icon.png";
-	String name = "未設定";
-	long departmentID = 0;
-	String selfintroduction = "未設定";
-	if(studentInfo != null){
-		iconURL = studentInfo.getIconImageBinary();
-		name = studentInfo.getDisplayName();
-		departmentID = studentInfo.getDepartmentID();
-		selfintroduction = studentInfo.getSelfIntroduction();
-	}
+		StudentGetInfo studentInfo = (StudentGetInfo) session.getAttribute("studentInfo");
+		String iconURL = "/tdu_market/images/icon.png";
+		String name = "未設定";
+		long departmentID = 0;
+		String selfintroduction = "未設定";
+		if (studentInfo != null) {
+			iconURL = studentInfo.getIconImageBinary();
+			name = studentInfo.getDisplayName();
+			departmentID = studentInfo.getDepartmentID();
+			selfintroduction = studentInfo.getSelfIntroduction();
+		}
 	%>
 	<!-- 初期input入力 -->
 	<script type="text/javascript">
-		function autoinupt(){
-			document.getElementById( "user_name" ).value = <%=name%> ;
-			document.getElementById("selfintroduction").value= <%=selfintroduction%>;
+		function autoinupt() {
+			document.getElementById("user_name").value =
+	<%=name%>
+		;
+			document.getElementById("selfintroduction").value =
+	<%=selfintroduction%>
+		;
 		}
 	</script>
 	<%@ include file="panel.jsp"%>
@@ -45,42 +50,49 @@
 				<div class="item_for_right">
 					<button class="exhibit_list_button" type="button">出品一覧</button>
 				</div>
-				<div class="user_profile">
-					<div class="item_for_LeftAndRight_around">
-						<label id="edit_img_button">
-							<img id="icon" src="<%= iconURL %>" />
-							<input type="file" id="iconFile" />
-							<h3>編集</h3>
-						</label>
-						<!-- プレビュー機能 -->
-						<script>
-						$('#iconFile').on('change', function (e) {
-						    var reader = new FileReader();
-						    reader.onload = function (e) {
-						        $("#icon").attr('src', e.target.result);
-						    }
-						    reader.readAsDataURL(e.target.files[0]);
-						});
-						</script>
-						<div>
-							<h3>ディスプレイネーム</h3>
-							<input id="user_name" type="text" />
-							<h3>所属学科</h3>
-							<select>
-								<option value="media">未来科学部-情報メディア学科</option>
-								<option value="robot">未来科学部-ロボット・メカトロニクス学科</option>
-							</select>
+				<form action="<%=ServletPath.ManagerUpdateStudentInfo%>" method="post">
+					<div class="user_profile">
+						<div class="item_for_LeftAndRight_around">
+							<label id="edit_img_button"> <img id="icon"
+								src="<%=iconURL%>" /> <input type="file" id="iconFile" />
+								<h3>編集</h3>
+							</label>
+							<!-- プレビュー機能 -->
+							<script>
+								$('#iconFile').on('change',function(e) {
+									var reader = new FileReader();
+									reader.onload = function(e) {
+										$("#icon").attr('src',e.target.result);
+									}
+									reader.readAsDataURL(e.target.files[0]);
+								});
+							</script>
+							<div>
+								<h3>ディスプレイネーム</h3>
+								<input id="user_name" type="text" />
+								<h3>所属学科</h3>
+								<select>
+									<option value="media">未来科学部-情報メディア学科</option>
+									<option value="robot">未来科学部-ロボット・メカトロニクス学科</option>
+								</select>
+							</div>
+						</div>
+						<br />
+						<h3>自己紹介</h3>
+						<div class="selfintroduction">
+							<textarea id="selfintroduction"></textarea>
 						</div>
 					</div>
-					<br />
-					<h3>自己紹介</h3>
-					<div class="selfintroduction">
-						<textarea id="selfintroduction"></textarea>
+				<br />
+				<div id="confirm_dialog_admin">
+					<p id="confirm_text">更新しますか？</p>
+					<div class="confirm_dialog_button">
+						<button tyoe="submit" id="yes" class="button_flat_submit button_flat_nega">確認</button>
+						<button type="button" id="no" class="button_flat_normal">キャンセル</button>
 					</div>
 				</div>
-				<br />
-				<div class="item_for_LeftAndRight_between">
-					<button id="red_button">削除</button>
+				</form>
+				<div class="item_for_center">
 					<button id="orange_button">確定</button>
 				</div>
 			</div>
@@ -92,20 +104,12 @@
 			1.該当するidをボタンに付与する。update, delete, back_button
 			2.notify_dialog('表示したいメッセージ','遷移先url')
 		-->
-			<div id="confirm_dialog_admin">
-				<p id="confirm_text">更新しますか？</p>
-				<div class="confirm_dialog_button">
-					<button id="yes" class="button_flat_submit button_flat_nega">
-						確認</button>
-					<button id="no" class="button_flat_normal">キャンセル</button>
-				</div>
-			</div>
-			<div id="notify_dialog_admin">
+			<!-- <div id="notify_dialog_admin">
 				<p id="notify_text">確認ダイアログ</p>
 				<div class="notify_dialog_button">
 					<button id="ok" class="button_flat_normal">了解</button>
 				</div>
-			</div>
+			</div> -->
 			<script type="text/javascript">
 				document.getElementById("orange_button").onclick = function() {
 					//各ボタンの要素の取得
@@ -116,11 +120,11 @@
 					yes.classList.remove("button_flat_nega");
 					yes.classList.add("button_flat_submit");
 
-					document.getElementById("confirm_text").textContent = "更新しますか？";
+					/* document.getElementById("confirm_text").textContent = "更新しますか？"; */
 
 					dialog.style.display = "block";
 
-					yes.addEventListener("click", function() {
+					/* yes.addEventListener("click", function() {
 						dialog.style.display = "none";
 
 						//ここに内部処理をいれる
@@ -130,32 +134,9 @@
 					});
 					no.addEventListener("click", function() {
 						dialog.style.display = "none";
-					});
+					}); */
 				};
-				document.getElementById("red_button").onclick = function() {
-					//各ボタンの要素の取得
-					let dialog = document
-							.getElementById("confirm_dialog_admin");
-					let yes = document.getElementById("yes");
-					let no = document.getElementById("no");
-					yes.classList.remove("button_flat_submit");
-					yes.classList.add("button_flat_nega");
 
-					document.getElementById("confirm_text").textContent = "削除しますか？";
-
-					dialog.style.display = "block";
-
-					yes.addEventListener("click", function() {
-						dialog.style.display = "none";
-
-						//ここに内部処理をいれる
-
-						notify_dialog("削除しました。", "reference_student_list");
-					});
-					no.addEventListener("click", function() {
-						dialog.style.display = "none";
-					});
-				};
 				function notify_dialog(text, url) {
 					let dialog = document.getElementById("notify_dialog_admin");
 
