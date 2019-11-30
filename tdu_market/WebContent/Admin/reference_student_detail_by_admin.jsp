@@ -1,4 +1,5 @@
 
+<%@page import="tdu_market.dto.StudentGetInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -25,18 +26,32 @@
 					<button class="exhibit_list_button" type="button">出品一覧</button>
 				</div>
 				<div class="user_profile">
+				<!-- データの受け取りと展開 -->
+					<%
+					StudentGetInfo studentInfo = (StudentGetInfo)session.getAttribute("studentInfo");
+					String iconURL = "";
+					String name = "";
+					long department = 0;
+					String selfIntroduction = "";
+					if(studentInfo != null){
+						iconURL = studentInfo.getIconImageBinary();
+						name = studentInfo.getDisplayName();
+						department = studentInfo.getDepartmentID();
+						selfIntroduction = studentInfo.getSelfIntroduction();
+					}
+					%>
 					<div class="item_for_LeftAndRight_around">
-						<img src="/tdu_market/images/icon.png" />
+						<img src="<%= iconURL %>" />
 						<div>
 							<h3>ディスプレイネーム</h3>
-							<h2 id="user_name">電大太郎</h2>
+							<h2 id="user_name"><%= name %></h2>
 							<h3>所属学科</h3>
-							<h2>未来科学部情報メディア学科</h2>
+							<h2><%= department %></h2>
 						</div>
 					</div>
 					<br>
 					<h3>自己紹介</h3>
-					<h4 id="selfintroduction">自己紹介文はここに記載されます。ああああああああああああああああああああああああああああ</h4>
+					<h4 id="selfintroduction"><%= selfIntroduction %></h4>
 				</div>
 				<br>
 				<div class="item_for_LeftAndRight_between">
