@@ -41,7 +41,8 @@
 }
 /* リスト - 列設定 */
 .hidden_column {
-  visibility: collapse;
+	display:none;
+  visibility: hidden;
   width: 0px;
 }
 .check_column1 {
