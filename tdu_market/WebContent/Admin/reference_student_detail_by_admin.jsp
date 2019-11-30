@@ -19,27 +19,33 @@
 		<!-- タイトル -->
 		<h2 id="page_title">学生情報詳細</h2>
 		<!-- メインコンテンツ -->
+		<!-- データの受け取りと展開 -->
+			<%
+			StudentGetInfo studentInfo = (StudentGetInfo)session.getAttribute("studentInfo");
+			String studentMailAddress = "";
+			String iconURL = "";
+			String name = "";
+			long department = 0;
+			String selfIntroduction = "";
+			if(studentInfo != null){
+				studentMailAddress = studentInfo.getMailAddress();
+				iconURL = studentInfo.getIconImageBinary();
+				name = studentInfo.getDisplayName();
+				department = studentInfo.getDepartmentID();
+				selfIntroduction = studentInfo.getSelfIntroduction();
+			}
+			%>
 		<article>
 			<div class="content_margin_200px">
 				<br>
 				<div class="item_for_right">
-					<button class="exhibit_list_button" type="button">出品一覧</button>
+					<form action="<%= ServletPath.ManagerReferExhibitItemListPage %>" method="get">
+						<input type="hidden" name="studentMailAddress" value="<%= studentMailAddress %>">
+						<button class="exhibit_list_button" type="submit">出品一覧</button>
+					</form>
 				</div>
 				<div class="user_profile">
-				<!-- データの受け取りと展開 -->
-					<%
-					StudentGetInfo studentInfo = (StudentGetInfo)session.getAttribute("studentInfo");
-					String iconURL = "";
-					String name = "";
-					long department = 0;
-					String selfIntroduction = "";
-					if(studentInfo != null){
-						iconURL = studentInfo.getIconImageBinary();
-						name = studentInfo.getDisplayName();
-						department = studentInfo.getDepartmentID();
-						selfIntroduction = studentInfo.getSelfIntroduction();
-					}
-					%>
+
 					<div class="item_for_LeftAndRight_around">
 						<img src="<%= iconURL %>" />
 						<div>
