@@ -201,6 +201,9 @@ ul#user_exhibit_list li * {
   background: rgba(0, 0, 0, 0);
   object-fit: contain;
 }
+ul#user_exhibit_list li form {
+	width: 100%;
+}
 /* リストボタン設定 */
 ul#user_exhibit_list li button {
   margin: 0px;
