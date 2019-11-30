@@ -2,7 +2,6 @@ package tdu_market.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,7 +36,7 @@ public class ManagerPostMail extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.err.println("ManagerPostMail is non implementation!");
 /*
- * 
+ *
  * 新規登録画面の送信ボタンから呼び出される
 ・正式にはPostMailクラス
 ・メールアドレスがメールアドレスの体をなしているかチェック
@@ -47,11 +46,16 @@ public class ManagerPostMail extends HttpServlet {
 ・送信した後、ログインページに遷移する
 
  */
+
+		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
+			return;
+		}
 		String mailAddress = ControllerUtil.getMailAddress(request, response);
 		ManagerInfoManager manager = new ManagerInfoManager();
-		
+
 		ReturnInfo createResult = manager.createTemporaryAccount(mailAddress);
-		
+
 		if(createResult.isSuccess()) {
 			//仮パスワード送信
 			SendMail.sendPassword(mailAddress,createResult.getMsg());

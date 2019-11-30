@@ -36,8 +36,9 @@ public class ManagerReferStudentPage extends HttpServlet {
 		System.err.println("ManagerReferStudentPage is non implementation!");//ログイン状態の検証
 
 		StudentInfoManager student = new StudentInfoManager();
-		//ログイン状態の検証
+
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 

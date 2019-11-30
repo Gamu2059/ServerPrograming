@@ -177,16 +177,16 @@ public final class StudentInfoManager {
 
 		RoomMemberInfoManager roomMemberInfoManager = new RoomMemberInfoManager();
 		RoomMemberGetInfo roomMemberGetInfo = roomMemberInfoManager.getRoomMemberInfoWithMailAddress(mailAddress);
-		if (roomMemberGetInfo == null) {
-			return;
+
+		if (roomMemberGetInfo != null) {
+			// ルーム情報を削除する
+			MessageRoomInfoManager messageRoomInfoManager = new MessageRoomInfoManager();
+			for (long roomID : roomMemberGetInfo.getRoomIDs()) {
+				messageRoomInfoManager.deleteMessageRoomInfo(roomID);
+			}
 		}
 
-		// ルーム情報を削除する
-		MessageRoomInfoManager messageRoomInfoManager = new MessageRoomInfoManager();
-		for (long roomID : roomMemberGetInfo.getRoomIDs()) {
-			messageRoomInfoManager.deleteMessageRoomInfo(roomID);
-		}
-
+		// 学生情報を削除する
 		StudentInfoDAO studentInfoDAO = new StudentInfoDAO();
 		studentInfoDAO.deleteStudentInfo(mailAddress);
 	}

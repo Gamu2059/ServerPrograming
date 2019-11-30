@@ -22,6 +22,7 @@ public class ReferStudentPage extends HttpServlet {
 			throws ServletException, IOException {
 
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 

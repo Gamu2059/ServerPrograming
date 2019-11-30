@@ -66,7 +66,9 @@
 					style="background: #ffffff; color: blue; border: none;">ユーザー情報設定</button>
 			</form>
 		</h3>
-		<button id="logout_button">ログアウト</button>
+		<form action=<%=ServletPath.Logout%> method="post">
+			<button type="submit" id="logout_button">ログアウト</button>
+		</form>
 	</div>
 </div>
 <script type="text/javascript" defer="defer">
