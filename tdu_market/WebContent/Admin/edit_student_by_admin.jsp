@@ -1,3 +1,4 @@
+<%@page import="tdu_market.dto.StudentGetInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -10,7 +11,28 @@
 <link rel="stylesheet" href="/tdu_market/css/import_admin.css" type="text/css" />
 <title>学生情報詳細（編集中）</title>
 </head>
-<body>
+<body onLoad="autoinput()">
+	<!-- 編集データの取得 -->
+	<%
+	StudentGetInfo studentInfo = (StudentGetInfo)session.getAttribute("studentInfo");
+	String iconURL = "/tdu_market/images/icon.png";
+	String name = "未設定";
+	long departmentID = 0;
+	String selfintroduction = "未設定";
+	if(studentInfo != null){
+		iconURL = studentInfo.getIconImageBinary();
+		name = studentInfo.getDisplayName();
+		departmentID = studentInfo.getDepartmentID();
+		selfintroduction = studentInfo.getSelfIntroduction();
+	}
+	%>
+	<!-- 初期input入力 -->
+	<script type="text/javascript">
+		function autoinupt(){
+			document.getElementById( "user_name" ).value = <%=name%> ;
+			document.getElementById("selfintroduction").value= <%=selfintroduction%>;
+		}
+	</script>
 	<%@ include file="panel.jsp"%>
 	<!-- 右パネル -->
 	<div class="right_panel">
@@ -25,10 +47,21 @@
 				</div>
 				<div class="user_profile">
 					<div class="item_for_LeftAndRight_around">
-						<label id="edit_img_button"> <img src="/tdu_market/images/icon.png" />
-							<input type="file" />
+						<label id="edit_img_button">
+							<img id="icon" src="<%= iconURL %>" />
+							<input type="file" id="iconFile" />
 							<h3>編集</h3>
 						</label>
+						<!-- プレビュー機能 -->
+						<script>
+						$('#iconFile').on('change', function (e) {
+						    var reader = new FileReader();
+						    reader.onload = function (e) {
+						        $("#icon").attr('src', e.target.result);
+						    }
+						    reader.readAsDataURL(e.target.files[0]);
+						});
+						</script>
 						<div>
 							<h3>ディスプレイネーム</h3>
 							<input id="user_name" type="text" />
@@ -42,8 +75,7 @@
 					<br />
 					<h3>自己紹介</h3>
 					<div class="selfintroduction">
-						<textarea>
-自己紹介文はここに記載されます。ああああああああああああああああああああああああああああ</textarea>
+						<textarea id="selfintroduction"></textarea>
 					</div>
 				</div>
 				<br />
