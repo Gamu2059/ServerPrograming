@@ -45,8 +45,16 @@ public class ReferStudentListPage extends HttpServlet {
 //			return;
 //		}
 
+		//学科IDがnullの場合は0に指定
+		long longSubjectID;
+		if(request.getParameter("subjectID")==null) {
+			longSubjectID = 0;
+		}else {
+			longSubjectID = Integer.valueOf(request.getParameter("subjectID")).longValue();
+		}
+
 		StudentInfoManager studentInfo = new StudentInfoManager();
-		StudentSearchInfo searchInfo = new StudentSearchInfo(request.getParameter("studentNumberKeyword"),Integer.valueOf(request.getParameter("subjectID;")).longValue(),request.getParameter("displayNameKeyword"));
+		StudentSearchInfo searchInfo = new StudentSearchInfo(request.getParameter("studentNumberKeyword"),longSubjectID,request.getParameter("displayNameKeyword"));
 		ArrayList<StudentGetInfo> searchResult = studentInfo.searchStudentInfo(searchInfo);
 
 		//jspに情報を投げる。
