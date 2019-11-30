@@ -55,3 +55,10 @@ p#waring_message {
   font-weight: 900;
   color: red;
 }
+/* エラーメッセージ表示 */
+div.errorMessage {
+	text-align: center;
+}
+div.errorMessage p {
+	color: red;
+}

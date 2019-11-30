@@ -27,6 +27,9 @@
   margin: 0px 50px;
   background-color: white !important;
 }
+.confirm_dialog_button form{
+	background-color: white !important;
+}
 .confirm_dialog_button button {
   margin: 10px;
 }

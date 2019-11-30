@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import tdu_market.dto.ManagerGetInfo;
 import tdu_market.dto.ManagerUpdateInfo;
 import tdu_market.dto.ReturnInfo;
 import tdu_market.entity_manager.ManagerInfoManager;
@@ -54,11 +55,17 @@ public class UpdateManagerInfo extends HttpServlet {
 		ReturnInfo updateResult = manager.updateManagerInfo(updateInfo);
 
 		if (updateResult.isSuccess()) {
-			session.setAttribute("errorInfo", null);
+			session.setAttribute("errorUserEditMessages", null);
+
+			ManagerGetInfo managerInfo = manager.getManagerInfo(mailAddress);
+			session.setAttribute("managerProfileInfo", managerInfo);
+
+			ControllerUtil.translatePage(JspPath.reference_profile_admin, request, response);
 		} else {
-			session.setAttribute("errorInfo", updateResult.getMsg());
+			session.setAttribute("errorUserEditMessages", updateResult.getMsg());
+			ControllerUtil.translatePage(JspPath.edit_profile_admin, request, response);
 		}
 
-		ControllerUtil.translatePage(JspPath.edit_profile_admin, request, response);
+
 	}
 }

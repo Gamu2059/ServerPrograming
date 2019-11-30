@@ -41,8 +41,9 @@ public class ManagerReferStudentPage extends HttpServlet {
 			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
-		//セッションからメールアドレスを取得
-		String mailAddress = ControllerUtil.getMailAddress(request, response);
+
+		//メールアドレスの取得
+		String mailAddress = (String)request.getParameter("mailAddress");
 
 		//DBから学生情報を取得する
 		StudentGetInfo studentInfo = student.getStudentInfo(mailAddress);
@@ -51,8 +52,7 @@ public class ManagerReferStudentPage extends HttpServlet {
 
 		//遷移
 		ControllerUtil.translatePage(JspPath.reference_student_detail_by_admin, request, response);
-	
-		
+
 	}
 
 

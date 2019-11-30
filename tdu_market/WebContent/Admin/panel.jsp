@@ -47,8 +47,13 @@
 				</li>
 			</ul>
 			<br>
-				<form action=<%=ServletPath.EditManagerPage %> method="get">
+				<form action=<%=ServletPath.ReferManagerPage %> method="get">
 					<button type="submit" class="edit_profile" >運営情報編集</button>
+				</form>
+			<br>
+			<br>
+				<form action="<%=ServletPath.Logout %>" method="post">
+				<button type="submit" class="logout_button" >ログアウト</button>
 				</form>
 		</div>
 	</div>
