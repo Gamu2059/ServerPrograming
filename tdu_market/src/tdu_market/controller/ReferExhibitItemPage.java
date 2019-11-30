@@ -15,9 +15,6 @@ import tdu_market.entity_manager.RelatedClassInfoManager;
 import tdu_market.util.ControllerUtil;
 import tdu_market.util.JspPath;
 
-/**
- * Servlet implementation class ReferExhibitItemPage
- */
 @WebServlet("/tdu_market/controller/ReferExhibitItemPage")
 public class ReferExhibitItemPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -43,7 +40,5 @@ public class ReferExhibitItemPage extends HttpServlet {
 
 		//遷移
 		ControllerUtil.translatePage(JspPath.reference_exhibit_detail, request, response);
-
 	}
-
 }
