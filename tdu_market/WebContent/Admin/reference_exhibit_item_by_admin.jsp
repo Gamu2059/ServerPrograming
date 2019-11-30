@@ -42,8 +42,9 @@
 					for(int i=0 ; i<itemListInfo.size();i++){
 					%>
 					<li>
-					<form action="">
-						<button>
+					<form action="<%= ServletPath.ManagerReferItemPage %>" method="get">
+						<input type="hidden" name="itemID" value="<%= itemListInfo.get(i).getItemID() %>">
+						<button type="submit">
 							<!-- 商品画像 -->
 							<img src="<%= itemListInfo.get(i).getItemImageBinaries()[0] %>" />
 							<!-- 商品名 -->
