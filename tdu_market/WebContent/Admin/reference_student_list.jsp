@@ -1,3 +1,5 @@
+<%@page import="tdu_market.dto.StudentGetInfo"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -47,7 +49,12 @@
 							</thead>
 							<!-- テーブル要素 -->
 							<tbody class="list_content">
-								<!-- サンプル -->
+								<!-- Sessionからデータを受け取る -->
+								<%
+								ArrayList<StudentGetInfo> studentList = new ArrayList<>();
+								studentList = (ArrayList<StudentGetInfo>)session.getAttribute("studentList");
+								%>
+
 								<tr class="studentId">
 									<th class="check_column1"><input type="checkbox" /></th>
 									<tb class="hidden_column">99FI999@ms.dendai.ac.jp</tb>
@@ -57,6 +64,7 @@
 									<td class="student_column4">情報メディア学科</td>
 									<td class="student_column5">3</td>
 								</tr>
+
 							</tbody>
 						</table>
 						<!-- テーブル要素クリック -->
