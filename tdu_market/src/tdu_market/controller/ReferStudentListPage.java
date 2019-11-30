@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import tdu_market.dto.StudentGetInfo;
 import tdu_market.dto.StudentSearchInfo;
@@ -49,7 +50,9 @@ public class ReferStudentListPage extends HttpServlet {
 		ArrayList<StudentGetInfo> searchResult = studentInfo.searchStudentInfo(searchInfo);
 
 		//jspに情報を投げる。
-		request.setAttribute("searchResult", searchResult);
+		HttpSession session = request.getSession();
+		session.setAttribute("searchResult", searchResult);
+
 		//遷移
 		ControllerUtil.translatePage(JspPath.reference_student_list, request, response);
 
