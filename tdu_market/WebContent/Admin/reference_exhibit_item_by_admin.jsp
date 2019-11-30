@@ -40,13 +40,17 @@
 					out.print("出品している商品は有りません");
 				} else {
 					for(int i=0 ; i<itemListInfo.size();i++){
+						String itemImageURL = "/tdu_market/images/item_image.png";
+						if(itemListInfo.get(i).getItemImageBinaries() != null) {
+							itemImageURL = itemListInfo.get(i).getItemImageBinaries()[0];
+						}
 					%>
 					<li>
 					<form action="<%= ServletPath.ManagerReferItemPage %>" method="get">
 						<input type="hidden" name="itemID" value="<%= itemListInfo.get(i).getItemID() %>">
 						<button type="submit">
 							<!-- 商品画像 -->
-							<img src="<%= itemListInfo.get(i).getItemImageBinaries()[0] %>" />
+							<img src="<%= itemImageURL %>" />
 							<!-- 商品名 -->
 							<h3><%= itemListInfo.get(i).getItemName() %></h3>
 							<div class="item_for_bottom">
