@@ -36,9 +36,9 @@ public class ManagerReferSyllabusListPage extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	
-		
+
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 
@@ -49,7 +49,7 @@ public class ManagerReferSyllabusListPage extends HttpServlet {
 		ArrayList<SyllabusGetInfo> searchResult = syllabusInfo.searchSyllabus(searchInfo) ;
 		//jspに情報を投げる。
 		request.setAttribute("searchResult", searchResult);
-		
+
 		//遷移
 		ControllerUtil.translatePage(JspPath.reference_syllabus_list_by_admin, request, response);
 	

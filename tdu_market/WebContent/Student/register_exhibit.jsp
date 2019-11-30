@@ -29,7 +29,7 @@
 			<!-- セカンドコンテナ -->
 			<div class="second_container_ver2">
 				<!-- VaildateExhibitItemへ処理を引き継ぐ -->
-				<form action=<%=ServletPath.VaildateExhibitItem %> method="post" id="exhibit_form">
+				<form action=<%=ServletPath.VaildateExhibitItem %> method="post" enctype="multipart/form-data" id="exhibit_form">
 					<!-- 上部コンテンツ -->
 					<div class="top_content_ver2">
 						<div class="detail_content">
@@ -167,7 +167,7 @@
 							    reader.readAsDataURL(e.target.files[0]);
 							});
 							</script>
-        
+
 							</div>
 						</div>
 						<div class="detail_content">

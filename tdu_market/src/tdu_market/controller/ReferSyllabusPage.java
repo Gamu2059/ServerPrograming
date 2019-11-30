@@ -39,6 +39,7 @@ public class ReferSyllabusPage extends HttpServlet {
 		System.err.println("ReferSyllabusPage is non implementation!");
 
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 

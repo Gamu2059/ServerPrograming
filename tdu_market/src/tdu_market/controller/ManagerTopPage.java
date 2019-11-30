@@ -34,8 +34,8 @@ public class ManagerTopPage extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.err.println("ManagerTopPage is non implementation!");
 
-		//ログイン状態の検証
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 		//遷移

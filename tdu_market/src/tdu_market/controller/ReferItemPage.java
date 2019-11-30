@@ -39,6 +39,7 @@ public class ReferItemPage extends HttpServlet {
 		System.err.println("ReferItemPage is non implementation!");
 
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 

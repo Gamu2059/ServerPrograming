@@ -16,6 +16,10 @@ public final class RoomMemberInfoManager {
 		RoomMemberInfoDAO roomMemberInfoDAO = new RoomMemberInfoDAO();
 		ArrayList<RoomMemberInfo> list = roomMemberInfoDAO.getRoomMemberInfoWithMailAddress(studentMailAddress);
 
+		if (list == null || list.size() < 1) {
+			return null;
+		}
+
 		long[] roomIDs = new long[list.size()];
 		for (int i = 0; i < list.size(); i++) {
 			roomIDs[i] = list.get(i).getRoomID();

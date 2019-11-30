@@ -42,8 +42,8 @@ public class ReferMessageBoxListPage extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.err.println("ReferMessageBoxListPage is non implementation!");
 
-		//ログイン状態の検証
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 
