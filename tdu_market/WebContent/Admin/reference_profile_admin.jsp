@@ -77,7 +77,7 @@
 					<button id="ok" class="button_flat_normal">了解</button>
 				</div>
 			</div> -->
-			<!-- <script type="text/javascript">
+			<script type="text/javascript">
 				document.getElementById('red_button').onclick = function() {
 					//各ボタンの要素の取得
 					let dialog = document
@@ -86,29 +86,17 @@
 					let no = document.getElementById('no');
 					dialog.style.display = 'block';
 
-					yes.addEventListener('click', function() {
-						dialog.style.display = 'none';
 
-						//ここに内部処理をいれる
 
-						notify_dialog('削除しました。', 'index');/*再読み込みがかかります*/
-					});
+
 					no.addEventListener('click', function() {
 						dialog.style.display = 'none';
 					});
 				}
-				function notify_dialog(text, url) {
-					let dialog = document.getElementById('notify_dialog_admin');
 
-					document.getElementById('notify_text').textContent = text;
 
-					dialog.style.display = 'block';
-					ok.addEventListener('click', function() {
-						location.href = url + '.html';
-						dialog.style.display = 'none';
-					});
-				}
-			</script> -->
+
+			</script>
 		</section>
 	</div>
 </body>
