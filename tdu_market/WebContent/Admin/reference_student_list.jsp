@@ -31,7 +31,7 @@
 			<!-- テーブル -->
 			<div class="item_for_center">
 				<div class="list">
-					<form name="select_student">
+					<form action="<%= ServletPath.ReferStudentPage %>" name="select_student" method="get">
 						<table>
 							<!-- テーブルタイトル -->
 							<thead class="list_title">
