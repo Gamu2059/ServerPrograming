@@ -75,10 +75,10 @@ public class VaildateSyllabus extends HttpServlet {
 		}
 
 		//必須入力でない部分のnull回避
-		if(overview==null) overview="※目的概要は登録されていません";
-		if(target==null) target="※達成目標は登録されていません";
-		if(requierments==null) requierments="※履修条件は登録されていません";
-		if(evaluationMethod==null) evaluationMethod="※評価方法は登録されていません";
+		if(overview==null || overview.isEmpty()) overview="※目的概要は登録されていません";
+		if(target==null || target.isEmpty()) target="※達成目標は登録されていません";
+		if(requierments==null || requierments.isEmpty()) requierments="※履修条件は登録されていません";
+		if(evaluationMethod==null || evaluationMethod.isEmpty()) evaluationMethod="※評価方法は登録されていません";
 
 		//シラバス情報の登録準備
 		SyllabusInfoManager syllabus = new SyllabusInfoManager();
