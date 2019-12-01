@@ -22,6 +22,7 @@
 		<article>
 			<%
 			SyllabusCreateInfo syllabusInfo = (SyllabusCreateInfo)session.getAttribute("confirmCreateSyllabusInfo");
+			String teacherName = (String)session.getAttribute("confirmTeacherName");
 			%>
 			<br>
 			<div class="syllabus_profile">
@@ -124,7 +125,7 @@
 						let input = document.createElement('input');
 						input.autocomplete = true;
 						input.setAttribute('list', 'teacher_list');
-						input.setAttribute('placeholder','<%= syllabusInfo.getTeacherID() %>');
+						input.setAttribute('placeholder','<%= teacherName %>');
 						input.setAttribute('disabled','disabled');
 						document.getElementById('teacher_syllabus')
 								.appendChild(input);
@@ -158,7 +159,8 @@
 			</div>
 			<br>
 			<div class="item_for_center">
-				<button id="orange_button">確定</button>
+			<!-- 送信するデータ -->
+				<button type="submit" id="orange_button">確定</button>
 			</div>
 			<br>
 		</article>
@@ -169,25 +171,54 @@
 			2.notify_dialog('表示したいメッセージ','遷移先url')
 		-->
 			<div id="confirm_dialog_admin">
-				<p id="confirm_text">登録しますか？</p>
+				<p id="confirm_text">続けて登録しますか？</p>
 				<div class="confirm_dialog_button">
-					<button id="yes" class="button_flat_submit">確認</button>
-					<button id="no" class="button_flat_normal">キャンセル</button>
+					<form action="<%= ServletPath.RegisterSyllabusInfo %>" method="post" name="createSyllabusForm" >
+						<input type="hidden" name="isContineRegist" value="true">
+						<input type="hidden" name="classCode" value="<%= syllabusInfo.getClassCode() %>">
+						<input type="hidden" name="className" value="<%= syllabusInfo.getClassName() %>">
+						<input type="hidden" name="subjectID" value="<%= syllabusInfo.getSubjectID() %>">
+						<input type="hidden" name="semesterID" value="<%= syllabusInfo.getSemesterID() %>">
+						<input type="hidden" name="dates" value="<%= syllabusInfo.getDates() %>">
+						<input type="hidden" name="unitNum" value="<%= syllabusInfo.getUnitNum() %>">
+						<input type="hidden" name="classRoom" value="<%= syllabusInfo.getClassRoom() %>">
+						<input type="hidden" name="teacherID" value="<%= syllabusInfo.getTeacherID() %>">
+						<input type="hidden" name="overview" value="<%= syllabusInfo.getOverview() %>">
+						<input type="hidden" name="target" value="<%= syllabusInfo.getTarget() %>">
+						<input type="hidden" name="requierments" value="<%= syllabusInfo.getRequirements() %>">
+						<input type="hidden" name="evaluationMethod" value="<%= syllabusInfo.getEvaluationMethod() %>">
+						<button id="yes" class="button_flat_submit">はい</button>
+					</form>
+					<form action="<%= ServletPath.RegisterSyllabusInfo %>" method="post" name="createSyllabusForm" >
+						<input type="hidden" name="isContineRegist" value="false">
+						<input type="hidden" name="classCode" value="<%= syllabusInfo.getClassCode() %>">
+						<input type="hidden" name="className" value="<%= syllabusInfo.getClassName() %>">
+						<input type="hidden" name="subjectID" value="<%= syllabusInfo.getSubjectID() %>">
+						<input type="hidden" name="semesterID" value="<%= syllabusInfo.getSemesterID() %>">
+						<input type="hidden" name="dates" value="<%= syllabusInfo.getDates() %>">
+						<input type="hidden" name="unitNum" value="<%= syllabusInfo.getUnitNum() %>">
+						<input type="hidden" name="classRoom" value="<%= syllabusInfo.getClassRoom() %>">
+						<input type="hidden" name="teacherID" value="<%= syllabusInfo.getTeacherID() %>">
+						<input type="hidden" name="overview" value="<%= syllabusInfo.getOverview() %>">
+						<input type="hidden" name="target" value="<%= syllabusInfo.getTarget() %>">
+						<input type="hidden" name="requierments" value="<%= syllabusInfo.getRequirements() %>">
+						<input type="hidden" name="evaluationMethod" value="<%= syllabusInfo.getEvaluationMethod() %>">
+						<button id="no" class="button_flat_normal">いいえ</button>
+					</form>
 				</div>
 			</div>
 
 			<script type="text/javascript">
 				document.getElementById('orange_button').onclick = function() {
 					//各ボタンの要素の取得
-					let dialog = document
-							.getElementById('confirm_dialog_admin');
+					let dialog = document.getElementById('confirm_dialog_admin');
 					let yes = document.getElementById('yes');
 					let no = document.getElementById('no');
-					document.getElementById('confirm_text').textContent = '登録しますか？';
+					/* document.getElementById('confirm_text').textContent = '登録しますか？'; */
 
 					dialog.style.display = 'block';
 
-					yes.addEventListener('click', function() {
+/* 					yes.addEventListener('click', function() {
 						dialog.style.display = 'none';
 
 						//ここに内部処理をいれる
@@ -196,9 +227,9 @@
 					no.addEventListener('click', function() {
 						dialog.style.display = 'none';
 
-					});
+					}); */
 				}
-				function reconfirm_dialog(text) {
+				/* function reconfirm_dialog(text) {
 					//各ボタンの要素の取得
 					let dialog = document
 							.getElementById('confirm_dialog_admin');
@@ -218,7 +249,7 @@
 						location.href = 'reference_syllabus_list_by_admin.html'
 						dialog.style.display = 'none';
 					});
-				}
+				} */
 			</script>
 		</section>
 	</div>
