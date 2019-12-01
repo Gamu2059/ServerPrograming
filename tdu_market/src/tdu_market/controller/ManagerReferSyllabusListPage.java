@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import tdu_market.dto.SyllabusGetInfo;
-import tdu_market.dto.SyllabusSearchInfo;
 import tdu_market.entity_manager.SyllabusInfoManager;
 import tdu_market.util.ControllerUtil;
 import tdu_market.util.JspPath;
@@ -43,7 +42,8 @@ public class ManagerReferSyllabusListPage extends HttpServlet {
 			return;
 		}
 
-		//授業コードが適切かどうか
+		/*
+		 //授業コードが適切かどうか
 		String classCode = "";
 		if(request.getParameter("classCode")!=null) {
 			classCode = request.getParameter("classCode");
@@ -68,11 +68,13 @@ public class ManagerReferSyllabusListPage extends HttpServlet {
 		if(request.getParameter("semesterID")!=null) {
 			semesterID = Integer.valueOf(request.getParameter("semesterID")).longValue();
 		}
+		*/
 
 		SyllabusInfoManager syllabusInfo = new SyllabusInfoManager();
-		SyllabusSearchInfo searchInfo = new SyllabusSearchInfo( classCode, departmentID, classNameKeyword, teacherNameKeyword, semesterID);
+		//SyllabusSearchInfo searchInfo = new SyllabusSearchInfo( classCode, departmentID, classNameKeyword, teacherNameKeyword, semesterID);
+
 		//シラバス検索情報を格納
-		ArrayList<SyllabusGetInfo> syllabusInfoList = syllabusInfo.searchSyllabus(searchInfo) ;
+		ArrayList<SyllabusGetInfo> syllabusInfoList = syllabusInfo.getAllSyllabus();
 		//jspに情報を投げる。
 		HttpSession session = request.getSession();
 		session.setAttribute("syllabusInfoList", syllabusInfoList);
