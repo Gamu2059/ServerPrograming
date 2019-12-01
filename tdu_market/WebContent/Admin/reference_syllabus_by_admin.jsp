@@ -109,7 +109,9 @@
 			<br>
 			<div class="item_for_LeftAndRight_around">
 				<button id="red_button">削除</button>
-				<button id="blue_button">編集</button>
+				<form action="<%= ServletPath.EditSyllabusPage %>" method="get">
+					<button id="blue_button">編集</button>
+				</form>
 			</div>
 			<br>
 		</article>
