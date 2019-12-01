@@ -58,7 +58,6 @@ public class RegisterSyllabusInfo extends HttpServlet {
 		//シラバス情報の登録
 		if(retunResult.isSuccess())	{
 			syllabus.createSyllabusInfo(createInfo);
-			System.out.println(isContineRegist);
 			if (isContineRegist.contains("true")) {
 				ControllerUtil.translatePage(JspPath.register_syllabus_by_admin, request, response);
 			}else {
