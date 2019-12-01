@@ -105,7 +105,7 @@
 				</div>
 				<div class="item_for_grid_r1c2" id="teacher_syllabus">
 					<h3>教員</h3>
-					<input type="text" name="teacherName" autocomplete="on" list="teacherList" required>
+					<input type="text" name="teacherName" autocomplete="on" list="teacherList" accept-charset="UTF-8" required >
 					<datalist id="teacherList">
 					<!-- 教員情報の展開と表示 -->
 					<%
