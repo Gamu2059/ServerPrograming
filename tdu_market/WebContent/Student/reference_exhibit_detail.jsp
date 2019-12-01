@@ -37,7 +37,7 @@
 				<section>
 					<!-- ReferExhibitItemPageからのセッションデータを展開・表示 -->
 					<%
-					RelatedClassGetInfo info = (RelatedClassGetInfo)request.getAttribute("exhibitInfo");
+					RelatedClassGetInfo info = (RelatedClassGetInfo)session.getAttribute("exhibitInfo");
 					out.print("<div class=\"detail_content\">");
 					out.print("<h2 id=\"item_name\">"+ info.getItemGetInfo().getItemName() +"</h2>");
 					out.print("</div>");

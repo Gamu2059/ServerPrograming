@@ -37,13 +37,15 @@ public class ManagerReferExhibitItemListPage extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.err.println("ManagerReferExhibitItemListPage is non implementation!");
 
-		//ログイン状態の検証
+
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
-		//学生メールアドレスの取得
-		String mailAddress = (String)request.getParameter("studentMailAddress");
-
+    
+		//セッションからメールアドレスを取得
+		String mailAddress = ControllerUtil.getMailAddress(request, response);
+    
 		//出品情報を取得
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		ArrayList<ItemGetInfo> itemList =  itemInfo.getExhibitItem(mailAddress);

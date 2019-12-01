@@ -16,30 +16,18 @@ import tdu_market.util.ControllerUtil;
 import tdu_market.util.JspPath;
 
 
-/**
- * Servlet implementation class Logout
- */
 @WebServlet("/tdu_market/controller/Logout")
 public class Logout extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public Logout() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
+		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
+			return;
+		}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.err.println("Logout is non implementation!");
-
-		//セッションからメールアドレスを取得
 		String mailAddress = ControllerUtil.getMailAddress(request, response);
 
 		//学生の場合
@@ -55,17 +43,13 @@ public class Logout extends HttpServlet {
 			manager.logout(mailAddress);
 		}
 
-		//セッションに保存されたデータの削除
-		HttpSession sess = request.getSession();
-		Enumeration vals = sess.getAttributeNames();
-		while(vals.hasMoreElements()){
-			String nm = (String)vals.nextElement();
-			sess.removeAttribute(nm);
+		HttpSession session = request.getSession();
+		Enumeration<String> vals = session.getAttributeNames();
+		while (vals.hasMoreElements()) {
+			String name = vals.nextElement();
+			session.removeAttribute(name);
 		}
-		//遷移
+		
 		ControllerUtil.translatePage(JspPath.index, request, response);
-
-
 	}
-
 }

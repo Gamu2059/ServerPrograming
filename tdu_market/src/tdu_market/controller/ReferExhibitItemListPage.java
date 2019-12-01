@@ -3,7 +3,6 @@ package tdu_market.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,9 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import tdu_market.dto.ItemGetInfo;
-import tdu_market.dto.ReturnInfo;
 import tdu_market.entity_manager.ItemInfoManager;
-import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.ControllerUtil;
 import tdu_market.util.JspPath;
 
@@ -38,11 +35,9 @@ public class ReferExhibitItemListPage extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.err.println("ReferExhibitItemListPage is non implementation!");
 
-
-		//ログイン状態の検証
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 		//セッションからメールアドレスを取得
@@ -54,7 +49,6 @@ public class ReferExhibitItemListPage extends HttpServlet {
 		//jspに情報を投げる。
 		HttpSession session = request.getSession();
 		session.setAttribute("itemList",itemList);
-
 
 		//遷移
 		ControllerUtil.translatePage(JspPath.reference_exhibit_list, request, response);

@@ -40,8 +40,8 @@ public class TopPage extends HttpServlet {
 		System.err.println("TopPage is non implementation!");
 		HttpSession session = request.getSession();
 
-		//ログイン状態の検証
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 
