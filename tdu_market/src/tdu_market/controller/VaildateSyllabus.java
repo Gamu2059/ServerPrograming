@@ -17,7 +17,7 @@ import tdu_market.util.JspPath;
 /**
  * Servlet implementation class RegisterStudentInfo
  */
-@WebServlet("/tdu_market/controller/RegisterSyllabusInfo")
+@WebServlet("/tdu_market/controller/VaildateSyllabus")
 public class VaildateSyllabus extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
