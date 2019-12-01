@@ -24,6 +24,13 @@
 		<article>
 		<form action="<%= ServletPath.VaildateSyllabus %>" method="post">
 			<br>
+			<div class="errorMessage">
+				<%
+				if(session.getAttribute("createSyllabusErrorMessage")!=null){
+					out.print("<p>"+session.getAttribute("createSyllabusErrorMessage")+"</p>");
+				}
+				%>
+			</div>
 			<div class="syllabus_profile">
 				<div class="item_for_grid_r1c2">
 					<h3>授業コード</h3>
@@ -152,7 +159,7 @@
 			</div>
 			<br>
 			<div class="item_for_center">
-				<button type="submit" id="orange_button">確定</button>
+				<button type="submit" id="orange_button">登録</button>
 			</div>
 			<br>
 		</form>
