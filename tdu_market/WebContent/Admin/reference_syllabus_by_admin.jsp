@@ -122,16 +122,16 @@
 			<div id="confirm_dialog_admin">
 				<p>削除しますか？</p>
 				<div class="confirm_dialog_button">
-					<button id="yes" class="button_flat_nega">確認</button>
+					<button id="yes" class="button_flat_nega">削除</button>
 					<button id="no" class="button_flat_normal">キャンセル</button>
 				</div>
 			</div>
-			<div id="notify_dialog_admin">
+			<!-- <div id="notify_dialog_admin">
 				<p id="notify_text">確認ダイアログ</p>
 				<div class="notify_dialog_button">
 					<button id="ok" class="button_flat_normal">了解</button>
 				</div>
-			</div>
+			</div> -->
 			<script type="text/javascript">
 				document.getElementById('red_button').onclick = function() {
 					//各ボタンの要素の取得
