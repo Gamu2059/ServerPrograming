@@ -1,6 +1,7 @@
 package tdu_market.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import tdu_market.dto.ReturnInfo;
 import tdu_market.dto.SyllabusCreateInfo;
+import tdu_market.dto.TeacherGetInfo;
 import tdu_market.entity_manager.SyllabusInfoManager;
+import tdu_market.entity_manager.TeacherInfoManager;
 import tdu_market.util.ControllerUtil;
 import tdu_market.util.JspPath;
 
@@ -44,20 +47,43 @@ public class VaildateSyllabus extends HttpServlet {
 		//データの受け取り
 		String classCode = request.getParameter("classCode");
 		String className = request.getParameter("className");
+		long subjectID = Integer.valueOf(request.getParameter("subjectID")).longValue();
 		long semesterID = Integer.valueOf(request.getParameter("semesterID")).longValue();
 		String dates = request.getParameter("dates");
 		int unitNum = Integer.valueOf(request.getParameter("unitNum"));
 		String classRoom = request.getParameter("classRoom");
+		String teacherName = request.getParameter("teacherName");
+		String overview = request.getParameter("overview");
+		String target = request.getParameter("target");
+		String requierments = request.getParameter("requierments");
+		String evaluationMethod = request.getParameter("evaluationMethod");
 
+		//教員名を教員IDに変換
+		long teacherID = 0;
+		TeacherInfoManager teacherInfoManager = new TeacherInfoManager();
+		ArrayList<TeacherGetInfo> teacherInfo = new ArrayList<TeacherGetInfo>();
+		teacherInfo = teacherInfoManager.getTeacherInfoList();
+		for(int i = 0;i<teacherInfo.size();i++) {
+			if(teacherInfo.get(i).getTeacherName().equals(teacherName)) {
+				teacherID = teacherInfo.get(i).getTeacherID();
+				break;
+			}
+		}
+
+		//必須入力でない部分のnull回避
+		if(overview==null) overview="※目的概要は登録されていません";
+		if(target==null) target="※達成目標は登録されていません";
+		if(requierments==null) requierments="※履修条件は登録されていません";
+		if(evaluationMethod==null) evaluationMethod="※評価方法は登録されていません";
+
+		//シラバス情報の登録準備
 		SyllabusInfoManager syllabus = new SyllabusInfoManager();
-		SyllabusCreateInfo createInfo = new SyllabusCreateInfo(request.getParameter("classCode"), request.getParameter("className"), Integer.valueOf(request.getParameter("subjectID")).longValue(), Integer.valueOf(request.getParameter("teacherID")).longValue(),request.getParameter("dates"), Integer.valueOf(request.getParameter("unitNum")).intValue()
-				, request.getParameter("classRoom"),  request.getParameter("overview"), request.getParameter("target")
-				, request.getParameter("requierments"), request.getParameter("evaluationMethod"),Integer.valueOf(request.getParameter("semesterID")).longValue());
+		SyllabusCreateInfo createInfo = new SyllabusCreateInfo(classCode, className, subjectID, teacherID,dates, unitNum, classRoom,  overview, target, requierments, evaluationMethod, semesterID);
 
 		//入力情報の検証
 		ReturnInfo retunResult = syllabus.validateRegisterSyllabus(createInfo);
 
-		//シラバス情報の登録
+		//遷移先分岐
 		if(retunResult.isSuccess())	{
 //			syllabus.createSyllabusInfo(createInfo);
 		}
