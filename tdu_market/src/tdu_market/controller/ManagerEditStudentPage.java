@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class ManagerEditStudentPage
@@ -32,12 +33,14 @@ public class ManagerEditStudentPage extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.err.println("ManagerEditStudentPage is non implementation!");
 		//ログイン状態の検証
+
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
-		
+
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Admin/edit_student_by_admin.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.edit_student_by_admin, request, response);
 	
 	}
 

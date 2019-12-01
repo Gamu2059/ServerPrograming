@@ -1,6 +1,7 @@
 <%@page import="java.util.*"%>
 <%@page import="tdu_market.dto.*" %>
 <%@page import="tdu_market.util.*" %>
+<%@page import="tdu_market.util.ServletPath"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>

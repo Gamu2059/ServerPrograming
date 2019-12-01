@@ -196,6 +196,22 @@ button.edit_profile:hover {
   background: #48a8ff;
 }
 
+/* サイドパネル ログアウトボタン */
+button.logout_button {
+	background: #ff5151;
+  display: block;
+  border-style: none;
+  padding: 5px 35px;
+  margin: auto;
+  color: white;
+  font-size: 10px;
+  text-decoration: none;
+  border-radius: 8px;
+}
+button.logout_button:hover {
+	background: #ff2222;
+}
+
 /* トップ画面 ボタン */
 button.top_menu {
   background: white;

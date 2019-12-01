@@ -1,56 +1,60 @@
 package tdu_market.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import tdu_market.dto.ManagerUpdateInfo;
+import tdu_market.dto.ReturnInfo;
 import tdu_market.entity_manager.ManagerInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
-/**
- * Servlet implementation class RegisterManagerInfo
- */
 @WebServlet("/tdu_market/controller/RegisterManagerInfo")
+@MultipartConfig(maxFileSize = 1024 * 1024)
 public class RegisterManagerInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public RegisterManagerInfo() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.err.println("RegisterManagerInfo is non implementation!");
-		ManagerInfoManager manager = new ManagerInfoManager();
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 
+		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+
 		//入力フォームの必要事項が入力されているかチェック
 		//ここではjsp側でしているため、していない
-		//
+		String mailAddress = ControllerUtil.getMailAddress(request, response);
+		String password = request.getParameter("nonHashedPassword");
+		String name = request.getParameter("displayName");
+		Part part = request.getPart("iconImageURL");
+		InputStream is = part.getInputStream();
 
+		ManagerUpdateInfo managerInfo = new ManagerUpdateInfo(mailAddress, password, name, is);
+		ManagerInfoManager manager = new ManagerInfoManager();
+		ReturnInfo createResult = manager.updateManagerInfo(managerInfo);
 
-		ManagerUpdateInfo managerInfo = new ManagerUpdateInfo(request.getParameter("mailAddress"), request.getParameter("nonHashedPassword"), request.getParameter("displayName"), request.getParameter("iconImageURL"));
+		if (createResult.isSuccess()) {
 
-		//アカウントの仮登録状態を登録済みに、各種情報を入力されたものに変更。
-		manager.updateManagerInfo(managerInfo);
-		//遷移
-		ControllerUtil.translatePage("/tdu_market/general/index.jsp", request, response);
-			
+			ManagerTopPage topPage = new ManagerTopPage();
+			topPage.doGet(request, response);
+		} else {
+
+			session.setAttribute("errorMessages", createResult.getMsg());
+			ControllerUtil.translatePage(JspPath.create_admin_account, request, response);
+		}
 	}
 
 }

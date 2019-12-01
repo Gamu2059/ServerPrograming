@@ -1,11 +1,13 @@
 package tdu_market.dto;
 
+import java.io.InputStream;
+
 public class ItemImageCreateInfo {
 
 	private final long itemID;
-	private final String[] itemImageBinaries;
+	private final InputStream[] itemImageBinaries;
 
-	public ItemImageCreateInfo(long itemID, String[] itemImageBinaries) {
+	public ItemImageCreateInfo(long itemID, InputStream[] itemImageBinaries) {
 		super();
 		this.itemID = itemID;
 		this.itemImageBinaries = itemImageBinaries;
@@ -15,7 +17,7 @@ public class ItemImageCreateInfo {
 		return itemID;
 	}
 
-	public String[] getItemImageBinaries() {
+	public InputStream[] getItemImageBinaries() {
 		return itemImageBinaries;
 	}
 }

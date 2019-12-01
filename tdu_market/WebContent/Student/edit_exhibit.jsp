@@ -1,4 +1,5 @@
 <%@page import="java.util.ArrayList"%>
+<%@page import="tdu_market.util.ServletPath"%>
 <%@page import="tdu_market.dto.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -30,11 +31,11 @@
 			<!-- セカンドコンテナ -->
 			<div class="second_container_ver2">
 				<section>
-					<form action="../UpdateItemInfo" method="post">
+					<form action="<%=ServletPath.UpdateStudentPage%>" method="post">
 					<!-- フォームの初期設定 -->
 					<%
 					//１．更新対象の商品情報を取得
-					RelatedClassGetInfo info = (RelatedClassGetInfo)request.getAttribute("relatedClassGetInfo");
+					RelatedClassGetInfo info = (RelatedClassGetInfo)session.getAttribute("relatedClassGetInfo");
 					//２．更新対象の商品情報を展開して入力フォームを生成
 					out.print("<input type=\"hidden\" name=\"itemID\" value=\""+info.getItemGetInfo().getItemID()+"\" />");
 					out.print("<div class=\"detail_input_textfield\">");
@@ -132,6 +133,7 @@
 			</div>
 			<!-- サードコンテナ -->
 			<div class="third_container_ver2">
+			
 				<button type="button" name="back" class="button_flat_normal"
 					id="back_event">戻る</button>
 				<button type="button" name="back" class="button_flat_submit"
@@ -195,7 +197,6 @@
 
 					dialog.style.display = 'block';
 					ok.addEventListener('click', function() {
-						location.href = url + '.jsp';
 						dialog.style.display = 'none';
 
 					});

@@ -122,11 +122,30 @@ public final class ManagerInfoManager {
 		return ManagerGetInfo.create(managerInfo);
 	}
 
-	/** アカウントを更新する。 */
-	public void updateManagerInfo( ManagerUpdateInfo managerUpdateInfo ) {
+	/** アカウントを更新する。 更新に成功した場合、trueの情報を返す。*/
+	public ReturnInfo updateManagerInfo( ManagerUpdateInfo managerUpdateInfo ) {
+
+		String mailAddress = managerUpdateInfo.getMailAddress();
+		String nonHashedPassword = managerUpdateInfo.getNonHashedPassword();
+
+		// メールアドレスがメールアドレスの体を成しているか確認
+		if (!AccountUtil.isMeetRequirementMailAddress(mailAddress)) {
+			return new ReturnInfo("これはメールアドレスではありません。");
+		}
+
+		// メールアドレスが運営メールアドレスであるか確認
+		if (!AccountUtil.isManagerMailAddress(mailAddress)) {
+			return new ReturnInfo("このメールアドレスは運営アカウントとして使用できません。");
+		}
+
+		// パスワードが条件を満たしているか確認
+		if (!AccountUtil.isMeetRequirementPassword(nonHashedPassword)) {
+			return new ReturnInfo("パスワードは、8～16文字の英数字で設定して下さい。");
+		}
 
 		ManagerInfoDAO managerInfoDAO = new ManagerInfoDAO();
 		managerInfoDAO.updateManagerInfo(managerUpdateInfo);
+		return new ReturnInfo("", true);
 	}
 
 	/** アカウントを削除する。 */
@@ -134,48 +153,5 @@ public final class ManagerInfoManager {
 
 		ManagerInfoDAO managerInfoDAO = new ManagerInfoDAO();
 		managerInfoDAO.deleteManagerInfo(mailAddress);
-	}
-
-	public static void main(String[] args) {
-
-		ManagerInfoManager manager = new ManagerInfoManager();
-
-		final String mail = "kawasumi@mail.dendai.ac.jp";
-		final String pass = "HSsm49Y55XmfFk";
-		final String name = "川澄 正史";
-
-		ReturnInfo existResult = manager.existMailAddress(mail);
-		if (existResult != null && existResult.isSuccess()) {
-			manager.deleteManagerInfo(mail);
-		}
-
-		ReturnInfo createResult = manager.createTemporaryAccount(mail);
-		System.out.println(createResult);
-
-		if (createResult.isSuccess()) {
-			System.out.println("初回パスワード : " + createResult.getMsg());
-			System.out.println("初回ログイン");
-			ReturnInfo loginResult = manager.login(new LoginInfo(mail, createResult.getMsg()));
-			System.out.println(loginResult);
-
-			System.out.println("初回アカウント設定");
-			manager.updateManagerInfo(new ManagerUpdateInfo(mail, pass, name, ""));
-		}
-
-		System.out.println(manager.getManagerInfo(mail));
-
-		System.out.println("アカウント更新");
-		manager.updateManagerInfo(new ManagerUpdateInfo(mail, pass, "かわすーみ", ""));
-		System.out.println(manager.getManagerInfo(mail));
-
-		System.out.println("ログアウト");
-		manager.logout(mail);
-
-		System.out.println("ログイン(初回パスワードで)");
-		System.out.println(manager.login(new LoginInfo(mail, createResult.getMsg())));
-
-		System.out.println("ログイン(普通に)");
-		System.out.println(manager.login(new LoginInfo(mail, pass)));
-		System.out.println(manager.getManagerInfo(mail));
 	}
 }

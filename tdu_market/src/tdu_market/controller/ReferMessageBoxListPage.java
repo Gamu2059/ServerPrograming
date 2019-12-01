@@ -17,6 +17,7 @@ import tdu_market.entity_manager.MessageInfoManager;
 import tdu_market.entity_manager.MessageRoomInfoManager;
 import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class ReferMessageBoxListPage
@@ -41,8 +42,8 @@ public class ReferMessageBoxListPage extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.err.println("ReferMessageBoxListPage is non implementation!");
 
-		//ログイン状態の検証
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 
@@ -74,7 +75,7 @@ public class ReferMessageBoxListPage extends HttpServlet {
 			session.setAttribute("studentInfo", studentGetInfo);
 		}
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Student/message.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.message, request, response);
 
 	}
 }

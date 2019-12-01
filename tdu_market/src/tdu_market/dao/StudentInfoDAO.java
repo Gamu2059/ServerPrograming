@@ -1,5 +1,6 @@
 package tdu_market.dao;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -129,34 +130,45 @@ public final class StudentInfoDAO extends DAOBase {
 			String selfIntroduction = studentUpdateInfo.getSelfIntroduction();
 			InputStream iconImageBinary = studentUpdateInfo.getIconImageBinary();
 
-			PreparedStatement pstmt;
+			int iconAvailable = 0;
+			try {
+				iconAvailable = iconImageBinary.available();
+			} catch (IOException e) {
 
-			if (subjectID < 1) {
-				// 学科を変更しない版
-				String sql = "update \"StudentInfo\" "
-						+ "set \"hashedPassword\" = ?, \"displayName\" = ?, \"selfIntroduction\" = ?, \"iconImageBinary\" = ?, \"registerState\" = 2 "
-						+ "where \"mailAddress\" = ?";
-				pstmt = connection.prepareStatement(sql);
-
-				pstmt.setString(1, hashedPassword);
-				pstmt.setString(2, displayName);
-				pstmt.setString(3, selfIntroduction);
-				pstmt.setBinaryStream(4, iconImageBinary);
-				pstmt.setString(5, mailAddress);
-
-			} else {
-				String sql = "update \"StudentInfo\" "
-						+ "set \"hashedPassword\" = ?, \"displayName\" = ?, \"subjectID\" = ?, \"selfIntroduction\" = ?, \"iconImageBinary\" = ?, \"registerState\" = 2 "
-						+ "where \"mailAddress\" = ?";
-				pstmt = connection.prepareStatement(sql);
-
-				pstmt.setString(1, hashedPassword);
-				pstmt.setString(2, displayName);
-				pstmt.setLong(3, subjectID);
-				pstmt.setString(4, selfIntroduction);
-				pstmt.setBinaryStream(5, iconImageBinary);
-				pstmt.setString(6, mailAddress);
 			}
+
+			boolean isChangeSubjectID = subjectID >= 1;
+			boolean isChangeIcon = iconAvailable > 0;
+
+			StringBuilder builder = new StringBuilder(
+					"update \"StudentInfo\" set \"hashedPassword\" = ?, \"displayName\" = ?, \"selfIntroduction\" = ?, \"registerState\" = 2");
+
+			if (isChangeSubjectID) {
+				builder.append(", \"subjectID\" = ?");
+			}
+
+			if (isChangeIcon) {
+				builder.append(", \"iconImageBinary\" = ?");
+			}
+
+			builder.append(" where \"mailAddress\" = ?");
+			String sql = builder.toString();
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+
+			int setCount = 1;
+
+			pstmt.setString(setCount++, hashedPassword);
+			pstmt.setString(setCount++, displayName);
+			pstmt.setString(setCount++, selfIntroduction);
+
+			if (isChangeSubjectID) {
+				pstmt.setLong(setCount++, subjectID);
+			}
+			if (isChangeIcon) {
+				pstmt.setBinaryStream(setCount++, iconImageBinary);
+			}
+
+			pstmt.setString(setCount++, mailAddress);
 
 			int result = pstmt.executeUpdate();
 			System.out.println("updateStudentInfo : " + result + "件のデータを更新");

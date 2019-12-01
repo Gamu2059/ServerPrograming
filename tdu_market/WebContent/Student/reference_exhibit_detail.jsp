@@ -1,6 +1,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="tdu_market.entity_bean.RelatedClassInfo"%>
 <%@page import="tdu_market.dto.*"%>
+<%@page import="tdu_market.util.ServletPath"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -27,7 +28,7 @@
 			<div class="first_container_ver3">
 				<h3>出品物詳細</h3>
 				<!-- EditExhibitItemPageへ処理を引き継ぐ -->
-				<form action="../EditExhibitItemPage" method="get">
+				<form action="<%=ServletPath.EditExhibitItemPage%>" method="get">
 					<button type="submit" name="edit" class="button_flat_normal" id="edit">編集</button>
 				</form>
 			</div>
@@ -36,7 +37,7 @@
 				<section>
 					<!-- ReferExhibitItemPageからのセッションデータを展開・表示 -->
 					<%
-					RelatedClassGetInfo info = (RelatedClassGetInfo)request.getAttribute("exhibitInfo");
+					RelatedClassGetInfo info = (RelatedClassGetInfo)session.getAttribute("exhibitInfo");
 					out.print("<div class=\"detail_content\">");
 					out.print("<h2 id=\"item_name\">"+ info.getItemGetInfo().getItemName() +"</h2>");
 					out.print("</div>");
@@ -121,7 +122,7 @@
 				<p>削除しますか？</p>
 				<div class="negative_dialog_button">
 					<!-- DeleteItemInfoに処理を引き継ぐ -->
-					<form action="../DeleteItemInfo" method="post">
+					<form action="<%=ServletPath.DeleteItemInfo%>" method="post">
 						<button id="nega_yes" class="button_flat_nega">確認</button>
 					</form>
 					<button id="nega_no" class="button_flat_normal">キャンセル</button>
@@ -165,7 +166,6 @@
 
 					dialog.style.display = 'block';
 					ok.addEventListener('click', function() {
-						location.href = url + '.html';
 						dialog.style.display = 'none';
 					});
 				}

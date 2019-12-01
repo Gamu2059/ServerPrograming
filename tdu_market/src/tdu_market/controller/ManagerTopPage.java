@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class ManagerTopPage
@@ -28,18 +29,18 @@ public class ManagerTopPage extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("ManagerTopPage is non implementation!");
 
-		//ログイン状態の検証
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Admin/top_admin.jsp", request, response);
-	
-	}
+		ControllerUtil.translatePage(JspPath.top_admin, request, response);
 
+	}
 
 }

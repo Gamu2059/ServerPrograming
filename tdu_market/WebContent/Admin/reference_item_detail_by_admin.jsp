@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="tdu_market.dto.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,27 +19,77 @@
 		<!-- タイトル -->
 		<h2 id="page_title">商品情報詳細</h2>
 		<!-- メインコンテンツ -->
+		<!-- 商品情報の取得 -->
+		<%
+		ArrayList<RelatedClassGetInfo> itemInfo = new ArrayList<>();
+		itemInfo = (ArrayList<RelatedClassGetInfo>)session.getAttribute("itemInfo");
+		String mailAddress = "";
+		String itemName = "未設定";
+		String className = "未設定";
+		String[] itemURL = new String[3];
+		String itemDescription = "未設定";
+		int condition = 0;
+		int itemPrice = 0;
+		if(itemInfo != null){
+			mailAddress = itemInfo.get(0).getItemGetInfo().getExhibitorMailAddress();
+			itemName = itemInfo.get(0).getItemGetInfo().getItemName();
+			className = itemInfo.get(0).getSyllabusGetInfo().getClassName();
+			if(itemInfo.get(0).getItemGetInfo().getItemImageBinaries() != null){
+				for(int i=0;i<itemInfo.get(0).getItemGetInfo().getItemImageBinaries().length;i++){
+					itemURL[i] = itemInfo.get(0).getItemGetInfo().getItemImageBinaries()[i];
+				}
+			}
+			itemDescription = itemInfo.get(0).getItemGetInfo().getDescription();
+		}
+		%>
 		<article>
 			<div class="content_margin_200px">
 				<br>
 				<div class="exhibit_profile">
 					<div class="item_for_right">
-						<button id="white_button">学生情報へ→</button>
+						<form action="<%= ServletPath.ManagerReferStudentPage %>" method="get">
+							<input type="hidden" name="mailAddress" value="<%= mailAddress %>">
+							<button type="submit" id="white_button">学生情報へ→</button>
+						</form>
 					</div>
-					<h2 id="title">ぬこ先生のやさしいJAVA入門書</h2>
-					<label>ぬこ先生のプログラミング青空教室</label> <br>
+					<h2 id="title"><%= itemName %></h2>
+					<label><%= className %></label> <br>
 					<div class="item_for_left">
-						<img src="/tdu_market/images/item_image.png" alt="商品画像"> <img
-							src="/tdu_market/images/item_image.png" alt="商品画像"> <img
-							src="/tdu_market/images/item_image.png" alt="商品画像">
+						<%
+						if(itemURL == null){
+							out.print("登録されている画像は有りません");
+						} else {
+							for(int i=0;i<itemURL.length;i++){
+								out.print("<img src=\""+itemURL[i]+"\" alt=\"商品画像\">");
+							}
+						}
+						%>
 					</div>
 					<label>
-						商品説明文はここに出力します。ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ
+						<%= itemDescription %>
 					</label> <br>
 					<div class="item_for_right">
 						<div>
-							<h2>状態：新品・未使用</h2>
-							<h2>1000円</h2>
+							<h2>
+							<%
+							switch(condition){
+							case 0:
+								out.print("新品・未使用");
+							break;
+							case 1:
+								out.print("状態：中古（書き込みなし）");
+							break;
+							case 2:
+								out.print("状態：中古（書き込みあり）");
+							break;
+							case 3:
+								out.print("状態：破損・汚れあり");
+							break;
+							}
+							%>
+
+							</h2>
+							<h2><%= itemPrice %>円</h2>
 						</div>
 					</div>
 					<div class="item_for_LeftAndRight_between">
@@ -101,10 +153,11 @@
 						dialog.style.display = 'none';
 					});
 				}
-				document.getElementById('white_button').onclick = function() {
+				/* 以下は、有効化すると学生情報ボタンに不具合が発生する */
+				/* document.getElementById('white_button').onclick = function() {
 					window.history.back(-1);
 					return false;
-				}
+				} */
 			</script>
 		</section>
 	</div>

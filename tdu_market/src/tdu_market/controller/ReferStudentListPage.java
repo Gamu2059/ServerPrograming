@@ -8,53 +8,44 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import tdu_market.dto.StudentGetInfo;
 import tdu_market.dto.StudentSearchInfo;
-import tdu_market.dto.SyllabusGetInfo;
-import tdu_market.dto.SyllabusSearchInfo;
 import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
-/**
- * Servlet implementation class ReferStudentListPage
- */
 @WebServlet("/tdu_market/controller/ReferStudentListPage")
 public class ReferStudentListPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public ReferStudentListPage() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("ReferStudentListPage is non implementation!");
-		//ログイン状態の検証
+
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
-		if (!ControllerUtil.verifyLogin(request, response)) {
-			return;
+
+		//学科IDがnullの場合は0に指定
+		long longSubjectID;
+		if(request.getParameter("subjectID")==null) {
+			longSubjectID = 0;
+		}else {
+			longSubjectID = Integer.valueOf(request.getParameter("subjectID")).longValue();
 		}
 
 		StudentInfoManager studentInfo = new StudentInfoManager();
-		StudentSearchInfo searchInfo = new StudentSearchInfo(request.getParameter("studentNumberKeyword"),Integer.valueOf(request.getParameter("subjectID;")).longValue(),request.getParameter("displayNameKeyword"));
+		StudentSearchInfo searchInfo = new StudentSearchInfo(request.getParameter("studentNumberKeyword"),longSubjectID,request.getParameter("displayNameKeyword"));
 		ArrayList<StudentGetInfo> searchResult = studentInfo.searchStudentInfo(searchInfo);
 
 		//jspに情報を投げる。
-		request.setAttribute("searchResult", searchResult);
+		HttpSession session = request.getSession();
+		session.setAttribute("studentList", searchResult);
+
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Admin/reference_student_list.jsp", request, response);
-
+		ControllerUtil.translatePage(JspPath.reference_student_list, request, response);
 	}
-
-
 }

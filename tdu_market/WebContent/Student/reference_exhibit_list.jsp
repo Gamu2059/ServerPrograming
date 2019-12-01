@@ -1,5 +1,6 @@
 <%@page import="tdu_market.dto.ItemGetInfo"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="tdu_market.util.ServletPath"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -14,7 +15,8 @@
 <!-- Bootstrap -->
 <link href="/tdu_market/css/import_student.css" rel="stylesheet">
 <!-- InstanceBeginEditable name="scripts" -->
-<script type="text/javascript" src="/tdu_market/js/student.js" defer="defer"></script>
+<script type="text/javascript" src="/tdu_market/js/student.js"
+	defer="defer"></script>
 <!-- InstanceEndEditable -->
 </head>
 <body>
@@ -38,52 +40,55 @@
 					<!--ここは一例です。必要に応じて補ってください。-->
 					<!-- ReferExhibitItemListPageからのセッションデータを展開する -->
 					<%
-					ArrayList<ItemGetInfo> itemList = new ArrayList<>();
-					itemList = (ArrayList<ItemGetInfo>)request.getAttribute("itemList");
+						ArrayList<ItemGetInfo> itemList = new ArrayList<>();
+						itemList = (ArrayList<ItemGetInfo>) session.getAttribute("itemList");
 					%>
 					<div class="tab_content" id="exhibiting_content">
 						<!-- 取引待ち商品データを表示する -->
 						<%
-						int count = 0;
-						if(itemList != null){
-							for(int i=0; i<itemList.size();i++){
-								if(itemList.get(i).getTradingState() == 0){
-									out.print("<form action=\"../ReferExhibitItemPage\" method=\"get\">");
-									out.print("<button id=\"exhibit_button\" type=\"submit\">");
-									out.print("<img src=\"itemList.get(i).getItemImageBinaries()[0]\" alt=\"商品画像\">");
-									out.print("<label id=\"item_name\">"+itemList.get(i).getItemName()+"</label>");
-									out.print("<label id=\"item_price\">"+itemList.get(i).getPrice()+"円</label>");
-									out.print("</button>");
-									out.print("</form>");
-									count++;
+							int count = 0;
+							if (itemList != null) {
+								for (int i = 0; i < itemList.size(); i++) {
+									if (itemList.get(i).getTradingState() == 0) {
+										out.print(
+												"<form action=\"/tdu_market/tdu_market/controller/ReferExhibitItemPage\" method=\"get\">");
+										out.print("<button id=\"exhibit_button\" type=\"submit\" name=\"\">");
+										out.print("<img src=\"itemList.get(i).getItemImageBinaries()[0]\" alt=\"商品画像\">");
+										out.print("<label id=\"item_name\">" + itemList.get(i).getItemName() + "</label>");
+										out.print("<label id=\"item_price\">" + itemList.get(i).getPrice() + "円</label>");
+										out.print("</button>");
+										out.print("<input type=\"hidden\" name=\"itemID\" value=\"" + itemList.get(i).getItemID() + "\">");
+										out.print("</form>");
+										count++;
+									}
 								}
 							}
-						}
-						if(count == 0){
-							out.print("取引待ちの商品が見つかりませんでした。");
-						}
+							if (count == 0) {
+								out.print("取引待ちの商品が見つかりませんでした。");
+							}
 						%>
 					</div>
 					<!-- 取引中の商品データを表示する -->
 					<%
 						int count2 = 0;
-						if(itemList != null){
-							for(int i=0; i<itemList.size();i++){
-								if(itemList.get(i).getTradingState() == 1){
-									out.print("<form action=\"../ReferExhibitItemPage\" method=\"get\">");
+						if (itemList != null) {
+							for (int i = 0; i < itemList.size(); i++) {
+								if (itemList.get(i).getTradingState() == 1) {
+									out.print(
+											"<form action=\"/tdu_market/tdu_market/controller/ReferExhibitItemPage\" method=\"get\">");
 									out.print("<button id=\"exhibit_button\" type=\"submit\">");
 									out.print("<img src=\"itemList.get(i).getItemImageBinaries()[0]\" alt=\"商品画像\">");
-									out.print("<label id=\"item_name\">"+itemList.get(i).getItemName()+"</label>");
-									out.print("<label id=\"item_price\">"+itemList.get(i).getPrice()+"円</label>");
+									out.print("<label id=\"item_name\">" + itemList.get(i).getItemName() + "</label>");
+									out.print("<label id=\"item_price\">" + itemList.get(i).getPrice() + "円</label>");
 									out.print("</button>");
 									out.print("</form>");
 								}
 							}
 						}
-						if(count2 == 0){
+						if (count2 == 0) {
 							out.print("取引中の商品が見つかりませんでした。");
 						}
-						%>
+					%>
 				</div>
 			</div>
 		</article>

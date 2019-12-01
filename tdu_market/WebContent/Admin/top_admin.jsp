@@ -22,7 +22,7 @@
 				<ul class="top_ul">
 					<li>
 						<button type="button" class="top_menu"
-							onclick="location.href='reference_student_list.jsp'">
+							onclick="location.href='<%= ServletPath.ReferStudentListPage %>'">
 							<h2>学生情報一覧</h2>
 							<br />
 							<h3>学生情報の編集・更新を行うことができます。</h3>
@@ -30,7 +30,7 @@
 					</li>
 					<li>
 						<button type="button" class="top_menu"
-							onclick="location.href='reference_syllabus_list.jsp'">
+							onclick="location.href='<%= ServletPath.ReferSyllabusListPage %>'">
 							<h2>シラバス一覧</h2>
 							<br />
 							<h3>シラバス情報の登録・削除・更新を行うことができます。</h3>
@@ -38,7 +38,7 @@
 					</li>
 					<li>
 						<button type="button" class="top_menu"
-							onclick="location.href='reference_syllabus_list.jsp'">
+							onclick="location.href='<%= ServletPath.ReferItemListPage %>'">
 							<h2>商品情報一覧</h2>
 							<br />
 							<h3>商品情報の参照・削除対応を行うことが出来ます。また、出品者の確認を行うこともできます。</h3>

@@ -8,11 +8,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import tdu_market.dto.SyllabusGetInfo;
 import tdu_market.dto.SyllabusSearchInfo;
 import tdu_market.entity_manager.SyllabusInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class ReferSyllabusListPage
@@ -38,18 +40,52 @@ public class ReferSyllabusListPage extends HttpServlet {
 		System.err.println("ReferSyllabusListPage is non implementation!");
 
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 
+
 		SyllabusInfoManager syllabusInfo = new SyllabusInfoManager();
-		SyllabusSearchInfo searchInfo = new SyllabusSearchInfo(request.getParameter("classCode"), Integer.valueOf(request.getParameter("departmentID")).longValue(), request.getParameter("classNameKeyword"),request.getParameter("seacherNameKeyword"),
-				Integer.valueOf(request.getParameter("semesterID")).longValue());
+		//Stringはnull, intは-1が渡された場合に、
+				//その項目を反映しない検索結果が出力される仕様になっている。
+
+				String classCode = request.getParameter("classCode");
+				if (classCode != null && classCode.trim().isEmpty()) {
+					classCode = null;
+				}
+
+				long departmentID = -1;
+				try {
+					departmentID = Integer.valueOf(request.getParameter("departmentID")).longValue();
+				} catch(NumberFormatException e) {
+
+				}
+
+				String classNameKeyword = request.getParameter("classNameKeyword");
+				if (classNameKeyword != null && classNameKeyword.trim().isEmpty()) {
+					classNameKeyword = null;
+				}
+
+				String searcherNameKeyword = request.getParameter("searcherNameKeyword");
+				if (searcherNameKeyword != null && searcherNameKeyword.trim().isEmpty()) {
+					searcherNameKeyword = null;
+				}
+				long semesterID = -1;
+				try {
+					semesterID = Integer.valueOf(request.getParameter("semesterID")).longValue();
+				} catch(NumberFormatException e) {
+
+				}
+
+
+		SyllabusSearchInfo searchInfo = new SyllabusSearchInfo(classCode,departmentID,classNameKeyword,searcherNameKeyword,semesterID);
 		//シラバス検索情報を格納
 		ArrayList<SyllabusGetInfo> searchResult = syllabusInfo.searchSyllabus(searchInfo) ;
 		//jspに情報を投げる。
-		request.setAttribute("searchResult", searchResult);
+		HttpSession session = request.getSession();
+		session.setAttribute("searchResult", searchResult);
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Student/reference_syllabus_list.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.reference_syllabus_list, request, response);
 
 	}
 

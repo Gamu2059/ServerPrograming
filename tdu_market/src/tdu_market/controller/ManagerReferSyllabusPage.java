@@ -2,19 +2,16 @@ package tdu_market.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import tdu_market.dto.ReturnInfo;
 import tdu_market.dto.SyllabusGetInfo;
-import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.entity_manager.SyllabusInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 
 /**
@@ -37,20 +34,20 @@ public class ManagerReferSyllabusPage extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	
 
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
-		
+
 		SyllabusInfoManager syllabusInfo = new SyllabusInfoManager();
 		//getInfoにシラバス情報を格納
 		SyllabusGetInfo getInfo = syllabusInfo.getSyllabusInfo(request.getParameter("classCode"));
 		//jspに情報を投げる。
 		request.setAttribute("getInfo", getInfo);
-		
+
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Admin/reference_syllabus_by_admin.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.reference_syllabus_by_admin, request, response);
 	
 	}
 

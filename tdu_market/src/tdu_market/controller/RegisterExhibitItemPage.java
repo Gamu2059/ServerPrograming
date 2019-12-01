@@ -4,13 +4,11 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import tdu_market.dto.ItemGetInfo;
 import tdu_market.dto.ReturnInfo;
@@ -42,22 +40,23 @@ public class RegisterExhibitItemPage extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-		//ログイン状態の検証
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 		else {
 			//遷移
-//			ControllerUtil.translatePage("/tdu_market/Student/register_exhibit.jsp", request, response);
+			ControllerUtil.translatePage(JspPath.register_exhibit, request, response);
+
 		}
 		SyllabusInfoManager syllabusInfoManager = new SyllabusInfoManager();
 		ArrayList<SyllabusGetInfo> syllabusInfo = syllabusInfoManager.getAllSyllabus();
-		
+
 		System.out.println(syllabusInfo.size());
-		
-		
+
+
 		HttpSession session = request.getSession();
-		
+
 		session.setAttribute("classNameList", syllabusInfo);
 
 		/*

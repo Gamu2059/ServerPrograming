@@ -7,7 +7,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class RegisterStudentInfo
@@ -32,10 +34,11 @@ public class RegisterSyllabusPage extends HttpServlet {
 		// TODO Auto-generated method stub
 
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Admin/register_syllbus_by_admin.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.register_syllabus_by_admin, request, response);
 
 	}
 

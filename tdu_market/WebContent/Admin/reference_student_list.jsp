@@ -1,3 +1,5 @@
+<%@page import="tdu_market.dto.StudentGetInfo"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -31,7 +33,7 @@
 			<!-- テーブル -->
 			<div class="item_for_center">
 				<div class="list">
-					<form name="select_student">
+					<form action="<%= ServletPath.ManagerReferStudentPage %>" name="select_student" method="get">
 						<table>
 							<!-- テーブルタイトル -->
 							<thead class="list_title">
@@ -47,42 +49,45 @@
 							</thead>
 							<!-- テーブル要素 -->
 							<tbody class="list_content">
-								<!-- サンプル -->
-								<tr class="studentId">
-									<th class="check_column1"><input type="checkbox" /></th>
-									<tb class="hidden_column">99FI999@ms.dendai.ac.jp</tb>
-									<td class="student_column1">99FI999</td>
-									<td class="student_column2">Hogeの民</td>
-									<td class="student_column3">未来科学部</td>
-									<td class="student_column4">情報メディア学科</td>
-									<td class="student_column5">3</td>
-								</tr>
+								<!-- Sessionからデータを受け取る -->
+								<%
+								ArrayList<StudentGetInfo> studentList = new ArrayList<>();
+								studentList = (ArrayList<StudentGetInfo>)session.getAttribute("studentList");
+								if(studentList==null){
+									out.print("登録されている学生情報はありません。");
+								}else{
+									for(int i=0;i<studentList.size();i++){
+										out.print("<tr class=\"studentId\">");
+										out.print("<th class=\"check_column1\"><input type=\"checkbox\" /></th>");
+										out.print("<td class=\"hidden_column\">"+studentList.get(i).getMailAddress()+"</td>");
+										out.print("<td class=\"student_column1\">"+studentList.get(i).getMailAddress().split("@", 0)[0]+"</td>");
+										out.print("<td class=\"student_column2\">"+studentList.get(i).getDisplayName()+"</td>");
+										out.print("<td class=\"student_column3\">"+studentList.get(i).getDepartmentID()+"</td>");
+										out.print("<td class=\"student_column4\">"+studentList.get(i).getDepartmentID()+"</td>");
+										out.print("<td class=\"student_column5\">未習得</td>");
+										out.print("</tr>");
+									}
+								}
+								%>
 							</tbody>
 						</table>
 						<!-- テーブル要素クリック -->
 						<script type="text/javascript"
 							src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 						<script type="text/javascript">
-							$(".studentId").on(
-									"click",
-									function() {
+							$(".studentId").on("click", function() {
 										//メールアドレスの取得
-										var student_mailaddress = $(this)
-												.children("td")[1].innerText;
+										var student_mailaddress = $(this).children("td")[0].innerText;
 										//Input型エレメントの生成
-										var element = document
-												.createElement("input");
+										var element = document.createElement("input");
 										//typeの設定
-										element.setAttribute("type", "submit");
+										element.setAttribute("type", "hidden");
 										//nameの設定
-										element.setAttribute("name",
-												"selectStudent");
+										element.setAttribute("name","mailAddress");
 										//valueの設定
-										element.setAttribute("value",
-												student_mailaddress);
+										element.setAttribute("value",student_mailaddress);
 										//取得したIDデータをsetattributeする
-										document.select_student
-												.appendChild(element);
+										document.select_student.appendChild(element);
 										//データをサーバーへ送信する
 										document.select_student.submit();
 									});

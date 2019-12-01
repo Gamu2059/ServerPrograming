@@ -1,5 +1,6 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="tdu_market.dto.*"%>
+<%@page import="tdu_market.util.ServletPath"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -27,10 +28,10 @@
 			<div class="first_container_ver4">
 				<nav>
 					<!-- ReferSyllabusPageからのデータを展開する -->
-					<% ArrayList<RelatedClassGetInfo> info = (ArrayList<RelatedClassGetInfo>)request.getAttribute("getInfo"); %>
+					<% ArrayList<RelatedClassGetInfo> info = (ArrayList<RelatedClassGetInfo>)session.getAttribute("getInfo"); %>
 
 					<!-- セッションに関連商品を記録して画面を遷移させる -->
-					<form action="../SearchItemPage" name="get">
+					<form action="<%=ServletPath.SearchItemPage%>" name="get">
 						<%
 						ArrayList<ItemGetInfo> item_info = new ArrayList<>();
 						for(int i=0;i<info.size();i++){
@@ -107,7 +108,7 @@
 					} else {
 						if(item_info.size()<4){
 							for(int i=0;i<item_info.size(); i++){
-								out.print("<form action=\"../ReferItemPage\" method=\"get\">");
+								out.print("<form action=\"/tdu_market/tdu_market/controller/ReferItemPage\" method=\"get\">");
 								out.print("<input type=\"hidden\" name=\"itemID\" value=\""+item_info.get(i).getItemID()+"\" />");
 								out.print("<button id=\"item_button\" type=\"submit\">");
 								out.print("<img src=\""+item_info.get(i).getItemImageBinaries()[0]+"\" alt=\"商品画像\" />");
@@ -118,7 +119,7 @@
 							}
 						} else {
 							for(int i=0;i<5;i++){
-								out.print("<form action=\"../ReferItemPage\" method=\"get\">");
+								out.print("<form action=\"/tdu_market/tdu_market/controller/ReferItemPage\" method=\"get\">");
 								out.print("<input type=\"hidden\" name=\"itemID\" value=\""+item_info.get(i).getItemID()+"\" />");
 								out.print("<button id=\"item_button\" type=\"submit\">");
 								out.print("<img src=\""+item_info.get(i).getItemImageBinaries()[0]+"\" alt=\"商品画像\" />");

@@ -1,4 +1,6 @@
+<%@page import="tdu_market.util.ServletPath"%>
 <%@page import="tdu_market.dto.StudentGetInfo"%>
+<%@page import="tdu_market.util.ServletPath"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -18,15 +20,18 @@
 		</h1>
 	</div>
 	<%
-		StudentGetInfo info_header = (StudentGetInfo) session.getAttribute("studentGet");
+		//StudentGetInfo info_header = (StudentGetInfo) session.getAttribute("studentGet");
+		StudentGetInfo info_header = (StudentGetInfo)session.getAttribute("studentInfo");
 	%>
 	<div class="header_menu">
 		<!-- メニュー -->
 		<ul>
-			<li><a href="search_from_exhibit.jsp">名前から検索</a>
-			<li><a href="search_from_syllabus.jsp">シラバスから検索</a>
-			<li><form action="../ReferMessageBoxListPage" method="post"><button type="submit" class="noneButton"><a><img src="/tdu_market/images/message.png" alt="メッセージアイコン"></a></button></form>
-			<li><img src="/tdu_market/images/icon.png" alt="ユーザーアイコン"
+			<li><a href=<%=ServletPath.SearchItemPage%>>名前から検索</a>
+			<li><a href=<%=ServletPath.SearchSyllabusPage%>>シラバスから検索</a>
+			<li><form action="<%=ServletPath.ReferMessageBoxListPage%>" method="post">
+			<button type="submit" class="noneButton">
+			<a><img src="/tdu_market/images/message.png" alt="メッセージアイコン"></a></button></form>
+			<li><img src=<%=info_header.getIconImageBinary() %> alt="ユーザーアイコン"
 				id="user_information_controller">
 		</ul>
 	</div>
@@ -34,7 +39,10 @@
 <div class="user_control_window" id="user_infomation">
 	<div class="user_info">
 		<div class="left">
-			<img src="../images/icon.png" alt="アイコン">
+			<!-- <img src="../images/icon.png" alt="アイコン"> -->
+			<%
+			out.print("<img src=\""+info_header.getIconImageBinary()  + " \" alt=\"アイコン\">");
+			%>
 		</div>
 		<div class="right">
 			<%
@@ -47,21 +55,20 @@
 	</div>
 	<div class="another">
 		<h2>
-			<!-- 	<a href="/tdu_market/Student/reference_exhibit_list.jsp">出品物情報</a> -->
-			<form action="../ReferExhibitItemListPage" method="get">
+			<form action=<%=ServletPath.ReferExhibitItemListPage %> method="get">
 				<button type="submit"
 					style="background: #ffffff; color: blue; border: none;">出品物情報</button>
 			</form>
 		</h2>
 		<h3>
-			<form action="../ReferStudentPage" method="get">
+			<form action=<%=ServletPath.ReferStudentPage %> method="get">
 				<button type="submit"
 					style="background: #ffffff; color: blue; border: none;">ユーザー情報設定</button>
 			</form>
-			<!-- 			<a href="/tdu_market/Student/reference_profile_student.jsp">ユーザー情報設定</a>
- -->
 		</h3>
-		<button id="logout_button">ログアウト</button>
+		<form action=<%=ServletPath.Logout%> method="post">
+			<button type="submit" id="logout_button">ログアウト</button>
+		</form>
 	</div>
 </div>
 <script type="text/javascript" defer="defer">

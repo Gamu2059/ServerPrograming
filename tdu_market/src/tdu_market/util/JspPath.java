@@ -1,7 +1,9 @@
 package tdu_market.util;
 
 public class JspPath{
+
     //Student
+	public static final String confirm_register_exhibit = "/tdu_market/Student/confirm_register_exhibit.jsp";
     public static final String edit_exhibit = "/tdu_market/Student/edit_exhibit.jsp";
     public static final String edit_profile_student = "/tdu_market/Student/edit_profile_student.jsp";
     public static final String header = "/tdu_market/Student/header.jsp";
@@ -36,6 +38,7 @@ public class JspPath{
     public static final String search_student = "/tdu_market/Admin/search_student.jsp";
     public static final String search_syllabus_by_admin = "/tdu_market/Admin/search_syllabus_by_admin.jsp";
     public static final String top_admin = "/tdu_market/Admin/top_admin.jsp";
+    public static final String reference_syllabus_list_by_admin = "/tdu_market/Admin/reference_syllabus_list_by_admin.jsp";
 
     //general
     public static final String index = "/tdu_market/general/index.jsp";

@@ -8,9 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import tdu_market.entity_manager.ItemInfoManager;
 import tdu_market.dto.ItemBuyInfo;
+import tdu_market.entity_manager.ItemInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class BuyItem
@@ -32,10 +33,9 @@ public class BuyItem extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.err.println("BuyItem is non implementation!");
-		//ログイン状態の検証
+
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 
@@ -44,9 +44,9 @@ public class BuyItem extends HttpServlet {
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		//アイテム購入処理
 		itemInfo.BuyItem(buyInfo);
-		
+
 		// メッセージ画面へ遷移
-		ControllerUtil.translatePage("/tdu_market/Student/message.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.message, request, response);
 	}
 
 }

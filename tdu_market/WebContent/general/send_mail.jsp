@@ -1,3 +1,4 @@
+<%@page import="tdu_market.util.ServletPath"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -16,7 +17,7 @@
 	<div class="center_container">
 		<article>
 			<h1>電大マーケットへようこそ</h1>
-			<form action="/tdu_market/tdu_market/controller/PostMail" method="post">
+			<form action=<%=ServletPath.PostMail%> method="post">
 				<input id="mailaddress_field" type="text" name="mailAddress"
 					placeholder="メールアドレス" />
 				<button id="send_mailaddress_button" type="submit"

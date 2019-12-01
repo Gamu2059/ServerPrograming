@@ -1,13 +1,15 @@
 package tdu_market.dto;
 
+import java.io.InputStream;
+
 public class ManagerUpdateInfo {
 
 	private final String mailAddress;
 	private final String nonHashedPassword;
 	private final String displayName;
-	private final String iconImageBinary;
+	private final InputStream iconImageBinary;
 
-	public ManagerUpdateInfo(String mailAddress, String nonHashedPassword, String displayName, String iconImageBinary) {
+	public ManagerUpdateInfo(String mailAddress, String nonHashedPassword, String displayName, InputStream iconImageBinary) {
 		super();
 		this.mailAddress = mailAddress;
 		this.nonHashedPassword = nonHashedPassword;
@@ -27,7 +29,7 @@ public class ManagerUpdateInfo {
 		return displayName;
 	}
 
-	public String getIconImageBinary() {
+	public InputStream getIconImageBinary() {
 		return iconImageBinary;
 	}
 }

@@ -13,6 +13,7 @@ import tdu_market.dto.SyllabusGetInfo;
 import tdu_market.dto.SyllabusSearchInfo;
 import tdu_market.entity_manager.SyllabusInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 /**
  * Servlet implementation class ReferSyllabusListPage
@@ -35,9 +36,9 @@ public class ManagerReferSyllabusListPage extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	
-		
+
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 
@@ -48,9 +49,9 @@ public class ManagerReferSyllabusListPage extends HttpServlet {
 		ArrayList<SyllabusGetInfo> searchResult = syllabusInfo.searchSyllabus(searchInfo) ;
 		//jspに情報を投げる。
 		request.setAttribute("searchResult", searchResult);
-		
+
 		//遷移
-		ControllerUtil.translatePage("/tdu_market/Admin/reference_syllabus_list_by_admin.jsp", request, response);
+		ControllerUtil.translatePage(JspPath.reference_syllabus_list_by_admin, request, response);
 	
 
 	}

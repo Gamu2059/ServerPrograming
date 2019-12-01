@@ -3,9 +3,9 @@ package tdu_market.entity_manager;
 import java.util.ArrayList;
 
 import tdu_market.dao.MessageRoomInfoDAO;
+import tdu_market.dto.ItemBuyInfo;
 import tdu_market.dto.ItemGetInfo;
 import tdu_market.dto.MessageGetInfo;
-import tdu_market.dto.ItemBuyInfo;
 import tdu_market.dto.MessageRoomGetInfo;
 import tdu_market.dto.RoomMemberCreateInfo;
 import tdu_market.dto.RoomMemberGetInfo;
@@ -19,6 +19,10 @@ public final class MessageRoomInfoManager {
 
 		MessageRoomInfoDAO messageRoomInfoDAO = new MessageRoomInfoDAO();
 		ArrayList<MessageRoomInfo> list = messageRoomInfoDAO.getMessageRoomInfo(mailAddress);
+
+		if (list == null || list.size() < 1) {
+			return null;
+		}
 
 		ArrayList<MessageRoomGetInfo> result = new ArrayList<MessageRoomGetInfo>();
 		RoomMemberInfoManager roomMemberInfoManager = new RoomMemberInfoManager();

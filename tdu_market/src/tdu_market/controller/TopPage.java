@@ -40,15 +40,15 @@ public class TopPage extends HttpServlet {
 		System.err.println("TopPage is non implementation!");
 		HttpSession session = request.getSession();
 
-		//ログイン状態の検証
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 
 		//学生情報を取得する
 		StudentInfoManager studentInfo = new StudentInfoManager();
 		StudentGetInfo studentGetInfo = studentInfo.getStudentInfo((String)session.getAttribute("mailaddress"));
-		session.setAttribute("studentGet", studentGetInfo);
+		session.setAttribute("studentInfo", studentGetInfo);
 
 		//新着商品を取得する
 		ItemInfoManager itemInfo = new ItemInfoManager();
