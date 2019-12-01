@@ -1,3 +1,5 @@
+<%@page import="tdu_market.dto.*"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -18,30 +20,57 @@
 		<h2 id="page_title">シラバス詳細（登録確認）</h2>
 		<!-- メインコンテンツ -->
 		<article>
+			<%
+			SyllabusCreateInfo syllabusInfo = (SyllabusCreateInfo)session.getAttribute("confirmCreateSyllabusInfo");
+			%>
 			<br>
 			<div class="syllabus_profile">
 				<div class="item_for_grid_r1c2">
 					<h3>授業コード</h3>
-					<input type="text" placeholder="例：00000000000000000">
+					<input type="text" placeholder="<%= syllabusInfo.getClassCode() %>" disabled="disabled">
 				</div>
 				<div class="item_for_grid_r1c1">
-					<input id="syllabus_name" type="text"
-						placeholder="授業名 例：ぬこでもわかるJAVA">
+					<input id="syllabus_name" type="text" placeholder="<%= syllabusInfo.getClassName() %>" disabled="disabled">
+				</div>
+				<div class="item_for_grid_r1c2">
+					<h3>開講主要学科</h3>
+					<div id="course_year_list">
+					<select name="subjectID" disabled="disabled">
+						<!-- 学科情報の展開と表示 -->
+						<%
+						ArrayList<DepartmentGetInfo> departmentInfoList = new ArrayList<>();
+						departmentInfoList = (ArrayList<DepartmentGetInfo>)session.getAttribute("departmentInfoList");
+						if(departmentInfoList!=null){
+							for(DepartmentGetInfo departmentInfo: departmentInfoList){
+								if( (int)syllabusInfo.getSubjectID() == (int)departmentInfo.getSubjectID() ){
+									out.print("<option value=\""+departmentInfo.getSubjectID()+"\" selected >"+departmentInfo.getSubjectName()+"</option>");
+								}else{
+									out.print("<option value=\""+departmentInfo.getSubjectID()+"\">"+departmentInfo.getSubjectName()+"</option>");
+								}
+							}
+						}
+						%>
+					</select>
+					</div>
 				</div>
 				<div class="item_for_grid_r1c2">
 					<h3>開講年度</h3>
-					<input type="text" autocomplete="on" list="course_year_list"
-						placeholder="2019年前期">
-					<datalist id="course_year_list">
-						<option value="2019年前期"></option>
-						<option value="2019年後期"></option>
-						<option value="2018年前期"></option>
-						<option value="2018年後期"></option>
-						<option value="2017年前期"></option>
-						<option value="2017年後期"></option>
-						<option value="2016年前期"></option>
-						<option value="2016年後期"></option>
-					</datalist>
+					<div id="course_year_list">
+					<select name="semesterID" disabled="disabled">
+						<%
+						switch((int)syllabusInfo.getSemesterID()){
+						case 1:
+							out.print("<option value=\"1\" selected>2019年前期</option>");
+							out.print("<option value=\"2\">2019年後期</option>");
+							break;
+						case 2:
+							out.print("<option value=\"1\">2019年前期</option>");
+							out.print("<option value=\"2\" selected>2019年後期</option>");
+							break;
+						}
+						%>
+					</select>
+					</div>
 				</div>
 				<div class="item_for_grid_r1c2">
 					<div class="item_for_grid_r1c2" id="week_syllabus">
@@ -50,6 +79,8 @@
 							let input_date = document.createElement('input');
 							input_date.autocomplete = true;
 							input_date.setAttribute('list', 'date_list');
+							input_date.setAttribute('placeholder','<%= syllabusInfo.getDates() %>');
+							input_date.setAttribute('disabled','disabled');
 							document.getElementById('week_syllabus')
 									.appendChild(input_date);
 
@@ -80,12 +111,12 @@
 					</div>
 					<div class="item_for_grid_r1c2">
 						<h3 id="unit">単位数</h3>
-						<input type="number" placeholder="0.0">
+						<input type="number" placeholder="<%= syllabusInfo.getUnitNum() %>" disabled="disabled">
 					</div>
 				</div>
 				<div class="item_for_grid_r1c2">
 					<h3>教室</h3>
-					<input type="text" placeholder="例： 2000教室 ">
+					<input type="text" placeholder="<%= syllabusInfo.getClassRoom() %>" disabled="disabled">
 				</div>
 				<div class="item_for_grid_r1c2" id="teacher_syllabus">
 					<h3>教員</h3>
@@ -93,6 +124,8 @@
 						let input = document.createElement('input');
 						input.autocomplete = true;
 						input.setAttribute('list', 'teacher_list');
+						input.setAttribute('placeholder','<%= syllabusInfo.getTeacherID() %>');
+						input.setAttribute('disabled','disabled');
 						document.getElementById('teacher_syllabus')
 								.appendChild(input);
 
@@ -110,17 +143,17 @@
 				</div>
 				<div class="item_for_grid_r1c1">
 					<h3>目的概要</h3>
-					<textarea></textarea>
+					<textarea disabled="disabled"><%= syllabusInfo.getOverview() %></textarea>
 					<h3>達成目標</h3>
-					<textarea></textarea>
+					<textarea disabled="disabled"><%= syllabusInfo.getTarget() %></textarea>
 				</div>
 				<div class="item_for_grid_r1c2_c12">
 					<h3>履修条件</h3>
-					<input type="text">
+					<input type="text" placeholder="<%= syllabusInfo.getRequirements() %>" disabled="disabled" >
 				</div>
 				<div class="item_for_grid_r1c1">
 					<h3>評価方法</h3>
-					<textarea></textarea>
+					<textarea disabled="disabled"><%= syllabusInfo.getEvaluationMethod() %></textarea>
 				</div>
 			</div>
 			<br>
