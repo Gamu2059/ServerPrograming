@@ -1,3 +1,5 @@
+<%@page import="tdu_market.dto.SyllabusGetInfo"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -48,31 +50,37 @@
 							</thead>
 							<!-- テーブル要素 -->
 							<tbody class="list_content">
-								<!-- サンプル -->
-								<tr class="syllabusId">
-									<th class="check_column1"><input type="checkbox" /></th>
-									<td class="syllabus_column1">11G0012501</td>
-									<td class="syllabus_column2">フレッシュマンセミナー</td>
-									<td class="syllabus_column3">未来科学部</td>
-									<td class="syllabus_column4">情報メディア学科</td>
-									<td class="syllabus_column5">大沢 啓徳</td>
-									<td class="syllabus_column6">2019年度後期</td>
-								</tr>
+								<!-- データの表示と展開 -->
+								<%
+								ArrayList<SyllabusGetInfo> syllabusInfoList = new ArrayList<SyllabusGetInfo>();
+								syllabusInfoList = (ArrayList<SyllabusGetInfo>)session.getAttribute("syllabusInfoList");
+								if(syllabusInfoList!=null){
+									for(SyllabusGetInfo info:syllabusInfoList){
+										%>
+										<tr class="syllabusId">
+											<th class="check_column1"><input type="checkbox" /></th>
+											<td class="syllabus_column1"><%= info.getClassCode() %></td>
+											<td class="syllabus_column2"><%= info.getClassName() %></td>
+											<td class="syllabus_column3">未取得</td>
+											<td class="syllabus_column4">未取得</td>
+											<td class="syllabus_column5"><%= info.getTeacherName() %></td>
+											<td class="syllabus_column6"><%= info.getOpeningSemester() %></td>
+										</tr>
+										<%
+									}
+								}
+								%>
 							</tbody>
 						</table>
 						<!-- テーブル要素クリック -->
 						<script type="text/javascript"
 							src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 						<script type="text/javascript">
-							$(".syllabusId").on(
-									"click",
-									function() {
+							$(".syllabusId").children(":not('th')").on("click",function() {
 										//商品IDの取得
-										var syllabusNumber = $(this).children(
-												"td")[1].innerText;
+										var syllabusNumber = $(this).parent().children(".syllabus_column1")[0].innerText;
 										//Input型エレメントの生成
-										var element = document
-												.createElement("input");
+										var element = document.createElement("input");
 										//typeの設定
 										element.setAttribute("type", "submit");
 										//nameの設定
