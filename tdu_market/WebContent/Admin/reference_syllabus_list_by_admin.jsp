@@ -34,7 +34,6 @@
 			<!-- テーブル -->
 			<div class="item_for_center">
 				<div class="list">
-					<form name="select_syllabus">
 						<table>
 							<!-- テーブルタイトル -->
 							<thead class="list_title">
@@ -72,32 +71,30 @@
 								%>
 							</tbody>
 						</table>
+						<form name="select_syllabus" action="<%= ServletPath.ManagerReferSyllabusPage %>" method="get">
+						</form>
 						<!-- テーブル要素クリック -->
 						<script type="text/javascript"
 							src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 						<script type="text/javascript">
 							$(".syllabusId").children(":not('th')").on("click",function() {
-										//商品IDの取得
-										var syllabusNumber = $(this).parent().children(".syllabus_column1")[0].innerText;
+										//授業コードの取得
+										var classCode = $(this).parent().children(".syllabus_column1")[0].innerText;
 										//Input型エレメントの生成
 										var element = document.createElement("input");
 										//typeの設定
-										element.setAttribute("type", "submit");
+										element.setAttribute("type", "hidden");
 										//nameの設定
-										element.setAttribute("name",
-												"selectItem");
+										element.setAttribute("name","classCode");
 										//valueの設定
-										element.setAttribute("value",
-												syllabusNumber);
+										element.setAttribute("value",classCode);
 										//取得したIDデータをsetattributeする
-										document.select_syllabus
-												.appendChild(element);
+										document.select_syllabus.appendChild(element);
 										//データをサーバーへ送信する
 										document.select_syllabus.submit();
 									});
 						</script>
 						<!-- テーブル要素クリックここまで -->
-					</form>
 				</div>
 			</div>
 			<br />
