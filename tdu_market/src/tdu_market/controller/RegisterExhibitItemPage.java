@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import tdu_market.dto.ItemGetInfo;
 import tdu_market.dto.ReturnInfo;
@@ -46,7 +47,7 @@ public class RegisterExhibitItemPage extends HttpServlet {
 		}
 		else {
 			//遷移
-			ControllerUtil.translatePage(JspPath.register_exhibit, request, response);
+			//ControllerUtil.translatePage(JspPath.register_exhibit, request, response);
 
 		}
 		SyllabusInfoManager syllabusInfoManager = new SyllabusInfoManager();
