@@ -64,12 +64,14 @@ public class VaildateSyllabus extends HttpServlet {
 
 		//教員名を教員IDに変換
 		long teacherID = 0;
+		String confirmTeacherName = "";
 		TeacherInfoManager teacherInfoManager = new TeacherInfoManager();
 		ArrayList<TeacherGetInfo> teacherInfo = new ArrayList<TeacherGetInfo>();
 		teacherInfo = teacherInfoManager.getTeacherInfoList();
 		for(int i = 0;i<teacherInfo.size();i++) {
 			if(teacherInfo.get(i).getTeacherName().contains(teacherName)) {
 				teacherID = teacherInfo.get(i).getTeacherID();
+				confirmTeacherName = teacherInfo.get(i).getTeacherName();
 				break;
 			}
 		}
@@ -90,6 +92,7 @@ public class VaildateSyllabus extends HttpServlet {
 		//jspへデータの送信
 		HttpSession session = request.getSession();
 		session.setAttribute("confirmCreateSyllabusInfo", createInfo );
+		session.setAttribute("confirmTeacherName", confirmTeacherName);
 
 		//遷移先分岐
 		if(retunResult.isSuccess())	{
