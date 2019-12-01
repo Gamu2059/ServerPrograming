@@ -53,7 +53,6 @@ public class RegisterExhibitItemPage extends HttpServlet {
 		SyllabusInfoManager syllabusInfoManager = new SyllabusInfoManager();
 		ArrayList<SyllabusGetInfo> syllabusInfo = syllabusInfoManager.getAllSyllabus();
 
-		System.out.println(syllabusInfo.size());
 
 
 		HttpSession session = request.getSession();

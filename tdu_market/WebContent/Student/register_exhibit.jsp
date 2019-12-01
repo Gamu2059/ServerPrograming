@@ -20,6 +20,7 @@
 </head>
 <body>
 	<!-- ヘッダー挿入位置 -->
+	<%@ include file="header.jsp" %>
 	<!-- InstanceBeginEditable name="body" -->
 	<div class="scroll">
 		<article class="content">
@@ -38,15 +39,13 @@
 							<input id="exhibit_textfield" type="text" name="itemName"
 								placeholder="例：やさしい〇〇" />
 						</div>
-						<div class="detail_content">
+						<div class="detail_content" id="class_name_box">
 							<h3>授業名</h3>
-							<input id="exhibit_textfield" type="text" name="relatedClassCode"
-								placeholder="例：コンピュータプログラミングⅠ" />
+<!-- 							<input id="exhibit_textfield" type="text" name="relatedClassCode"
+								placeholder="例：コンピュータプログラミングⅠ" /> -->
 						</div>
 						<%
 						ArrayList<SyllabusGetInfo> syllabusInfo = (ArrayList<SyllabusGetInfo>) session.getAttribute("classNameList");
-
-						if(syllabusInfo==null){System.out.print(syllabusInfo.getClass());}
 						%>
 						<script type="text/javascript">
 							let input = document.createElement('input');
@@ -58,16 +57,19 @@
 
 							let datalist = document.createElement('datalist');
 							datalist.id = 'class_name_list';
-							let names = '<%=syllabusInfo.clone().toString()%>';
-							for (let i = 0; i < names.length; i++) {
-								console.log(names[i]);
-							}
-							names.forEach(function(name) {
+							let classNames = [];
+							//java操作でarraylistの中身を代入
+							<% for(int i = 0;i < syllabusInfo.size();i++){ %>
+								//クオーテーションに色ついてしまっているのが非常に気に食わないが、動きます。
+								classNames.push('<%= syllabusInfo.get(i).getClassName() %>');
+							<% } %>
+
+							classNames.forEach(function(name) {
 								let option = document.createElement('option');
 								option.value = name;
 								datalist.appendChild(option);
 							});
-							document.getElementById('class_name_box')
+							document.getElementById('exhibit_textfield')
 									.appendChild(datalist);
 						</script>
 					</div>
@@ -230,13 +232,14 @@
 				</div>
 			</div>
 		</article>
+		
 		<section>
 			<!--
 		ダイアログ付与手順。
 			1.該当するidをボタンに付与する。
 			2.notify_dialog('表示したいメッセージ','遷移先url')
 		-->
-			<div id="exhibit_infomation">
+		<%-- 	<div id="exhibit_infomation">
 				<article class="exhibit_dialog_content">
 					<!-- セカンドコンテナ -->
 					<div class="dialog_info_base" id="exhibit_information">
@@ -320,9 +323,9 @@
 				<div class="notify_dialog_button">
 					<button id="ok" class="button_flat_normal">了解</button>
 				</div>
-			</div>
-			<!-- <script type="text/javascript">
-				document.getElementById('upload').onclick = function() {
+			</div> --%>
+			<script type="text/javascript">
+				/*document.getElementById('upload').onclick = function() {
 					//各ボタンの要素の取得
 					let dialog = document.getElementById('exhibit_infomation');
 					let yes = document.getElementById('yes');
@@ -366,8 +369,8 @@
 						location.href = url + '.html';
 						dialog.style.display = 'none';
 					});
-				}
-			</script> -->
+				}*/
+			</script>
 		</section>
 
 	</div>
