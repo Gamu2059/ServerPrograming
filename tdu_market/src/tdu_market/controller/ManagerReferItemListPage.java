@@ -2,20 +2,16 @@ package tdu_market.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import tdu_market.dto.ItemGetInfo;
 import tdu_market.dto.ItemSearchInfo;
 import tdu_market.entity_manager.ItemInfoManager;
-import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.ControllerUtil;
 import tdu_market.util.JspPath;
 
@@ -43,6 +39,7 @@ public class ManagerReferItemListPage extends HttpServlet {
 
 
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 		//Stringはnull, intは-1が渡された場合に、
@@ -55,20 +52,20 @@ public class ManagerReferItemListPage extends HttpServlet {
 
 		int condition = -1;
 		try {
-			condition = Integer.valueOf(request.getParameter("condtion")).intValue();			
+			condition = Integer.valueOf(request.getParameter("condtion")).intValue();
 		} catch(NumberFormatException e) {
 
 		}
 
 		int maxPrice = 0;
 		try {
-			maxPrice = Integer.valueOf(request.getParameter("maxPrice")).intValue();			
+			maxPrice = Integer.valueOf(request.getParameter("maxPrice")).intValue();
 		} catch(NumberFormatException e) {
 
 		}
 		int oldestDate = -1;
 		try {
-			oldestDate = Integer.valueOf(request.getParameter("oldestDate")).intValue();	
+			oldestDate = Integer.valueOf(request.getParameter("oldestDate")).intValue();
 		} catch(NumberFormatException e) {
 
 		}
@@ -80,7 +77,7 @@ public class ManagerReferItemListPage extends HttpServlet {
 		ArrayList<ItemGetInfo> itemList = itemInfo.searchItem(searchInfo) ;
 		//jspに情報を投げる。
 		request.setAttribute("itemList", itemList);
-		
+
 		//遷移
 		ControllerUtil.translatePage(JspPath.reference_item_list_by_admin, request, response);
 	

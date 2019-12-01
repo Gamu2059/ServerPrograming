@@ -2,17 +2,14 @@ package tdu_market.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import tdu_market.dto.StudentUpdateInfo;
+
 import tdu_market.dto.ReturnInfo;
 import tdu_market.dto.SyllabusCreateInfo;
-import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.entity_manager.SyllabusInfoManager;
 import tdu_market.util.ControllerUtil;
 import tdu_market.util.JspPath;
@@ -40,6 +37,7 @@ public class RegisterSyllabusInfo extends HttpServlet {
 		// TODO Auto-generated method stub
 
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 

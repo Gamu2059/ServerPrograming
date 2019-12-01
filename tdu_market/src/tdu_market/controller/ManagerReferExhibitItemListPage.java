@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import tdu_market.dto.ItemGetInfo;
 import tdu_market.entity_manager.ItemInfoManager;
@@ -36,21 +37,24 @@ public class ManagerReferExhibitItemListPage extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.err.println("ManagerReferExhibitItemListPage is non implementation!");
 
-		//ログイン状態の検証
+
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
+    
 		//セッションからメールアドレスを取得
 		String mailAddress = ControllerUtil.getMailAddress(request, response);
-		
+    
 		//出品情報を取得
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		ArrayList<ItemGetInfo> itemList =  itemInfo.getExhibitItem(mailAddress);
 		//jspに情報を投げる。
-		request.setAttribute("itemList",itemList);
+		HttpSession session = request.getSession();
+		session.setAttribute("exhibitItemList",itemList);
 		//遷移
 		ControllerUtil.translatePage(JspPath.reference_exhibit_item_by_admin, request, response);
-	
+
 	}
 
 

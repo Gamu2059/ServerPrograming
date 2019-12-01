@@ -20,6 +20,7 @@ public class ManagerDeleteStudentInfo extends HttpServlet {
 
 		//ログイン状態の検証
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 

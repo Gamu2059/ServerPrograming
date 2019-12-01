@@ -36,6 +36,7 @@ public class UpdateSyllabusInfo extends HttpServlet {
 		System.err.println("UpdateSyllabusInfo is non implementation!");
 
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 

@@ -37,8 +37,9 @@ public class ReferManagerPage extends HttpServlet {
 		System.err.println("ReferManagerPage is non implementation!");
 
 		ManagerInfoManager manager = new ManagerInfoManager();
-		//ログイン状態の検証
+
 		if (!ControllerUtil.verifyLogin(request, response)) {
+			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 		//セッションからメールアドレスを取得

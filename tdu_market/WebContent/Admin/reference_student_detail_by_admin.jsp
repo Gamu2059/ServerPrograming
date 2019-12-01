@@ -40,18 +40,13 @@
 			<div class="content_margin_200px">
 				<br>
 				<div class="item_for_right">
-<!--<<<<<<< Updated upstream
-					<button class="exhibit_list_button" type="button">出品一覧</button>
-======= -->
-					<form action="<%=ServletPath.ManagerReferExhibitItemListPage%>"
-						method="get">
-						<input type="hidden" name="studentMailAddress"
-							value="<%=studentMailAddress%>">
+					<form action="<%= ServletPath.ManagerReferExhibitItemListPage %>" method="get">
+						<input type="hidden" name="studentMailAddress" value="<%= studentMailAddress %>">
 						<button class="exhibit_list_button" type="submit">出品一覧</button>
 					</form>
-<!-- >>>>>>> Stashed changes -->
 				</div>
 				<div class="user_profile">
+
 					<div class="item_for_LeftAndRight_around">
 						<img src="<%=iconURL%>" />
 						<div>
