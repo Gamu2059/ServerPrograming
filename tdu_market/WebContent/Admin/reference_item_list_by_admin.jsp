@@ -1,3 +1,6 @@
+<%@page import="tdu_market.entity_bean.ItemInfo"%>
+<%@page import="tdu_market.dto.*"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -47,56 +50,47 @@
 							</thead>
 							<!-- テーブル要素 -->
 							<tbody class="list_content">
-								<!-- サンプル -->
-								<tr class="exhibitId">
-									<td class="check_column1"><input type="checkbox" /></td>
-									<td class="hidden_column" hidden>00000000000</td>
-									<td class="item_column1">ぬこ先生のやさしいJAVA入門書</td>
-									<td class="item_column2">99FI999</td>
-									<td class="item_column3">電大太郎</td>
-									<td class="item_column4">ぬこ先生のプログラミング青空教室</td>
-									<td class="item_column5">1000</td>
-								</tr>
-								<tr class="exhibitId">
-									<td class="check_column1"><input type="checkbox" /></td>
-									<td class="hidden_column" hidden>00000000001</td>
-									<td class="item_column1">ぬこ先生のやさしいJAVA入門書</td>
-									<td class="item_column2">99FI999</td>
-									<td class="item_column3">電大太郎</td>
-									<td class="item_column4">ぬこ先生のプログラミング青空教室</td>
-									<td class="item_column5">1000</td>
-								</tr>
+							<%
+							ArrayList<RelatedClassGetInfo> itemInfo = new ArrayList<>();
+							itemInfo = (ArrayList<RelatedClassGetInfo>)session.getAttribute("itemListInfo");
+							if(itemInfo != null){
+								for(RelatedClassGetInfo item : itemInfo){
+									%>
+									<tr class="exhibitId">
+										<td class="check_column1"><input type="checkbox" /></td>
+										<td class="hidden_column" hidden><%= item.getItemGetInfo().getItemID() %></td>
+										<td class="item_column1"><%= item.getItemGetInfo().getItemName() %></td>
+										<td class="item_column2"><%= item.getItemGetInfo().getExhibitorMailAddress().split("@", 0)[0] %></td>
+										<td class="item_column3">未習得</td>
+										<td class="item_column4"><%= item.getSyllabusGetInfo().getClassName() %></td>
+										<td class="item_column5"><%= item.getItemGetInfo().getPrice() %></td>
+									</tr>
+									<%
+								}
+							}
+							%>
 							</tbody>
 						</table>
 						<!-- テーブル要素クリック -->
 						<script type="text/javascript"
 							src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 						<script type="text/javascript">
-							$(".exhibitId")
-									.on(
-											"click",
-											function() {
-												//商品IDの取得
-												var itemId = $(this).children(
-														"td")[1].innerText;
-												//Input型エレメントの生成
-												var element = document
-														.createElement("input");
-												//typeの設定
-												element.setAttribute("type",
-														"submit");
-												//nameの設定
-												element.setAttribute("name",
-														"selectItem");
-												//valueの設定
-												element.setAttribute("value",
-														itemId);
-												//取得したIDデータをsetattributeする
-												document.select_item
-														.appendChild(element);
-												//データをサーバーへ送信する
-												document.select_item.submit();
-											});
+							$(".exhibitId").on("click",function() {
+								//商品IDの取得
+								var itemId = $(this).children("td")[1].innerText;
+								//Input型エレメントの生成
+								var element = document.createElement("input");
+								//typeの設定
+								element.setAttribute("type","submit");
+								//nameの設定
+								element.setAttribute("name","selectItem");
+								//valueの設定
+								element.setAttribute("value",itemId);
+								//取得したIDデータをsetattributeする
+								document.select_item.appendChild(element);
+								//データをサーバーへ送信する
+								document.select_item.submit();
+							});
 						</script>
 						<!-- テーブル要素クリックここまで -->
 					</div>
