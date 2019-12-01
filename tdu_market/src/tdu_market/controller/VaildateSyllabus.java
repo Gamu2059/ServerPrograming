@@ -41,6 +41,14 @@ public class VaildateSyllabus extends HttpServlet {
 			return;
 		}
 
+		//データの受け取り
+		String classCode = request.getParameter("classCode");
+		String className = request.getParameter("className");
+		long semesterID = Integer.valueOf(request.getParameter("semesterID")).longValue();
+		String dates = request.getParameter("dates");
+		int unitNum = Integer.valueOf(request.getParameter("unitNum"));
+		String classRoom = request.getParameter("classRoom");
+
 		SyllabusInfoManager syllabus = new SyllabusInfoManager();
 		SyllabusCreateInfo createInfo = new SyllabusCreateInfo(request.getParameter("classCode"), request.getParameter("className"), Integer.valueOf(request.getParameter("subjectID")).longValue(), Integer.valueOf(request.getParameter("teacherID")).longValue(),request.getParameter("dates"), Integer.valueOf(request.getParameter("unitNum")).intValue()
 				, request.getParameter("classRoom"),  request.getParameter("overview"), request.getParameter("target")
