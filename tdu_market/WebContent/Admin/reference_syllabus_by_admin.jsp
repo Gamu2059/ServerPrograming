@@ -50,7 +50,9 @@
 			<br>
 			<div class="content_size_50vw">
 				<div class="item_for_LeftAndRight_between">
-					<button id="white_button">一覧へ</button>
+					<form action="<%= ServletPath.ManagerReferSyllabusListPage %>" method="post">
+						<button id="white_button">一覧へ</button>
+					</form>
 					<button id="white_button">関連商品で絞り込む</button>
 				</div>
 			</div>
