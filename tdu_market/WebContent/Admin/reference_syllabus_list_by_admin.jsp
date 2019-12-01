@@ -57,7 +57,7 @@
 									for(SyllabusGetInfo info:syllabusInfoList){
 										%>
 										<tr class="syllabusId">
-											<th class="check_column1"><input type="checkbox" /></th>
+											<th class="check_column1"><input type="checkbox" name="testCode" value="<%= info.getClassCode() %>" /></th>
 											<td class="syllabus_column1"><%= info.getClassCode() %></td>
 											<td class="syllabus_column2"><%= info.getClassName() %></td>
 											<td class="syllabus_column3">未取得</td>
