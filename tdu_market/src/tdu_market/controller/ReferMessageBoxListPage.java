@@ -71,8 +71,11 @@ public class ReferMessageBoxListPage extends HttpServlet {
 			String studentNumberString = (String) request.getParameter("studentNumber");
 			ArrayList<MessageGetInfo> messageInfoList = messageInfo.getMessageInfoWithRoomInfo(roomID);
 			StudentGetInfo studentGetInfo = studentInfoManager.getStudentInfo(studentNumberString);
+			//1. ↑ここで相手の情報を取得しなくても、jsp側でmessageRoomInfoListの要素ひとつひとつから特定可能とのこと
+			//2. isSelectは初回は実行されないためぬるぽの可能性？
+			//3. ページを離れた際に、セッションの情報を削除するべきでは？という要件
 			session.setAttribute("messageInfoList", messageInfoList);
-			session.setAttribute("studentInfo", studentGetInfo);
+			//session.setAttribute("studentInfo", studentGetInfo);
 		}
 		//遷移
 		ControllerUtil.translatePage(JspPath.message, request, response);
