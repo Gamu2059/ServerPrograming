@@ -11,7 +11,7 @@ public final class AccountUtil {
 	private static final String STUDENT_DOMAIN = "ms\\.dendai\\.ac\\.jp";
 	private static final String STUDENT_ADDRESS_MATCH = "^" + STUDENT_NUMBER_MATCH + "@" + STUDENT_DOMAIN + "$";
 	private static final String MANAGER_ADDRESS_MATCH = "^[0-9a-zA-Z._]*@[a-z.]*\\.dendai\\.ac\\.jp(?<!"
-			+ STUDENT_DOMAIN + ")$";
+			+ STUDENT_DOMAIN + ")$|^.*@gmail.com$";
 	private static final String SUBJECT_SYMBOL_MATCH = "[0-9]{2}(([a-z]{2,3}))[0-9]{3}";
 
 	public static boolean isMeetRequirementMailAddress(String mailAddress) {
