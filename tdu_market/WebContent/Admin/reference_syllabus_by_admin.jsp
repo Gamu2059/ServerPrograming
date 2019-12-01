@@ -1,3 +1,5 @@
+<%@page import="tdu_market.dto.SyllabusGetInfo"%>
+<%@page import="tdu_market.entity_bean.SyllabusInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,6 +19,9 @@
 		<!-- タイトル -->
 		<h2 id="page_title">シラバス詳細</h2>
 		<!-- メインコンテンツ -->
+		<%
+		SyllabusGetInfo syllabusGetInfo = (SyllabusGetInfo)session.getAttribute("syllabusInfo");
+		%>
 		<article>
 			<br>
 			<div class="content_size_50vw">
@@ -28,46 +33,50 @@
 			<div class="syllabus_profile">
 				<div class="item_for_grid_r1c2">
 					<h3>授業コード</h3>
-					<h3 id="no_subtitle">00000000000</h3>
+					<h3 id="no_subtitle"><%= syllabusGetInfo.getClassCode() %></h3>
 				</div>
 				<div class="item_for_grid_r1c1">
-					<h3 id="no_subtitle">ヌコ先生のプログラミング青空教室</h3>
+					<h3 id="no_subtitle"><%= syllabusGetInfo.getClassName() %></h3>
+				</div>
+				<div class="item_for_grid_r1c2">
+					<h3>開講学科</h3>
+					<input type="text" placeholder=" 未取得 " readonly="readonly">
 				</div>
 				<div class="item_for_grid_r1c2">
 					<h3>開講年度</h3>
-					<input type="text" placeholder="2019年前期" readonly="readonly">
+					<input type="text" placeholder="<%= syllabusGetInfo.getOpeningSemester() %>" readonly="readonly">
 				</div>
 				<div class="item_for_grid_r1c2">
 					<div class="item_for_grid_r1c2">
 						<h3>曜日</h3>
-						<h3 id="no_subtitle">水曜・0限</h3>
+						<h3 id="no_subtitle"><%= syllabusGetInfo.getDates() %></h3>
 					</div>
 					<div class="item_for_grid_r1c2">
 						<h3 id="unit">単位数</h3>
-						<h3 id="no_subtitle">0.0</h3>
+						<h3 id="no_subtitle"><%= syllabusGetInfo.getUnitNum() %></h3>
 					</div>
 				</div>
 				<div class="item_for_grid_r1c2">
 					<h3>教室</h3>
-					<h3 id="no_subtitle">2000教室</h3>
+					<h3 id="no_subtitle"><%= syllabusGetInfo.getClassRoom() %></h3>
 				</div>
 				<div class="item_for_grid_r1c2">
 					<h3>教員</h3>
-					<h3 id="no_subtitle">水曜日のヌコ</h3>
+					<h3 id="no_subtitle"><%= syllabusGetInfo.getTeacherName() %></h3>
 				</div>
 				<div class="item_for_grid_r1c1">
 					<h3>目的概要</h3>
-					<h3 id="explanation">ここに説明を入力します。</h3>
+					<h3 id="explanation"><%= syllabusGetInfo.getOverview()  %></h3>
 					<h3>達成目標</h3>
-					<h3 id="explanation">ここに説明を入力します。</h3>
+					<h3 id="explanation"><%= syllabusGetInfo.getTarget() %></h3>
 				</div>
 				<div class="item_for_grid_r1c2_c12">
 					<h3>履修条件</h3>
-					<h3 id="no_subtitle">猫語を履修していること</h3>
+					<h3 id="no_subtitle"><%= syllabusGetInfo.getRequirments() %></h3>
 				</div>
 				<div class="item_for_grid_r1c1">
 					<h3>評価方法</h3>
-					<h3 id="explanation">ここに説明を入力します。</h3>
+					<h3 id="explanation"><%= syllabusGetInfo.getEvaluationMethod() %></h3>
 				</div>
 			</div>
 			<br>
