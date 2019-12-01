@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import tdu_market.dto.ReturnInfo;
 import tdu_market.dto.SyllabusCreateInfo;
@@ -44,6 +45,9 @@ public class VaildateSyllabus extends HttpServlet {
 			return;
 		}
 
+		//文字コードを統一
+		request.setCharacterEncoding("UTF-8");
+
 		//データの受け取り
 		String classCode = request.getParameter("classCode");
 		String className = request.getParameter("className");
@@ -64,7 +68,7 @@ public class VaildateSyllabus extends HttpServlet {
 		ArrayList<TeacherGetInfo> teacherInfo = new ArrayList<TeacherGetInfo>();
 		teacherInfo = teacherInfoManager.getTeacherInfoList();
 		for(int i = 0;i<teacherInfo.size();i++) {
-			if(teacherInfo.get(i).getTeacherName().equals(teacherName)) {
+			if(teacherInfo.get(i).getTeacherName().contains(teacherName)) {
 				teacherID = teacherInfo.get(i).getTeacherID();
 				break;
 			}
@@ -83,12 +87,17 @@ public class VaildateSyllabus extends HttpServlet {
 		//入力情報の検証
 		ReturnInfo retunResult = syllabus.validateRegisterSyllabus(createInfo);
 
+		//jspへデータの送信
+		HttpSession session = request.getSession();
+		session.setAttribute("confirmCreateSyllabusInfo", createInfo );
+
 		//遷移先分岐
 		if(retunResult.isSuccess())	{
 //			syllabus.createSyllabusInfo(createInfo);
+			ControllerUtil.translatePage(JspPath.confirm_register_syllabus_by_admin, request, response);
+		}else {
+			session.setAttribute("createSyllabusErrorMessage", retunResult.toString());
+			ControllerUtil.translatePage(JspPath.register_syllabus_by_admin, request, response);
 		}
-		//遷移
-		ControllerUtil.translatePage(JspPath.register_syllabus_by_admin, request, response);
-
 	}
 }
