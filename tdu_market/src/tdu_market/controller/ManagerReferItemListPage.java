@@ -12,7 +12,9 @@ import javax.servlet.http.HttpSession;
 
 import tdu_market.dto.ItemGetInfo;
 import tdu_market.dto.ItemSearchInfo;
+import tdu_market.dto.RelatedClassGetInfo;
 import tdu_market.entity_manager.ItemInfoManager;
+import tdu_market.entity_manager.RelatedClassInfoManager;
 import tdu_market.util.ControllerUtil;
 import tdu_market.util.JspPath;
 
@@ -76,9 +78,18 @@ public class ManagerReferItemListPage extends HttpServlet {
 		//検索結果をリストへ保持
 		ItemSearchInfo searchInfo = new ItemSearchInfo(itemNameKeyword,condition,maxPrice,oldestDate);
 		ArrayList<ItemGetInfo> itemListInfo = itemInfo.searchItem(searchInfo) ;
+
+		//検索結果を授業と関連付けた情報形式に変換
+		RelatedClassInfoManager relatedInfoManager = new RelatedClassInfoManager();
+		ArrayList<RelatedClassGetInfo> relatedItemListInfo = new ArrayList<RelatedClassGetInfo>();
+
+		for(ItemGetInfo item:itemListInfo) {
+			relatedItemListInfo.add(relatedInfoManager.getRelatedClassInfoWithItem(item.getItemID()).get(0));
+		}
+
 		//jspに情報を投げる。
 		HttpSession session = request.getSession();
-		session.setAttribute("itemListInfo", itemListInfo);
+		session.setAttribute("itemListInfo", relatedItemListInfo);
 
 		//遷移
 		ControllerUtil.translatePage(JspPath.reference_item_list_by_admin, request, response);
