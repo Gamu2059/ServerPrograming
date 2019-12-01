@@ -1,15 +1,18 @@
 package tdu_market.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import tdu_market.dto.ReturnInfo;
 import tdu_market.dto.SyllabusCreateInfo;
+import tdu_market.dto.SyllabusGetInfo;
 import tdu_market.entity_manager.SyllabusInfoManager;
 import tdu_market.util.ControllerUtil;
 import tdu_market.util.JspPath;
@@ -61,6 +64,11 @@ public class RegisterSyllabusInfo extends HttpServlet {
 			if (isContineRegist.contains("true")) {
 				ControllerUtil.translatePage(JspPath.register_syllabus_by_admin, request, response);
 			}else {
+				//シラバス情報の一覧を再取得
+				SyllabusInfoManager syllabusInfo = new SyllabusInfoManager();
+				ArrayList<SyllabusGetInfo> syllabusInfoList = syllabusInfo.getAllSyllabus();
+				HttpSession session = request.getSession();
+				session.setAttribute("syllabusInfoList", syllabusInfoList);
 				ControllerUtil.translatePage(JspPath.reference_syllabus_list_by_admin, request, response);
 			}
 		}
