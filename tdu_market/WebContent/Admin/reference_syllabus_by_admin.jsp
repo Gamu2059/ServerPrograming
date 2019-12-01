@@ -123,6 +123,7 @@
 				<p>削除しますか？</p>
 				<div class="confirm_dialog_button">
 					<form action="<%= ServletPath.DeleteSyllabusInfo %>" method="post">
+						<input type="hidden" name="classCode" value="<%= classCode %>">
 						<button id="yes" class="button_flat_nega">削除</button>
 					</form>
 					<button id="no" class="button_flat_normal">キャンセル</button>
