@@ -110,6 +110,7 @@
 			<div class="item_for_LeftAndRight_around">
 				<button id="red_button">削除</button>
 				<form action="<%= ServletPath.EditSyllabusPage %>" method="get">
+					<input type="hidden" name="classCode" value="<%= classCode %>">
 					<button id="blue_button">編集</button>
 				</form>
 			</div>
