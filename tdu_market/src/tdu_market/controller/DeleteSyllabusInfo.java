@@ -43,6 +43,14 @@ public class DeleteSyllabusInfo extends HttpServlet {
 
 		SyllabusInfoManager syllabusInfoManager = new SyllabusInfoManager();
 
+		//シラバス情報の複数件削除
+		String[] classCodes = request.getParameterValues("classCodes");
+		if(classCodes!=null) {
+			for(String classes:classCodes) {
+				syllabusInfoManager.deleteSyllabusInfo(classes);
+			}
+		}
+
 		//シラバス情報の削除
 		syllabusInfoManager.deleteSyllabusInfo(request.getParameter("classCode"));
 
