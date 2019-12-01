@@ -109,7 +109,7 @@
 				</button>
 				<!-- 絞り込みボタン -->
 				<div class="edit_and_add_button_box">
-					<button id="blue_button" type="button">編集</button>
+					<!-- <button id="blue_button" type="button">編集</button> -->
 					<br />
 					<form action="<%= ServletPath.RegisterSyllabusPage%>" method="post">
 						<button id="blue_button" type="submit">登録</button>
