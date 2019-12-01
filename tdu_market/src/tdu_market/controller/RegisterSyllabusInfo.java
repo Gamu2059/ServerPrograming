@@ -36,10 +36,16 @@ public class RegisterSyllabusInfo extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
+		//文字コードを統一
+		request.setCharacterEncoding("UTF-8");
+
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
+
+		//続けて登録するかどうか
+		String isContineRegist = request.getParameter("isContineRegist");
 
 		SyllabusInfoManager syllabus = new SyllabusInfoManager();
 		SyllabusCreateInfo createInfo = new SyllabusCreateInfo(request.getParameter("classCode"), request.getParameter("className"), Integer.valueOf(request.getParameter("subjectID")).longValue(), Integer.valueOf(request.getParameter("teacherID")).longValue(),request.getParameter("dates"), Integer.valueOf(request.getParameter("unitNum")).intValue()
@@ -52,9 +58,15 @@ public class RegisterSyllabusInfo extends HttpServlet {
 		//シラバス情報の登録
 		if(retunResult.isSuccess())	{
 			syllabus.createSyllabusInfo(createInfo);
+			System.out.println(isContineRegist);
+			if (isContineRegist.contains("true")) {
+				ControllerUtil.translatePage(JspPath.register_syllabus_by_admin, request, response);
+			}else {
+				ControllerUtil.translatePage(JspPath.reference_syllabus_list_by_admin, request, response);
+			}
 		}
 		//遷移
-		ControllerUtil.translatePage(JspPath.register_syllabus_by_admin, request, response);
+//		ControllerUtil.translatePage(JspPath.register_syllabus_by_admin, request, response);
 
 	}
 }
