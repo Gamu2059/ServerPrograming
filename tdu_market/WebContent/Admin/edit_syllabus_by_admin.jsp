@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="tdu_market.dto.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -18,30 +20,48 @@
 		<h2 id="page_title">シラバス詳細（編集）</h2>
 		<!-- メインコンテンツ -->
 		<article>
+		<form action="<%= ServletPath.VaildateSyllabus %>" method="post">
 			<br>
+			<div class="errorMessage">
+				<%
+				if(session.getAttribute("createSyllabusErrorMessage")!=null){
+					out.print("<p>"+session.getAttribute("createSyllabusErrorMessage")+"</p>");
+				}
+				%>
+			</div>
 			<div class="syllabus_profile">
 				<div class="item_for_grid_r1c2">
 					<h3>授業コード</h3>
-					<input type="text" placeholder="例：00000000000000000">
+					<input type="text" name="classCode" placeholder="例：00000000000000000" required>
 				</div>
 				<div class="item_for_grid_r1c1">
-					<input id="syllabus_name" type="text"
-						placeholder="授業名 例：ぬこでもわかるJAVA">
+					<input id="syllabus_name" type="text" name="className" placeholder="授業名 例：ぬこでもわかるJAVA" required>
+				</div>
+				<div class="item_for_grid_r1c2">
+					<h3>開講主要学科</h3>
+					<div id="course_year_list">
+					<select name="subjectID" required>
+						<!-- 学科情報の展開と表示 -->
+						<%
+						ArrayList<DepartmentGetInfo> departmentInfoList = new ArrayList<>();
+						departmentInfoList = (ArrayList<DepartmentGetInfo>)session.getAttribute("departmentInfoList");
+						if(departmentInfoList!=null){
+							for(DepartmentGetInfo departmentInfo: departmentInfoList){
+								out.print("<option value=\""+departmentInfo.getSubjectID()+"\">"+departmentInfo.getSubjectName()+"</option>");
+							}
+						}
+						%>
+					</select>
+					</div>
 				</div>
 				<div class="item_for_grid_r1c2">
 					<h3>開講年度</h3>
-					<input type="text" autocomplete="on" list="course_year_list"
-						placeholder="2019年前期">
-					<datalist id="course_year_list">
-						<option value="2019年前期"></option>
-						<option value="2019年後期"></option>
-						<option value="2018年前期"></option>
-						<option value="2018年後期"></option>
-						<option value="2017年前期"></option>
-						<option value="2017年後期"></option>
-						<option value="2016年前期"></option>
-						<option value="2016年後期"></option>
-					</datalist>
+					<div id="course_year_list">
+					<select name="semesterID" required>
+						<option value="1">2019年前期</option>
+						<option value="2">2019年後期</option>
+					</select>
+					</div>
 				</div>
 				<div class="item_for_grid_r1c2">
 					<div class="item_for_grid_r1c2" id="week_syllabus">
@@ -50,6 +70,7 @@
 							let input_date = document.createElement('input');
 							input_date.autocomplete = true;
 							input_date.setAttribute('list', 'date_list');
+							input_date.setAttribute('name', 'dates');
 							document.getElementById('week_syllabus')
 									.appendChild(input_date);
 
@@ -80,54 +101,50 @@
 					</div>
 					<div class="item_for_grid_r1c2">
 						<h3 id="unit">単位数</h3>
-						<input type="number" placeholder="0.0">
+						<input type="number" placeholder="0.0" max="4" min="0" name="unitNum" required>
 					</div>
 				</div>
 				<div class="item_for_grid_r1c2">
 					<h3>教室</h3>
-					<input type="text" placeholder="例： 2000教室 ">
+					<input type="text" placeholder="例： 2000教室 " name="classRoom" required>
 				</div>
 				<div class="item_for_grid_r1c2" id="teacher_syllabus">
 					<h3>教員</h3>
-					<script type="text/javascript">
-						let input = document.createElement('input');
-						input.autocomplete = true;
-						input.setAttribute('list', 'teacher_list');
-						document.getElementById('teacher_syllabus')
-								.appendChild(input);
-
-						let datalist = document.createElement('datalist');
-						datalist.id = 'teacher_list';
-						let names = [ '岩井将行', '鉄谷信二' ];/*ここは手打ちでもいいけど、DBなどから取得できると楽*/
-						names.forEach(function(name) {
-							let option = document.createElement('option');
-							option.value = name;
-							datalist.appendChild(option);
-						});
-						document.getElementById('teacher_syllabus')
-								.appendChild(datalist);
-					</script>
+					<input type="text" name="teacherName" autocomplete="on" list="teacherList" accept-charset="UTF-8" required >
+					<datalist id="teacherList">
+					<!-- 教員情報の展開と表示 -->
+					<%
+					ArrayList<TeacherGetInfo> teacherInfo = new ArrayList<>();
+					teacherInfo = (ArrayList<TeacherGetInfo>)session.getAttribute("teacherInfoList");
+					if(teacherInfo!=null){
+						for(TeacherGetInfo teacher:teacherInfo){
+							out.print("<option value=\""+teacher.getTeacherName()+"\">");
+						}
+					}
+					%>
+					</datalist>
 				</div>
 				<div class="item_for_grid_r1c1">
 					<h3>目的概要</h3>
-					<textarea></textarea>
-					<h3 name="perpose">達成目標</h3>
-					<textarea></textarea>
+					<textarea name="overview"></textarea>
+					<h3>達成目標</h3>
+					<textarea name="target"></textarea>
 				</div>
 				<div class="item_for_grid_r1c2_c12">
 					<h3>履修条件</h3>
-					<input type="text">
+					<input type="text" name="requierments">
 				</div>
 				<div class="item_for_grid_r1c1">
 					<h3>評価方法</h3>
-					<textarea></textarea>
+					<textarea name="evaluationMethod"></textarea>
 				</div>
 			</div>
 			<br>
 			<div class="item_for_center">
-				<button id="orange_button">確定</button>
+				<button type="submit" id="orange_button">更新</button>
 			</div>
 			<br>
+		</form>
 		</article>
 		<section>
 			<!--
