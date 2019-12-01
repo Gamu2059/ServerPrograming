@@ -1,13 +1,16 @@
 package tdu_market.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import tdu_market.dto.SyllabusGetInfo;
 import tdu_market.entity_manager.SyllabusInfoManager;
 import tdu_market.util.ControllerUtil;
 import tdu_market.util.JspPath;
@@ -39,12 +42,21 @@ public class DeleteSyllabusInfo extends HttpServlet {
 			return;
 		}
 
-		SyllabusInfoManager syllabus = new SyllabusInfoManager();
+		SyllabusInfoManager syllabusInfoManager = new SyllabusInfoManager();
 
-		//シラバス情報の更新
-		syllabus.deleteSyllabusInfo(request.getParameter("classCode"));
+		//シラバス情報の削除
+		syllabusInfoManager.deleteSyllabusInfo(request.getParameter("classCode"));
+
+		//シラバス情報一覧の更新
+		ArrayList<SyllabusGetInfo> syllabusGetInfo = new ArrayList<SyllabusGetInfo>();
+		syllabusGetInfo = syllabusInfoManager.getAllSyllabus();
+
+		//jspに送信する
+		HttpSession session = request.getSession();
+		session.setAttribute("syllabusInfoList", syllabusGetInfo);
+
 		// 遷移
-		ControllerUtil.translatePage(JspPath.reference_syllabus_by_admin, request, response);
+		ControllerUtil.translatePage(JspPath.reference_syllabus_list_by_admin, request, response);
 
 	}
 
