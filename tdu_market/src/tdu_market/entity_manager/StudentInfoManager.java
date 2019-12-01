@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import tdu_market.dao.StudentInfoDAO;
 import tdu_market.dto.DepartmentGetInfo;
+import tdu_market.dto.ItemGetInfo;
 import tdu_market.dto.LoginInfo;
 import tdu_market.dto.ReturnInfo;
 import tdu_market.dto.RoomMemberGetInfo;
@@ -183,6 +184,15 @@ public final class StudentInfoManager {
 			MessageRoomInfoManager messageRoomInfoManager = new MessageRoomInfoManager();
 			for (long roomID : roomMemberGetInfo.getRoomIDs()) {
 				messageRoomInfoManager.deleteMessageRoomInfo(roomID);
+			}
+		}
+
+		// 出品物を削除する
+		ItemInfoManager itemInfoManager = new ItemInfoManager();
+		ArrayList<ItemGetInfo> itemGetInfos = itemInfoManager.getExhibitItem(mailAddress);
+		if (itemGetInfos != null) {
+			for (ItemGetInfo itemGetInfo : itemGetInfos) {
+				itemInfoManager.deleteItemInfo(itemGetInfo.getItemID());
 			}
 		}
 
