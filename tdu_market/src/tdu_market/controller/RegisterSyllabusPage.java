@@ -1,13 +1,17 @@
 package tdu_market.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import tdu_market.dto.TeacherGetInfo;
+import tdu_market.entity_manager.TeacherInfoManager;
 import tdu_market.util.ControllerUtil;
 import tdu_market.util.JspPath;
 
@@ -37,6 +41,16 @@ public class RegisterSyllabusPage extends HttpServlet {
 			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
+
+		//全教員情報を取得
+		TeacherInfoManager teacherInfoManager = new TeacherInfoManager();
+		ArrayList<TeacherGetInfo> teacherInfoList = new ArrayList<TeacherGetInfo>();
+		teacherInfoList = teacherInfoManager.getTeacherInfoList();
+
+		//jspに情報をおくる
+		HttpSession session = request.getSession();
+		session.setAttribute("teacherInfoList", teacherInfoList);
+
 		//遷移
 		ControllerUtil.translatePage(JspPath.register_syllabus_by_admin, request, response);
 
