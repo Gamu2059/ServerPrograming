@@ -21,6 +21,30 @@
 		<!-- メインコンテンツ -->
 		<%
 		SyllabusGetInfo syllabusGetInfo = (SyllabusGetInfo)session.getAttribute("syllabusInfo");
+		String classCode = "";
+		String className = "";
+		String openingSemester = "";
+		String date = "";
+		int unitNum = 0;
+		String classRoom = "";
+		String teacherName = "";
+		String overview = "";
+		String target = "";
+		String requirment = "";
+		String evaluationMethod = "";
+		if(syllabusGetInfo != null){
+			classCode = syllabusGetInfo.getClassCode();
+			className = syllabusGetInfo.getClassName();
+			openingSemester = syllabusGetInfo.getOpeningSemester();
+			date = syllabusGetInfo.getDates();
+			unitNum = syllabusGetInfo.getUnitNum();
+			classRoom = syllabusGetInfo.getClassRoom();
+			teacherName = syllabusGetInfo.getTeacherName();
+			overview = syllabusGetInfo.getOverview();
+			target = syllabusGetInfo.getRequirments();
+			requirment = syllabusGetInfo.getRequirments();
+			evaluationMethod = syllabusGetInfo.getEvaluationMethod();
+		}
 		%>
 		<article>
 			<br>
@@ -33,10 +57,10 @@
 			<div class="syllabus_profile">
 				<div class="item_for_grid_r1c2">
 					<h3>授業コード</h3>
-					<h3 id="no_subtitle"><%= syllabusGetInfo.getClassCode() %></h3>
+					<h3 id="no_subtitle"><%= classCode %></h3>
 				</div>
 				<div class="item_for_grid_r1c1">
-					<h3 id="no_subtitle"><%= syllabusGetInfo.getClassName() %></h3>
+					<h3 id="no_subtitle"><%= className%></h3>
 				</div>
 				<div class="item_for_grid_r1c2">
 					<h3>開講学科</h3>
@@ -44,39 +68,39 @@
 				</div>
 				<div class="item_for_grid_r1c2">
 					<h3>開講年度</h3>
-					<input type="text" placeholder="<%= syllabusGetInfo.getOpeningSemester() %>" readonly="readonly">
+					<input type="text" placeholder="<%= openingSemester %>" readonly="readonly">
 				</div>
 				<div class="item_for_grid_r1c2">
 					<div class="item_for_grid_r1c2">
 						<h3>曜日</h3>
-						<h3 id="no_subtitle"><%= syllabusGetInfo.getDates() %></h3>
+						<h3 id="no_subtitle"><%= date %></h3>
 					</div>
 					<div class="item_for_grid_r1c2">
 						<h3 id="unit">単位数</h3>
-						<h3 id="no_subtitle"><%= syllabusGetInfo.getUnitNum() %></h3>
+						<h3 id="no_subtitle"><%= unitNum %></h3>
 					</div>
 				</div>
 				<div class="item_for_grid_r1c2">
 					<h3>教室</h3>
-					<h3 id="no_subtitle"><%= syllabusGetInfo.getClassRoom() %></h3>
+					<h3 id="no_subtitle"><%= classRoom %></h3>
 				</div>
 				<div class="item_for_grid_r1c2">
 					<h3>教員</h3>
-					<h3 id="no_subtitle"><%= syllabusGetInfo.getTeacherName() %></h3>
+					<h3 id="no_subtitle"><%= teacherName %></h3>
 				</div>
 				<div class="item_for_grid_r1c1">
 					<h3>目的概要</h3>
-					<h3 id="explanation"><%= syllabusGetInfo.getOverview()  %></h3>
+					<h3 id="explanation"><%= overview  %></h3>
 					<h3>達成目標</h3>
-					<h3 id="explanation"><%= syllabusGetInfo.getTarget() %></h3>
+					<h3 id="explanation"><%= target %></h3>
 				</div>
 				<div class="item_for_grid_r1c2_c12">
 					<h3>履修条件</h3>
-					<h3 id="no_subtitle"><%= syllabusGetInfo.getRequirments() %></h3>
+					<h3 id="no_subtitle"><%= requirment %></h3>
 				</div>
 				<div class="item_for_grid_r1c1">
 					<h3>評価方法</h3>
-					<h3 id="explanation"><%= syllabusGetInfo.getEvaluationMethod() %></h3>
+					<h3 id="explanation"><%= evaluationMethod %></h3>
 				</div>
 			</div>
 			<br>
