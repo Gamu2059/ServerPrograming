@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import tdu_market.dto.ItemGetInfo;
 import tdu_market.dto.ItemSearchInfo;
@@ -74,14 +75,15 @@ public class ManagerReferItemListPage extends HttpServlet {
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		//検索結果をリストへ保持
 		ItemSearchInfo searchInfo = new ItemSearchInfo(itemNameKeyword,condition,maxPrice,oldestDate);
-		ArrayList<ItemGetInfo> itemList = itemInfo.searchItem(searchInfo) ;
+		ArrayList<ItemGetInfo> itemListInfo = itemInfo.searchItem(searchInfo) ;
 		//jspに情報を投げる。
-		request.setAttribute("itemList", itemList);
+		HttpSession session = request.getSession();
+		session.setAttribute("itemListInfo", itemListInfo);
 
 		//遷移
 		ControllerUtil.translatePage(JspPath.reference_item_list_by_admin, request, response);
-	
-		
+
+
 	}
 
 }
