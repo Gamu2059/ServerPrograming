@@ -106,8 +106,8 @@
 							<form action="<%=ServletPath.PostMessage%>" method="post">
 								<textarea id="message_form" name="message_form" cols="50"
 									rows="2" placeholder="メッセージを入力"></textarea>
-								<button type="submit"><img src="/tdu_market/images/post.png" alt="post" /></button>
-							</form>
+								<input type="image" src="/tdu_market/images/post2.png" alt="post" id="post_icon">
+ 							</form>
 						</div>
 					</div>
 					<section>
