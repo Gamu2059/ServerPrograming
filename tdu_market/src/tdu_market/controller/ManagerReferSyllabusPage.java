@@ -40,15 +40,15 @@ public class ManagerReferSyllabusPage extends HttpServlet {
 			return;
 		}
 
-		SyllabusInfoManager syllabusInfo = new SyllabusInfoManager();
+		SyllabusInfoManager syllabusInfoManager = new SyllabusInfoManager();
 		//getInfoにシラバス情報を格納
-		SyllabusGetInfo getInfo = syllabusInfo.getSyllabusInfo(request.getParameter("classCode"));
+		SyllabusGetInfo syllabusInfo = syllabusInfoManager.getSyllabusInfo(request.getParameter("classCode"));
 		//jspに情報を投げる。
-		request.setAttribute("getInfo", getInfo);
+		request.setAttribute("syllabusInfo", syllabusInfo);
 
 		//遷移
 		ControllerUtil.translatePage(JspPath.reference_syllabus_by_admin, request, response);
-	
+
 	}
 
 
