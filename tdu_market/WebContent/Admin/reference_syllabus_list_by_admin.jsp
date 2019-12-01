@@ -49,6 +49,9 @@
 							</thead>
 							<!-- テーブル要素 -->
 							<tbody class="list_content">
+
+								<form action="<%= ServletPath.DeleteSyllabusInfo %>" method="post">
+
 								<!-- データの表示と展開 -->
 								<%
 								ArrayList<SyllabusGetInfo> syllabusInfoList = new ArrayList<SyllabusGetInfo>();
@@ -57,7 +60,7 @@
 									for(SyllabusGetInfo info:syllabusInfoList){
 										%>
 										<tr class="syllabusId">
-											<th class="check_column1"><input type="checkbox" name="testCode" value="<%= info.getClassCode() %>" /></th>
+											<th class="check_column1"><input type="checkbox" name="classCodes" value="<%= info.getClassCode() %>" /></th>
 											<td class="syllabus_column1"><%= info.getClassCode() %></td>
 											<td class="syllabus_column2"><%= info.getClassName() %></td>
 											<td class="syllabus_column3">未取得</td>
@@ -70,6 +73,18 @@
 								}
 								%>
 							</tbody>
+
+							<!-- 複数件削除ダイアログ -->
+							<div id="confirm_dialog_admin">
+								<p>削除しますか？</p>
+								<div class="confirm_dialog_button">
+									<button type="submit" id="yes" class="button_flat_nega">削除</button>
+									<button type="button" id="no" class="button_flat_normal">キャンセル</button>
+								</div>
+							</div>
+
+							</form>
+
 						</table>
 						<form name="select_syllabus" action="<%= ServletPath.ManagerReferSyllabusPage %>" method="get">
 						</form>
@@ -120,24 +135,25 @@
 			1.該当するidをボタンに付与する。update, delete, back_button
 			2.notify_dialog('表示したいメッセージ','遷移先url')
 		-->
-			<div id="confirm_dialog_admin">
+			<%-- <div id="confirm_dialog_admin">
 				<p>削除しますか？</p>
 				<div class="confirm_dialog_button">
-					<button id="yes" class="button_flat_nega">確認</button>
+					<form action="<%= ServletPath.DeleteSyllabusInfo %>" method="post">
+						<button id="yes" class="button_flat_nega">確認</button>
+					</form>
 					<button id="no" class="button_flat_normal">キャンセル</button>
 				</div>
-			</div>
-			<div id="notify_dialog_admin">
+			</div> --%>
+			<!-- <div id="notify_dialog_admin">
 				<p id="notify_text">確認ダイアログ</p>
 				<div class="notify_dialog_button">
 					<button id="ok" class="button_flat_normal">了解</button>
 				</div>
-			</div>
+			</div> -->
 			<script type="text/javascript">
 				document.getElementById("red_button").onclick = function() {
 					//各ボタンの要素の取得
-					let dialog = document
-							.getElementById("confirm_dialog_admin");
+					let dialog = document.getElementById("confirm_dialog_admin");
 					let yes = document.getElementById("yes");
 					let no = document.getElementById("no");
 					dialog.style.display = "block";
@@ -147,8 +163,7 @@
 
 						//ここに内部処理をいれる
 
-						notify_dialog("削除しました。",
-								"reference_syllabus_list_by_admin"); /*再読み込みがかかります*/
+						//notify_dialog("削除しました。","reference_syllabus_list_by_admin"); /*再読み込みがかかります*/
 					});
 					no.addEventListener("click", function() {
 						dialog.style.display = "none";
