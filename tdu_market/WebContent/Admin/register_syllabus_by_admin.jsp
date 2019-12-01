@@ -1,3 +1,7 @@
+<%@page import="java.awt.print.Printable"%>
+<%@page import="tdu_market.dto.DepartmentGetInfo"%>
+<%@page import="tdu_market.dto.TeacherGetInfo"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -29,6 +33,23 @@
 					<input id="syllabus_name" type="text" name="className" placeholder="授業名 例：ぬこでもわかるJAVA" required>
 				</div>
 				<div class="item_for_grid_r1c2">
+					<h3>開講主要学科</h3>
+					<div id="course_year_list">
+					<select name="subjectID" required>
+						<!-- 学科情報の展開と表示 -->
+						<%
+						ArrayList<DepartmentGetInfo> departmentInfoList = new ArrayList<>();
+						departmentInfoList = (ArrayList<DepartmentGetInfo>)session.getAttribute("departmentInfoList");
+						if(departmentInfoList!=null){
+							for(DepartmentGetInfo departmentInfo: departmentInfoList){
+								out.print("<option value=\""+departmentInfo.getSubjectID()+"\">"+departmentInfo.getSubjectName()+"</option>");
+							}
+						}
+						%>
+					</select>
+					</div>
+				</div>
+				<div class="item_for_grid_r1c2">
 					<h3>開講年度</h3>
 					<div id="course_year_list">
 					<select name="semesterID" required>
@@ -44,10 +65,12 @@
 							let input_date = document.createElement('input');
 							input_date.autocomplete = true;
 							input_date.setAttribute('list', 'date_list');
-							input_date.setAtttibute('name','dates');
-							document.getElementById('week_syllabus').appendChild(input_date);
+							input_date.setAttribute('name', 'dates');
+							document.getElementById('week_syllabus')
+									.appendChild(input_date);
 
-							let datalist_date = document.createElement('datalist');
+							let datalist_date = document
+									.createElement('datalist');
 							datalist_date.id = 'date_list';
 							let name_date = Array(42);
 
@@ -62,11 +85,13 @@
 								}
 							}
 							name_date.forEach(function(name) {
-								let option_date = document.createElement('option');
+								let option_date = document
+										.createElement('option');
 								option_date.value = name;
 								datalist_date.appendChild(option_date);
 							});
-							document.getElementById('week_syllabus').appendChild(datalist_date);
+							document.getElementById('week_syllabus')
+									.appendChild(datalist_date);
 						</script>
 					</div>
 					<div class="item_for_grid_r1c2">
@@ -80,11 +105,18 @@
 				</div>
 				<div class="item_for_grid_r1c2" id="teacher_syllabus">
 					<h3>教員</h3>
-					<input type="text" name="yourarea" autocomplete="on" list="tokyo">
-					<datalist id="tokyo">
-					<option value="渋谷">
-					<option value="新宿">
-					<option value="池袋">
+					<input type="text" name="teacherName" autocomplete="on" list="teacherList" required>
+					<datalist id="teacherList">
+					<!-- 教員情報の展開と表示 -->
+					<%
+					ArrayList<TeacherGetInfo> teacherInfo = new ArrayList<>();
+					teacherInfo = (ArrayList<TeacherGetInfo>)session.getAttribute("teacherInfoList");
+					if(teacherInfo!=null){
+						for(TeacherGetInfo teacher:teacherInfo){
+							out.print("<option value=\""+teacher.getTeacherName()+"\">");
+						}
+					}
+					%>
 					</datalist>
 					<!-- <script type="text/javascript">
 						let input = document.createElement('input');
@@ -105,22 +137,22 @@
 				</div>
 				<div class="item_for_grid_r1c1">
 					<h3>目的概要</h3>
-					<textarea></textarea>
+					<textarea name="overview"></textarea>
 					<h3>達成目標</h3>
-					<textarea></textarea>
+					<textarea name="target"></textarea>
 				</div>
 				<div class="item_for_grid_r1c2_c12">
 					<h3>履修条件</h3>
-					<input type="text">
+					<input type="text" name="requierments">
 				</div>
 				<div class="item_for_grid_r1c1">
 					<h3>評価方法</h3>
-					<textarea></textarea>
+					<textarea name="evaluationMethod"></textarea>
 				</div>
 			</div>
 			<br>
 			<div class="item_for_center">
-				<button id="orange_button">確定</button>
+				<button type="submit" id="orange_button">確定</button>
 			</div>
 			<br>
 		</form>
