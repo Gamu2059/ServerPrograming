@@ -122,7 +122,9 @@
 			<div id="confirm_dialog_admin">
 				<p>削除しますか？</p>
 				<div class="confirm_dialog_button">
-					<button id="yes" class="button_flat_nega">削除</button>
+					<form action="<%= ServletPath.DeleteSyllabusInfo %>" method="post">
+						<button id="yes" class="button_flat_nega">削除</button>
+					</form>
 					<button id="no" class="button_flat_normal">キャンセル</button>
 				</div>
 			</div>
