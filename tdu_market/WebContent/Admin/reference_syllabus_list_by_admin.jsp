@@ -103,7 +103,9 @@
 				<div class="edit_and_add_button_box">
 					<button id="blue_button" type="button">編集</button>
 					<br />
-					<button id="blue_button" type="button">登録</button>
+					<form action="<%= ServletPath.RegisterSyllabusPage%>" method="post">
+						<button id="blue_button" type="submit">登録</button>
+					</form>
 				</div>
 			</div>
 		</article>
