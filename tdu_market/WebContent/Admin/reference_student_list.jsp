@@ -1,3 +1,6 @@
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map"%>
+<%@page import="tdu_market.dto.DepartmentGetInfo"%>
 <%@page import="tdu_market.dto.StudentGetInfo"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -52,7 +55,13 @@
 								<!-- Sessionからデータを受け取る -->
 								<%
 								ArrayList<StudentGetInfo> studentList = new ArrayList<>();
+								ArrayList<DepartmentGetInfo> departmentList = new ArrayList<>();
+								Map<String,Integer> studentAndExhibitMap = new HashMap<>();
+
 								studentList = (ArrayList<StudentGetInfo>)session.getAttribute("studentList");
+								departmentList = (ArrayList<DepartmentGetInfo>)session.getAttribute("departmentInfoList");
+								studentAndExhibitMap = (HashMap<String,Integer>)session.getAttribute("studentAndExhibitMap");
+
 								if(studentList==null){
 									out.print("登録されている学生情報はありません。");
 								}else{
@@ -64,7 +73,7 @@
 										out.print("<td class=\"student_column2\">"+studentList.get(i).getDisplayName()+"</td>");
 										out.print("<td class=\"student_column3\">"+studentList.get(i).getDepartmentID()+"</td>");
 										out.print("<td class=\"student_column4\">"+studentList.get(i).getDepartmentID()+"</td>");
-										out.print("<td class=\"student_column5\">未習得</td>");
+										out.print("<td class=\"student_column5\">"+studentAndExhibitMap.get(studentList.get(i).getMailAddress())+"</td>");
 										out.print("</tr>");
 									}
 								}
