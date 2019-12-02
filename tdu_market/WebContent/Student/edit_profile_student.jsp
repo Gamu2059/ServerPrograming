@@ -15,10 +15,10 @@
 <!-- Bootstrap -->
 <link href="/tdu_market/css/import_student.css" rel="stylesheet">
 <!-- InstanceBeginEditable name="scripts" -->
-<script type="text/javascript" src="/tdu_market/js/student.js" defer="defer"></script>
+<script type="text/javascript" src="/tdu_market/js/jquery-3.3.1.min.js"></script>
 <!-- InstanceEndEditable -->
 </head>
-<body onLoad="document.studentInfo.submit();">
+<body>
 	<%@ include file="header.jsp"%>
 	<!-- InstanceBeginEditable name="body" -->
 
@@ -39,13 +39,12 @@
 					<div class="top_content">
 						<div class="top_content_left">
 							<label class="user_icon_button">
-							<input class="user_icon_button2" type="file" name="iconImageURL" id="iconFile"/>
 							<%
  							if(info.getIconImageBinary() != null){
 								out.print("<img src=\""+ info.getIconImageBinary() +" \" alt=\"ユーザーアイコン\" id=\"icon\">");
-/* 								out.print("<input name=\"iconImageURL\" type=\"file\" src=\" "+ info.getIconImageBinary() +" \" alt=\"ユーザーアイコン\">");
- */							}
+							}
 							%>
+							<input class="user_icon_button2" type="file" name="iconImageURL" id="iconFile"/>
 								<h3>変更</h3>
 							</label>
 						</div>
