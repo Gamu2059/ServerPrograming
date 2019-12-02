@@ -110,15 +110,7 @@ public class VaildateSyllabus extends HttpServlet {
 			}
 		} else if(registOrEdit.equals("edit")) {
 			//遷移先分岐
-			if(retunResult.isSuccess())	{
-				//エラーメッセージを破棄
-				session.removeAttribute("editSyllabusErrorMessage");
-				ControllerUtil.translatePage(JspPath.confirm_syllabus_by_admin, request, response);
-			}else {
-				//エラーメッセージをjspに送信
-				session.setAttribute("editSyllabusErrorMessage", retunResult.toString());
-				ControllerUtil.translatePage(JspPath.edit_syllabus_by_admin, request, response);
-			}
+			ControllerUtil.translatePage(JspPath.confirm_syllabus_by_admin, request, response);
 		}
 
 	}

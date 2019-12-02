@@ -46,26 +46,11 @@
 			evaluationMethod = info.getEvaluationMethod();
 		}
 		%>
-		<!-- 事前情報自動入力 -->
-		<script type="text/javascript">
-			function automaticInput () {
-				<%-- document.getElementById( "classCode" ).value = <%= classCode %>; --%>
-				<%-- document.getElementById( "syllabus_name" ).value = <%= className %>; --%>
-				<%-- document.getElementById( "dates" ).value = <%= date %>; --%>
-				<%-- document.getElementById( "unitNum" ).value = <%= unitNum %>; --%>
-				<%-- document.getElementById( "teacherName" ).value = <%= teacherName %>; --%>
-			}
-		</script>
 
 		<article>
 		<form action="<%= ServletPath.VaildateSyllabus %>" method="post">
 			<br>
 			<div class="errorMessage">
-			<%
-			if(session.getAttribute("editSyllabusErrorMessage")!=null){
-				out.print("<p>"+session.getAttribute("editSyllabusErrorMessage")+"</p>");
-			}
-			%>
 			</div>
 			<div class="syllabus_profile">
 				<div class="item_for_grid_r1c2">
