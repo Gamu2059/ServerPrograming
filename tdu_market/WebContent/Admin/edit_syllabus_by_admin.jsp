@@ -22,6 +22,7 @@
 		<%
 		SyllabusGetInfo info = (SyllabusGetInfo)session.getAttribute("syllabusInfo");
 		String classCode = "";
+		String beforClassCode = "";
 		String className = "";
 		String semester = "";
 		String date = "";
@@ -34,6 +35,7 @@
 		String evaluationMethod = "";
 		if(info!=null){
 			classCode = info.getClassCode();
+			beforClassCode = info.getClassCode();
 			className = info.getClassName();
 			semester = info.getOpeningSemester();
 			date = info.getDates();
@@ -166,6 +168,7 @@
 			<br>
 			<div class="item_for_center">
 				<input type="hidden" name="registOrEdit" value="edit">
+				<input type="hidden" name="previousClassCode" value="beforClassCode">
 				<button type="submit" id="orange_button">更新</button>
 			</div>
 			<br>
@@ -213,8 +216,7 @@
 						dialog.style.display = 'none';
 					});
 				}
-				*/
-				/* function notify_dialog(text, url) {
+				function notify_dialog(text, url) {
 					let dialog = document.getElementById('notify_dialog_admin');
 
 					document.getElementById('notify_text').textContent = text;
