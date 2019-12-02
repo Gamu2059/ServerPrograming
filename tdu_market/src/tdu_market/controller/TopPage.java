@@ -40,6 +40,9 @@ public class TopPage extends HttpServlet {
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		ArrayList<ItemGetInfo> newItemList = itemInfo.getNewItemList();
 		session.setAttribute("newItemList", newItemList);
+		
+		//ダイアログ用
+		session.setAttribute("isDisplayDialog", false);
 
 		ControllerUtil.translatePage(JspPath.student_top, request, response);
 	}

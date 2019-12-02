@@ -67,9 +67,7 @@
 							<div class="detail_content">
 								<h3>所属学科</h3>
 								<select name="departmentID">
-									<% out.println("<option name=\"media\" value=\""+ info.getDepartmentID() +"\">"+ "情報メディア学科" +"</option>");
-									System.out.println(info.getSelfIntroduction());
-									%>
+									<% out.println("<option name=\"media\" value=\""+ info.getDepartmentID() +"\">"+ "情報メディア学科" +"</option>");%>
 								</select>
 								<p id="note_Text">※注意 - 転科した学生はサポートまで連絡をお願いします。</p>
 							</div>
@@ -130,20 +128,25 @@
 
 						//ここに内部処理をいれる
 
-						notify_dialog('更新しました。', 'reference_profile_student');
+						//notify_dialog('更新しました。', 'reference_profile_student');
+						<%
+						boolean isDisplayDialog = true;
+						String dialogMessage = "更新しました";
+						session.setAttribute("dialogMessage", dialogMessage);
+						session.setAttribute("isDisplayDialog", isDisplayDialog);
+						%>
 					});
 					no.addEventListener('click', function() {
 						dialog.style.display = 'none';
 					});
 				}
-				function notify_dialog(text, url) {
+				function notify_dialog(text) {
 					let dialog = document.getElementById('notify_dialog');
 
 					document.getElementById('notify_text').textContent = text;
 
 					dialog.style.display = 'block';
 					ok.addEventListener('click', function() {
-						//location.href = url + '.html';
 						dialog.style.display = 'none';
 					});
 				}
