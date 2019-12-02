@@ -38,12 +38,13 @@
 						</form>
 					</li>
 					<li>
-						<button type="button" class="top_menu"
-							onclick="location.href='<%= ServletPath.ReferItemListPage %>'">
+					<form action="<%= ServletPath.ManagerReferItemListPage %>" method="post">
+						<button type="submit" class="top_menu">
 							<h2>商品情報一覧</h2>
 							<br />
 							<h3>商品情報の参照・削除対応を行うことが出来ます。また、出品者の確認を行うこともできます。</h3>
 						</button>
+					</form>
 					</li>
 				</ul>
 			</div>
