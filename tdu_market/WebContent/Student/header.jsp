@@ -33,7 +33,7 @@
 						<img src="/tdu_market/images/message.png" alt="メッセージアイコン">
 					</button>
 				</form>
-			<li><img src=<%=info_header.getIconImageBinary()%> alt="ユーザーアイコン" id="user_information_controller">
+			<li><a href = "#"><img src=<%=info_header.getIconImageBinary()%> alt="ユーザーアイコン" id="user_information_controller"></a>
 		</ul>
 	</div>
 </header>
