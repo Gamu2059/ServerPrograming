@@ -147,6 +147,7 @@
 
 					dialog.style.display = 'block';
 					ok.addEventListener('click', function() {
+						<% session.setAttribute("isDisplayDialog", false); %>
 						dialog.style.display = 'none';
 					});
 				}

@@ -190,6 +190,12 @@
 
 					yes.addEventListener('click', function() {
 						dialog.style.display = 'none';
+				 		<%
+				 		isDisplayDialog = true;
+				 		dialogMessage = "削除しました";
+				 		session.setAttribute("dialogMessage", dialogMessage);
+				 		session.setAttribute("isDisplayDialog", isDisplayDialog);
+				 		%>
 						//notify_dialog('削除しました。', 'reference_exhibit_list');
 					});
 					no.addEventListener('click', function() {
