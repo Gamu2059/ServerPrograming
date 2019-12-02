@@ -10,6 +10,7 @@ import tdu_market.dto.SyllabusCreateInfo;
 import tdu_market.dto.SyllabusGetInfo;
 import tdu_market.dto.SyllabusSearchInfo;
 import tdu_market.dto.SyllabusUpdateInfo;
+import tdu_market.entity_bean.DepartmentInfo;
 import tdu_market.entity_bean.SemesterInfo;
 import tdu_market.entity_bean.SyllabusInfo;
 import tdu_market.entity_bean.TeacherInfo;
@@ -40,7 +41,14 @@ public final class SyllabusInfoDAO extends DAOBase {
 				SemesterInfo semesterInfo = SemesterInfo.create(resultSet);
 				TeacherInfo teacherInfo = TeacherInfo.create(resultSet);
 
-				syllabusGetInfo = SyllabusGetInfo.create(syllabusInfo, semesterInfo, teacherInfo);
+				DepartmentInfoDAO departmentInfoDAO = new DepartmentInfoDAO();
+				ArrayList<DepartmentInfo> departmentInfoList = departmentInfoDAO.getDepartmentInfoWithSubject(syllabusInfo.getSubjectID(), true);
+				DepartmentInfo departmentInfo = null;
+				if (departmentInfoList != null && departmentInfoList.size() > 0) {
+					departmentInfo = departmentInfoList.get(0);
+				}
+
+				syllabusGetInfo = SyllabusGetInfo.create(syllabusInfo, semesterInfo, teacherInfo, departmentInfo);
 			}
 		} catch (SQLException e) {
 			showSQLException(e);
@@ -266,12 +274,19 @@ public final class SyllabusInfoDAO extends DAOBase {
 
 			resultSet = pstmt.executeQuery();
 
+			DepartmentInfoDAO departmentInfoDAO = new DepartmentInfoDAO();
 			while (resultSet.next()) {
 				SyllabusInfo syllabusInfo = SyllabusInfo.create(resultSet);
 				SemesterInfo semesterInfo = SemesterInfo.create(resultSet);
 				TeacherInfo teacherInfo = TeacherInfo.create(resultSet);
 
-				SyllabusGetInfo syllabusGetInfo = SyllabusGetInfo.create(syllabusInfo, semesterInfo, teacherInfo);
+				ArrayList<DepartmentInfo> departmentInfoList = departmentInfoDAO.getDepartmentInfoWithSubject(syllabusInfo.getSubjectID(), true);
+				DepartmentInfo departmentInfo = null;
+				if (departmentInfoList != null && departmentInfoList.size() > 0) {
+					departmentInfo = departmentInfoList.get(0);
+				}
+
+				SyllabusGetInfo syllabusGetInfo = SyllabusGetInfo.create(syllabusInfo, semesterInfo, teacherInfo, departmentInfo);
 
 				if (list == null) {
 					list = new ArrayList<SyllabusGetInfo>();
@@ -315,12 +330,19 @@ public final class SyllabusInfoDAO extends DAOBase {
 
 			resultSet = pstmt.executeQuery();
 
+			DepartmentInfoDAO departmentInfoDAO = new DepartmentInfoDAO();
 			while (resultSet.next()) {
 				SyllabusInfo syllabusInfo = SyllabusInfo.create(resultSet);
 				SemesterInfo semesterInfo = SemesterInfo.create(resultSet);
 				TeacherInfo teacherInfo = TeacherInfo.create(resultSet);
 
-				SyllabusGetInfo syllabusGetInfo = SyllabusGetInfo.create(syllabusInfo, semesterInfo, teacherInfo);
+				ArrayList<DepartmentInfo> departmentInfoList = departmentInfoDAO.getDepartmentInfoWithSubject(syllabusInfo.getSubjectID(), true);
+				DepartmentInfo departmentInfo = null;
+				if (departmentInfoList != null && departmentInfoList.size() > 0) {
+					departmentInfo = departmentInfoList.get(0);
+				}
+
+				SyllabusGetInfo syllabusGetInfo = SyllabusGetInfo.create(syllabusInfo, semesterInfo, teacherInfo, departmentInfo);
 
 				if (list == null) {
 					list = new ArrayList<SyllabusGetInfo>();
@@ -344,78 +366,5 @@ public final class SyllabusInfoDAO extends DAOBase {
 		}
 
 		return list;
-	}
-
-	public static void main(String[] args) {
-
-		SyllabusInfoDAO dao = new SyllabusInfoDAO();
-		showInfo(dao.getAllSyllabusInfo());
-
-		SyllabusSearchInfo searchInfo = null;
-
-		System.out.println("全検索");
-		searchInfo = new SyllabusSearchInfo(null, 0, null, null, 0);
-		showInfo(dao.searchSyllabusInfo(searchInfo));
-
-		System.out.println("クラスコード検索");
-		searchInfo = new SyllabusSearchInfo("69", 0, null, null, 0);
-		showInfo(dao.searchSyllabusInfo(searchInfo));
-
-		System.out.println("講義名検索");
-		searchInfo = new SyllabusSearchInfo(null, 0, "モデリング", null, 0);
-		showInfo(dao.searchSyllabusInfo(searchInfo));
-
-		System.out.println("担任名検索");
-		searchInfo = new SyllabusSearchInfo(null, 0, null, "森谷", 0);
-		showInfo(dao.searchSyllabusInfo(searchInfo));
-
-		System.out.println("担任名検索");
-		searchInfo = new SyllabusSearchInfo(null, 0, null, "高橋", 0);
-		showInfo(dao.searchSyllabusInfo(searchInfo));
-
-		System.out.println("担任名&開講年度検索");
-		searchInfo = new SyllabusSearchInfo(null, 0, null, "森谷", 2);
-		showInfo(dao.searchSyllabusInfo(searchInfo));
-
-		SyllabusCreateInfo createInfo = null;
-
-		System.out.println("データ作成");
-		createInfo = new SyllabusCreateInfo("1109046401", "メディア演習A（動画）（後前期）", 11, 9, "月3 月4", 1, "メディア演習室", null, null,
-				null, null, 2);
-		dao.createSyllabusInfo(createInfo);
-
-		createInfo = new SyllabusCreateInfo("1109047401", "メディア演習A（動画）（後後期）", 11, 9, "月3 月4", 1, "メディア演習室", null, null,
-				null, null, 2);
-		dao.createSyllabusInfo(createInfo);
-
-		System.out.println("担任名&開講年度検索");
-		searchInfo = new SyllabusSearchInfo(null, 0, null, "高", 2);
-		showInfo(dao.searchSyllabusInfo(searchInfo));
-
-		System.out.println("全データ");
-		showInfo(dao.getAllSyllabusInfo());
-
-		System.out.println("データ削除");
-		dao.deleteSyllabusInfo("1109046401");
-		dao.deleteSyllabusInfo("1109047401");
-
-		System.out.println("担任名&開講年度検索");
-		searchInfo = new SyllabusSearchInfo(null, 0, null, "高", 2);
-		showInfo(dao.searchSyllabusInfo(searchInfo));
-
-		System.out.println("全データ");
-		showInfo(dao.getAllSyllabusInfo());
-	}
-
-	private static void showInfo(ArrayList<SyllabusGetInfo> list) {
-
-		if (list == null) {
-			System.out.println("list is empty");
-			return;
-		}
-
-		for (SyllabusGetInfo i : list) {
-			System.out.println(i);
-		}
 	}
 }
