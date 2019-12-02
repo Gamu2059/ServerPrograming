@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import tdu_market.dto.SyllabusUpdateInfo;
 import tdu_market.entity_manager.SyllabusInfoManager;
@@ -47,6 +48,12 @@ public class UpdateSyllabusInfo extends HttpServlet {
 				, request.getParameter("requierments"), request.getParameter("evaluationMethod"));
 		//シラバス情報の更新
 		syllabus.updateSyllabusInfo(updateInfo);
+
+		//不要なsessionの破棄
+		HttpSession session = request.getSession();
+		session.removeAttribute("isCreate");
+		session.removeAttribute("updateSyllabusClassCode");
+
 		//ページ遷移
 		ControllerUtil.translatePage(JspPath.reference_syllabus_list_by_admin, request, response);
 
