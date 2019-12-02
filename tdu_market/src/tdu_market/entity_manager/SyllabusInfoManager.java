@@ -52,7 +52,7 @@ public final class SyllabusInfoManager {
 			}
 
 			return new ReturnInfo("", true);
-		} catch(Exception e) {
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
@@ -72,11 +72,49 @@ public final class SyllabusInfoManager {
 
 		// 自動的に対応する開講年度情報も登録する
 		OpeningSemesterInfoManager openingSemesterInfoManager = new OpeningSemesterInfoManager();
-		OpeningSemesterCreateInfo createInfo = new OpeningSemesterCreateInfo(syllabusCreateInfo.getClassCode(), new long[] {syllabusCreateInfo.getSemesterID()});
+		OpeningSemesterCreateInfo createInfo = new OpeningSemesterCreateInfo(syllabusCreateInfo.getClassCode(),
+				new long[] { syllabusCreateInfo.getSemesterID() });
 		openingSemesterInfoManager.createOpeningSemesterInfo(createInfo);
 	}
 
-	/** シラバスを更新する。 */
+	/** シラバスの更新情報を検証する。問題がない場合は、trueの情報を返す。 */
+	public ReturnInfo validateUpdateSyllabusInfo(SyllabusUpdateInfo syllabusUpdateInfo) {
+		try {
+
+			String prevClassCode = syllabusUpdateInfo.getPreviousClassCode();
+			String classCode = syllabusUpdateInfo.getClassCode();
+			String className = syllabusUpdateInfo.getClassName();
+			long semesterID = syllabusUpdateInfo.getSemesterID();
+			long teacherID = syllabusUpdateInfo.getTeacherID();
+
+			if (!classCode.equals(prevClassCode)) {
+				ReturnInfo isExist = existSyllabus(classCode);
+				if (isExist.isSuccess()) {
+					return new ReturnInfo("同一のクラスコードを持つ講義が既に存在しています。");
+				}
+			}
+
+			if (className == null || className.trim().isEmpty()) {
+				return new ReturnInfo("講義名が設定されていません。");
+			}
+
+			SemesterInfoManager semesterInfoManager = new SemesterInfoManager();
+			if (!semesterInfoManager.isExistSemester(semesterID)) {
+				return new ReturnInfo("対応する年度学期がありません。");
+			}
+
+			TeacherInfoManager teacherInfoManager = new TeacherInfoManager();
+			if (!teacherInfoManager.isExistTeacher(teacherID)) {
+				return new ReturnInfo("対応する担任がいません。");
+			}
+
+			return new ReturnInfo("", true);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/** シラバスを更新する。検証はしません。 */
 	public void updateSyllabusInfo(SyllabusUpdateInfo syllabusUpdateInfo) {
 
 		SyllabusInfoDAO syllabusInfoDAO = new SyllabusInfoDAO();
@@ -106,7 +144,7 @@ public final class SyllabusInfoManager {
 	}
 
 	/** シラバスを全取得する。 */
-	public ArrayList<SyllabusGetInfo> getAllSyllabus(){
+	public ArrayList<SyllabusGetInfo> getAllSyllabus() {
 
 		SyllabusInfoDAO syllabusInfoDAO = new SyllabusInfoDAO();
 		return syllabusInfoDAO.getAllSyllabusInfo();
