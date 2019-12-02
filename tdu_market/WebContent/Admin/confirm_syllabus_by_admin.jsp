@@ -23,6 +23,7 @@
 			<%
 			SyllabusCreateInfo syllabusInfo = (SyllabusCreateInfo)session.getAttribute("confirmCreateSyllabusInfo");
 			String teacherName = (String)session.getAttribute("confirmTeacherName");
+			String updateSyllabusClassCode = (String)session.getAttribute("updateSyllabusClassCode");
 			%>
 			<br>
 			<div class="syllabus_profile">
@@ -160,7 +161,31 @@
 			<br>
 			<div class="item_for_center">
 			<!-- 送信するデータ -->
-				<button type="button" id="orange_button">確定</button>
+				<%
+				boolean isCreate = (Boolean)session.getAttribute("isCreate");
+				if(isCreate){
+					out.print("<button type=\"button\" id=\"orange_button\">確定</button>");
+				}else{
+					%>
+					<form action="<%= ServletPath.UpdateSyllabusInfo %>" method="post">
+						<input type="hidden" name="previousClassCode" value="<%= updateSyllabusClassCode %>">
+						<input type="hidden" name="classCode" value="<%= syllabusInfo.getClassCode() %>">
+						<input type="hidden" name="className" value="<%= syllabusInfo.getClassName() %>">
+						<input type="hidden" name="subjectID" value="<%= syllabusInfo.getSubjectID() %>">
+						<input type="hidden" name="semesterID" value="<%= syllabusInfo.getSemesterID() %>">
+						<input type="hidden" name="dates" value="<%= syllabusInfo.getDates() %>">
+						<input type="hidden" name="unitNum" value="<%= syllabusInfo.getUnitNum() %>">
+						<input type="hidden" name="classRoom" value="<%= syllabusInfo.getClassRoom() %>">
+						<input type="hidden" name="teacherID" value="<%= syllabusInfo.getTeacherID() %>">
+						<input type="hidden" name="overview" value="<%= syllabusInfo.getOverview() %>">
+						<input type="hidden" name="target" value="<%= syllabusInfo.getTarget() %>">
+						<input type="hidden" name="requierments" value="<%= syllabusInfo.getRequirements() %>">
+						<input type="hidden" name="evaluationMethod" value="<%= syllabusInfo.getEvaluationMethod() %>">
+						<button type="submit" id="orange_button">確定</button>
+					</form>
+					<%
+				}
+				%>
 			</div>
 			<br>
 		</article>
@@ -171,7 +196,6 @@
 			2.notify_dialog('表示したいメッセージ','遷移先url')
 		-->
 		<%
-			boolean isCreate = (Boolean)session.getAttribute("isCreate");
 			if(isCreate){
 				%>
 			<div id="confirm_dialog_admin">
