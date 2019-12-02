@@ -160,7 +160,7 @@
 			<br>
 			<div class="item_for_center">
 			<!-- 送信するデータ -->
-				<button type="submit" id="orange_button">確定</button>
+				<button type="button" id="orange_button">確定</button>
 			</div>
 			<br>
 		</article>
@@ -170,6 +170,10 @@
 			1.該当するidをボタンに付与する。update, delete, back_button
 			2.notify_dialog('表示したいメッセージ','遷移先url')
 		-->
+		<%
+			boolean isCreate = (Boolean)session.getAttribute("isCreate");
+			if(isCreate){
+				%>
 			<div id="confirm_dialog_admin">
 				<p id="confirm_text">続けて登録しますか？</p>
 				<div class="confirm_dialog_button">
@@ -207,6 +211,12 @@
 					</form>
 				</div>
 			</div>
+				<%
+			}else{
+			}
+		%>
+
+
 
 			<script type="text/javascript">
 				document.getElementById('orange_button').onclick = function() {
