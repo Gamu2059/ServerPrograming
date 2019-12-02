@@ -113,6 +113,7 @@ public class VaildateSyllabus extends HttpServlet {
 		} else if(registOrEdit.equals("edit")) {
 			//遷移先分岐
 			session.setAttribute("isCreate", false);
+			session.setAttribute("updateSyllabusClassCode", request.getParameter("previousClassCode"));
 			ControllerUtil.translatePage(JspPath.confirm_syllabus_by_admin, request, response);
 		}
 
