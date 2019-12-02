@@ -71,8 +71,8 @@
 										out.print("<td class=\"hidden_column\">"+studentList.get(i).getMailAddress()+"</td>");
 										out.print("<td class=\"student_column1\">"+studentList.get(i).getMailAddress().split("@", 0)[0]+"</td>");
 										out.print("<td class=\"student_column2\">"+studentList.get(i).getDisplayName()+"</td>");
-										out.print("<td class=\"student_column3\">"+studentList.get(i).getDepartmentID()+"</td>");
-										out.print("<td class=\"student_column4\">"+studentList.get(i).getDepartmentID()+"</td>");
+										out.print("<td class=\"student_column3\">"+departmentList.get((int)studentList.get(i).getDepartmentID()).getFacultyName()+"</td>");
+										out.print("<td class=\"student_column4\">"+departmentList.get((int)studentList.get(i).getDepartmentID()).getSubjectName()+"</td>");
 										out.print("<td class=\"student_column5\">"+studentAndExhibitMap.get(studentList.get(i).getMailAddress())+"</td>");
 										out.print("</tr>");
 									}
