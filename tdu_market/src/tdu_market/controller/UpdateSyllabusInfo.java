@@ -1,6 +1,7 @@
 package tdu_market.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import tdu_market.dto.SyllabusGetInfo;
 import tdu_market.dto.SyllabusUpdateInfo;
 import tdu_market.entity_manager.SyllabusInfoManager;
 import tdu_market.util.ControllerUtil;
@@ -34,7 +36,6 @@ public class UpdateSyllabusInfo extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.err.println("UpdateSyllabusInfo is non implementation!");
 
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			ControllerUtil.translatePage(JspPath.index, request, response);
@@ -49,8 +50,14 @@ public class UpdateSyllabusInfo extends HttpServlet {
 		//シラバス情報の更新
 		syllabus.updateSyllabusInfo(updateInfo);
 
-		//不要なsessionの破棄
 		HttpSession session = request.getSession();
+
+		//シラバス情報の一覧を再取得
+		SyllabusInfoManager syllabusInfo = new SyllabusInfoManager();
+		ArrayList<SyllabusGetInfo> syllabusInfoList = syllabusInfo.getAllSyllabus();
+		session.setAttribute("syllabusInfoList", syllabusInfoList);
+
+		//不要なsessionの破棄
 		session.removeAttribute("isCreate");
 		session.removeAttribute("updateSyllabusClassCode");
 
