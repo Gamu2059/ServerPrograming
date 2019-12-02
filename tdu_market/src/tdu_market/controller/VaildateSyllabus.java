@@ -49,6 +49,8 @@ public class VaildateSyllabus extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		//データの受け取り
+		String registOrEdit = request.getParameter("registOrEdit");
+
 		String classCode = request.getParameter("classCode");
 		String className = request.getParameter("className");
 		long subjectID = Integer.valueOf(request.getParameter("subjectID")).longValue();
@@ -95,10 +97,9 @@ public class VaildateSyllabus extends HttpServlet {
 		session.setAttribute("confirmTeacherName", confirmTeacherName);
 
 		//登録の時
-		if(request.getAttribute("registOrEdit").equals("regist")) {
+		if(registOrEdit.equals("regist")) {
 			//遷移先分岐
 			if(retunResult.isSuccess())	{
-//				syllabus.createSyllabusInfo(createInfo);
 				//エラーメッセージを破棄
 				session.removeAttribute("createSyllabusErrorMessage");
 				ControllerUtil.translatePage(JspPath.confirm_syllabus_by_admin, request, response);
@@ -107,8 +108,17 @@ public class VaildateSyllabus extends HttpServlet {
 				session.setAttribute("createSyllabusErrorMessage", retunResult.toString());
 				ControllerUtil.translatePage(JspPath.register_syllabus_by_admin, request, response);
 			}
-		} else if(request.getAttribute("registOrEdit").equals("edit")) {
-
+		} else if(registOrEdit.equals("edit")) {
+			//遷移先分岐
+			if(retunResult.isSuccess())	{
+				//エラーメッセージを破棄
+				session.removeAttribute("editSyllabusErrorMessage");
+				ControllerUtil.translatePage(JspPath.confirm_syllabus_by_admin, request, response);
+			}else {
+				//エラーメッセージをjspに送信
+				session.setAttribute("editSyllabusErrorMessage", retunResult.toString());
+				ControllerUtil.translatePage(JspPath.edit_syllabus_by_admin, request, response);
+			}
 		}
 
 	}
