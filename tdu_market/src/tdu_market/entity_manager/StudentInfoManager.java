@@ -146,7 +146,7 @@ public final class StudentInfoManager {
 		return StudentGetInfo.create(studentInfo);
 	}
 
-	/** アカウントを更新する。 更新に成功した場合は、trueの情報を返す。*/
+	/** 学生としてアカウントを更新する。 更新に成功した場合は、trueの情報を返す。*/
 	public ReturnInfo updateStudentInfo(StudentUpdateInfo studentUpdateInfo) {
 
 		String mailAddress = studentUpdateInfo.getMailAddress();
@@ -165,6 +165,27 @@ public final class StudentInfoManager {
 		// パスワードが条件を満たしているか確認
 		if (!AccountUtil.isMeetRequirementPassword(nonHashedPassword)) {
 			return new ReturnInfo("パスワードは、8～16文字の英数字で設定して下さい。");
+		}
+
+		StudentInfoDAO studentInfoDAO = new StudentInfoDAO();
+		studentInfoDAO.updateStudentInfo(studentUpdateInfo);
+
+		return new ReturnInfo("", true);
+	}
+
+	/** 運営としてアカウントを更新する。 更新に成功した場合は、trueの情報を返す。*/
+	public ReturnInfo updateStudentInfoByAdmin(StudentUpdateInfo studentUpdateInfo) {
+
+		String mailAddress = studentUpdateInfo.getMailAddress();
+
+		// メールアドレスがメールアドレスの体を成しているか確認
+		if (!AccountUtil.isMeetRequirementMailAddress(mailAddress)) {
+			return new ReturnInfo("これはメールアドレスではありません。");
+		}
+
+		// メールアドレスが学生メールアドレスであるか確認
+		if (!AccountUtil.isStudentMailAddress(mailAddress)) {
+			return new ReturnInfo("このメールアドレスは学生アカウントとして使用できません。");
 		}
 
 		StudentInfoDAO studentInfoDAO = new StudentInfoDAO();
