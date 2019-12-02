@@ -61,7 +61,11 @@
 		<form action="<%= ServletPath.VaildateSyllabus %>" method="post">
 			<br>
 			<div class="errorMessage">
-
+			<%
+			if(session.getAttribute("editSyllabusErrorMessage")!=null){
+				out.print("<p>"+session.getAttribute("editSyllabusErrorMessage")+"</p>");
+			}
+			%>
 			</div>
 			<div class="syllabus_profile">
 				<div class="item_for_grid_r1c2">
@@ -188,20 +192,21 @@
 			1.該当するidをボタンに付与する。update, delete, back_button
 			2.notify_dialog('表示したいメッセージ','遷移先url')
 		-->
-			<div id="confirm_dialog_admin">
+			<!-- <div id="confirm_dialog_admin">
 				<p>更新しますか？</p>
 				<div class="confirm_dialog_button">
 					<button id="yes" class="button_flat_submit">確認</button>
 					<button id="no" class="button_flat_normal">キャンセル</button>
 				</div>
-			</div>
-			<div id="notify_dialog_admin">
+			</div> -->
+			<!-- <div id="notify_dialog_admin">
 				<p id="notify_text">確認ダイアログ</p>
 				<div class="notify_dialog_button">
 					<button id="ok" class="button_flat_normal">了解</button>
 				</div>
-			</div>
+			</div> -->
 			<script type="text/javascript">
+				/*
 				document.getElementById('orange_button').onclick = function() {
 					//各ボタンの要素の取得
 					let dialog = document
@@ -223,7 +228,8 @@
 						dialog.style.display = 'none';
 					});
 				}
-				function notify_dialog(text, url) {
+				*/
+				/* function notify_dialog(text, url) {
 					let dialog = document.getElementById('notify_dialog_admin');
 
 					document.getElementById('notify_text').textContent = text;
@@ -233,7 +239,7 @@
 						location.href = url + '.html';
 						dialog.style.display = 'none';
 					});
-				}
+				} */
 			</script>
 		</section>
 	</div>
