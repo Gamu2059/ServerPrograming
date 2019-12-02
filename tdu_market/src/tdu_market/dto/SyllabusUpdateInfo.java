@@ -16,10 +16,12 @@ public class SyllabusUpdateInfo {
 	private final String requirements;
 	private final String evaluationMethod;
 
+	// 対応する年度学期の情報は必要
+	private final long semesterID;
+
 	public SyllabusUpdateInfo(String previousClassCode, String classCode, String className, long subjectID,
-			long teacherID, String dates,
-			int unitNum, String classRoom, String overview, String target, String requirements,
-			String evaluationMethod) {
+			long teacherID, String dates, int unitNum, String classRoom, String overview, String target,
+			String requirements, String evaluationMethod, long semesterID) {
 		super();
 		this.previousClassCode = previousClassCode;
 		this.classCode = classCode;
@@ -33,6 +35,7 @@ public class SyllabusUpdateInfo {
 		this.target = target;
 		this.requirements = requirements;
 		this.evaluationMethod = evaluationMethod;
+		this.semesterID = semesterID;
 	}
 
 	public String getPreviousClassCode() {
@@ -81,5 +84,9 @@ public class SyllabusUpdateInfo {
 
 	public String getEvaluationMethod() {
 		return evaluationMethod;
+	}
+
+	public long getSemesterID() {
+		return semesterID;
 	}
 }

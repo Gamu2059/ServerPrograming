@@ -19,27 +19,11 @@ import tdu_market.entity_manager.TeacherInfoManager;
 import tdu_market.util.ControllerUtil;
 import tdu_market.util.JspPath;
 
-/**
- * Servlet implementation class EditSyllabusPage
- */
 @WebServlet("/tdu_market/controller/EditSyllabusPage")
 public class EditSyllabusPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public EditSyllabusPage() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.err.println("EditSyllabusPage is non implementation!");
 
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			ControllerUtil.translatePage(JspPath.index, request, response);
@@ -65,7 +49,5 @@ public class EditSyllabusPage extends HttpServlet {
 
 		// 遷移
 		ControllerUtil.translatePage(JspPath.edit_syllabus_by_admin, request, response);
-
 	}
-
 }

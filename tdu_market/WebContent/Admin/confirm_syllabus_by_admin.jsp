@@ -162,7 +162,9 @@
 			<div class="item_for_center">
 			<!-- 送信するデータ -->
 				<%
-				boolean isCreate = (Boolean)session.getAttribute("isCreate");
+				Object isCreateObj = session.getAttribute("isCreate");
+				boolean isCreate = (boolean)isCreateObj;
+
 				if(isCreate){
 					out.print("<button type=\"button\" id=\"orange_button\">確定</button>");
 				}else{
