@@ -42,10 +42,10 @@ public class ManagerReferExhibitItemListPage extends HttpServlet {
 			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
-    
+
 		//セッションからメールアドレスを取得
-		String mailAddress = ControllerUtil.getMailAddress(request, response);
-    
+		String mailAddress = request.getParameter("studentMailAddress");
+
 		//出品情報を取得
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		ArrayList<ItemGetInfo> itemList =  itemInfo.getExhibitItem(mailAddress);
