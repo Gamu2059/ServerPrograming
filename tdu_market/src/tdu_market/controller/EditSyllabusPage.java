@@ -63,8 +63,6 @@ public class EditSyllabusPage extends HttpServlet {
 		session.setAttribute("departmentInfoList", departmentGetInfo);
 		session.setAttribute("teacherInfoList", teacherGetInfo);
 
-		System.out.println(syllabusGetInfo.getOpeningSemester());
-
 		// 遷移
 		ControllerUtil.translatePage(JspPath.edit_syllabus_by_admin, request, response);
 
