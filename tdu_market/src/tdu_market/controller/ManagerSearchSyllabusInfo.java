@@ -65,7 +65,7 @@ public class ManagerSearchSyllabusInfo extends HttpServlet {
 		session.setAttribute("syllabusInfoList", syllabusGetInfos);
 
 		//遷移
-		ControllerUtil.translatePage(JspPath.reference_item_list_by_admin, request, response);
+		ControllerUtil.translatePage(JspPath.reference_syllabus_list_by_admin, request, response);
 
 	}
 
