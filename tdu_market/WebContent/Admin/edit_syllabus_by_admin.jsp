@@ -12,30 +12,64 @@
 <link rel="stylesheet" href="/tdu_market/css/import_admin.css" type="text/css" />
 <title>シラバス詳細（編集）</title>
 </head>
-<body>
+<body onLoad="automaticInput();">
 	<%@ include file="panel.jsp"%>
 	<!-- 右パネル -->
 	<div class="right_panel">
 		<!-- タイトル -->
 		<h2 id="page_title">シラバス詳細（編集）</h2>
 		<!-- メインコンテンツ -->
+		<%
+		SyllabusGetInfo info = (SyllabusGetInfo)session.getAttribute("syllabusInfo");
+		String classCode = "";
+		String className = "";
+		String semester = "";
+		String date = "";
+		int unitNum = 0;
+		String classRoom = "";
+		String teacherName = "";
+		String overview = "";
+		String target = "";
+		String requirments = "";
+		String evaluationMethod = "";
+		if(info!=null){
+			classCode = info.getClassCode();
+			className = info.getClassName();
+			semester = info.getOpeningSemester();
+			date = info.getDates();
+			unitNum = info.getUnitNum();
+			classRoom = info.getClassRoom();
+			teacherName = info.getTeacherName();
+			overview = info.getOverview();
+			target = info.getTarget();
+			requirments = info.getRequirments();
+			evaluationMethod = info.getEvaluationMethod();
+		}
+		%>
+		<!-- 事前情報自動入力 -->
+		<script type="text/javascript">
+			function automaticInput () {
+				<%-- document.getElementById( "classCode" ).value = <%= classCode %>; --%>
+				<%-- document.getElementById( "syllabus_name" ).value = <%= className %>; --%>
+				<%-- document.getElementById( "dates" ).value = <%= date %>; --%>
+				<%-- document.getElementById( "unitNum" ).value = <%= unitNum %>; --%>
+				<%-- document.getElementById( "teacherName" ).value = <%= teacherName %>; --%>
+			}
+		</script>
+
 		<article>
 		<form action="<%= ServletPath.VaildateSyllabus %>" method="post">
 			<br>
 			<div class="errorMessage">
-				<%
-				if(session.getAttribute("createSyllabusErrorMessage")!=null){
-					out.print("<p>"+session.getAttribute("createSyllabusErrorMessage")+"</p>");
-				}
-				%>
+
 			</div>
 			<div class="syllabus_profile">
 				<div class="item_for_grid_r1c2">
 					<h3>授業コード</h3>
-					<input type="text" name="classCode" placeholder="例：00000000000000000" required>
+					<input type="text" name="classCode" id="classCode" placeholder="例：00000000000000000" value="<%= classCode %>" required>
 				</div>
 				<div class="item_for_grid_r1c1">
-					<input id="syllabus_name" type="text" name="className" placeholder="授業名 例：ぬこでもわかるJAVA" required>
+					<input id="syllabus_name" type="text" name="className" placeholder="<%= className  %>" accept-charset="UTF-8" value="<%= className %>" required>
 				</div>
 				<div class="item_for_grid_r1c2">
 					<h3>開講主要学科</h3>
@@ -70,6 +104,7 @@
 							let input_date = document.createElement('input');
 							input_date.autocomplete = true;
 							input_date.setAttribute('list', 'date_list');
+							input_date.setAttribute('value', '<%= date %>');
 							input_date.setAttribute('name', 'dates');
 							document.getElementById('week_syllabus')
 									.appendChild(input_date);
@@ -101,16 +136,16 @@
 					</div>
 					<div class="item_for_grid_r1c2">
 						<h3 id="unit">単位数</h3>
-						<input type="number" placeholder="0.0" max="4" min="0" name="unitNum" required>
+						<input type="number" placeholder="0.0" max="4" min="0" name="unitNum" value="<%= unitNum %>" required>
 					</div>
 				</div>
 				<div class="item_for_grid_r1c2">
 					<h3>教室</h3>
-					<input type="text" placeholder="例： 2000教室 " name="classRoom" required>
+					<input type="text" placeholder="例： 2000教室 " name="classRoom" value="<%= classRoom %>" required>
 				</div>
 				<div class="item_for_grid_r1c2" id="teacher_syllabus">
 					<h3>教員</h3>
-					<input type="text" name="teacherName" autocomplete="on" list="teacherList" accept-charset="UTF-8" required >
+					<input id="teacherName" type="text" name="teacherName" autocomplete="on" list="teacherList" accept-charset="UTF-8" value="<%= teacherName %>" required >
 					<datalist id="teacherList">
 					<!-- 教員情報の展開と表示 -->
 					<%
@@ -126,17 +161,17 @@
 				</div>
 				<div class="item_for_grid_r1c1">
 					<h3>目的概要</h3>
-					<textarea name="overview"></textarea>
+					<textarea name="overview"><%= overview %></textarea>
 					<h3>達成目標</h3>
-					<textarea name="target"></textarea>
+					<textarea name="target"><%= target %></textarea>
 				</div>
 				<div class="item_for_grid_r1c2_c12">
 					<h3>履修条件</h3>
-					<input type="text" name="requierments">
+					<input type="text" name="requierments" value="<%= requirments %>">
 				</div>
 				<div class="item_for_grid_r1c1">
 					<h3>評価方法</h3>
-					<textarea name="evaluationMethod"></textarea>
+					<textarea name="evaluationMethod"><%= evaluationMethod %></textarea>
 				</div>
 			</div>
 			<br>
