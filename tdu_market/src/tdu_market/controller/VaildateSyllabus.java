@@ -94,16 +94,22 @@ public class VaildateSyllabus extends HttpServlet {
 		session.setAttribute("confirmCreateSyllabusInfo", createInfo );
 		session.setAttribute("confirmTeacherName", confirmTeacherName);
 
-		//遷移先分岐
-		if(retunResult.isSuccess())	{
-//			syllabus.createSyllabusInfo(createInfo);
-			//エラーメッセージを破棄
-			session.removeAttribute("createSyllabusErrorMessage");
-			ControllerUtil.translatePage(JspPath.confirm_syllabus_by_admin, request, response);
-		}else {
-			//エラーメッセージをjspに送信
-			session.setAttribute("createSyllabusErrorMessage", retunResult.toString());
-			ControllerUtil.translatePage(JspPath.register_syllabus_by_admin, request, response);
+		//登録の時
+		if(request.getAttribute("registOrEdit").equals("regist")) {
+			//遷移先分岐
+			if(retunResult.isSuccess())	{
+//				syllabus.createSyllabusInfo(createInfo);
+				//エラーメッセージを破棄
+				session.removeAttribute("createSyllabusErrorMessage");
+				ControllerUtil.translatePage(JspPath.confirm_syllabus_by_admin, request, response);
+			}else {
+				//エラーメッセージをjspに送信
+				session.setAttribute("createSyllabusErrorMessage", retunResult.toString());
+				ControllerUtil.translatePage(JspPath.register_syllabus_by_admin, request, response);
+			}
+		} else if(request.getAttribute("registOrEdit").equals("edit")) {
+
 		}
+
 	}
 }
