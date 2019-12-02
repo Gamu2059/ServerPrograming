@@ -10,14 +10,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <!-- Bootstrap -->
 <link rel="stylesheet" href="/tdu_market/css/import_admin.css" type="text/css" />
-<title>シラバス詳細（登録確認）</title>
+<title>シラバス詳細（内容確認）</title>
 </head>
 <body>
 	<%@ include file="panel.jsp"%>
 	<!-- 右パネル -->
 	<div class="right_panel">
 		<!-- タイトル -->
-		<h2 id="page_title">シラバス詳細（登録確認）</h2>
+		<h2 id="page_title">シラバス詳細（内容確認）</h2>
 		<!-- メインコンテンツ -->
 		<article>
 			<%

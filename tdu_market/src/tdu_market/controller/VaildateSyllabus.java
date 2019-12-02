@@ -99,7 +99,7 @@ public class VaildateSyllabus extends HttpServlet {
 //			syllabus.createSyllabusInfo(createInfo);
 			//エラーメッセージを破棄
 			session.removeAttribute("createSyllabusErrorMessage");
-			ControllerUtil.translatePage(JspPath.confirm_register_syllabus_by_admin, request, response);
+			ControllerUtil.translatePage(JspPath.confirm_syllabus_by_admin, request, response);
 		}else {
 			//エラーメッセージをjspに送信
 			session.setAttribute("createSyllabusErrorMessage", retunResult.toString());
