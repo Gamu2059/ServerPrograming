@@ -176,6 +176,7 @@
 			</div>
 			<br>
 			<div class="item_for_center">
+				<input type="hidden" name="registOrEdit" value="edit">
 				<button type="submit" id="orange_button">更新</button>
 			</div>
 			<br>
