@@ -106,7 +106,7 @@ public class SyllabusGetInfo {
 
 		String classCode = syllabusInfo.getClassCode();
 		String className = syllabusInfo.getClassName();
-		String openingSemester = semesterInfo.getSemester();
+		String openingSemester = String.format("%s年度%s", semesterInfo.getYear(), semesterInfo.getSemester());
 		String dates = syllabusInfo.getDates();
 		int unitNum = syllabusInfo.getUnitNum();
 		String classRoom = syllabusInfo.getClassRoom();
