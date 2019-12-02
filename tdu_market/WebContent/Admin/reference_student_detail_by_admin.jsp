@@ -1,4 +1,6 @@
 
+<%@page import="tdu_market.dto.DepartmentGetInfo"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="tdu_market.dto.StudentGetInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -23,16 +25,20 @@
 		<!-- データの受け取りと展開 -->
 		<%
 			StudentGetInfo studentInfo = (StudentGetInfo) session.getAttribute("studentInfo");
+			ArrayList<DepartmentGetInfo> departmentInfo = new ArrayList<>();
+			departmentInfo = (ArrayList<DepartmentGetInfo>)session.getAttribute("departmentInfoList");
+
+
 			String studentMailAddress = "";
 			String iconURL = "";
 			String name = "";
-			long department = 0;
+			String departmentName="";
 			String selfIntroduction = "";
 			if (studentInfo != null) {
 				studentMailAddress = studentInfo.getMailAddress();
 				iconURL = studentInfo.getIconImageBinary();
 				name = studentInfo.getDisplayName();
-				department = studentInfo.getDepartmentID();
+				departmentName = departmentInfo.get((int)studentInfo.getDepartmentID()).getFacultyName()+" - "+ departmentInfo.get((int)studentInfo.getDepartmentID()).getSubjectName();
 				selfIntroduction = studentInfo.getSelfIntroduction();
 			}
 		%>
@@ -53,7 +59,7 @@
 							<h3>ディスプレイネーム</h3>
 							<h2 id="user_name"><%=name%></h2>
 							<h3>所属学科</h3>
-							<h2><%=department%></h2>
+							<h2><%=departmentName%></h2>
 						</div>
 					</div>
 					<br>
