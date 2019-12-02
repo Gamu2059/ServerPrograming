@@ -38,5 +38,26 @@
 				class="button_flat_blue" onclick="location.href='/tdu_market/general/send_mail.jsp'">新規登録</button>
 		</article>
 	</div>
+	<div id="notify_dialog">
+		<p id="notify_text">確認ダイアログ</p>
+		<div class="notify_dialog_button">
+			<button id="ok" class="button_flat_normal">了解</button>
+		</div>
+	</div>
+	<script type="text/javascript">
+		<% if((boolean)session.getAttribute("isDisplayDialog")){%>
+		notify_dialog('<%= (String)session.getAttribute("dialogMessage") %>');
+		<% } %>
+		function notify_dialog() {
+			let dialog = document.getElementById('notify_dialog');
+
+			document.getElementById('notify_text').textContent = '確認メールを送信しました。';
+
+			dialog.style.display = 'block';
+			ok.addEventListener('click', function() {
+				dialog.style.display = 'none';
+			});
+		}
+	</script>
 </body>
 </html>
