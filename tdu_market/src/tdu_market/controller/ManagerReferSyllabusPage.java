@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import tdu_market.dto.SyllabusGetInfo;
 import tdu_market.entity_manager.SyllabusInfoManager;
@@ -40,15 +41,16 @@ public class ManagerReferSyllabusPage extends HttpServlet {
 			return;
 		}
 
-		SyllabusInfoManager syllabusInfo = new SyllabusInfoManager();
+		SyllabusInfoManager syllabusInfoManager = new SyllabusInfoManager();
 		//getInfoにシラバス情報を格納
-		SyllabusGetInfo getInfo = syllabusInfo.getSyllabusInfo(request.getParameter("classCode"));
+		SyllabusGetInfo syllabusInfo = syllabusInfoManager.getSyllabusInfo(request.getParameter("classCode"));
 		//jspに情報を投げる。
-		request.setAttribute("getInfo", getInfo);
+		HttpSession session = request.getSession();
+		session.setAttribute("syllabusInfo", syllabusInfo);
 
 		//遷移
 		ControllerUtil.translatePage(JspPath.reference_syllabus_by_admin, request, response);
-	
+
 	}
 
 

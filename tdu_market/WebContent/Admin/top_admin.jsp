@@ -29,12 +29,13 @@
 						</button>
 					</li>
 					<li>
-						<button type="button" class="top_menu"
-							onclick="location.href='<%= ServletPath.ReferSyllabusListPage %>'">
-							<h2>シラバス一覧</h2>
-							<br />
-							<h3>シラバス情報の登録・削除・更新を行うことができます。</h3>
-						</button>
+						<form action="<%= ServletPath.ManagerReferSyllabusListPage %>" method="post">
+							<button type="submit" class="top_menu">
+								<h2>シラバス一覧</h2>
+								<br />
+								<h3>シラバス情報の登録・削除・更新を行うことができます。</h3>
+							</button>
+						</form>
 					</li>
 					<li>
 						<button type="button" class="top_menu"

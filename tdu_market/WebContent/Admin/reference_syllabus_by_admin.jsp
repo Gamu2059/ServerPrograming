@@ -1,3 +1,5 @@
+<%@page import="tdu_market.dto.SyllabusGetInfo"%>
+<%@page import="tdu_market.entity_bean.SyllabusInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,10 +19,40 @@
 		<!-- タイトル -->
 		<h2 id="page_title">シラバス詳細</h2>
 		<!-- メインコンテンツ -->
+		<%
+		SyllabusGetInfo syllabusGetInfo = (SyllabusGetInfo)session.getAttribute("syllabusInfo");
+		String classCode = "";
+		String className = "";
+		String openingSemester = "";
+		String date = "";
+		int unitNum = 0;
+		String classRoom = "";
+		String teacherName = "";
+		String overview = "";
+		String target = "";
+		String requirment = "";
+		String evaluationMethod = "";
+		if(syllabusGetInfo != null){
+			classCode = syllabusGetInfo.getClassCode();
+			className = syllabusGetInfo.getClassName();
+			openingSemester = syllabusGetInfo.getOpeningSemester();
+			date = syllabusGetInfo.getDates();
+			unitNum = syllabusGetInfo.getUnitNum();
+			classRoom = syllabusGetInfo.getClassRoom();
+			teacherName = syllabusGetInfo.getTeacherName();
+			overview = syllabusGetInfo.getOverview();
+			target = syllabusGetInfo.getRequirments();
+			requirment = syllabusGetInfo.getRequirments();
+			evaluationMethod = syllabusGetInfo.getEvaluationMethod();
+		}
+		%>
 		<article>
 			<br>
 			<div class="content_size_50vw">
-				<div class="item_for_right">
+				<div class="item_for_LeftAndRight_between">
+					<form action="<%= ServletPath.ManagerReferSyllabusListPage %>" method="post">
+						<button id="white_button">一覧へ</button>
+					</form>
 					<button id="white_button">関連商品で絞り込む</button>
 				</div>
 			</div>
@@ -28,52 +60,59 @@
 			<div class="syllabus_profile">
 				<div class="item_for_grid_r1c2">
 					<h3>授業コード</h3>
-					<h3 id="no_subtitle">00000000000</h3>
+					<h3 id="no_subtitle"><%= classCode %></h3>
 				</div>
 				<div class="item_for_grid_r1c1">
-					<h3 id="no_subtitle">ヌコ先生のプログラミング青空教室</h3>
+					<h3 id="no_subtitle"><%= className%></h3>
+				</div>
+				<div class="item_for_grid_r1c2">
+					<h3>開講学科</h3>
+					<input type="text" placeholder=" 未取得 " readonly="readonly">
 				</div>
 				<div class="item_for_grid_r1c2">
 					<h3>開講年度</h3>
-					<input type="text" placeholder="2019年前期" readonly="readonly">
+					<input type="text" placeholder="<%= openingSemester %>" readonly="readonly">
 				</div>
 				<div class="item_for_grid_r1c2">
 					<div class="item_for_grid_r1c2">
 						<h3>曜日</h3>
-						<h3 id="no_subtitle">水曜・0限</h3>
+						<h3 id="no_subtitle"><%= date %></h3>
 					</div>
 					<div class="item_for_grid_r1c2">
 						<h3 id="unit">単位数</h3>
-						<h3 id="no_subtitle">0.0</h3>
+						<h3 id="no_subtitle"><%= unitNum %></h3>
 					</div>
 				</div>
 				<div class="item_for_grid_r1c2">
 					<h3>教室</h3>
-					<h3 id="no_subtitle">2000教室</h3>
+					<h3 id="no_subtitle"><%= classRoom %></h3>
 				</div>
 				<div class="item_for_grid_r1c2">
 					<h3>教員</h3>
-					<h3 id="no_subtitle">水曜日のヌコ</h3>
+					<h3 id="no_subtitle"><%= teacherName %></h3>
 				</div>
 				<div class="item_for_grid_r1c1">
 					<h3>目的概要</h3>
-					<h3 id="explanation">ここに説明を入力します。</h3>
+					<h3 id="explanation"><%= overview  %></h3>
 					<h3>達成目標</h3>
-					<h3 id="explanation">ここに説明を入力します。</h3>
+					<h3 id="explanation"><%= target %></h3>
 				</div>
 				<div class="item_for_grid_r1c2_c12">
 					<h3>履修条件</h3>
-					<h3 id="no_subtitle">猫語を履修していること</h3>
+					<h3 id="no_subtitle"><%= requirment %></h3>
 				</div>
 				<div class="item_for_grid_r1c1">
 					<h3>評価方法</h3>
-					<h3 id="explanation">ここに説明を入力します。</h3>
+					<h3 id="explanation"><%= evaluationMethod %></h3>
 				</div>
 			</div>
 			<br>
 			<div class="item_for_LeftAndRight_around">
 				<button id="red_button">削除</button>
-				<button id="blue_button">編集</button>
+				<form action="<%= ServletPath.EditSyllabusPage %>" method="get">
+					<input type="hidden" name="classCode" value="<%= classCode %>">
+					<button id="blue_button">編集</button>
+				</form>
 			</div>
 			<br>
 		</article>
@@ -86,16 +125,19 @@
 			<div id="confirm_dialog_admin">
 				<p>削除しますか？</p>
 				<div class="confirm_dialog_button">
-					<button id="yes" class="button_flat_nega">確認</button>
+					<form action="<%= ServletPath.DeleteSyllabusInfo %>" method="post">
+						<input type="hidden" name="classCode" value="<%= classCode %>">
+						<button id="yes" class="button_flat_nega">削除</button>
+					</form>
 					<button id="no" class="button_flat_normal">キャンセル</button>
 				</div>
 			</div>
-			<div id="notify_dialog_admin">
+			<!-- <div id="notify_dialog_admin">
 				<p id="notify_text">確認ダイアログ</p>
 				<div class="notify_dialog_button">
 					<button id="ok" class="button_flat_normal">了解</button>
 				</div>
-			</div>
+			</div> -->
 			<script type="text/javascript">
 				document.getElementById('red_button').onclick = function() {
 					//各ボタンの要素の取得

@@ -1,3 +1,5 @@
+<%@page import="tdu_market.dto.SyllabusGetInfo"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -32,7 +34,6 @@
 			<!-- テーブル -->
 			<div class="item_for_center">
 				<div class="list">
-					<form name="select_syllabus">
 						<table>
 							<!-- テーブルタイトル -->
 							<thead class="list_title">
@@ -48,48 +49,67 @@
 							</thead>
 							<!-- テーブル要素 -->
 							<tbody class="list_content">
-								<!-- サンプル -->
-								<tr class="syllabusId">
-									<th class="check_column1"><input type="checkbox" /></th>
-									<td class="syllabus_column1">11G0012501</td>
-									<td class="syllabus_column2">フレッシュマンセミナー</td>
-									<td class="syllabus_column3">未来科学部</td>
-									<td class="syllabus_column4">情報メディア学科</td>
-									<td class="syllabus_column5">大沢 啓徳</td>
-									<td class="syllabus_column6">2019年度後期</td>
-								</tr>
+
+								<form action="<%= ServletPath.DeleteSyllabusInfo %>" method="post">
+
+								<!-- データの表示と展開 -->
+								<%
+								ArrayList<SyllabusGetInfo> syllabusInfoList = new ArrayList<SyllabusGetInfo>();
+								syllabusInfoList = (ArrayList<SyllabusGetInfo>)session.getAttribute("syllabusInfoList");
+								if(syllabusInfoList!=null){
+									for(SyllabusGetInfo info:syllabusInfoList){
+										%>
+										<tr class="syllabusId">
+											<th class="check_column1"><input type="checkbox" name="classCodes" value="<%= info.getClassCode() %>" /></th>
+											<td class="syllabus_column1"><%= info.getClassCode() %></td>
+											<td class="syllabus_column2"><%= info.getClassName() %></td>
+											<td class="syllabus_column3">未取得</td>
+											<td class="syllabus_column4">未取得</td>
+											<td class="syllabus_column5"><%= info.getTeacherName() %></td>
+											<td class="syllabus_column6"><%= info.getOpeningSemester() %></td>
+										</tr>
+										<%
+									}
+								}
+								%>
 							</tbody>
+
+							<!-- 複数件削除ダイアログ -->
+							<div id="confirm_dialog_admin">
+								<p>削除しますか？</p>
+								<div class="confirm_dialog_button">
+									<button type="submit" id="yes" class="button_flat_nega">削除</button>
+									<button type="button" id="no" class="button_flat_normal">キャンセル</button>
+								</div>
+							</div>
+
+							</form>
+
 						</table>
+						<form name="select_syllabus" action="<%= ServletPath.ManagerReferSyllabusPage %>" method="get">
+						</form>
 						<!-- テーブル要素クリック -->
 						<script type="text/javascript"
 							src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 						<script type="text/javascript">
-							$(".syllabusId").on(
-									"click",
-									function() {
-										//商品IDの取得
-										var syllabusNumber = $(this).children(
-												"td")[1].innerText;
+							$(".syllabusId").children(":not('th')").on("click",function() {
+										//授業コードの取得
+										var classCode = $(this).parent().children(".syllabus_column1")[0].innerText;
 										//Input型エレメントの生成
-										var element = document
-												.createElement("input");
+										var element = document.createElement("input");
 										//typeの設定
-										element.setAttribute("type", "submit");
+										element.setAttribute("type", "hidden");
 										//nameの設定
-										element.setAttribute("name",
-												"selectItem");
+										element.setAttribute("name","classCode");
 										//valueの設定
-										element.setAttribute("value",
-												syllabusNumber);
+										element.setAttribute("value",classCode);
 										//取得したIDデータをsetattributeする
-										document.select_syllabus
-												.appendChild(element);
+										document.select_syllabus.appendChild(element);
 										//データをサーバーへ送信する
 										document.select_syllabus.submit();
 									});
 						</script>
 						<!-- テーブル要素クリックここまで -->
-					</form>
 				</div>
 			</div>
 			<br />
@@ -101,9 +121,11 @@
 				</button>
 				<!-- 絞り込みボタン -->
 				<div class="edit_and_add_button_box">
-					<button id="blue_button" type="button">編集</button>
+					<!-- <button id="blue_button" type="button">編集</button> -->
 					<br />
-					<button id="blue_button" type="button">登録</button>
+					<form action="<%= ServletPath.RegisterSyllabusPage%>" method="post">
+						<button id="blue_button" type="submit">登録</button>
+					</form>
 				</div>
 			</div>
 		</article>
@@ -113,24 +135,25 @@
 			1.該当するidをボタンに付与する。update, delete, back_button
 			2.notify_dialog('表示したいメッセージ','遷移先url')
 		-->
-			<div id="confirm_dialog_admin">
+			<%-- <div id="confirm_dialog_admin">
 				<p>削除しますか？</p>
 				<div class="confirm_dialog_button">
-					<button id="yes" class="button_flat_nega">確認</button>
+					<form action="<%= ServletPath.DeleteSyllabusInfo %>" method="post">
+						<button id="yes" class="button_flat_nega">確認</button>
+					</form>
 					<button id="no" class="button_flat_normal">キャンセル</button>
 				</div>
-			</div>
-			<div id="notify_dialog_admin">
+			</div> --%>
+			<!-- <div id="notify_dialog_admin">
 				<p id="notify_text">確認ダイアログ</p>
 				<div class="notify_dialog_button">
 					<button id="ok" class="button_flat_normal">了解</button>
 				</div>
-			</div>
+			</div> -->
 			<script type="text/javascript">
 				document.getElementById("red_button").onclick = function() {
 					//各ボタンの要素の取得
-					let dialog = document
-							.getElementById("confirm_dialog_admin");
+					let dialog = document.getElementById("confirm_dialog_admin");
 					let yes = document.getElementById("yes");
 					let no = document.getElementById("no");
 					dialog.style.display = "block";
@@ -140,8 +163,7 @@
 
 						//ここに内部処理をいれる
 
-						notify_dialog("削除しました。",
-								"reference_syllabus_list_by_admin"); /*再読み込みがかかります*/
+						//notify_dialog("削除しました。","reference_syllabus_list_by_admin"); /*再読み込みがかかります*/
 					});
 					no.addEventListener("click", function() {
 						dialog.style.display = "none";

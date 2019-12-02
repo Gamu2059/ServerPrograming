@@ -55,4 +55,5 @@ public class ServletPath{
     public static final String UpdateStudentPage = "/tdu_market/tdu_market/controller/UpdateStudentPage";
     public static final String UpdateSyllabusInfo = "/tdu_market/tdu_market/controller/UpdateSyllabusInfo";
     public static final String VaildateExhibitItem = "/tdu_market/tdu_market/controller/VaildateExhibitItem";
+    public static final String VaildateSyllabus = "/tdu_market/tdu_market/controller/VaildateSyllabus";
 }
