@@ -15,7 +15,8 @@
 <!-- Bootstrap -->
 <link href="/tdu_market/css/import_student.css" rel="stylesheet">
 <!-- InstanceBeginEditable name="scripts" -->
-<script type="text/javascript" src="/tdu_market/js/student.js" defer="defer"></script>
+<script type="text/javascript" src="/tdu_market/js/student.js"
+	defer="defer"></script>
 <!-- InstanceEndEditable -->
 </head>
 <body>
@@ -38,22 +39,27 @@
 
 						<!-- メッセージルームを取得、展開 -->
 						<%
-						ArrayList<MessageRoomGetInfo> messageRoomList = new ArrayList<>();
-						messageRoomList = (ArrayList<MessageRoomGetInfo>)session.getAttribute("messageRoomInfoList");
-						if(messageRoomList != null){
-							for(int i=0;i<messageRoomList.size();i++){
-								out.print("<form action=\"/tdu_market/tdu_market/controller/ReferMessageBoxListPage\" method=\"post\">");
-								out.print("<input type=\"hidden\" name=\"studentNumber\" value=\""+messageRoomList.get(i).getOpponentStudentGetInfo().getMailAddress()+"\" />");
-								out.print("<button type=\"submit\" for=\"message1\" class=\"message_list_tab\">");
-								out.print("<img src=\""+messageRoomList.get(i).getOpponentStudentGetInfo().getIconImageBinary()+"\" alt=\"アイコン\" />");
-								out.print("<div class=\"message_content\">");
-								out.print("<div class=\"message_sender\">"+messageRoomList.get(i).getOpponentStudentGetInfo().getDisplayName()+"</div>");
-								out.print("<div class=\"message_text\">"+messageRoomList.get(i).getLatestPostMessageGetInfo().getPostContent()+"</div>");
-								out.print("</div>");
-								out.print("</button>");
-								out.print("</form>");
+							ArrayList<MessageRoomGetInfo> messageRoomList = new ArrayList<>();
+							messageRoomList = (ArrayList<MessageRoomGetInfo>) session.getAttribute("messageRoomInfoList");
+							if (messageRoomList != null) {
+								for (int i = 0; i < messageRoomList.size(); i++) {
+									out.print(
+											"<form action=\"/tdu_market/tdu_market/controller/ReferMessageBoxListPage\" method=\"post\">");
+									out.print("<input type=\"hidden\" name=\"studentNumber\" value=\""
+											+ messageRoomList.get(i).getOpponentStudentGetInfo().getMailAddress() + "\" />");
+									out.print("<button type=\"submit\" for=\"message1\" class=\"message_list_tab\">");
+									out.print("<img src=\"" + messageRoomList.get(i).getOpponentStudentGetInfo().getIconImageBinary()
+											+ "\" alt=\"アイコン\" />");
+									out.print("<div class=\"message_content\">");
+									out.print("<div class=\"message_sender\">"
+											+ messageRoomList.get(i).getOpponentStudentGetInfo().getDisplayName() + "</div>");
+									out.print("<div class=\"message_text\">"
+											+ messageRoomList.get(i).getLatestPostMessageGetInfo().getPostContent() + "</div>");
+									out.print("</div>");
+									out.print("</button>");
+									out.print("</form>");
+								}
 							}
-						}
 						%>
 					</div>
 				</section>
@@ -63,12 +69,20 @@
 						<!--メッセージヘッダー-->
 						<!-- メッセージの取得 -->
 						<%
-						ArrayList<MessageGetInfo> messageList = new ArrayList<>();
-						StudentGetInfo info = (StudentGetInfo)session.getAttribute("studentInfo");
+							ArrayList<MessageGetInfo> messageList = new ArrayList<>();
+							StudentGetInfo messageOpponentStudentInfo = (StudentGetInfo) session
+									.getAttribute("messageOpponentStudentInfo");
 						%>
 						<div class="message_header" name="message_room_panel">
-							<div><% out.print(info.getDisplayName()); %></div>
-							<input type="button" name="trading_button" class="button_flat_normal" value="取引中の商品" />
+							<div>
+								<%
+									if (messageOpponentStudentInfo != null) {
+										out.print(messageOpponentStudentInfo.getDisplayName());
+									}
+								%>
+							</div>
+							<input type="button" name="trading_button"
+								class="button_flat_normal" value="取引中の商品" />
 						</div>
 						<!--メッセージコンテンツ-->
 						<div class="message_post_list">
@@ -76,28 +90,36 @@
 								<div class="message_post" name="system">
 									<!--メッセージ一つ-->
 									<div class="message_post_content" name="system">
-										<% out.print(info.getDisplayName()); %>さんが取引を申し込みました。
+										<%
+											if (messageOpponentStudentInfo != null) {
+												out.print(messageOpponentStudentInfo.getDisplayName());
+											}
+										%>さんが取引を申し込みました。
 									</div>
 								</div>
 								<%
-								for(int i=0;i<messageList.size();i++){
-									if( messageList.get(i).getPostStudentNumber().equals(info.getMailAddress()) ){
-										//取引相手のメッセージならば
-										out.print("<div class=\"message_post\" name=\"opponent\">");
-										out.print("<img src=\""+info.getIconImageBinary()+"\" alt=\"icon\" />");
-										out.print("<div class=\"message_post_content\" name=\"opponent\">");
-										out.print(messageList.get(i).getPostContent());
-										out.print("</div>");
-										out.print("</div>");
-									} else {
-										out.print("<div class=\"message_post\" name=\"myself\">");
-										out.print("<img src=\""+info.getIconImageBinary()+"\" alt=\"icon\" />");
-										out.print("<div class=\"message_post_content\" name=\"opponent\">");
-										out.print(messageList.get(i).getPostContent());
-										out.print("</div>");
-										out.print("</div>");
+									if (messageOpponentStudentInfo != null) {
+										for (int i = 0; i < messageList.size(); i++) {
+											if (messageList.get(i).getPostStudentNumber().equals(messageOpponentStudentInfo.getMailAddress())) {
+												//取引相手のメッセージならば
+												out.print("<div class=\"message_post\" name=\"opponent\">");
+												out.print(
+														"<img src=\"" + messageOpponentStudentInfo.getIconImageBinary() + "\" alt=\"icon\" />");
+												out.print("<div class=\"message_post_content\" name=\"opponent\">");
+												out.print(messageList.get(i).getPostContent());
+												out.print("</div>");
+												out.print("</div>");
+											} else {
+												out.print("<div class=\"message_post\" name=\"myself\">");
+												out.print(
+														"<img src=\"" + messageOpponentStudentInfo.getIconImageBinary() + "\" alt=\"icon\" />");
+												out.print("<div class=\"message_post_content\" name=\"opponent\">");
+												out.print(messageList.get(i).getPostContent());
+												out.print("</div>");
+												out.print("</div>");
+											}
+										}
 									}
-								}
 								%>
 							</section>
 						</div>

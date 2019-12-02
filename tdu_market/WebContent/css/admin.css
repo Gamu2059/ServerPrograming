@@ -244,6 +244,13 @@ ul#user_exhibit_list .item_for_bottom {
   background-color: #ffffff;
   border: 1px solid #000000;
 }
+/* 開講年度パネル設定 */
+.syllabus_profile .item_for_grid_r1c2 #course_year_list select {
+	background-color:white;
+	margin:0px;
+	width:100%;
+	height:100%;
+}
 /* 単位数パネル設定 */
 .syllabus_profile .item_for_grid_r1c2 .item_for_grid_r1c2 #unit {
   border-left: 1px solid #000000;

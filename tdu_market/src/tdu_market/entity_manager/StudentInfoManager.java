@@ -20,15 +20,15 @@ import tdu_market.util.PasswordUtil;
 public final class StudentInfoManager {
 
 	/** DBの生のStudentInfoを取得する */
-	private StudentInfo getRawStudentInfo(String mailAddress) {
+	private StudentInfo getRawStudentInfo(String mailAddress, boolean isIncludeNonRegistered) {
 		StudentInfoDAO studentInfoDAO = new StudentInfoDAO();
-		return studentInfoDAO.getStudentInfo(mailAddress);
+		return studentInfoDAO.getStudentInfo(mailAddress, isIncludeNonRegistered);
 	}
 
 	/** 指定したメールアドレスが存在するか判定する。存在する場合は、trueの情報を返す。 */
 	public ReturnInfo existMailAddress(String mailAddress) {
 
-		StudentInfo studentInfo = getRawStudentInfo(mailAddress);
+		StudentInfo studentInfo = getRawStudentInfo(mailAddress, true);
 		boolean isExist = studentInfo != null;
 
 		return new ReturnInfo(isExist ? "" : "アカウントが存在しません。", isExist);
@@ -40,7 +40,7 @@ public final class StudentInfoManager {
 		try {
 			String mailAddress = loginInfo.getMailAddress();
 			String password = loginInfo.getNonHashedPassword();
-			StudentInfo studentInfo = getRawStudentInfo(mailAddress);
+			StudentInfo studentInfo = getRawStudentInfo(mailAddress, true);
 
 			if (studentInfo == null) {
 				return new ReturnInfo("メールアドレスまたはパスワードが正しくありません。");
@@ -62,7 +62,7 @@ public final class StudentInfoManager {
 	public void logout(String mailAddress) {
 
 		try {
-			StudentInfo studentInfo = getRawStudentInfo(mailAddress);
+			StudentInfo studentInfo = getRawStudentInfo(mailAddress, true);
 
 			if (studentInfo == null) {
 				System.err.println("logout() : account is not found");
@@ -79,7 +79,7 @@ public final class StudentInfoManager {
 	public ReturnInfo isRegisteredState(String mailAddress) {
 
 		try {
-			StudentInfo studentInfo = getRawStudentInfo(mailAddress);
+			StudentInfo studentInfo = getRawStudentInfo(mailAddress, true);
 
 			if (studentInfo == null) {
 				return new ReturnInfo("アカウントが存在しません。");
@@ -140,13 +140,13 @@ public final class StudentInfoManager {
 	}
 
 	/** アカウントを取得する。 */
-	public StudentGetInfo getStudentInfo(String mailAddress) {
+	public StudentGetInfo getStudentInfo(String mailAddress, boolean isIncludeNonRegistered) {
 
-		StudentInfo studentInfo = getRawStudentInfo(mailAddress);
+		StudentInfo studentInfo = getRawStudentInfo(mailAddress, isIncludeNonRegistered);
 		return StudentGetInfo.create(studentInfo);
 	}
 
-	/** アカウントを更新する。 更新に成功した場合は、trueの情報を返す。*/
+	/** 学生としてアカウントを更新する。 更新に成功した場合は、trueの情報を返す。*/
 	public ReturnInfo updateStudentInfo(StudentUpdateInfo studentUpdateInfo) {
 
 		String mailAddress = studentUpdateInfo.getMailAddress();
@@ -165,6 +165,27 @@ public final class StudentInfoManager {
 		// パスワードが条件を満たしているか確認
 		if (!AccountUtil.isMeetRequirementPassword(nonHashedPassword)) {
 			return new ReturnInfo("パスワードは、8～16文字の英数字で設定して下さい。");
+		}
+
+		StudentInfoDAO studentInfoDAO = new StudentInfoDAO();
+		studentInfoDAO.updateStudentInfo(studentUpdateInfo);
+
+		return new ReturnInfo("", true);
+	}
+
+	/** 運営としてアカウントを更新する。 更新に成功した場合は、trueの情報を返す。*/
+	public ReturnInfo updateStudentInfoByAdmin(StudentUpdateInfo studentUpdateInfo) {
+
+		String mailAddress = studentUpdateInfo.getMailAddress();
+
+		// メールアドレスがメールアドレスの体を成しているか確認
+		if (!AccountUtil.isMeetRequirementMailAddress(mailAddress)) {
+			return new ReturnInfo("これはメールアドレスではありません。");
+		}
+
+		// メールアドレスが学生メールアドレスであるか確認
+		if (!AccountUtil.isStudentMailAddress(mailAddress)) {
+			return new ReturnInfo("このメールアドレスは学生アカウントとして使用できません。");
 		}
 
 		StudentInfoDAO studentInfoDAO = new StudentInfoDAO();
@@ -217,31 +238,4 @@ public final class StudentInfoManager {
 
 		return result;
 	}
-
-	//	public static void main(String[] args) {
-	//
-	//		StudentInfoManager manager = new StudentInfoManager();
-	//
-	//		final String mail = "17fi103@ms.dendai.ac.jp";
-	//		final String pass = "HSsm49Y55XmfFk";
-	//		final String name = "Gamu";
-	//
-	//		ReturnInfo existResult = manager.existMailAddress(mail);
-	//		if (existResult != null && existResult.isSuccess()) {
-	//			manager.deleteStudentInfo(mail);
-	//		}
-	//
-	//		ReturnInfo createResult = manager.createTemporaryAccount(mail);
-	//		System.out.println(createResult);
-	//
-	//		if (createResult.isSuccess()) {
-	//			System.out.println("初回パスワード : " + createResult.getMsg());
-	//			System.out.println("初回ログイン");
-	//			ReturnInfo loginResult = manager.login(new LoginInfo(mail, createResult.getMsg()));
-	//			System.out.println(loginResult);
-	//
-	//			System.out.println("初回アカウント設定");
-	//			manager.updateStudentInfo(new StudentUpdateInfo(mail, pass, name, 11, "", ""));
-	//		}
-	//	}
 }

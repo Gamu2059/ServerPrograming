@@ -36,7 +36,7 @@
 					</form>
 				</li>
 				<li>
-					<form action=<%=ServletPath.ReferSyllabusListPage %> method="get">
+					<form action=<%=ServletPath.ManagerReferSyllabusListPage %> method="post">
 						<button type="submit" class="menu">シラバス情報一覧</button>
 					</form>
 				</li>

@@ -1,15 +1,18 @@
 package tdu_market.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import tdu_market.dto.ReturnInfo;
 import tdu_market.dto.SyllabusCreateInfo;
+import tdu_market.dto.SyllabusGetInfo;
 import tdu_market.entity_manager.SyllabusInfoManager;
 import tdu_market.util.ControllerUtil;
 import tdu_market.util.JspPath;
@@ -36,10 +39,16 @@ public class RegisterSyllabusInfo extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
+		//文字コードを統一
+		request.setCharacterEncoding("UTF-8");
+
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
+
+		//続けて登録するかどうか
+		String isContineRegist = request.getParameter("isContineRegist");
 
 		SyllabusInfoManager syllabus = new SyllabusInfoManager();
 		SyllabusCreateInfo createInfo = new SyllabusCreateInfo(request.getParameter("classCode"), request.getParameter("className"), Integer.valueOf(request.getParameter("subjectID")).longValue(), Integer.valueOf(request.getParameter("teacherID")).longValue(),request.getParameter("dates"), Integer.valueOf(request.getParameter("unitNum")).intValue()
@@ -52,9 +61,23 @@ public class RegisterSyllabusInfo extends HttpServlet {
 		//シラバス情報の登録
 		if(retunResult.isSuccess())	{
 			syllabus.createSyllabusInfo(createInfo);
+			if (isContineRegist.contains("true")) {
+				ControllerUtil.translatePage(JspPath.register_syllabus_by_admin, request, response);
+			}else {
+				//シラバス情報の一覧を再取得
+				SyllabusInfoManager syllabusInfo = new SyllabusInfoManager();
+				ArrayList<SyllabusGetInfo> syllabusInfoList = syllabusInfo.getAllSyllabus();
+				HttpSession session = request.getSession();
+				session.setAttribute("syllabusInfoList", syllabusInfoList);
+
+				//不要なセッションの破棄
+				session.removeAttribute("isCreate");
+
+				ControllerUtil.translatePage(JspPath.reference_syllabus_list_by_admin, request, response);
+			}
 		}
 		//遷移
-		ControllerUtil.translatePage(JspPath.register_syllabus_by_admin, request, response);
+//		ControllerUtil.translatePage(JspPath.register_syllabus_by_admin, request, response);
 
 	}
 }

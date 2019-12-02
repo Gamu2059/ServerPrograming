@@ -29,8 +29,6 @@ public final class StudentInfoDAO extends DAOBase {
 			return;
 		}
 
-		ResultSet resultSet = null;
-
 		try {
 
 			String sql = "insert into \"StudentInfo\" (\"mailAddress\", \"hashedPassword\", \"studentNumber\", \"subjectID\", \"createdDate\") values (?, ?, ?, ?, ?)";
@@ -55,9 +53,6 @@ public final class StudentInfoDAO extends DAOBase {
 			showSQLException(e);
 		} finally {
 			try {
-				if (resultSet != null) {
-					resultSet.close();
-				}
 				if (connection != null) {
 					connection.close();
 				}
@@ -67,7 +62,7 @@ public final class StudentInfoDAO extends DAOBase {
 		}
 	}
 
-	public StudentInfo getStudentInfo(String mailAddress) {
+	public StudentInfo getStudentInfo(String mailAddress, boolean isIncludeNonRegistered) {
 
 		Connection connection = getConnection();
 		if (connection == null) {
@@ -79,7 +74,13 @@ public final class StudentInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "select * from \"StudentInfo\" where \"mailAddress\" = ?";
+			StringBuilder builder = new StringBuilder("select * from \"StudentInfo\" where \"mailAddress\" = ?");
+			if (!isIncludeNonRegistered) {
+				builder.append(" and \"registerState\" = 2");
+			}
+
+			String sql = builder.toString();
+
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, mailAddress);
 
@@ -106,6 +107,7 @@ public final class StudentInfoDAO extends DAOBase {
 		return studentInfo;
 	}
 
+	/** 学生自身が情報を変更する場合の処理。学科情報の変更は無視されます。 */
 	public void updateStudentInfo(StudentUpdateInfo studentUpdateInfo) {
 
 		if (studentUpdateInfo == null) {
@@ -118,15 +120,12 @@ public final class StudentInfoDAO extends DAOBase {
 			return;
 		}
 
-		ResultSet resultSet = null;
-
 		try {
 
 			String mailAddress = studentUpdateInfo.getMailAddress();
 			String hashedPassword = PasswordUtil.getHashedPassword(studentUpdateInfo.getNonHashedPassword(),
 					mailAddress);
 			String displayName = studentUpdateInfo.getDisplayName();
-			long subjectID = studentUpdateInfo.getSubjectID();
 			String selfIntroduction = studentUpdateInfo.getSelfIntroduction();
 			InputStream iconImageBinary = studentUpdateInfo.getIconImageBinary();
 
@@ -137,15 +136,10 @@ public final class StudentInfoDAO extends DAOBase {
 
 			}
 
-			boolean isChangeSubjectID = subjectID >= 1;
 			boolean isChangeIcon = iconAvailable > 0;
 
 			StringBuilder builder = new StringBuilder(
 					"update \"StudentInfo\" set \"hashedPassword\" = ?, \"displayName\" = ?, \"selfIntroduction\" = ?, \"registerState\" = 2");
-
-			if (isChangeSubjectID) {
-				builder.append(", \"subjectID\" = ?");
-			}
 
 			if (isChangeIcon) {
 				builder.append(", \"iconImageBinary\" = ?");
@@ -161,9 +155,6 @@ public final class StudentInfoDAO extends DAOBase {
 			pstmt.setString(setCount++, displayName);
 			pstmt.setString(setCount++, selfIntroduction);
 
-			if (isChangeSubjectID) {
-				pstmt.setLong(setCount++, subjectID);
-			}
 			if (isChangeIcon) {
 				pstmt.setBinaryStream(setCount++, iconImageBinary);
 			}
@@ -176,9 +167,75 @@ public final class StudentInfoDAO extends DAOBase {
 			showSQLException(e);
 		} finally {
 			try {
-				if (resultSet != null) {
-					resultSet.close();
+				if (connection != null) {
+					connection.close();
 				}
+			} catch (SQLException e) {
+				showSQLException(e);
+			}
+		}
+	}
+
+	/** 運営が学生自身の情報を変更する場合の処理。パスワードの変更は無視されます。 */
+	public void updateStudentInfoByAdmin(StudentUpdateInfo studentUpdateInfo) {
+
+		if (studentUpdateInfo == null) {
+			System.err.println("updateStudentInfoByAdmin : studentUpdateInfo is null");
+			return;
+		}
+
+		Connection connection = getConnection();
+		if (connection == null) {
+			return;
+		}
+
+		try {
+
+			String mailAddress = studentUpdateInfo.getMailAddress();
+			String displayName = studentUpdateInfo.getDisplayName();
+			long subjectID = studentUpdateInfo.getSubjectID();
+			String selfIntroduction = studentUpdateInfo.getSelfIntroduction();
+			InputStream iconImageBinary = studentUpdateInfo.getIconImageBinary();
+
+			int iconAvailable = 0;
+			try {
+				iconAvailable = iconImageBinary.available();
+			} catch (IOException e) {
+
+			}
+
+			boolean isChangeIcon = iconAvailable > 0;
+
+			// 運営が更新する場合は、本登録状態にさせない
+			StringBuilder builder = new StringBuilder(
+					"update \"StudentInfo\" set \"displayName\" = ?, \"subjectID\" = ?, \"selfIntroduction\" = ?");
+
+			if (isChangeIcon) {
+				builder.append(", \"iconImageBinary\" = ?");
+			}
+
+			builder.append(" where \"mailAddress\" = ?");
+			String sql = builder.toString();
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+
+			int setCount = 1;
+
+			pstmt.setString(setCount++, displayName);
+			pstmt.setLong(setCount++, subjectID);
+			pstmt.setString(setCount++, selfIntroduction);
+
+			if (isChangeIcon) {
+				pstmt.setBinaryStream(setCount++, iconImageBinary);
+			}
+
+			pstmt.setString(setCount++, mailAddress);
+
+			int result = pstmt.executeUpdate();
+			System.out.println("updateStudentInfoByAdmin : " + result + "件のデータを更新");
+		} catch (SQLException e) {
+			showSQLException(e);
+		} finally {
+			try {
 				if (connection != null) {
 					connection.close();
 				}
@@ -195,8 +252,6 @@ public final class StudentInfoDAO extends DAOBase {
 			return;
 		}
 
-		ResultSet resultSet = null;
-
 		try {
 
 			String sql = "delete from \"StudentInfo\" where \"mailAddress\" = ?";
@@ -209,9 +264,6 @@ public final class StudentInfoDAO extends DAOBase {
 			showSQLException(e);
 		} finally {
 			try {
-				if (resultSet != null) {
-					resultSet.close();
-				}
 				if (connection != null) {
 					connection.close();
 				}
@@ -227,8 +279,6 @@ public final class StudentInfoDAO extends DAOBase {
 		if (connection == null) {
 			return;
 		}
-
-		ResultSet resultSet = null;
 
 		try {
 
@@ -246,9 +296,6 @@ public final class StudentInfoDAO extends DAOBase {
 			showSQLException(e);
 		} finally {
 			try {
-				if (resultSet != null) {
-					resultSet.close();
-				}
 				if (connection != null) {
 					connection.close();
 				}
@@ -278,6 +325,7 @@ public final class StudentInfoDAO extends DAOBase {
 			String studentNumberKeyword = studentSearchInfo.getStudentNumberKeyword();
 			String displayNameKeyword = studentSearchInfo.getDisplayNameKeyword();
 			long subjectID = studentSearchInfo.getSubjectID();
+			boolean isIncludeNonRegistered = studentSearchInfo.isIncludeNonRegistered();
 
 			boolean isEmptySNK = studentNumberKeyword == null;
 			boolean isEmptyDNK = displayNameKeyword == null;
@@ -285,7 +333,7 @@ public final class StudentInfoDAO extends DAOBase {
 
 			StringBuilder builder = new StringBuilder("select * from \"StudentInfo\" ");
 
-			if (!isEmptySNK || !isEmptyDNK || !isEmptySujectID) {
+			if (!isEmptySNK || !isEmptyDNK || !isEmptySujectID || !isIncludeNonRegistered) {
 				builder.append("where ");
 			}
 
@@ -307,6 +355,14 @@ public final class StudentInfoDAO extends DAOBase {
 				}
 
 				builder.append("\"subjectID\" = ? ");
+			}
+
+			if (!isIncludeNonRegistered) {
+				if (!isEmptySNK || !isEmptyDNK || !isEmptySujectID) {
+					builder.append("and ");
+				}
+
+				builder.append("\"registerState\" = 2");
 			}
 
 			String sql = builder.toString();
@@ -398,53 +454,5 @@ public final class StudentInfoDAO extends DAOBase {
 		}
 
 		return list;
-	}
-
-	public static void main(String[] args) {
-
-		StudentInfoDAO dao = new StudentInfoDAO();
-
-		StudentSearchInfo searchInfo;
-		searchInfo = new StudentSearchInfo(null, 0, null);
-		showInfo(dao.searchStudentInfo(searchInfo));
-
-		searchInfo = new StudentSearchInfo("", 0, null);
-		showInfo(dao.searchStudentInfo(searchInfo));
-
-		searchInfo = new StudentSearchInfo(null, 0, "");
-		showInfo(dao.searchStudentInfo(searchInfo));
-
-		searchInfo = new StudentSearchInfo(null, 11, null);
-		showInfo(dao.searchStudentInfo(searchInfo));
-
-		searchInfo = new StudentSearchInfo("3", 11, null);
-		showInfo(dao.searchStudentInfo(searchInfo));
-
-		searchInfo = new StudentSearchInfo("17", 11, "し");
-		showInfo(dao.searchStudentInfo(searchInfo));
-
-		StudentCreateInfo studentCreateInfo = new StudentCreateInfo("18fi005@ms.dendai.ac.jp", "agiab6BYhr4",
-				"18fi005", 11);
-		dao.createStudentInfo(studentCreateInfo);
-		showInfo(dao.getAllStudentInfo());
-
-		dao.deleteStudentInfo("18fi005@ms.dendai.ac.jp");
-		dao.deleteStudentInfo("17fi002@ms.dendai.ac.jp");
-		showInfo(dao.getAllStudentInfo());
-
-		dao.updateLastLogin("17fi103@ms.dendai.ac.jp");
-		showInfo(dao.getAllStudentInfo());
-	}
-
-	private static void showInfo(ArrayList<StudentInfo> list) {
-
-		if (list == null) {
-			System.out.println("list is empty");
-			return;
-		}
-
-		for (StudentInfo i : list) {
-			System.out.println(i);
-		}
 	}
 }

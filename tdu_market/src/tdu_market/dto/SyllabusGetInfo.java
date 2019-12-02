@@ -1,5 +1,6 @@
 package tdu_market.dto;
 
+import tdu_market.entity_bean.DepartmentInfo;
 import tdu_market.entity_bean.SemesterInfo;
 import tdu_market.entity_bean.SyllabusInfo;
 import tdu_market.entity_bean.TeacherInfo;
@@ -12,15 +13,18 @@ public class SyllabusGetInfo {
 	private final String dates;
 	private final int unitNum;
 	private final String classRoom;
+	private final long subjectID;
 	private final String teacherName;
 	private final String overview;
 	private final String target;
 	private final String requirments;
 	private final String evaluationMethod;
+	private final String facultyName;
+	private final String subjectName;
 
 	public SyllabusGetInfo(String classCode, String className, String openingSemester, String dates, int unitNum,
-			String classRoom, String teacherName, String overview, String target, String requirments,
-			String evaluationMethod) {
+			String classRoom, long subjectID, String teacherName, String overview, String target, String requirments,
+			String evaluationMethod, String facultyName, String subjectName) {
 		super();
 		this.classCode = classCode;
 		this.className = className;
@@ -28,11 +32,14 @@ public class SyllabusGetInfo {
 		this.dates = dates;
 		this.unitNum = unitNum;
 		this.classRoom = classRoom;
+		this.subjectID = subjectID;
 		this.teacherName = teacherName;
 		this.overview = overview;
 		this.target = target;
 		this.requirments = requirments;
 		this.evaluationMethod = evaluationMethod;
+		this.facultyName = facultyName;
+		this.subjectName = subjectName;
 	}
 
 	public String getClassCode() {
@@ -59,6 +66,10 @@ public class SyllabusGetInfo {
 		return classRoom;
 	}
 
+	public long getSubjectID() {
+		return subjectID;
+	}
+
 	public String getTeacherName() {
 		return teacherName;
 	}
@@ -79,65 +90,35 @@ public class SyllabusGetInfo {
 		return evaluationMethod;
 	}
 
-	public static SyllabusGetInfo create(SyllabusInfo syllabusInfo, OpeningSemesterGetInfo openingSemesterGetInfo, TeacherGetInfo teacherGetInfo) {
-
-		if (syllabusInfo == null) {
-			return null;
-		}
-
-		String classCode = syllabusInfo.getClassCode();
-		String className = syllabusInfo.getClassName();
-		String openingSemester = null;
-		String dates = syllabusInfo.getDates();
-		int unitNum = syllabusInfo.getUnitNum();
-		String classRoom = syllabusInfo.getClassRoom();
-		String teacherName = null;
-		String overview = syllabusInfo.getOverview();
-		String target = syllabusInfo.getTarget();
-		String requirments = syllabusInfo.getRequirements();
-		String evaluationMethod = syllabusInfo.getEvaluationMethod();
-
-		if (openingSemesterGetInfo != null) {
-
-			SemesterGetInfo[] semesterGetInfos = openingSemesterGetInfo.getOpeningSemesters();
-			if (semesterGetInfos != null) {
-				for(SemesterGetInfo i : semesterGetInfos) {
-					String s = i.getSemester();
-					if (s == null || s.trim().isEmpty()) {
-						continue;
-					}
-
-					openingSemester = s.trim();
-					break;
-				}
-			}
-		}
-
-		if (teacherGetInfo != null) {
-			teacherName = teacherGetInfo.getTeacherName();
-		}
-
-		return new SyllabusGetInfo(classCode, className, openingSemester, dates, unitNum, classRoom, teacherName, overview, target, requirments, evaluationMethod);
+	public String getFacultyName() {
+		return facultyName;
 	}
 
-	public static SyllabusGetInfo create(SyllabusInfo syllabusInfo, SemesterInfo semesterInfo, TeacherInfo teacherInfo) {
+	public String getSubjectName() {
+		return subjectName;
+	}
 
-		if (syllabusInfo == null || semesterInfo == null || teacherInfo == null) {
+	public static SyllabusGetInfo create(SyllabusInfo syllabusInfo, SemesterInfo semesterInfo, TeacherInfo teacherInfo, DepartmentInfo departmentInfo) {
+
+		if (syllabusInfo == null || semesterInfo == null || teacherInfo == null || departmentInfo == null) {
 			return null;
 		}
 
 		String classCode = syllabusInfo.getClassCode();
 		String className = syllabusInfo.getClassName();
-		String openingSemester = semesterInfo.getSemester();
+		String openingSemester = String.format("%s年度%s", semesterInfo.getYear(), semesterInfo.getSemester());
 		String dates = syllabusInfo.getDates();
 		int unitNum = syllabusInfo.getUnitNum();
 		String classRoom = syllabusInfo.getClassRoom();
+		long subjectID = syllabusInfo.getSubjectID();
 		String teacherName = teacherInfo.getTeacherName();
 		String overview = syllabusInfo.getOverview();
 		String target = syllabusInfo.getTarget();
 		String requirments = syllabusInfo.getRequirements();
 		String evaluationMethod = syllabusInfo.getEvaluationMethod();
+		String facultyName = departmentInfo.getFacultyName();
+		String subjectName = departmentInfo.getSubjectName();
 
-		return new SyllabusGetInfo(classCode, className, openingSemester, dates, unitNum, classRoom, teacherName, overview, target, requirments, evaluationMethod);
+		return new SyllabusGetInfo(classCode, className, openingSemester, dates, unitNum, classRoom, subjectID, teacherName, overview, target, requirments, evaluationMethod, facultyName, subjectName);
 	}
 }

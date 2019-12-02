@@ -19,27 +19,13 @@ import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.ControllerUtil;
 import tdu_market.util.JspPath;
 
-/**
- * Servlet implementation class ReferMessageBoxListPage
- */
 @WebServlet("/tdu_market/controller/ReferMessageBoxListPage")
 public class ReferMessageBoxListPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public ReferMessageBoxListPage() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
 		System.err.println("ReferMessageBoxListPage is non implementation!");
 
 		if (!ControllerUtil.verifyLogin(request, response)) {
@@ -56,29 +42,36 @@ public class ReferMessageBoxListPage extends HttpServlet {
 
 		//jsp側から、isSelectに"true"or"false"という文字列を送る必要あり。
 		HttpSession session = request.getSession();
+
+		String isSelectStr = (String) session.getAttribute("isSelect");
 		boolean isSelect = false;
-		if ((String) session.getAttribute("isSelect") != null) {
-			isSelect = Boolean.valueOf((String) session.getAttribute("isSelect"));
+		if (isSelectStr != null) {
+			isSelect = Boolean.parseBoolean(isSelectStr);
 		}
 
-		//左
 		ArrayList<MessageRoomGetInfo> messageRoomInfoList = messageRoomInfo.getMessageRoomInfo(mailAddress);
 		session.setAttribute("messageRoomInfoList", messageRoomInfoList);
-		//右
 
 		if (isSelect) {
-			int roomID = Integer.valueOf(request.getParameter("roomID")).intValue();
+			long roomID = -1;
+			try {
+				roomID = Long.parseLong(request.getParameter("roomID"));
+			} catch(NumberFormatException e) {
+
+			}
+
 			String studentNumberString = (String) request.getParameter("studentNumber");
 			ArrayList<MessageGetInfo> messageInfoList = messageInfo.getMessageInfoWithRoomInfo(roomID);
-			StudentGetInfo studentGetInfo = studentInfoManager.getStudentInfo(studentNumberString);
-			//1. ↑ここで相手の情報を取得しなくても、jsp側でmessageRoomInfoListの要素ひとつひとつから特定可能とのこと
-			//2. isSelectは初回は実行されないためぬるぽの可能性？
-			//3. ページを離れた際に、セッションの情報を削除するべきでは？という要件
-			session.setAttribute("messageInfoList", messageInfoList);
-			//session.setAttribute("studentInfo", studentGetInfo);
-		}
-		//遷移
-		ControllerUtil.translatePage(JspPath.message, request, response);
 
+			StudentGetInfo studentGetInfo = studentInfoManager.getStudentInfo(studentNumberString, false);
+
+			session.setAttribute("messageInfoList", messageInfoList);
+			session.setAttribute("messageOpponentStudentInfo", studentGetInfo);
+		} else {
+			session.setAttribute("messageInfoList", null);
+			session.setAttribute("messageOpponentStudentInfo", null);
+		}
+
+		ControllerUtil.translatePage(JspPath.message, request, response);
 	}
 }

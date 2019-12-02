@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.JspPath;
 
 @WebServlet("/tdu_market/controller/ManagerDeleteStudentInfo")
 public class ManagerDeleteStudentInfo extends HttpServlet {
