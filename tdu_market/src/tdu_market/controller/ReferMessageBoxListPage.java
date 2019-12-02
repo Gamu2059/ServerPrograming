@@ -65,10 +65,10 @@ public class ReferMessageBoxListPage extends HttpServlet {
 			StudentGetInfo studentGetInfo = studentInfoManager.getStudentInfo(studentNumberString, false);
 
 			session.setAttribute("messageInfoList", messageInfoList);
-			session.setAttribute("studentInfo", studentGetInfo);
+			session.setAttribute("messageOpponentStudentInfo", studentGetInfo);
 		} else {
 			session.setAttribute("messageInfoList", null);
-			session.setAttribute("studentInfo", null);
+			session.setAttribute("messageOpponentStudentInfo", null);
 		}
 
 		ControllerUtil.translatePage(JspPath.message, request, response);
