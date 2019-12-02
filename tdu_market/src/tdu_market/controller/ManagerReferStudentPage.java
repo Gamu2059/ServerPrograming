@@ -14,48 +14,28 @@ import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.ControllerUtil;
 import tdu_market.util.JspPath;
 
-/**
- * Servlet implementation class ManagerReferStudentPage
- */
 @WebServlet("/tdu_market/controller/ManagerReferStudentPage")
 public class ManagerReferStudentPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public ManagerReferStudentPage() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.err.println("ManagerReferStudentPage is non implementation!");//ログイン状態の検証
-
-		StudentInfoManager student = new StudentInfoManager();
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
 
-		//メールアドレスの取得
-		String mailAddress = (String)request.getParameter("mailAddress");
+		String mailAddress = ControllerUtil.getMailAddress(request, response);
 
-		//DBから学生情報を取得する
-		StudentGetInfo studentInfo = student.getStudentInfo(mailAddress);
-		//jspに情報を投げる。
+		StudentInfoManager student = new StudentInfoManager();
+
+		// 運営側であっても、原則として仮登録状態のアカウントの取得はしない(はず)
+		StudentGetInfo studentInfo = student.getStudentInfo(mailAddress, false);
+
 		HttpSession session = request.getSession();
 		session.setAttribute("studentInfo", studentInfo);
 
-		//遷移
 		ControllerUtil.translatePage(JspPath.reference_student_detail_by_admin, request, response);
-
 	}
-
-
 }

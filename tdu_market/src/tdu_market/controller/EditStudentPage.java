@@ -14,30 +14,14 @@ import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.ControllerUtil;
 import tdu_market.util.JspPath;
 
-/**
- * Servlet implementation class EditStudentPage
- */
 @WebServlet("/tdu_market/controller/EditStudentPage")
 public class EditStudentPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public EditStudentPage() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.err.println("EditStudentPage is non implementation!");
-		HttpSession session = request.getSession();
 
-		StudentInfoManager student = new StudentInfoManager();
 
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			ControllerUtil.translatePage(JspPath.index, request, response);
@@ -47,27 +31,13 @@ public class EditStudentPage extends HttpServlet {
 		//セッションからメールアドレスを取得
 		String mailAddress = ControllerUtil.getMailAddress(request, response);
 
-		//DBから学生情報を取得する
-		StudentGetInfo studentInfo = student.getStudentInfo(mailAddress);
-		//jspに情報を投げる。
+		StudentInfoManager student = new StudentInfoManager();
+		StudentGetInfo studentInfo = student.getStudentInfo(mailAddress, false);
 
+		HttpSession session = request.getSession();
 		session.setAttribute("studentInfo", studentInfo);
 
 		//遷移
 		ControllerUtil.translatePage(JspPath.edit_profile_student, request, response);
-		
-
-		/*
-		//取得した情報をviewに適用
-		request.setAttribute("mailaddress",studentInfo.getMailAddress());
-		request.setAttribute("displayName",studentInfo.getDisplayName());
-		request.setAttribute("departmentID",studentInfo.getDepartmentID());
-		request.setAttribute("selfIntroduction",studentInfo.getSelfIntroduction());
-		request.setAttribute("iconImageURL",studentInfo.getIconImageURL());
-		 */
-
 	}
 }
-
-
-

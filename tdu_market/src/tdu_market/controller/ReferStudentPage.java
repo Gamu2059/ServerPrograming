@@ -26,10 +26,11 @@ public class ReferStudentPage extends HttpServlet {
 			return;
 		}
 
-		StudentInfoManager student = new StudentInfoManager();
 		String mailAddress = ControllerUtil.getMailAddress(request, response);
 
-		StudentGetInfo studentInfo = student.getStudentInfo(mailAddress);
+		StudentInfoManager student = new StudentInfoManager();
+		// 学生自身が自身のプロフィールを参照するときは既に本登録しているはずなので、falseを指定する
+		StudentGetInfo studentInfo = student.getStudentInfo(mailAddress, false);
 
 		HttpSession session = request.getSession();
 		session.setAttribute("studentInfo", studentInfo);
