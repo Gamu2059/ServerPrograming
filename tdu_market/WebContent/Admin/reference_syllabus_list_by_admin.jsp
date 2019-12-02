@@ -116,9 +116,11 @@
 			<div class="item_for_LeftAndRight_around">
 				<!-- checkboxがどれか選択されている場合のみ反応 -->
 				<button id="red_button" type="button">削除</button>
-				<button class="search_button" type="button">
-					<img src="/tdu_market/images/search.png" />絞り込み
-				</button>
+				<form action="<%= ServletPath.ManagerSearchSyllabusPage %>" method="get">
+					<button class="search_button" type="submit">
+						<img src="/tdu_market/images/search.png" />絞り込み
+					</button>
+				</form>
 				<!-- 絞り込みボタン -->
 				<div class="edit_and_add_button_box">
 					<!-- <button id="blue_button" type="button">編集</button> -->
