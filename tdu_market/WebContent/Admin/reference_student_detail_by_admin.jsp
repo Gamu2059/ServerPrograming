@@ -45,7 +45,11 @@
 		<article>
 			<div class="content_margin_200px">
 				<br>
-				<div class="item_for_right">
+				<div class="item_for_LeftAndRight_between">
+					<form action="<%= ServletPath.ReferStudentListPage %>" method="get">
+						<input type="hidden" name="isBack" value="true">
+						<button id="white_button">戻る</button>
+					</form>
 					<form action="<%= ServletPath.ManagerReferExhibitItemListPage %>" method="get">
 						<input type="hidden" name="studentMailAddress" value="<%= studentMailAddress %>">
 						<button class="exhibit_list_button" type="submit">出品一覧</button>

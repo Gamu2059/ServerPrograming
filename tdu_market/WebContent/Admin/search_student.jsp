@@ -49,6 +49,7 @@
 				<br>
 				<div class="item_for_left">
 					<form action="<%= ServletPath.ReferStudentListPage %>" method="get">
+						<input type="hidden" name="isBack" value="true">
 						<button id="white_button">戻る</button>
 					</form>
 				</div>
