@@ -2,6 +2,8 @@ package tdu_market.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,8 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import tdu_market.dto.DepartmentGetInfo;
+import tdu_market.dto.ItemGetInfo;
 import tdu_market.dto.StudentGetInfo;
 import tdu_market.dto.StudentSearchInfo;
+import tdu_market.entity_manager.DepartmentInfoManager;
+import tdu_market.entity_manager.ItemInfoManager;
 import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.ControllerUtil;
 import tdu_market.util.JspPath;
@@ -37,13 +43,28 @@ public class ReferStudentListPage extends HttpServlet {
 			longSubjectID = Integer.valueOf(request.getParameter("subjectID")).longValue();
 		}
 
+		//学生情報を検索
 		StudentInfoManager studentInfo = new StudentInfoManager();
 		StudentSearchInfo searchInfo = new StudentSearchInfo(request.getParameter("studentNumberKeyword"),longSubjectID,request.getParameter("displayNameKeyword"));
 		ArrayList<StudentGetInfo> searchResult = studentInfo.searchStudentInfo(searchInfo);
 
-		//jspに情報を投げる。
+		//学科情報を取得
+		DepartmentInfoManager departmentInfoManager = new DepartmentInfoManager();
+		ArrayList<DepartmentGetInfo> departmentInfoList = departmentInfoManager.getAllDepartmentInfoList(true);
+
+		//出品情報を取得
+		Map<String, Integer> studentAndExhibit = new HashMap<>();
+		ItemInfoManager itemInfoManager = new ItemInfoManager();
+		for( StudentGetInfo info:searchResult ) {
+			ArrayList<ItemGetInfo> itemInfoList = itemInfoManager.getExhibitItem(info.getMailAddress());
+			studentAndExhibit.put(info.getMailAddress(), itemInfoList.size());
+		}
+
+		//jspに情報を送信する
 		HttpSession session = request.getSession();
 		session.setAttribute("studentList", searchResult);
+		session.setAttribute("departmentInfoList", departmentInfoList);
+		session.setAttribute("studentAndExhibitMap", studentAndExhibit);
 
 		//遷移
 		ControllerUtil.translatePage(JspPath.reference_student_list, request, response);
