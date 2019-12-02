@@ -75,9 +75,18 @@ public class ManagerReferSyllabusListPage extends HttpServlet {
 
 		//シラバス検索情報を格納
 		ArrayList<SyllabusGetInfo> syllabusInfoList = syllabusInfo.getAllSyllabus();
+
 		//jspに情報を投げる。
 		HttpSession session = request.getSession();
-		session.setAttribute("syllabusInfoList", syllabusInfoList);
+		//シラバス一覧を更新するかどうか
+		if(request.getParameter("isBack")==null) {
+			session.setAttribute("syllabusInfoList", syllabusInfoList);
+		} else {
+			if( request.getParameter("isBack").equals("true") ) {
+			} else {
+				session.setAttribute("syllabusInfoList", syllabusInfoList);
+			}
+		}
 
 		//遷移
 		ControllerUtil.translatePage(JspPath.reference_syllabus_list_by_admin, request, response);
