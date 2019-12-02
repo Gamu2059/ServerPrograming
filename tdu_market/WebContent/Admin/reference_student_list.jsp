@@ -108,9 +108,11 @@
 			<br />
 			<!-- 絞り込みボタン -->
 			<div class="item_for_center">
-				<button class="search_button" type="button">
+			<form action="<%= ServletPath.ManagerSearchStudentPage %>" method="get">
+				<button class="search_button" type="submit">
 					<img src="/tdu_market/images/search.png" />絞り込み
 				</button>
+			</form>
 			</div>
 		</article>
 	</div>

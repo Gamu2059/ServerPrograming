@@ -42,14 +42,16 @@ public class ManagerSearchStudentPage extends HttpServlet {
 			return;
 		}
 
+		HttpSession session = request.getSession();
+
 		//必要なデータ
 		//学科情報
-		DepartmentInfoManager departmentInfoManager = new DepartmentInfoManager();
-		ArrayList<DepartmentGetInfo> departmentGetInfos = departmentInfoManager.getAllDepartmentInfoList(true);
-
-		//送信する
-		HttpSession session = request.getSession();
-		session.setAttribute("departmentInfoList", departmentGetInfos );
+		if( session.getAttribute("departmentInfoList") == null ) {
+			DepartmentInfoManager departmentInfoManager = new DepartmentInfoManager();
+			ArrayList<DepartmentGetInfo> departmentGetInfos = departmentInfoManager.getAllDepartmentInfoList(true);
+			//送信する
+			session.setAttribute("departmentInfoList", departmentGetInfos );
+		}
 
 		//遷移
 		ControllerUtil.translatePage(JspPath.search_student, request, response);
