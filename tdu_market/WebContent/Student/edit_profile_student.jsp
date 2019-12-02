@@ -34,7 +34,6 @@
 				<%
 				//Get information
 				StudentGetInfo info = (StudentGetInfo)session.getAttribute("studentInfo");
-				System.out.println(info);
 				%>
 					<div class="top_content">
 						<div class="top_content_left">
