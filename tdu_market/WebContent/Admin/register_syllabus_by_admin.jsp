@@ -159,6 +159,7 @@
 			</div>
 			<br>
 			<div class="item_for_center">
+				<input type="hidden" name="registOrEdit" value="regist">
 				<button type="submit" id="orange_button">登録</button>
 			</div>
 			<br>
