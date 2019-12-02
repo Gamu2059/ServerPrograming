@@ -1,3 +1,5 @@
+<%@page import="tdu_market.dto.*"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -21,32 +23,65 @@
 			<div class="content_margin_300px">
 				<br />
 				<div class="search_box">
+				<form action="<%= ServletPath.ManagerSearchSyllabusInfo %>" method="post" >
 					<h2>シラバス検索</h2>
 					<br />
 					<h3>授業コード</h3>
-					<input type="text" />
+					<input type="text" name="classCodeKeyword" />
 					<h3>授業名</h3>
-					<input type="text" />
+					<input type="text" name="classNameKeyword" />
 					<h3>学科</h3>
-					<select name="condition">
-						<option value="1">未来科学部 - 情報メディア学科</option>
-						<option value="2">未来科学部 -
-							ロボット・メカトロニクス学科</option>
+					<select name="subjectID">
+					<!-- 学科情報の展開と表示 -->
+						<option value="0"></option>
+						<%
+						ArrayList<DepartmentGetInfo> departmentInfoList = new ArrayList<>();
+						departmentInfoList = (ArrayList<DepartmentGetInfo>)session.getAttribute("departmentInfoList");
+						if(departmentInfoList!=null){
+							for(DepartmentGetInfo departmentInfo: departmentInfoList){
+								out.print("<option value=\""+departmentInfo.getSubjectID()+"\">"+departmentInfo.getSubjectName()+"</option>");
+							}
+						}
+						%>
 					</select>
 					<h3>担当教員</h3>
-					<input type="text" />
+					<input type="text" name="teacherNameKeyword" autocomplete="on" list="teacherList" accept-charset="UTF-8" />
+					<datalist id="teacherList">
+					<!-- 教員情報の展開と表示 -->
+					<%
+					ArrayList<TeacherGetInfo> teacherInfo = new ArrayList<>();
+					teacherInfo = (ArrayList<TeacherGetInfo>)session.getAttribute("teacherInfoList");
+					if(teacherInfo!=null){
+						for(TeacherGetInfo teacher:teacherInfo){
+							out.print("<option value=\""+teacher.getTeacherName()+"\">");
+						}
+					}
+					%>
+					</datalist>
 					<h3>開講年度</h3>
-					<select name="condition">
-						<option value="1">2019年度 前期</option>
-						<option value="2">2019年度 後期</option>
+					<select name="semesterID">
+					<!-- 開講年度の展開と表示 -->
+						<option value="0"></option>
+					<%
+					ArrayList<SemesterGetInfo> semesterInfo = new ArrayList<>();
+					semesterInfo = (ArrayList<SemesterGetInfo>)session.getAttribute("semesterInfoList");
+					if(semesterInfo!=null){
+						for(SemesterGetInfo info:semesterInfo){
+							out.print("<option value=\""+info.getSemesterID()+"\">"+info.getYear()+"年度"+info.getSemester()+"</option>");
+						}
+					}
+					%>
 					</select> <br /> <br />
 					<div class="item_for_center">
-						<button id="orange_button">検索</button>
+						<button type="submit" id="orange_button">検索</button>
 					</div>
+				</form>
 				</div>
 				<br />
 				<div class="item_for_left">
-					<button id="white_button">戻る</button>
+					<form action="<%= ServletPath.ManagerReferSyllabusListPage %>" method="post">
+						<button id="white_button">戻る</button>
+					</form>
 				</div>
 			</div>
 		</article>
