@@ -34,13 +34,11 @@ public class ManagerUpdateStudentInfo extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 
-		//編集対象の学生メールアドレスを取得する
-		final String mailAddress = request.getParameter("mailAddress");
-		//変更するデータを取得する
-		Part part = request.getPart("iconImageURL");
+		String studentMailAddress = request.getParameter("mailAddress");
 		String name = request.getParameter("displayName");
 		String departmentID = request.getParameter("departmentID");
 		String selfIntroduction = request.getParameter("selfIntroduction");
+		Part part = request.getPart("iconImageURL");
 		InputStream is = part.getInputStream();
 
 		//学科IDをStringからlongに変換する
@@ -51,11 +49,10 @@ public class ManagerUpdateStudentInfo extends HttpServlet {
 
 		}
 
-		//パスワードがnullでも更新できなければならない。
-
-		StudentUpdateInfo updateInfo = new StudentUpdateInfo(mailAddress, pass1, name, subjectID, intro, is);
+		// 運営が学生の情報を更新する場合は、パスワード部分だけ無視される
+		StudentUpdateInfo updateInfo = new StudentUpdateInfo(studentMailAddress, null, name, subjectID, selfIntroduction, is);
 		StudentInfoManager student = new StudentInfoManager();
-		ReturnInfo updateResult = student.updateStudentInfo(updateInfo);
+		ReturnInfo updateResult = student.updateStudentInfoByAdmin(updateInfo);
 
 		if (updateResult.isSuccess()) {
 			session.setAttribute("errorInfo", null);
@@ -65,5 +62,4 @@ public class ManagerUpdateStudentInfo extends HttpServlet {
 
 		ControllerUtil.translatePage(JspPath.edit_student_by_admin, request, response);
 	}
-
 }
