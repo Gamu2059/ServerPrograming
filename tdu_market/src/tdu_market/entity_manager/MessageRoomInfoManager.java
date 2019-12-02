@@ -39,7 +39,7 @@ public final class MessageRoomInfoManager {
 					continue;
 				}
 
-				opponentStudentGetIfo = studentInfoManager.getStudentInfo(addresses[j]);
+				opponentStudentGetIfo = studentInfoManager.getStudentInfo(addresses[j], false);
 				break;
 			}
 
