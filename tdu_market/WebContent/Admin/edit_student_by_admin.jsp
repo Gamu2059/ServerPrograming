@@ -43,14 +43,12 @@
 		<article>
 			<div class="content_margin_200px">
 				<br />
-				<div class="item_for_right">
-					<button class="exhibit_list_button" type="button">出品一覧</button>
-				</div>
 				<form action="<%=ServletPath.ManagerUpdateStudentInfo%>" method="post">
 					<input type="hidden" name="mailAddress" value="<%= studentInfo.getMailAddress()%>"/>
 					<div class="user_profile">
 						<div class="item_for_LeftAndRight_around">
-							<label id="edit_img_button"> <img id="icon" src="<%=iconURL%>" />
+							<label id="edit_img_button">
+								<img id="icon" src="<%=iconURL%>" />
 								<input type="file" id="iconFile" name="iconImageURL" />
 								<h3>編集</h3>
 							</label>
