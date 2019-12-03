@@ -92,7 +92,7 @@
 							<!-- HTML -->
 							<div>
 							<label class="item_img_add_button">
-								<input id="fileItem" class="item_img_input" type="file" name="itemImageURLs[]"></input>
+								<input id="fileItem" class="item_img_input" type="file" name="itemImageURLs_1"></input>
 								<img id="plus" src="/tdu_market/images/plus.png">
 							</label>
 							<div id="deleteButton" onClick="deleteAction();">
@@ -122,7 +122,7 @@
 							<!-- HTML -->
 							<div>
 							<label class="item_img_add_button">
-								<input id="fileItem2" class="item_img_input" type="file" name="itemImageURLs[]"></input>
+								<input id="fileItem2" class="item_img_input" type="file" name="itemImageURLs_2"></input>
 								<img id="plus2" src="/tdu_market/images/plus.png">
 							</label>
 							<div id="deleteButton" onClick="deleteAction2();">
@@ -152,7 +152,7 @@
 							<!-- HTML -->
 							<div>
 							<label class="item_img_add_button">
-								<input id="fileItem3" class="item_img_input" type="file" name="itemImageURLs[]"></input>
+								<input id="fileItem3" class="item_img_input" type="file" name="itemImageURLs_3"></input>
 								<img id="plus3" src="/tdu_market/images/plus.png">
 							</label>
 							<div id="deleteButton" onClick="deleteAction3();">
@@ -182,7 +182,7 @@
 							<!-- HTML -->
 							<div>
 							<label class="item_img_add_button">
-								<input id="fileItem4" class="item_img_input" type="file" name="itemImageURLs[]"></input>
+								<input id="fileItem4" class="item_img_input" type="file" name="itemImageURLs_4"></input>
 								<img id="plus4" src="/tdu_market/images/plus.png">
 							</label>
 							<div id="deleteButton" onClick="deleteAction4();">
