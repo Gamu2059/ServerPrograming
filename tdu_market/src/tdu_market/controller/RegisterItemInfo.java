@@ -4,12 +4,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 
+import javax.mail.Session;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import tdu_market.dto.ItemCreateInfo;
@@ -31,43 +33,19 @@ public class RegisterItemInfo extends HttpServlet {
 		}
 
 		request.setCharacterEncoding("UTF-8");
-
-		String mailAddress = ControllerUtil.getMailAddress(request, response);
-		String itemName = request.getParameter("itemName");
-		String description = request.getParameter("description");
-		String conditionStr = request.getParameter("condtion");
-		String priceStr = request.getParameter("price");
-		String relatedClassCode = request.getParameter("relatedClassCode");
-
-		int condition = -1;
-		try {
-			condition = Integer.parseInt(conditionStr);
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		}
-
-		int price = -1;
-		try {
-			price = Integer.parseInt(priceStr);
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		}
-
-		InputStream[] iss = null;
-		Collection<Part> parts = request.getParts();
-		if (parts != null) {
-			iss = new InputStream[parts.size()];
-			int i = 0;
-			for (Part p : parts) {
-				iss[i] = p.getInputStream();
-				i++;
-			}
-		}
-
-		ItemCreateInfo createInfo = new ItemCreateInfo(mailAddress, itemName, description, condition, price,
-				relatedClassCode, iss);
+		
+		/*
+		 * createInfoをデータベースに登録する。
+		 * info/createinfoをセッション破棄
+		 */
+		HttpSession session = request.getSession();
+		ItemCreateInfo createInfo = (ItemCreateInfo)session.getAttribute("createInfo");//セッションからcreateInfoを取得。
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		itemInfo.createItemInfo(createInfo);
+		
+		//セッションを破棄
+		session.removeAttribute("createInfo");
+		session.removeAttribute("info");
 
 		ControllerUtil.translatePage(JspPath.reference_item_list, request, response);
 	}

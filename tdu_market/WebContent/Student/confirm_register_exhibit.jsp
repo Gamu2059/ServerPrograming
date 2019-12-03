@@ -1,5 +1,9 @@
+<%@page import="com.sun.imageio.plugins.common.ImageUtil"%>
+<%@page import="java.io.InputStream"%>
+<%@page import="java.io.BufferedReader"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="tdu_market.dto.*"%>
+<%@page import="tdu_market.util.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -20,6 +24,7 @@
 </head>
 <body>
 	<!-- ヘッダー挿入位置 -->
+	<%@ include file="header.jsp" %>
 	<!-- InstanceBeginEditable name="body" -->
 	<div class="scroll">
 		<article class="content">
@@ -37,11 +42,11 @@
 					<div class="top_content_ver2">
 						<div class="detail_content">
 							<h3>出品物名</h3>
-							<input id="exhibit_textfield" type="text" name="itemName" placeholder="<% info.getItemName(); %>" readonly="readonly" />
+							<input id="exhibit_textfield" type="text" name="itemName" value=<%=info.getItemName() %> disabled="disabled"/>
 						</div>
 						<div class="detail_content">
 							<h3>授業名</h3>
-							<input id="exhibit_textfield" type="text" name="relatedClassCode" placeholder="<% info.getRelatedClassCode(); %>" readonly="readonly"  />
+							<input id="exhibit_textfield" type="text" name="relatedClassCode" value=<%=info.getRelatedClassCode() %> disabled="disabled"/>
 						</div>
 					</div>
 					<!-- 中部コンテンツ -->
@@ -56,8 +61,8 @@
 							} else {
 								for(int i = 0 ; i < info.getItemImageBinaries().length;i++){
 									out.print("<label class=\"item_img_add_button\">");
-									out.print("<input id=\"fileItem\" class=\"item_img_input\" type=\"file\" name=\"itemImageURLs[]\" value=\""+info.getItemImageBinaries()[i]+"\" disabled=\"disabled\" ></input>");
-									out.print("<img id=\"plus\" src=\""+info.getItemImageBinaries()[i]+"\">");
+									out.print("<input id=\"fileItem\" class=\"item_img_input\" type=\"image\" name=\"itemImageURLs[]\" value=\""+info.getItemImageBinaries()[i]+"\" disabled=\"disabled\" ></input>");
+									//out.print("<img id=\"plus\" src=\""+info.getItemImageBinaries()[i]+"\">");
 									out.print("</label>");
 								}
 							}
@@ -66,7 +71,7 @@
 						</div>
 						<div class="detail_content">
 							<h3>出品物の説明</h3>
-							<textarea id="exhibit_description_textfield" name="description" readonly="readonly"><% info.getDescription(); %></textarea>
+							<textarea id="exhibit_description_textfield" name="description" disabled="disabled"><%=info.getDescription() %></textarea>
 						</div>
 						<div class="detail_content">
 							<h3>状態</h3>
@@ -111,8 +116,8 @@
 						<div class="detail_content">
 							<h3>出品価格</h3>
 							<div class="yen">
-								<input type="number" name="price" readonly="readonly" />
-								<h4><%out.print(info.getPrice());%>円</h4>
+								<input type="number" name="price" disabled="disabled" value=<%=info.getPrice() %> />
+								<h4>円</h4>
 							</div>
 						</div>
 					</div>
