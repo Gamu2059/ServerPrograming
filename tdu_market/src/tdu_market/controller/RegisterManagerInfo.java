@@ -37,12 +37,25 @@ public class RegisterManagerInfo extends HttpServlet {
 		//入力フォームの必要事項が入力されているかチェック
 		//ここではjsp側でしているため、していない
 		String mailAddress = ControllerUtil.getMailAddress(request, response);
-		String password = request.getParameter("nonHashedPassword");
+		String pass1 = request.getParameter("nonHashedPassword1");
+		String pass2 = request.getParameter("nonHashedPassword2");
 		String name = request.getParameter("displayName");
 		Part part = request.getPart("iconImageURL");
 		InputStream is = part.getInputStream();
 
-		ManagerUpdateInfo managerInfo = new ManagerUpdateInfo(mailAddress, password, name, is);
+		if (pass1 == null || pass2 == null) {
+			session.setAttribute("errorMessages", "パスワードを入力して下さい。");
+			ControllerUtil.translatePage(JspPath.create_admin_account, request, response);
+			return;
+		}
+
+		if (!pass1.equals(pass2)) {
+			session.setAttribute("errorMessages", "パスワードが一致しません。");
+			ControllerUtil.translatePage(JspPath.create_admin_account, request, response);
+			return;
+		}
+
+		ManagerUpdateInfo managerInfo = new ManagerUpdateInfo(mailAddress, pass1, name, is);
 		ManagerInfoManager manager = new ManagerInfoManager();
 		ReturnInfo createResult = manager.updateManagerInfo(managerInfo);
 
