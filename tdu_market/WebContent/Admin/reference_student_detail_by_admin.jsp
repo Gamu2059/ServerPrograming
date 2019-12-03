@@ -73,8 +73,8 @@
 				<br>
 				<div class="item_for_LeftAndRight_between">
 					<button id="red_button">削除</button>
-					<form action="<%=ServletPath.ManagerEditStudentPage%>"
-						method="get">
+					<form action="<%=ServletPath.ManagerEditStudentPage%>" method="get">
+						<input type="hidden" name="studentMailAddress" value="<%= studentMailAddress %>">
 						<button id="blue_button">編集</button>
 					</form>
 				</div>
