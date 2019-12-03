@@ -44,7 +44,7 @@
 <!-- 							<input id="exhibit_textfield" type="text" name="relatedClassCode"
 								placeholder="例：コンピュータプログラミングⅠ" /> -->
 
-						<input autocomplete="on" type="text" id="exhibit_textfield" list="classList" name="className"/>
+						<input autocomplete="on" type="text" id="exhibit_textfield" list="classList" name="relatedClassCode"/>
  						<datalist id="classList">
 							<%
 								ArrayList<SyllabusGetInfo> syllabusInfo = (ArrayList<SyllabusGetInfo>) session.getAttribute("classNameList");
