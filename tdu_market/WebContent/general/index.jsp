@@ -45,9 +45,10 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		<% if((boolean)session.getAttribute("isDisplayDialog")){%>
+<%-- 		<% if((boolean)session.getAttribute("isDisplayDialog")){%>
 		notify_dialog('<%= (String)session.getAttribute("dialogMessage") %>');
-		<% } %>
+		<% } %> --%>
+		//起動時にセッションを持てないので、メールアドレスチェックのダイアログは実装できませんでした。
 		function notify_dialog() {
 			let dialog = document.getElementById('notify_dialog');
 
