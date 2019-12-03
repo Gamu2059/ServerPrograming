@@ -69,6 +69,8 @@ public class RegisterItemInfo extends HttpServlet {
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		itemInfo.createItemInfo(createInfo);
 
-		ControllerUtil.translatePage(JspPath.reference_item_list, request, response);
+		// 出品物一覧へ遷移する
+		ReferExhibitItemListPage referExhibitItemListPage = new ReferExhibitItemListPage();
+		referExhibitItemListPage.doGet(request, response);
 	}
 }
