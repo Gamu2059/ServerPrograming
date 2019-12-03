@@ -38,7 +38,7 @@
 				studentMailAddress = studentInfo.getMailAddress();
 				iconURL = studentInfo.getIconImageBinary();
 				name = studentInfo.getDisplayName();
-				departmentName = departmentInfo.get((int)studentInfo.getDepartmentID()).getFacultyName()+" - "+ departmentInfo.get((int)studentInfo.getDepartmentID()).getSubjectName();
+				departmentName = departmentInfo.get((int)studentInfo.getDepartmentID() -1 ).getFacultyName()+" - "+ departmentInfo.get((int)studentInfo.getDepartmentID() -1 ).getSubjectName();
 				selfIntroduction = studentInfo.getSelfIntroduction();
 			}
 		%>
