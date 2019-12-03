@@ -43,12 +43,21 @@
 							<h3>授業名</h3>
 <!-- 							<input id="exhibit_textfield" type="text" name="relatedClassCode"
 								placeholder="例：コンピュータプログラミングⅠ" /> -->
-						</div>
-						<%
-						ArrayList<SyllabusGetInfo> syllabusInfo = (ArrayList<SyllabusGetInfo>) session.getAttribute("classNameList");
-						%>
+
+						<input autocomplete="on" type="text" id="exhibit_textfield" list="classList" name="className"/>
+ 						<datalist id="classList">
+							<%
+								ArrayList<SyllabusGetInfo> syllabusInfo = (ArrayList<SyllabusGetInfo>) session.getAttribute("classNameList");
+								if(syllabusInfo != null){
+									for(SyllabusGetInfo syllabusGetInfo : syllabusInfo){
+										out.print("<option id=\"exhibit_textfield\" value=\"" + syllabusGetInfo.getClassCode() + "\">"
+											+ syllabusGetInfo.getClassName() + "</option>");
+									}
+								}
+							%>
+						</datalist>
 						<script type="text/javascript">
-							let input = document.createElement('input');
+<%-- 							let input = document.createElement('input');
 							input.autocomplete = true;
 							input.setAttribute('id', 'exhibit_textfield');
 							input.setAttribute('list', 'class_name_list');
@@ -70,8 +79,9 @@
 								datalist.appendChild(option);
 							});
 							document.getElementById('exhibit_textfield')
-									.appendChild(datalist);
+									.appendChild(datalist); --%>
 						</script>
+						</div>
 					</div>
 					<!-- 中部コンテンツ -->
 					<div class="dialog_middle_content">
