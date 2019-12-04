@@ -72,7 +72,7 @@ public final class ItemInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "insert into \"ItemInfo\" (\"exhibitorMailAddress\", \"itemName\", \"description\", \"condition\", \"price\", \"exhibitDate\") values (?, ?, ?, ?, ?, ?)";
+			String sql = "insert into \"ItemInfo\" (\"exhibitorMailAddress\", \"itemName\", \"description\", \"condition\", \"price\", \"exhibitDate\", \"tradingState\") values (?, ?, ?, ?, ?, ?, 0)";
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 
 			Timestamp exhibitTimestamp = new Timestamp(new java.util.Date().getTime());
