@@ -47,6 +47,8 @@ public class RegisterItemInfo extends HttpServlet {
 		session.removeAttribute("createInfo");
 		session.removeAttribute("info");
 
-		ControllerUtil.translatePage(JspPath.reference_item_list, request, response);
+		// 出品物一覧へ遷移する
+		ReferExhibitItemListPage referExhibitItemListPage = new ReferExhibitItemListPage();
+		referExhibitItemListPage.doGet(request, response);
 	}
 }
