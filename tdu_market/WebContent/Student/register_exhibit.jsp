@@ -50,8 +50,8 @@
 								ArrayList<SyllabusGetInfo> syllabusInfo = (ArrayList<SyllabusGetInfo>) session.getAttribute("classNameList");
 								if(syllabusInfo != null){
 									for(SyllabusGetInfo syllabusGetInfo : syllabusInfo){
-										out.print("<option id=\"exhibit_textfield\" value=\"" + syllabusGetInfo.getClassCode() + "\">"
-											+ syllabusGetInfo.getClassName() + "</option>");
+										out.print("<option id=\"exhibit_textfield\" value=\"" + syllabusGetInfo.getClassCode() +" - " + syllabusGetInfo.getClassName() + "\">");
+											//+ syllabusGetInfo.getClassName() + "</option>");
 									}
 								}
 							%>

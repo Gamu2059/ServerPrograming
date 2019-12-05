@@ -40,7 +40,9 @@ public class RegisterItemInfo extends HttpServlet {
 		String description = request.getParameter("description");
 		String conditionStr = request.getParameter("condtion");
 		String priceStr = request.getParameter("price");
-		String relatedClassCode = request.getParameter("relatedClassCode");
+		String relatedClassCodeWithClassName = request.getParameter("relatedClassCode");
+		String relatedClassCode = relatedClassCodeWithClassName.substring(0, 10);
+		System.out.println(relatedClassCode);
 
 		int condition = -1;
 		try {
