@@ -1,5 +1,6 @@
 package tdu_market.dao;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -72,8 +73,31 @@ public final class ItemImageInfoDAO extends DAOBase {
 		try {
 
 			InputStream[] imageBinaries = itemImageCreateInfo.getItemImageBinaries();
+			ArrayList<InputStream> imageList = null;
+			for(int i = 0; i < imageBinaries.length; i++) {
+
+				int iconAvailable = 0;
+				try {
+					iconAvailable = imageBinaries[i].available();
+				} catch (IOException e) {
+
+				}
+
+				if (iconAvailable > 0) {
+					if (imageList == null) {
+						imageList = new ArrayList<InputStream>();
+					}
+
+					imageList.add(imageBinaries[i]);
+				}
+			}
+
+			if (imageList == null) {
+				return;
+			}
+
 			StringBuilder builder = new StringBuilder("insert into \"ItemImageInfo\" (\"itemID\", \"imageBinary\") values");
-			for (int i = 0; i < imageBinaries.length; i++) {
+			for (int i = 0; i < imageList.size(); i++) {
 				if (i > 0) {
 					builder.append(",");
 				}
@@ -83,9 +107,9 @@ public final class ItemImageInfoDAO extends DAOBase {
 			String sql = builder.toString();
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 
-			for (int i = 0; i < imageBinaries.length; i++) {
+			for (int i = 0; i < imageList.size(); i++) {
 				pstmt.setLong(i * 2 + 1, itemImageCreateInfo.getItemID());
-				pstmt.setBinaryStream(i * 2 + 2, imageBinaries[i]);
+				pstmt.setBinaryStream(i * 2 + 2, imageList.get(i));
 			}
 
 			int result = pstmt.executeUpdate();
