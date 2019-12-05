@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import tdu_market.dto.ItemCreateInfo;
+import tdu_market.dto.ItemImageCreateInfo;
 import tdu_market.dto.ReturnInfo;
 import tdu_market.entity_manager.ItemInfoManager;
 import tdu_market.util.ControllerUtil;
@@ -55,16 +56,16 @@ public class VaildateExhibitItem extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		InputStream[] iss = null;
-		Collection<Part> parts = request.getParts();
-		if (parts != null) {
-			iss = new InputStream[parts.size()];
-			int i = 0;
-			for (Part p : parts) {
-				iss[i] = p.getInputStream();
-				i++;
-			}
-		}
+		Part image1 = request.getPart("itemImageURLs_1");
+		Part image2 = request.getPart("itemImageURLs_2");
+		Part image3 = request.getPart("itemImageURLs_3");
+		Part image4 = request.getPart("itemImageURLs_4");
+		
+		InputStream[] iss = new InputStream[4];
+		iss[0] = image1.getInputStream();
+		iss[1] = image2.getInputStream();
+		iss[2] = image3.getInputStream();
+		iss[3] = image4.getInputStream();
 
 		ItemCreateInfo createInfo = new ItemCreateInfo(mailAddress, itemName, description, condition, price,
 				relatedClassCode, iss);
