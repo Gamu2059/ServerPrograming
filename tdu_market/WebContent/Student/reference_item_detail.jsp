@@ -32,9 +32,6 @@
 					<!-- ReferItemPageから渡されるデータを展開・表示 -->
 					<%
 					ArrayList<RelatedClassGetInfo> info = (ArrayList<RelatedClassGetInfo>)session.getAttribute("itemInfo");
-					if(info == null){
-						System.err.println("ntation!");
-					}
 					out.print("<div class=\"detail_content\">");
 					out.print("<h2 id=\"item_name\">"+info.get(0).getItemGetInfo().getItemName()+"</h2>");
 					out.print("</div>");
