@@ -126,7 +126,7 @@
 						<!--メッセージフォーム-->
 						<div class="textfield">
 							<form action="<%=ServletPath.PostMessage%>" method="post">
-								<textarea id="message_form" name="message_form" cols="50"
+								<textarea id="message_form" name="message_form" cols="40"
 									rows="2" placeholder="メッセージを入力"></textarea>
 								<input type="image" src="/tdu_market/images/post2.png" alt="post" id="post_icon">
  							</form>
