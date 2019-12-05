@@ -341,14 +341,9 @@ public final class ItemInfoDAO extends DAOBase {
 				pstmt.setDate(setCount, new Date(calendar.getTime().getTime()));
 				setCount++;
 			}
-			
-			System.out.println(sql);
-			System.out.println("name " + itemNameKeyword);
-			System.out.println("max Price " + maxPrice);
 
 			resultSet = pstmt.executeQuery();
 
-			System.out.println("検索結果");
 			while (resultSet.next()) {
 				ItemInfo itemInfo = ItemInfo.create(resultSet);
 
@@ -358,7 +353,6 @@ public final class ItemInfoDAO extends DAOBase {
 
 				list.add(itemInfo);
 				
-				System.out.println(itemInfo);
 			}
 		} catch (SQLException e) {
 			showSQLException(e);
