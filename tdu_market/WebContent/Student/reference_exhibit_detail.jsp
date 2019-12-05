@@ -62,10 +62,10 @@
 								if(itemImageURLs.get(i).equals("data:image/png;base64,")){
 									continue;
 								}
-								out.print("<div class=\"item_img_delete_button\">");
+								//out.print("<div class=\"item_img_delete_button\">");
 								out.print("<img src=\""+ itemImageURLs.get(i) +"\" alt=\"商品画像\" />");
 								//out.print("<button name=\"itemImageURLs\" onClick=\""+ itemImageURLs.remove(i) +" \">削除</button>");
-								out.print("</div>");
+								//out.print("</div>");
 							}
 						} else {
 							//画像が３枚以下のとき（画像と追加ボタンを表示）
@@ -73,10 +73,10 @@
 								if(itemImageURLs.get(i).equals("data:image/png;base64,")){
 									continue;
 								}
-								out.print("<div class=\"item_img_delete_button\">");
-								out.print("<img src=\""+ itemImageURLs.get(i) +"\" alt=\"商品画像\" />");
+								//out.print("<div class=\"item_img_delete_button\">");
+								out.print("<img src=\""+ itemImageURLs.get(i) +"\" alt=\"商品画像\" \" />");
 								//out.print("<button name=\"itemImageURLs\" onClick=\""+ itemImageURLs.remove(i) +" \" >削除</button>");
-								out.print("</div>");
+								//out.print("</div>");
 							}
 							//out.print("<label class=\"item_img_add_button\"> <input class=\"item_img_input\" type=\"file\" name=\"itemImageURLs\"></input> <br><h3>+</h3></label>");
 						}
