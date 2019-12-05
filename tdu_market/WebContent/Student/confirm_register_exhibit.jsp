@@ -61,7 +61,7 @@
 							} else {
 								for(int i = 0 ; i < info.getItemImageBinaries().length;i++){
 									out.print("<label class=\"item_img_add_button\">");
-									out.print("<input id=\"fileItem\" class=\"item_img_input\" type=\"image\" name=\"itemImageURLs[]\" value=\""+info.getItemImageBinaries()[i]+"\" disabled=\"disabled\" ></input>");
+									out.print("<input id=\"fileItem\" class=\"item_img_input\" type=\"image\" name=\"itemImageURLs_"+ i + "\" value=\""+info.getItemImageBinaries()[i]+"\" disabled=\"disabled\" ></input>");
 									//out.print("<img id=\"plus\" src=\""+info.getItemImageBinaries()[i]+"\">");
 									out.print("</label>");
 								}
