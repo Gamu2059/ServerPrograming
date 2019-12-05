@@ -45,7 +45,7 @@
 					out.print("<h5 id=\"syllabus_name\">"+ info.getSyllabusGetInfo().getClassName() +"</h5>");
 					out.print("</div>");
 					//商品画像の表示
-					out.print("<div class=\"detail_content\">");
+					out.print("<div class=\"detail_content\" style=\" display:flex; \" >");
 					ArrayList<String> itemImageURLs = new ArrayList<>();
 					for(int i=0;i<info.getItemGetInfo().getItemImageBinaries().length;i++){
 						itemImageURLs.add(info.getItemGetInfo().getItemImageBinaries()[i]);
