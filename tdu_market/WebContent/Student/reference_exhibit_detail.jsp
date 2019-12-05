@@ -52,7 +52,8 @@
 					}
 					if(itemImageURLs == null){
 						//画像が0枚のとき（追加ボタンのみ表示）
-						out.print("<label class=\"item_img_add_button\"> <input class=\"item_img_input\" type=\"file\" name=\"itemImageURLs\"></input> <br><h3>+</h3></label>");
+						//out.print("<label class=\"item_img_add_button\"> <input class=\"item_img_input\" type=\"file\" name=\"itemImageURLs\"></input> <br><h3>+</h3></label>");
+						out.print("<h3>"+"No Image"+"</h3>");
 					} else {
 						//画像が1枚４枚のとき
 						if(4 < itemImageURLs.size()){
@@ -60,7 +61,7 @@
 							for(int i=0; i < itemImageURLs.size(); i++){
 								out.print("<div class=\"item_img_delete_button\">");
 								out.print("<img src=\""+ itemImageURLs.get(i) +"\" alt=\"商品画像\" />");
-								out.print("<button name=\"itemImageURLs\" onClick=\""+ itemImageURLs.remove(i) +" \">削除</button>");
+								//out.print("<button name=\"itemImageURLs\" onClick=\""+ itemImageURLs.remove(i) +" \">削除</button>");
 								out.print("</div>");
 							}
 						} else {
@@ -68,10 +69,10 @@
 							for(int i=0; i < itemImageURLs.size(); i++){
 								out.print("<div class=\"item_img_delete_button\">");
 								out.print("<img src=\""+ itemImageURLs.get(i) +"\" alt=\"商品画像\" />");
-								out.print("<button name=\"itemImageURLs\" onClick=\""+ itemImageURLs.remove(i) +" \" >削除</button>");
+								//out.print("<button name=\"itemImageURLs\" onClick=\""+ itemImageURLs.remove(i) +" \" >削除</button>");
 								out.print("</div>");
 							}
-							out.print("<label class=\"item_img_add_button\"> <input class=\"item_img_input\" type=\"file\" name=\"itemImageURLs\"></input> <br><h3>+</h3></label>");
+							//out.print("<label class=\"item_img_add_button\"> <input class=\"item_img_input\" type=\"file\" name=\"itemImageURLs\"></input> <br><h3>+</h3></label>");
 						}
 					}
 
