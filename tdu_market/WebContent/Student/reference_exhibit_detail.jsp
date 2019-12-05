@@ -59,7 +59,7 @@
 						if(4 < itemImageURLs.size()){
 							//画像が４枚のとき（画像のみ表示）
 							for(int i=0; i < itemImageURLs.size(); i++){
-								if(itemImageURLs.get(i).equals("data:image/png;base64,")){
+								if(itemImageURLs.get(i) == null){
 									continue;
 								}
 								//out.print("<div class=\"item_img_delete_button\">");
@@ -70,7 +70,7 @@
 						} else {
 							//画像が３枚以下のとき（画像と追加ボタンを表示）
 							for(int i=0; i < itemImageURLs.size(); i++){
-								if(itemImageURLs.get(i).equals("data:image/png;base64,")){
+								if(itemImageURLs.get(i) == null){
 									continue;
 								}
 								//out.print("<div class=\"item_img_delete_button\">");
