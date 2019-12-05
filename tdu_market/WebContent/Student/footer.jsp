@@ -28,7 +28,7 @@
 			<div>
 				<ul>
 					<li><a href=<%=ServletPath.ReferStudentPage%>>ユーザー情報</a></li>
-					<li><a href=<%=JspPath.register_exhibit%>>出品物情報登録</a></li>
+					<li><a href=<%=ServletPath.RegisterExhibitItemPage %>>出品物情報登録</a></li>
 				</ul>
 			</div>
 			<div>
