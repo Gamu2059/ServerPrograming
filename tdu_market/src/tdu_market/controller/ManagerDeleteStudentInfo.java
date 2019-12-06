@@ -29,7 +29,7 @@ public class ManagerDeleteStudentInfo extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		// 自分ではなく、削除対象の学生のメールアドレスを取得
-		String studentMailAddress = (String)session.getAttribute("delete_student_mailaddress");
+		String studentMailAddress = (String)request.getParameter("delete_student_mailaddress");
 
 		StudentInfoManager student = new StudentInfoManager();
 		student.deleteStudentInfo(studentMailAddress);
