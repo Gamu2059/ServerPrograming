@@ -86,14 +86,22 @@
 					<!-- 中部コンテンツ -->
 					<div class="dialog_middle_content">
 						<div class="detail_content_ver2">
-							<h3>画像をアップロード</h3>
+							<h3 id="error">画像をアップロード</h3>
 							<div class="item_image_list">
 							<!-- 画像の登録に関して -->
 							<!-- HTML -->
 							<div>
 							<label class="item_img_add_button">
-								<input id="fileItem" class="item_img_input" type="file" name="itemImageURLs_1"></input>
+								<input id="fileItem" class="item_img_input" type="file" name="itemImageURLs_1" required></input>
 								<img id="plus" src="/tdu_market/images/plus.png">
+								<script type="text/javascript">
+									function imageError(){
+										if(document.getElementById('fileItem').value == ''){
+											document.getElementById('error').innerHTML = '<h3>画像をアップロード</h3><p style="color:red;"> 画像は1枚以上必須です。</p>';
+											scrollTo(0,0);
+										}
+									}
+								</script>
 							</label>
 							<div id="deleteButton" onClick="deleteAction();">
 								削除
@@ -235,7 +243,7 @@
 					</div>
 					<div class="middle2_content">
 					<button type="submit" name="submit" class="button_flat_submit"
-						id="upload">確認</button>
+						id="upload" onclick="imageError()">確認</button>
 				</form>
 				<!-- 中部コンテンツ２ -->
 
