@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import tdu_market.dto.DepartmentGetInfo;
 import tdu_market.dto.SyllabusGetInfo;
+import tdu_market.entity_manager.DepartmentInfoManager;
 import tdu_market.entity_manager.SyllabusInfoManager;
 import tdu_market.util.ControllerUtil;
 import tdu_market.util.JspPath;
@@ -22,19 +24,19 @@ import tdu_market.util.JspPath;
 public class ManagerReferSyllabusListPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ManagerReferSyllabusListPage() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public ManagerReferSyllabusListPage() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
 		if (!ControllerUtil.verifyLogin(request, response)) {
@@ -78,11 +80,17 @@ public class ManagerReferSyllabusListPage extends HttpServlet {
 
 		//jspに情報を投げる。
 		HttpSession session = request.getSession();
+		//学科情報を保持しているかどうか
+		if (session.getAttribute("departmentInfoList") == null) {
+			DepartmentInfoManager departmentInfoManager = new DepartmentInfoManager();
+			ArrayList<DepartmentGetInfo> departmentInfoList = departmentInfoManager.getAllDepartmentInfoList(true);
+			session.setAttribute("departmentInfoList", departmentInfoList);
+		}
 		//シラバス一覧を更新するかどうか
-		if(request.getParameter("isBack")==null) {
+		if (request.getParameter("isBack") == null) {
 			session.setAttribute("syllabusInfoList", syllabusInfoList);
 		} else {
-			if( request.getParameter("isBack").equals("true") ) {
+			if (request.getParameter("isBack").equals("true")) {
 			} else {
 				session.setAttribute("syllabusInfoList", syllabusInfoList);
 			}
@@ -90,7 +98,6 @@ public class ManagerReferSyllabusListPage extends HttpServlet {
 
 		//遷移
 		ControllerUtil.translatePage(JspPath.reference_syllabus_list_by_admin, request, response);
-
 
 	}
 
