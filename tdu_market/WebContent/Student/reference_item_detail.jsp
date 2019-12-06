@@ -94,7 +94,7 @@
 					<!-- BuyItemに処理を引き継ぐ -->
 					<form action="<%=ServletPath.BuyItem%>" method="post">
 						<%
-						out.print("<input type=\"hidden\" name=\"beginTraderMailAddress\" value=\""+ session.getAttribute("meiladdress") +"\"/>");
+						out.print("<input type=\"hidden\" name=\"beginTraderMailAddress\" value=\""+ session.getAttribute("mailaddress") +"\"/>");
 						out.print("<input type=\"hidden\" name=\"tradedItemID\" value=\""+ info.get(0).getItemGetInfo().getItemID() +"\"/>");
 						%>
 						<button type="submit" id="yes" class="button_flat_submit">確認</button>
