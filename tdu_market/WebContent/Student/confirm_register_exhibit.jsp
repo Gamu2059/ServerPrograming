@@ -121,9 +121,15 @@
 							</div>
 						</div>
 					</div>
+			 		<% //ダイアログの出力に関する記述
+			 		boolean isDisplayDialog = true;
+			 		String dialogMessage = "出品しました";
+			 		session.setAttribute("dialogMessage", dialogMessage);
+			 		session.setAttribute("isDisplayDialog", isDisplayDialog);
+			 		%>
 					<div class="middle2_content">
 					<button type="submit" name="submit" class="button_flat_submit"
-						id="upload">確認</button>
+						id="upload">出品する</button>
 				</div>
 				</form>
 				<!-- 中部コンテンツ２ -->

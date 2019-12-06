@@ -31,7 +31,7 @@
 			<!-- セカンドコンテナ -->
 			<div class="second_container_ver2">
 				<section>
-					<form action="<%=ServletPath.UpdateStudentPage%>" method="post">
+					<form action="<%=ServletPath.UpdateItemInfo %>" method="post">
 					<!-- フォームの初期設定 -->
 					<%
 					//１．更新対象の商品情報を取得
@@ -169,7 +169,13 @@
 
 					yes.addEventListener('click', function() {
 						dialog.style.display = 'none';
-						notify_dialog('更新しました。', 'reference_exhibit_detail');
+				 		<%
+				 		boolean isDisplayDialog = true;
+				 		String dialogMessage = "更新しました";
+				 		session.setAttribute("dialogMessage", dialogMessage);
+				 		session.setAttribute("isDisplayDialog", isDisplayDialog);
+				 		%>
+						//notify_dialog('更新しました。', 'reference_exhibit_detail');
 					});
 					no.addEventListener('click', function() {
 						dialog.style.display = 'none';
@@ -184,13 +190,19 @@
 
 					yes.addEventListener('click', function() {
 						dialog.style.display = 'none';
-						notify_dialog('削除しました。', 'reference_exhibit_list');
+				 		<%
+				 		isDisplayDialog = true;
+				 		dialogMessage = "削除しました";
+				 		session.setAttribute("dialogMessage", dialogMessage);
+				 		session.setAttribute("isDisplayDialog", isDisplayDialog);
+				 		%>
+						//notify_dialog('削除しました。', 'reference_exhibit_list');
 					});
 					no.addEventListener('click', function() {
 						dialog.style.display = 'none';
 					});
 				}
-				function notify_dialog(text, url) {
+				function notify_dialog(text) {
 					let dialog = document.getElementById('notify_dialog');
 
 					document.getElementById('notify_text').textContent = text;
