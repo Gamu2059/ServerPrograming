@@ -19,10 +19,18 @@ public class ImageUtil {
 		try {
 			byte[] buffer = new byte[1024];
 			int bytesRead;
+			boolean isEmpty = true;
 
 			while ((bytesRead = inputStream.read(buffer)) != -1) {
 				output.write(buffer, 0, bytesRead);
+				isEmpty = false;
 			}
+
+			// 空と同意であればnullを返す
+			if (isEmpty) {
+				return null;
+			}
+
 			icon = Base64.getEncoder().encodeToString(output.toByteArray());
 		} catch (IOException e) {
 			e.printStackTrace();

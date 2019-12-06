@@ -52,9 +52,9 @@
 					</div>
 					<div class="input_content">
 						<h2>パスワード</h2>
-						<input type="password" id="password" name="nonHashedPassword"
+						<input type="password" id="password" name="nonHashedPassword1"
 							placeholder="パスワード" /> <input type="password"
-							id="password" name="nonHashedPassword" placeholder="確認用" />
+							id="password" name="nonHashedPassword2" placeholder="確認用" />
 					</div>
 					<button id="new_account_button" type="submit"
 						class="button_flat_blue">登録</button>

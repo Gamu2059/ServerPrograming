@@ -72,7 +72,7 @@ public final class ItemInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "insert into \"ItemInfo\" (\"exhibitorMailAddress\", \"itemName\", \"description\", \"condition\", \"price\", \"exhibitDate\") values (?, ?, ?, ?, ?, ?)";
+			String sql = "insert into \"ItemInfo\" (\"exhibitorMailAddress\", \"itemName\", \"description\", \"condition\", \"price\", \"exhibitDate\", \"tradingState\") values (?, ?, ?, ?, ?, ?, 0)";
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 
 			Timestamp exhibitTimestamp = new Timestamp(new java.util.Date().getTime());
@@ -321,7 +321,7 @@ public final class ItemInfoDAO extends DAOBase {
 			int setCount = 1;
 
 			if (!isEmptyINK) {
-				pstmt.setString(setCount, itemNameKeyword);
+				pstmt.setString(setCount, String.format("%%%s%%", itemNameKeyword));
 				setCount++;
 			}
 
@@ -335,9 +335,9 @@ public final class ItemInfoDAO extends DAOBase {
 				setCount++;
 			}
 
+			Calendar calendar = Calendar.getInstance();
 			if (!isEmptyOldestDate) {
-				Calendar calendar = Calendar.getInstance();
-				calendar.add(Calendar.DAY_OF_MONTH, oldestDate);
+				calendar.add(Calendar.DAY_OF_MONTH, -oldestDate);
 				pstmt.setDate(setCount, new Date(calendar.getTime().getTime()));
 				setCount++;
 			}
@@ -352,6 +352,7 @@ public final class ItemInfoDAO extends DAOBase {
 				}
 
 				list.add(itemInfo);
+				
 			}
 		} catch (SQLException e) {
 			showSQLException(e);
