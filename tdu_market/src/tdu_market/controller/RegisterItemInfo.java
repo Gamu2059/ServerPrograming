@@ -75,9 +75,9 @@ public class RegisterItemInfo extends HttpServlet {
 		session.setAttribute("info", createInfo);
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		ReturnInfo validateResult = itemInfo.validateRegisterExhibitItem(createInfo);
-		itemInfo.createItemInfo(createInfo);
 		
 		if (validateResult.isSuccess()) {
+			itemInfo.createItemInfo(createInfo);
 			//セッションを破棄
 			session.removeAttribute("info");
 //			ControllerUtil.translatePage(JspPath.confirm_register_exhibit, request, response);
