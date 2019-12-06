@@ -43,14 +43,17 @@ public class ManagerDeleteItemInfo extends HttpServlet {
 			return;
 		}
 
+		HttpSession session = request.getSession();
+
 		//削除処理
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		itemInfo.deleteItemInfo(Integer.valueOf(request.getParameter("itemID")));
+		//セッションからアイテム情報を削除する
+		session.removeAttribute("itemInfo");
 
 		//出品商品一覧を再取得
 		ArrayList<ItemGetInfo> itemList =  itemInfo.getExhibitItem(request.getParameter("studentMailAddress"));
 		//jspに情報を投げる。
-		HttpSession session = request.getSession();
 		session.setAttribute("exhibitItemList",itemList);
 
 		//遷移
