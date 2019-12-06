@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import tdu_market.dto.ReturnInfo;
+import tdu_market.dto.StudentGetInfo;
 import tdu_market.dto.StudentUpdateInfo;
 import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.ControllerUtil;
@@ -32,6 +33,7 @@ public class ManagerUpdateStudentInfo extends HttpServlet {
 		}
 
 		request.setCharacterEncoding("UTF-8");
+
 		HttpSession session = request.getSession();
 
 		String studentMailAddress = request.getParameter("mailAddress");
@@ -55,11 +57,14 @@ public class ManagerUpdateStudentInfo extends HttpServlet {
 		ReturnInfo updateResult = student.updateStudentInfoByAdmin(updateInfo);
 
 		if (updateResult.isSuccess()) {
-			session.setAttribute("errorInfo", null);
+			session.removeAttribute("errorEditStudentMessage");
+			StudentGetInfo studetnInfo = student.getStudentInfo(studentMailAddress, false);
+			session.setAttribute("studentInfo", studetnInfo);
+			ControllerUtil.translatePage(JspPath.reference_student_detail_by_admin, request, response);
 		} else {
-			session.setAttribute("errorInfo", updateResult.getMsg());
+			session.setAttribute("errorEditStudentMessage", updateResult.getMsg());
+			ControllerUtil.translatePage(JspPath.edit_student_by_admin, request, response);
 		}
 
-		ControllerUtil.translatePage(JspPath.edit_student_by_admin, request, response);
 	}
 }

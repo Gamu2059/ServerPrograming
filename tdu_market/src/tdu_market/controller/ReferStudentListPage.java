@@ -47,7 +47,8 @@ public class ReferStudentListPage extends HttpServlet {
 
 		StudentInfoManager studentInfo = new StudentInfoManager();
 		// 仮登録状態の学生は無視するのでfalseを指定する
-		StudentSearchInfo searchInfo = new StudentSearchInfo(studentNumberKeyword, subjectID, displayNameKeyword, false);
+		StudentSearchInfo searchInfo = new StudentSearchInfo(studentNumberKeyword, subjectID, displayNameKeyword,
+				false);
 		ArrayList<StudentGetInfo> searchResult = studentInfo.searchStudentInfo(searchInfo);
 
 		DepartmentInfoManager departmentInfoManager = new DepartmentInfoManager();
@@ -59,15 +60,21 @@ public class ReferStudentListPage extends HttpServlet {
 		ItemInfoManager itemInfoManager = new ItemInfoManager();
 		for (StudentGetInfo info : searchResult) {
 			ArrayList<ItemGetInfo> itemInfoList = itemInfoManager.getExhibitItem(info.getMailAddress());
-			studentAndExhibit.put(info.getMailAddress(), itemInfoList.size());
+			if (info.getMailAddress() != null) {
+				if (itemInfoList == null) {
+					studentAndExhibit.put(info.getMailAddress(), 0);
+				} else {
+					studentAndExhibit.put(info.getMailAddress(), itemInfoList.size());
+				}
+			}
 		}
 
 		//jspに情報を送信する
 		HttpSession session = request.getSession();
-		if(request.getParameter("isBack")==null) {
+		if (request.getParameter("isBack") == null) {
 			session.setAttribute("studentList", searchResult);
 		} else {
-			if( request.getParameter("isBack").equals("true") ) {
+			if (request.getParameter("isBack").equals("true")) {
 			} else {
 				session.setAttribute("studentList", searchResult);
 			}
