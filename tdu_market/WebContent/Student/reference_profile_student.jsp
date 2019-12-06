@@ -92,6 +92,7 @@
 				</div>
 			</div>
 			<script type="text/javascript">
+			<% System.out.print(session.getAttribute("isDisplayDialog")); %>
  				<% if((boolean)session.getAttribute("isDisplayDialog")){%>
 					notify_dialog('<%= (String)session.getAttribute("dialogMessage") %>');
  				<% } %>
@@ -119,10 +120,6 @@
 						<% session.setAttribute("isDisplayDialog", false); %>
 						dialog.style.display = 'none';
 					});
-				}
-				document.getElementById('back_button').onclick = function() {
-					window.history.back(-1);
-					return false;
 				}
 			</script>
 		</section>

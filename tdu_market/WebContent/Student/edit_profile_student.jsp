@@ -124,7 +124,6 @@
 					dialog.style.display = 'block';
 
 					yes.addEventListener('click', function() {
-						dialog.style.display = 'none';
 
 						//ここに内部処理をいれる
 
@@ -134,7 +133,9 @@
 						String dialogMessage = "更新しました";
 						session.setAttribute("dialogMessage", dialogMessage);
 						session.setAttribute("isDisplayDialog", isDisplayDialog);
+						System.out.println(session.getAttribute("isDisplayDialog"));
 						%>
+						dialog.style.display = 'none';
 					});
 					no.addEventListener('click', function() {
 						dialog.style.display = 'none';
@@ -147,7 +148,7 @@
 
 					dialog.style.display = 'block';
 					ok.addEventListener('click', function() {
-						<% session.setAttribute("isDisplayDialog", false); %>
+						<% //session.setAttribute("isDisplayDialog", false); %>
 						dialog.style.display = 'none';
 					});
 				}
