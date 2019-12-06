@@ -51,8 +51,8 @@ public class ManagerDeleteStudentInfo extends HttpServlet {
 		} catch (NumberFormatException e) {
 
 		}
-		StudentSearchInfo searchInfo = new StudentSearchInfo(studentNumberKeyword, subjectID, displayNameKeyword,
-				false);
+		StudentSearchInfo searchInfo = new StudentSearchInfo(studentNumberKeyword, subjectID, displayNameKeyword,false);
+		
 		studentList = student.searchStudentInfo(searchInfo);
 		session.setAttribute("studentList", studentList);
 
