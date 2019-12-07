@@ -50,16 +50,18 @@ public class ReferMessageBoxListPage extends HttpServlet {
 
 		ArrayList<MessageRoomGetInfo> messageRoomInfoList = messageRoomInfo.getMessageRoomInfo(mailAddress);
 		session.setAttribute("messageRoomInfoList", messageRoomInfoList);
-		
 		if (isSelect) {
-			//ヘッダーからアクセスした場合にバグるので、何かしら値を入れておく必要がある。
+			//最初にヘッダーからアクセスした場合にバグるので、便宜的に値を入れておく。
 			long roomID = messageRoomInfoList.get(0).getRoomID();
 			try {
 				roomID = Long.parseLong(request.getParameter("roomID"));
+				
 			} catch(NumberFormatException e) {
 
 			}
-
+			//メッセージ送信フォーム（message.jsp 137行目付近）でroomIDを上手に取ってこれないため、便宜的にセッションに保存してしまっている
+			session.setAttribute("roomID", roomID);
+			
 			String studentNumberString = (String) request.getParameter("studentNumber");
 			ArrayList<MessageGetInfo> messageInfoList = messageInfo.getMessageInfoWithRoomInfo(roomID);
 			StudentGetInfo studentGetInfo = studentInfoManager.getStudentInfo(studentNumberString, false);
