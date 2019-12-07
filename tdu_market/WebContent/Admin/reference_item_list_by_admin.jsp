@@ -51,19 +51,19 @@
 							<!-- テーブル要素 -->
 							<tbody class="list_content">
 							<%
-							ArrayList<RelatedClassGetInfo> itemInfo = new ArrayList<>();
-							itemInfo = (ArrayList<RelatedClassGetInfo>)session.getAttribute("itemListInfo");
+							ArrayList<ItemGetInfo> itemInfo = new ArrayList<>();
+							itemInfo = (ArrayList<ItemGetInfo>)session.getAttribute("itemListInfo");
 							if(itemInfo != null){
-								for(RelatedClassGetInfo item : itemInfo){
+								for(ItemGetInfo item : itemInfo){
 									%>
 									<tr class="exhibitId">
 										<td class="check_column1"><input type="checkbox" /></td>
-										<td class="hidden_column" hidden><%= item.getItemGetInfo().getItemID() %></td>
-										<td class="item_column1"><%= item.getItemGetInfo().getItemName() %></td>
-										<td class="item_column2"><%= item.getItemGetInfo().getExhibitorMailAddress().split("@", 0)[0] %></td>
+										<td class="hidden_column" hidden><%= item.getItemID() %></td>
+										<td class="item_column1"><%= item.getItemName() %></td>
+										<td class="item_column2"><%= item.getExhibitorMailAddress().split("@", 0)[0] %></td>
 										<td class="item_column3">未習得</td>
-										<td class="item_column4"><%= item.getSyllabusGetInfo().getClassName() %></td>
-										<td class="item_column5"><%= item.getItemGetInfo().getPrice() %></td>
+										<td class="item_column4">未習得</td>
+										<td class="item_column5"><%= item.getPrice() %></td>
 									</tr>
 									<%
 								}

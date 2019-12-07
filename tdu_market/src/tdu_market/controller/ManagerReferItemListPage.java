@@ -2,6 +2,8 @@ package tdu_market.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +14,6 @@ import javax.servlet.http.HttpSession;
 
 import tdu_market.dto.ItemGetInfo;
 import tdu_market.dto.ItemSearchInfo;
-import tdu_market.dto.RelatedClassGetInfo;
 import tdu_market.entity_manager.ItemInfoManager;
 import tdu_market.entity_manager.RelatedClassInfoManager;
 import tdu_market.util.ControllerUtil;
@@ -48,29 +49,25 @@ public class ManagerReferItemListPage extends HttpServlet {
 		//Stringはnull, intは-1が渡された場合に、
 		//その項目を反映しない検索結果が出力される仕様になっている。
 
-		String itemNameKeyword = request.getParameter("itemNameKeyword");
-		if (itemNameKeyword != null && itemNameKeyword.trim().isEmpty()) {
-			itemNameKeyword = null;
+		String itemNameKeyword = null;
+		if(request.getParameter("itemNameKeyword")!=null) {
+			itemNameKeyword = request.getParameter("itemNameKeyword");
 		}
+
 
 		int condition = -1;
-		try {
+		if(request.getParameter("condtion")!=null) {
 			condition = Integer.valueOf(request.getParameter("condtion")).intValue();
-		} catch(NumberFormatException e) {
-
 		}
 
-		int maxPrice = 0;
-		try {
+		int maxPrice = -1;
+		if(request.getParameter("maxPrice")!=null) {
 			maxPrice = Integer.valueOf(request.getParameter("maxPrice")).intValue();
-		} catch(NumberFormatException e) {
-
 		}
-		int oldestDate = -1;
-		try {
-			oldestDate = Integer.valueOf(request.getParameter("oldestDate")).intValue();
-		} catch(NumberFormatException e) {
 
+		int oldestDate = -1;
+		if(request.getParameter("oldestDate")!=null) {
+			oldestDate = Integer.valueOf(request.getParameter("oldestDate")).intValue();
 		}
 
 		//検索キーワードから検索をかける
@@ -79,17 +76,23 @@ public class ManagerReferItemListPage extends HttpServlet {
 		ItemSearchInfo searchInfo = new ItemSearchInfo(itemNameKeyword,condition,maxPrice,oldestDate);
 		ArrayList<ItemGetInfo> itemListInfo = itemInfo.searchItem(searchInfo) ;
 
-		//検索結果を授業と関連付けた情報形式に変換
+		//商品と授業IDの関連付けられた情報
 		RelatedClassInfoManager relatedInfoManager = new RelatedClassInfoManager();
-		ArrayList<RelatedClassGetInfo> relatedItemListInfo = new ArrayList<RelatedClassGetInfo>();
+		Map<Long, String> relatedItemIdAndSyllabusId = new HashMap<Long, String>();
 
-		for(ItemGetInfo item:itemListInfo) {
-			relatedItemListInfo.add(relatedInfoManager.getRelatedClassInfoWithItem(item.getItemID()).get(0));
+		for(ItemGetInfo _itemListInfo :itemListInfo) {
+			String classCode = "";
+			if(relatedInfoManager.getRelatedClassInfoWithItem(_itemListInfo.getItemID())!=null) {
+				classCode = relatedInfoManager.getRelatedClassInfoWithItem(_itemListInfo.getItemID()).get(0).getSyllabusGetInfo().getClassCode();
+			}
+			relatedItemIdAndSyllabusId.put(_itemListInfo.getItemID(), classCode );
 		}
+
 
 		//jspに情報を投げる。
 		HttpSession session = request.getSession();
-		session.setAttribute("itemListInfo", relatedItemListInfo);
+		session.setAttribute("itemListInfo", itemListInfo);
+		session.setAttribute("relatedItemIdAndSyllabusId", relatedItemIdAndSyllabusId);
 
 		//遷移
 		ControllerUtil.translatePage(JspPath.reference_item_list_by_admin, request, response);

@@ -41,7 +41,7 @@
 					</form>
 				</li>
 				<li>
-					<form action=<%=ServletPath.ReferExhibitItemListPage %> method="get">
+					<form action=<%=ServletPath.ManagerReferItemListPage %> method="post">
 						<button type="submit" class="menu">商品情報一覧</button>
 					</form>
 				</li>
