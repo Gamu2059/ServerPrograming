@@ -1,3 +1,5 @@
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map"%>
 <%@page import="tdu_market.entity_bean.ItemInfo"%>
 <%@page import="tdu_market.dto.*"%>
 <%@page import="java.util.ArrayList"%>
@@ -43,7 +45,7 @@
 									<tb class="hidden_column">商品ID</tb>
 									<th class="item_column1">商品名</th>
 									<th class="item_column2">学籍場号</th>
-									<th class="item_column3">名前</th>
+									<th class="item_column3">出品者</th>
 									<th class="item_column4">関連授業名</th>
 									<th class="item_column5">価格</th>
 								</tr>
@@ -53,6 +55,10 @@
 							<%
 							ArrayList<ItemGetInfo> itemInfo = new ArrayList<>();
 							itemInfo = (ArrayList<ItemGetInfo>)session.getAttribute("itemListInfo");
+							Map<Long,String> relatedItemIdAndSyllabusIdMap = new HashMap<>();
+							relatedItemIdAndSyllabusIdMap = (Map<Long,String>)session.getAttribute("relatedItemIdAndSyllabusIdMap");
+							Map<Long,String> relatedItemIdAndStudentNameMap = new HashMap<>();
+							relatedItemIdAndStudentNameMap = (Map<Long,String>)session.getAttribute("relatedItemIdAndStudentNameMap");
 							if(itemInfo != null){
 								for(ItemGetInfo item : itemInfo){
 									%>
@@ -61,8 +67,8 @@
 										<td class="hidden_column" hidden><%= item.getItemID() %></td>
 										<td class="item_column1"><%= item.getItemName() %></td>
 										<td class="item_column2"><%= item.getExhibitorMailAddress().split("@", 0)[0] %></td>
-										<td class="item_column3">未習得</td>
-										<td class="item_column4">未習得</td>
+										<td class="item_column3"><%= relatedItemIdAndStudentNameMap.get(item.getItemID()) %></td>
+										<td class="item_column4"><%= relatedItemIdAndSyllabusIdMap.get(item.getItemID()) %></td>
 										<td class="item_column5"><%= item.getPrice() %></td>
 									</tr>
 									<%
