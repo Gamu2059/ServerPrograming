@@ -72,7 +72,6 @@ public class UpdateSyllabusInfo extends HttpServlet {
 		session.setAttribute("syllabusInfoList", syllabusInfoList);
 
 		//不要なsessionの破棄
-		session.removeAttribute("isCreate");
 		session.removeAttribute("updateSyllabusClassCode");
 
 		//ページ遷移
