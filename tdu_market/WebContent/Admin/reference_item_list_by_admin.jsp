@@ -81,7 +81,7 @@
 						<script type="text/javascript"
 							src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 						<script type="text/javascript">
-							$(".exhibitId").on("click",function() {
+							$(".exhibitId").children(":not('th')").on("click",function() {
 								//商品IDの取得
 								var itemId = $(this).children("td")[1].innerText;
 								//Input型エレメントの生成
