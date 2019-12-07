@@ -34,7 +34,7 @@
 				</select>
 			</div>
 			<!-- テーブル -->
-			<form name="select_item">
+
 				<div class="item_for_center">
 					<div class="list">
 						<table>
@@ -63,7 +63,7 @@
 								for(ItemGetInfo item : itemInfo){
 									%>
 									<tr class="exhibitId">
-										<td class="check_column1"><input type="checkbox" /></td>
+										<th class="check_column1"><input type="checkbox" /></td>
 										<td class="hidden_column" hidden><%= item.getItemID() %></td>
 										<td class="item_column1"><%= item.getItemName() %></td>
 										<td class="item_column2"><%= item.getExhibitorMailAddress().split("@", 0)[0] %></td>
@@ -77,19 +77,21 @@
 							%>
 							</tbody>
 						</table>
+						<form name="select_item" action="<%= ServletPath.ManagerReferItemPage %>" method="get">
+						</form>
 						<!-- テーブル要素クリック -->
 						<script type="text/javascript"
 							src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 						<script type="text/javascript">
 							$(".exhibitId").children(":not('th')").on("click",function() {
 								//商品IDの取得
-								var itemId = $(this).children("td")[1].innerText;
+								var itemId = $(this).parent().children(".hidden_column")[0].innerText;
 								//Input型エレメントの生成
 								var element = document.createElement("input");
 								//typeの設定
-								element.setAttribute("type","submit");
+								element.setAttribute("type","hidden");
 								//nameの設定
-								element.setAttribute("name","selectItem");
+								element.setAttribute("name","itemID");
 								//valueの設定
 								element.setAttribute("value",itemId);
 								//取得したIDデータをsetattributeする
@@ -102,7 +104,6 @@
 					</div>
 				</div>
 				<br />
-			</form>
 			<!-- 絞り込みボタン -->
 			<div class="item_for_LeftAndRight_around">
 				<button id="red_button">削除</button>
