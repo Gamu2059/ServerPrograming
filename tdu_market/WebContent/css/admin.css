@@ -321,6 +321,9 @@ ul#user_exhibit_list .item_for_bottom {
   font-size: 1.8em;
 }
 /* 商品画像 */
+.exhibit_profile .item_for_left {
+	flex-direction: row;
+}
 .exhibit_profile .item_for_left img {
   width: 200px;
   height: 200px;
