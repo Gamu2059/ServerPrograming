@@ -19,7 +19,7 @@ import tdu_market.util.ControllerUtil;
 import tdu_market.util.JspPath;
 
 @WebServlet("/tdu_market/controller/VaildateSyllabus")
-public class VaildateSyllabus extends HttpServlet {
+public class ValidateRegisterSyllabus extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
