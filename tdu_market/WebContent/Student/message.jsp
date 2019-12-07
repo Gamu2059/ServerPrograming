@@ -42,7 +42,8 @@
 							ArrayList<MessageRoomGetInfo> messageRoomList = new ArrayList<>();
 							messageRoomList = (ArrayList<MessageRoomGetInfo>) session.getAttribute("messageRoomInfoList");
 							if (messageRoomList != null) {
-								//listが展開できているので、trueを渡してしまっている								session.setAttribute("isSelect","true");
+								//listが展開できているので、trueを渡してしまっている		
+								session.setAttribute("isSelect","true");
 								for (int i = 0; i < messageRoomList.size(); i++) {
 									out.print(
 											"<form action=\"/tdu_market/tdu_market/controller/ReferMessageBoxListPage\" method=\"post\">");
@@ -75,6 +76,7 @@
 							ArrayList<MessageGetInfo> messageList = new ArrayList<>();
 							StudentGetInfo messageOpponentStudentInfo = (StudentGetInfo) session
 									.getAttribute("messageOpponentStudentInfo");
+							
 						%>
 						<div class="message_header" name="message_room_panel">
 							<div>
