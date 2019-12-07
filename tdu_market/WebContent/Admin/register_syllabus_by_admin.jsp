@@ -22,7 +22,7 @@
 		<h2 id="page_title">シラバス詳細（登録）</h2>
 		<!-- メインコンテンツ -->
 		<article>
-		<form action="<%= ServletPath.VaildateRegisterSyllabus %>" method="post">
+		<form action="<%= ServletPath.ValidateRegisterSyllabus %>" method="post">
 			<br>
 			<div class="errorMessage">
 				<%
