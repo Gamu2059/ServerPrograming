@@ -21,24 +21,28 @@
 			<div class="content_margin_300px">
 				<br />
 				<div class="search_box">
+				<form action="<%= ServletPath.ManagerReferItemListPage %>" method="post">
 					<h2>商品検索</h2>
 					<br />
 					<h3>商品名</h3>
-					<input type="text" />
+					<input type="text" name="itemNameKeyword" />
 					<h3>状態</h3>
 					<select name="condition">
-						<option value="1">新品・未使用</option>
-						<option value="2">キズあり</option>
+						<option value="0">新品・未使用</option>
+						<option value="1">中古（書き込みなし）</option>
+						<option value="2">中古（書き込みあり）</option>
+						<option value="3">破損・汚れあり</option>
 					</select>
 					<h3>価格</h3>
-					<input type="text" /><label>円以下</label> <br /> <br />
+					<input type="text" name="maxPrice" /><label>円以下</label> <br /> <br />
 					<div class="item_for_center">
 						<button id="orange_button">検索</button>
 					</div>
+				</form>
 				</div>
 				<br />
 				<div class="item_for_left">
-					<button id="white_button">戻る</button>
+					<button id="white_button" onclick="window.history.back(-1)">戻る</button>
 				</div>
 			</div>
 		</article>

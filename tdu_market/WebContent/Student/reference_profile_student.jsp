@@ -92,17 +92,16 @@
 				</div>
 			</div>
 			<script type="text/javascript">
-				document.getElementById('edit').onclick = function() {
-					location.href = 'edit_profile_student' + '.jsp';
-				}
-
+			<% System.out.print(session.getAttribute("isDisplayDialog")); %>
+ 				<% if((boolean)session.getAttribute("isDisplayDialog")){%>
+					notify_dialog('<%= (String)session.getAttribute("dialogMessage") %>');
+ 				<% } %>
 				document.getElementById('delete').onclick = function() {
 					//各ボタンの要素の取得
 					let dialog = document.getElementById('negative_dialog');
 					let yes = document.getElementById('nega_yes');
 					let no = document.getElementById('nega_no');
 					dialog.style.display = 'block';
-					console.log(dialog.type)
 
 					yes.addEventListener('click', function() {
 						dialog.style.display = 'none';
@@ -111,23 +110,20 @@
 						dialog.style.display = 'none';
 					});
 				}
-				function notify_dialog(text, url) {
+				function notify_dialog(text) {
 					let dialog = document.getElementById('notify_dialog');
 
 					document.getElementById('notify_text').textContent = text;
 
 					dialog.style.display = 'block';
 					ok.addEventListener('click', function() {
-						location.href = url + '.jsp';
+						<% session.setAttribute("isDisplayDialog", false); %>
 						dialog.style.display = 'none';
 					});
 				}
-				document.getElementById('back_button').onclick = function() {
-					window.history.back(-1);
-					return false;
-				}
 			</script>
 		</section>
+
 	</div>
 	<!-- InstanceEndEditable -->
 

@@ -26,7 +26,9 @@ public class ManagerReferStudentPage extends HttpServlet {
 			return;
 		}
 
-		String mailAddress = ControllerUtil.getMailAddress(request, response);
+		/*String mailAddress = ControllerUtil.getMailAddress(request, response);*/
+		//学生のメールアドレスを取得
+		String mailAddress = request.getParameter("mailAddress");
 
 		StudentInfoManager student = new StudentInfoManager();
 

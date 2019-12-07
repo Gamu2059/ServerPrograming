@@ -1,3 +1,5 @@
+<%@page import="tdu_market.dto.DepartmentGetInfo"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="tdu_market.dto.StudentGetInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -43,14 +45,12 @@
 		<article>
 			<div class="content_margin_200px">
 				<br />
-				<div class="item_for_right">
-					<button class="exhibit_list_button" type="button">出品一覧</button>
-				</div>
-				<form action="<%=ServletPath.ManagerUpdateStudentInfo%>" method="post">
+				<form action="<%=ServletPath.ManagerUpdateStudentInfo%>" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="mailAddress" value="<%= studentInfo.getMailAddress()%>"/>
 					<div class="user_profile">
 						<div class="item_for_LeftAndRight_around">
-							<label id="edit_img_button"> <img id="icon" src="<%=iconURL%>" />
+							<label id="edit_img_button">
+								<img id="icon" src="<%=iconURL%>" />
 								<input type="file" id="iconFile" name="iconImageURL" />
 								<h3>編集</h3>
 							</label>
@@ -66,18 +66,29 @@
 							</script>
 							<div>
 								<h3>ディスプレイネーム</h3>
-								<input id="user_name" type="text" name="displayName"/>
+								<input id="user_name" type="text" name="displayName" value="<%= name %>" />
 								<h3>所属学科</h3>
 								<select name="departmentID">
-									<option value="media">未来科学部-情報メディア学科</option>
-									<option value="robot">未来科学部-ロボット・メカトロニクス学科</option>
+									<%
+									ArrayList<DepartmentGetInfo> departmentInfoList = new ArrayList<>();
+									departmentInfoList = (ArrayList<DepartmentGetInfo>)session.getAttribute("departmentInfoList");
+									if(departmentInfoList!=null){
+										for(DepartmentGetInfo info:departmentInfoList){
+											if(departmentID == info.getSubjectID()){
+												out.print("<option value=\""+info.getSubjectID()+"\" selected>"+info.getFacultyName()+" - "+info.getSubjectName()+"</option>");
+											}else{
+												out.print("<option value=\""+info.getSubjectID()+"\">"+info.getFacultyName()+" - "+info.getSubjectName()+"</option>");
+											}
+										}
+									}
+									%>
 								</select>
 							</div>
 						</div>
 						<br />
 						<h3>自己紹介</h3>
 						<div class="selfintroduction">
-							<textarea id="selfintroduction" name="selfIntroduction"></textarea>
+							<textarea id="selfintroduction" name="selfIntroduction"><%= selfintroduction %></textarea>
 						</div>
 					</div>
 				<br />

@@ -61,6 +61,8 @@
 											out.print("<img src=\""+itemList.get(i).getItemImageBinaries()[2]+"\" alt=\"商品画像\">");
 										}else if(itemList.get(i).getItemImageBinaries()[3] != null){
 											out.print("<img src=\""+itemList.get(i).getItemImageBinaries()[3]+"\" alt=\"商品画像\">");
+										}else{
+											out.print("<img alt=\"商品画像\">");
 										}
 										out.print("<label id=\"item_name\">" + itemList.get(i).getItemName() + "</label>");
 										out.print("<label id=\"item_price\">" + itemList.get(i).getPrice() + "円</label>");
@@ -99,7 +101,29 @@
 					%>
 				</div>
 			</div>
+			<div id="notify_dialog">
+				<p id="notify_text">確認ダイアログ</p>
+				<div class="notify_dialog_button">
+					<button id="ok" class="button_flat_normal">了解</button>
+				</div>
+			</div>
 		</article>
+		<script type="text/javascript">
+			<% if((boolean)session.getAttribute("isDisplayDialog")){%>
+				notify_dialog('<%= (String)session.getAttribute("dialogMessage") %>');
+			<% } %>
+			function notify_dialog(text) {
+				let dialog = document.getElementById('notify_dialog');
+	
+				document.getElementById('notify_text').textContent = text;
+	
+				dialog.style.display = 'block';
+				ok.addEventListener('click', function() {
+					<% session.setAttribute("isDisplayDialog", false); %>
+					dialog.style.display = 'none';
+				});
+			}
+		</script>
 	</div>
 
 	<!-- InstanceEndEditable -->
