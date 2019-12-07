@@ -1,3 +1,4 @@
+<%@page import="tdu_market.util.JspPath"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
 <%@page import="tdu_market.entity_bean.ItemInfo"%>
@@ -52,6 +53,10 @@
 							</thead>
 							<!-- テーブル要素 -->
 							<tbody class="list_content">
+
+							<form action="<%= ServletPath.ManagerDeleteItemInfo %>" method="post">
+
+
 							<%
 							ArrayList<ItemGetInfo> itemInfo = new ArrayList<>();
 							itemInfo = (ArrayList<ItemGetInfo>)session.getAttribute("itemListInfo");
@@ -63,7 +68,7 @@
 								for(ItemGetInfo item : itemInfo){
 									%>
 									<tr class="exhibitId">
-										<th class="check_column1"><input type="checkbox" /></td>
+										<th class="check_column1"><input type="checkbox" name="itemIDs" value="<%= item.getItemID() %>" /></td>
 										<td class="hidden_column" hidden><%= item.getItemID() %></td>
 										<td class="item_column1"><%= item.getItemName() %></td>
 										<td class="item_column2"><%= item.getExhibitorMailAddress().split("@", 0)[0] %></td>
@@ -76,6 +81,19 @@
 							}
 							%>
 							</tbody>
+
+							<!-- 複数件削除ダイアログ -->
+
+							<div id="confirm_dialog_admin">
+								<p>削除しますか？</p>
+								<div class="confirm_dialog_button">
+										<button type="submit" id="yes" class="button_flat_nega">確認</button>
+										<button tyoe="button" id="no" class="button_flat_normal">キャンセル</button>
+								</div>
+							</div>
+
+							</form>
+
 						</table>
 						<form name="select_item" action="<%= ServletPath.ManagerReferItemPage %>" method="get">
 						</form>
@@ -106,9 +124,9 @@
 				<br />
 			<!-- 絞り込みボタン -->
 			<div class="item_for_LeftAndRight_around">
-				<button id="red_button">削除</button>
+				<button id="red_button" type="button">削除</button>
 				<button class="search_button" type="button">
-					<img src="/tdu_market/images/search.png" />絞り込み
+					<img src="/tdu_market/images/search.png" onclick="location.href='<%= JspPath.search_item_by_admin %>'" />絞り込み
 				</button>
 				<br />
 			</div>
@@ -119,19 +137,12 @@
 			1.該当するidをボタンに付与する。update, delete, back_button
 			2.notify_dialog('表示したいメッセージ','遷移先url')
 		-->
-			<div id="confirm_dialog_admin">
-				<p>削除しますか？</p>
-				<div class="confirm_dialog_button">
-					<button id="yes" class="button_flat_nega">確認</button>
-					<button id="no" class="button_flat_normal">キャンセル</button>
-				</div>
-			</div>
-			<div id="notify_dialog_admin">
+			<!-- <div id="notify_dialog_admin">
 				<p id="notify_text">確認ダイアログ</p>
 				<div class="notify_dialog_button">
 					<button id="ok" class="button_flat_normal">了解</button>
 				</div>
-			</div>
+			</div> -->
 			<script type="text/javascript">
 				document.getElementById("red_button").onclick = function() {
 					//各ボタンの要素の取得
@@ -148,7 +159,7 @@
 								//ここに内部処理をいれる
 
 								notify_dialog("削除しました。",
-										"reference_item_list_by_admin"); /*再読み込みがかかります*/
+										"reference_item_list_by_admin"); /*再読み込みがかかります */
 							});
 					no.addEventListener("click", function() {
 						dialog.style.display = "none";

@@ -45,9 +45,21 @@ public class ManagerDeleteItemInfo extends HttpServlet {
 
 		HttpSession session = request.getSession();
 
-		//削除処理
 		ItemInfoManager itemInfo = new ItemInfoManager();
-		itemInfo.deleteItemInfo(Integer.valueOf(request.getParameter("itemID")));
+
+		//商品情報の複数件削除
+		String[] itemIDs = request.getParameterValues("itemIDs");
+		if (itemIDs!=null) {
+			for(String info:itemIDs) {
+			itemInfo.deleteItemInfo(  Integer.parseInt(info) );
+			}
+			ControllerUtil.translatePage(JspPath.reference_item_list_by_admin, request, response);
+		}
+
+		//削除処理
+		if(request.getParameter("itemID")!=null) {
+			itemInfo.deleteItemInfo(Integer.valueOf(request.getParameter("itemID")));
+		}
 		//セッションからアイテム情報を削除する
 		session.removeAttribute("itemInfo");
 

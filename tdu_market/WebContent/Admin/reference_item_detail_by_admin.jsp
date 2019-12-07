@@ -77,7 +77,7 @@
 							<%
 							switch(condition){
 							case 0:
-								out.print("新品・未使用");
+								out.print("状態：新品・未使用");
 							break;
 							case 1:
 								out.print("状態：中古（書き込みなし）");
@@ -97,7 +97,7 @@
 					</div>
 					<div class="item_for_LeftAndRight_between">
 						<button id="red_button">削除</button>
-						<button id="white_button" onclick="location.href='<%= JspPath.reference_exhibit_item_by_admin %>'">戻る</button>
+						<button id="white_button" onclick="window.history.back(-1)">戻る</button>
 						<br>
 					</div>
 				</div>
