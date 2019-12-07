@@ -42,8 +42,7 @@
 					out.print("<input id=\"item_name\" type=\"text\" name=\"itemName\" value=\" " + info.getItemGetInfo().getItemName() + " \" />");
 					out.print("</div>");
 					out.print("<div class=\"detail_input_textfield\">");
-					//ここでエラーを吐くので一時コメントアウト
-				//out.print("<input id=\"syllabus_name\" type=\"text\" name=\"class_name\" value=\""+ info.getSyllabusGetInfo().getClassName() +"\" />");
+					out.print("<input id=\"syllabus_name\" type=\"text\" name=\"class_name\" value=\""+ info.getSyllabusGetInfo().getClassName() +"\" />");
 					out.print("</div>");
 					out.print("<div class=\"detail_content_left\">");
 					//商品画像の表示
