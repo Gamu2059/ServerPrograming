@@ -161,33 +161,9 @@
 			<br>
 			<div class="item_for_center">
 			<!-- 送信するデータ -->
-				<%
-				Object isCreateObj = session.getAttribute("isCreate");
-				boolean isCreate = (boolean)isCreateObj;
 
-				if(isCreate){
-					out.print("<button type=\"button\" id=\"orange_button\">確定</button>");
-				}else{
-					%>
-					<form action="<%= ServletPath.UpdateSyllabusInfo %>" method="post">
-						<input type="hidden" name="previousClassCode" value="<%= updateSyllabusClassCode %>">
-						<input type="hidden" name="classCode" value="<%= syllabusInfo.getClassCode() %>">
-						<input type="hidden" name="className" value="<%= syllabusInfo.getClassName() %>">
-						<input type="hidden" name="subjectID" value="<%= syllabusInfo.getSubjectID() %>">
-						<input type="hidden" name="semesterID" value="<%= syllabusInfo.getSemesterID() %>">
-						<input type="hidden" name="dates" value="<%= syllabusInfo.getDates() %>">
-						<input type="hidden" name="unitNum" value="<%= syllabusInfo.getUnitNum() %>">
-						<input type="hidden" name="classRoom" value="<%= syllabusInfo.getClassRoom() %>">
-						<input type="hidden" name="teacherID" value="<%= syllabusInfo.getTeacherID() %>">
-						<input type="hidden" name="overview" value="<%= syllabusInfo.getOverview() %>">
-						<input type="hidden" name="target" value="<%= syllabusInfo.getTarget() %>">
-						<input type="hidden" name="requierments" value="<%= syllabusInfo.getRequirements() %>">
-						<input type="hidden" name="evaluationMethod" value="<%= syllabusInfo.getEvaluationMethod() %>">
-						<button type="submit" id="orange_button">確定</button>
-					</form>
-					<%
-				}
-				%>
+					<button type="button" id="orange_button">確定</button>
+
 			</div>
 			<br>
 		</article>
@@ -197,9 +173,7 @@
 			1.該当するidをボタンに付与する。update, delete, back_button
 			2.notify_dialog('表示したいメッセージ','遷移先url')
 		-->
-		<%
-			if(isCreate){
-				%>
+
 			<div id="confirm_dialog_admin">
 				<p id="confirm_text">続けて登録しますか？</p>
 				<div class="confirm_dialog_button">
@@ -237,12 +211,6 @@
 					</form>
 				</div>
 			</div>
-				<%
-			}else{
-			}
-		%>
-
-
 
 			<script type="text/javascript">
 				document.getElementById('orange_button').onclick = function() {
