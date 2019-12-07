@@ -35,7 +35,6 @@ public class ReferMessageBoxListPage extends HttpServlet {
 
 		MessageInfoManager messageInfo = new MessageInfoManager();
 		MessageRoomInfoManager messageRoomInfo = new MessageRoomInfoManager();
-
 		StudentInfoManager studentInfoManager = new StudentInfoManager();
 
 		String mailAddress = ControllerUtil.getMailAddress(request, response);
@@ -51,9 +50,10 @@ public class ReferMessageBoxListPage extends HttpServlet {
 
 		ArrayList<MessageRoomGetInfo> messageRoomInfoList = messageRoomInfo.getMessageRoomInfo(mailAddress);
 		session.setAttribute("messageRoomInfoList", messageRoomInfoList);
-
+		
 		if (isSelect) {
-			long roomID = -1;
+			//ヘッダーからアクセスした場合にバグるので、何かしら値を入れておく必要がある。
+			long roomID = messageRoomInfoList.get(0).getRoomID();
 			try {
 				roomID = Long.parseLong(request.getParameter("roomID"));
 			} catch(NumberFormatException e) {

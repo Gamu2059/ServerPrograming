@@ -9,8 +9,8 @@ public final class MessageRoomInfo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final String ROOM_ID = "";
-	private static final String CREATED_DATE = "";
+	private static final String ROOM_ID = "roomID";
+	private static final String CREATED_DATE = "createdDate";
 
 	private long roomID;
 	private Date createdDate;

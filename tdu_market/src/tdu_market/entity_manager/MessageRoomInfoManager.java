@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import tdu_market.dao.MessageRoomInfoDAO;
 import tdu_market.dto.ItemBuyInfo;
 import tdu_market.dto.ItemGetInfo;
+import tdu_market.dto.MessageCreateInfo;
 import tdu_market.dto.MessageGetInfo;
 import tdu_market.dto.MessageRoomGetInfo;
 import tdu_market.dto.RoomMemberCreateInfo;
@@ -19,9 +20,12 @@ public final class MessageRoomInfoManager {
 
 		MessageRoomInfoDAO messageRoomInfoDAO = new MessageRoomInfoDAO();
 		ArrayList<MessageRoomInfo> list = messageRoomInfoDAO.getMessageRoomInfo(mailAddress);
-
+		
+		
 		if (list == null || list.size() < 1) {
+		
 			return null;
+			
 		}
 
 		ArrayList<MessageRoomGetInfo> result = new ArrayList<MessageRoomGetInfo>();
@@ -44,10 +48,9 @@ public final class MessageRoomInfoManager {
 			}
 
 			MessageGetInfo latestMessageGetInfo = messageInfoManager.getLatestMessageInfo(i.getRoomID());
-
 			result.add(MessageRoomGetInfo.create(i, opponentStudentGetIfo, latestMessageGetInfo));
 		}
-
+		
 		return result;
 	}
 
@@ -74,6 +77,10 @@ public final class MessageRoomInfoManager {
 		RoomMemberInfoManager roomMemberInfoManager = new RoomMemberInfoManager();
 		RoomMemberCreateInfo roomMemberCreateInfo = new RoomMemberCreateInfo(roomID, members);
 		roomMemberInfoManager.createRoomMemberInfo(roomMemberCreateInfo);
+		//初期メッセージを作成しておく。
+		MessageInfoManager messageInfo = new MessageInfoManager();
+		MessageCreateInfo createInfo = new MessageCreateInfo(roomID,beginTraderMailAddress,"取引が開始されました");
+		messageInfo.createMessageInfo(createInfo);
 	}
 
 	/** メッセールルームを削除する */

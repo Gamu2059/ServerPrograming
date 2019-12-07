@@ -42,11 +42,14 @@
 							ArrayList<MessageRoomGetInfo> messageRoomList = new ArrayList<>();
 							messageRoomList = (ArrayList<MessageRoomGetInfo>) session.getAttribute("messageRoomInfoList");
 							if (messageRoomList != null) {
+								//listが展開できているので、trueを渡してしまっている								session.setAttribute("isSelect","true");
 								for (int i = 0; i < messageRoomList.size(); i++) {
 									out.print(
 											"<form action=\"/tdu_market/tdu_market/controller/ReferMessageBoxListPage\" method=\"post\">");
 									out.print("<input type=\"hidden\" name=\"studentNumber\" value=\""
 											+ messageRoomList.get(i).getOpponentStudentGetInfo().getMailAddress() + "\" />");
+									out.print("<input type=\"hidden\" name=\"roomID\" value=\""
+											+ messageRoomList.get(i).getRoomID() + "\" />");
 									out.print("<button type=\"submit\" for=\"message1\" class=\"message_list_tab\">");
 									out.print("<img src=\"" + messageRoomList.get(i).getOpponentStudentGetInfo().getIconImageBinary()
 											+ "\" alt=\"アイコン\" />");
@@ -126,7 +129,7 @@
 						<!--メッセージフォーム-->
 						<div class="textfield">
 							<form action="<%=ServletPath.PostMessage%>" method="post">
-								<textarea id="message_form" name="message_form" cols="50"
+								<textarea id="message_form" name="content" cols="50"
 									rows="2" placeholder="メッセージを入力"></textarea>
 								<button type="submit">
 									<img src="/tdu_market/images/post.png" alt="post" />
