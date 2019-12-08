@@ -28,7 +28,7 @@
 			<div class="first_container_ver3">
 				<h3>出品物詳細</h3>
 				<!-- EditExhibitItemPageへ処理を引き継ぐ -->
-				<form action="<%=ServletPath.EditExhibitItemPage%>" method="get">
+				<form action=<%=ServletPath.EditExhibitItemPage%> method="get">
 					<button type="submit" name="edit" class="button_flat_normal" id="edit">編集</button>
 				</form>
 			</div>
@@ -106,7 +106,7 @@
 					}
 					out.print("</div>");
 					out.print("<div class=\"detail_content_right\">");
-					out.print("<h4>"+ info.getItemGetInfo().getPrice() +"</h4>");
+					out.print("<h4>"+ info.getItemGetInfo().getPrice() +"</h4><h4>円</h4>");
 					out.print("</div>");
 					%>
 				</section>
