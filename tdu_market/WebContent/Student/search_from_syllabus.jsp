@@ -56,7 +56,7 @@
 					</div>
 					<div class="detail_content">
 						<h3>担当教員</h3>
-						<input id="teacher_field" type="text" name="seacherNameKeyword" autocomplete="on" list="teacherList">
+						<input id="teacher_field" type="text" name="teacherNameKeyword" autocomplete="on" list="teacherList">
 						<datalist id="teacherList">
 						<%
 						ArrayList<TeacherGetInfo> teacherList = new ArrayList<>();
