@@ -1,3 +1,5 @@
+<%@page import="tdu_market.controller.ReferExhibitItemListPage"%>
+<%@page import="tdu_market.util.ControllerUtil"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="tdu_market.entity_bean.RelatedClassInfo"%>
 <%@page import="tdu_market.dto.*"%>
@@ -135,6 +137,7 @@
 				<div class="negative_dialog_button">
 					<!-- DeleteItemInfoに処理を引き継ぐ -->
 					<form action="<%=ServletPath.DeleteItemInfo%>" method="post">
+						<input type="hidden" value=<%=info.getItemGetInfo().getItemID() %> name="itemID">
 						<button id="nega_yes" class="button_flat_nega">確認</button>
 					</form>
 					<button id="nega_no" class="button_flat_normal">キャンセル</button>
@@ -147,6 +150,10 @@
 				</div>
 			</div>
 			<script type="text/javascript">
+				<%
+				boolean falser = false;
+				session.setAttribute("isDisplayDialog", falser);
+				%>
 				document.getElementById('edit').onclick = function() {
 					//ここに内部処理をかく。
 
@@ -165,7 +172,7 @@
 
 						//ここに内部処理をいれる
 
-						notify_dialog('削除しました。', 'reference_exhibit_list');
+						//notify_dialog('削除しました。', 'reference_exhibit_list');
 					});
 					no.addEventListener('click', function() {
 						dialog.style.display = 'none';
@@ -182,8 +189,9 @@
 					});
 				}
 				document.getElementById('back_button').onclick = function() {
-					window.history.back(-1);
-					return false;
+/* 					window.history.back(-1);
+					return false; */
+					location.href='<%=ServletPath.ReferExhibitItemListPage%>';
 				}
 			</script>
 		</section>
