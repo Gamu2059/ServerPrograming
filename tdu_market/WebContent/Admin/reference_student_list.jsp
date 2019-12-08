@@ -1,3 +1,4 @@
+<%@page import="tdu_market.util.DialogUtil"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
 <%@page import="tdu_market.dto.DepartmentGetInfo"%>
@@ -115,6 +116,28 @@
 			</form>
 			</div>
 		</article>
+		<!-- ダイアログ関係の表記 -->
+		<div id="notify_dialog_admin">
+			<p id="notify_text">確認ダイアログ</p>
+			<div class="notify_dialog_button">
+				<button id="ok" class="button_flat_normal">了解</button>
+			</div>
+		</div>
+		<script type="text/javascript">
+		<% if(DialogUtil.checkDisplayDialog(request, response)){ %>
+			notify_dialog(<%=DialogUtil.getDialogMessage(request, response)%>);
+		<% } %>
+		function notify_dialog(text) {
+			let dialog = document.getElementById("notify_dialog_admin");
+
+			document.getElementById("notify_text").textContent = text;
+
+			dialog.style.display = "block";
+			ok.addEventListener("click", function() {
+				<% DialogUtil.turnoffDialog(request, response); %>
+				dialog.style.display = "none";
+			});
+		}</script>
 	</div>
 </body>
 </html>

@@ -1,4 +1,5 @@
 
+<%@page import="tdu_market.util.DialogUtil"%>
 <%@page import="tdu_market.dto.DepartmentGetInfo"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="tdu_market.dto.StudentGetInfo"%>
@@ -80,7 +81,6 @@
 				</div>
 			</div>
 		</article>
-		<br>
 		<section>
 			<!--
 		ダイアログ付与手順。
@@ -97,13 +97,28 @@
 					<button id="no" class="button_flat_normal">キャンセル</button>
 				</div>
 			</div>
-			<!-- <div id="notify_dialog_admin">
+			<div id="notify_dialog_admin">
 				<p id="notify_text">確認ダイアログ</p>
 				<div class="notify_dialog_button">
 					<button id="ok" class="button_flat_normal">了解</button>
 				</div>
-			</div> -->
+			</div>
 			<script type="text/javascript">
+				<% if(DialogUtil.checkDisplayDialog(request, response)){ %>
+					notify_dialog(<%= DialogUtil.getDialogMessage(request, response) %>);
+				<% } %>
+				function notify_dialog(text) {
+					let dialog = document.getElementById('notify_dialog_admin');
+	
+					document.getElementById('notify_text').textContent = text;
+	
+					dialog.style.display = 'block';
+					ok.addEventListener('click', function() {
+						<% DialogUtil.turnoffDialog(request, response); %>
+						dialog.style.display = 'none';
+					});
+				}
+			
 				document.getElementById('red_button').onclick = function() {
 					//各ボタンの要素の取得
 					let dialog = document
@@ -124,18 +139,9 @@
 						dialog.style.display = 'none';
 					});
 				}
-				/* function notify_dialog(text, url) {
-					let dialog = document.getElementById('notify_dialog_admin');
-
-					document.getElementById('notify_text').textContent = text;
-
-					dialog.style.display = 'block';
-					ok.addEventListener('click', function() {
-						dialog.style.display = 'none';
-					});
-				} */
 			</script>
 		</section>
+		<br>
 	</div>
 </body>
 </html>

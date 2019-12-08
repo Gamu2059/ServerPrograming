@@ -14,6 +14,7 @@ import tdu_market.dto.StudentGetInfo;
 import tdu_market.dto.StudentSearchInfo;
 import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.DialogUtil;
 import tdu_market.util.JspPath;
 
 @WebServlet("/tdu_market/controller/ManagerDeleteStudentInfo")
@@ -55,6 +56,8 @@ public class ManagerDeleteStudentInfo extends HttpServlet {
 		
 		studentList = student.searchStudentInfo(searchInfo);
 		session.setAttribute("studentList", studentList);
+		
+		DialogUtil.setDialog("学生情報を削除しました。", request, response);
 
 		ControllerUtil.translatePage(JspPath.reference_student_list, request, response);
 	}
