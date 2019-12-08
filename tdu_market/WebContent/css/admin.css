@@ -101,7 +101,7 @@
 .sort * {
   padding: 3px 4px;
   margin: 30px 50px 10px 0px;
-  background-color: #ffffff;
+  background-color: #efefef;
   float: right;
 }
 .sort:after {
@@ -109,6 +109,9 @@
   content: "";
   display: block;
   clear: both;
+}
+.sort form select {
+	background-color: #ffffff;
 }
 
 /* ユーザー情報詳細 */

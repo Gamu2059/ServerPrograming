@@ -25,13 +25,20 @@
 		<article>
 			<!-- ソート -->
 			<div class="sort">
-				<select name="sort_student">
-					<option value="1">学籍番号</option>
-					<option value="2">名前</option>
-					<option value="3">学部</option>
-					<option value="4">学科</option>
-					<option value="5">出品数</option>
+				<form name="sort_student">
+				<select id="sort_number" onchange="sort_studentList();">
+					<option value="1">学籍番号(昇順)</option>
+					<option value="２">学籍番号(降順)</option>
+					<option value="3">名前(昇順)</option>
+					<option value="4">名前(降順)</option>
+					<option value="5">学部(昇順)</option>
+					<option value="6">学部(降順)</option>
+					<option value="7">学科(昇順)</option>
+					<option value="8">学科(降順)</option>
+					<option value="9">出品数(昇順)</option>
+					<option value="10">出品数(降順)</option>
 				</select>
+				</form>
 			</div>
 			<!-- テーブル -->
 			<div class="item_for_center">
@@ -84,14 +91,47 @@
 
 						<!-- ソート機能 -->
 						<script src="/tdu_market/js/list.min.js"></script>
-						<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script> -->
 						<script>
 						var options = {
 							valueNames: [ 'student_column1', 'student_column2', 'student_column3', 'student_column4','student_column5' ]
 						};
 						var studentList = new List('studentList', options);
-						studentList.sort( 'student_column5', {order : 'asc'} );
-						/* studentList.sort( 'student_column5', {order : 'desc'} ); */
+						studentList.sort( 'student_column1', {order : 'asc'} );
+						function sort_studentList(){
+							sortIndex = document.sort_student.sort_number.selectedIndex;
+							switch (sortIndex) {
+					        case 1:
+					        	studentList.sort( 'student_column1', {order : 'asc'} );
+					          break;
+					        case 2:
+					        	studentList.sort( 'student_column1', {order : 'desc'} );
+					          break;
+					        case 3:
+					        	studentList.sort( 'student_column2', {order : 'asc'} );
+					          break;
+					        case 4:
+					        	studentList.sort( 'student_column2', {order : 'desc'} );
+					          break;
+					        case 5:
+					        	studentList.sort( 'student_column3', {order : 'asc'} );
+					          break;
+					        case 6:
+					        	studentList.sort( 'student_column3', {order : 'desc'} );
+					          break;
+					        case 7:
+					        	studentList.sort( 'student_column4', {order : 'asc'} );
+					          break;
+					        case 8:
+					        	studentList.sort( 'student_column4', {order : 'desc'} );
+					          break;
+					        case 9:
+					        	studentList.sort( 'student_column5', {order : 'asc'} );
+					          break;
+					        case 10:
+					        	studentList.sort( 'student_column5', {order : 'desc'} );
+					          break;
+					      }
+						}
 						</script>
 
 						<!-- テーブル要素クリック -->
