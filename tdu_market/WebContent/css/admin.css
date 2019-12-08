@@ -159,12 +159,13 @@
 }
 /* 所属学科編集 */
 .user_profile .item_for_LeftAndRight_around select {
+  margin:0px;
   font-size: 1.4em;
 }
 /* 自己紹介文編集 */
 .selfintroduction textarea {
   padding: 10px 0px 0px 10px;
-  width: 100%;
+  width: 98%;
   min-height: 200px;
   resize: none;
   border: 1px solid #000000;

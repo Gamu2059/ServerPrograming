@@ -92,7 +92,7 @@
 				</div>
 			</div>
 			<script type="text/javascript">
- 				<% if((boolean)session.getAttribute("isDisplayDialog") == true){%>
+ 				<% if((boolean)session.getAttribute("isDisplayDialog")){%>
 					notify_dialog('<%= (String)session.getAttribute("dialogMessage") %>');
  				<% } %>
 				document.getElementById('delete').onclick = function() {

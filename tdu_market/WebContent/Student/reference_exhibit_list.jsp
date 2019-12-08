@@ -61,6 +61,8 @@
 											out.print("<img src=\""+itemList.get(i).getItemImageBinaries()[2]+"\" alt=\"商品画像\">");
 										}else if(itemList.get(i).getItemImageBinaries()[3] != null){
 											out.print("<img src=\""+itemList.get(i).getItemImageBinaries()[3]+"\" alt=\"商品画像\">");
+										}else{
+											out.print("<img alt=\"商品画像\">");
 										}
 										out.print("<label id=\"item_name\">" + itemList.get(i).getItemName() + "</label>");
 										out.print("<label id=\"item_price\">" + itemList.get(i).getPrice() + "円</label>");
