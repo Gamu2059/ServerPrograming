@@ -42,7 +42,8 @@ public class TopPage extends HttpServlet {
 		session.setAttribute("newItemList", newItemList);
 		
 		//ダイアログ用
-		session.setAttribute("isDisplayDialog", false);
+		boolean isDisplayDialog = false;
+		session.setAttribute("isDisplayDialog", isDisplayDialog);
 
 		ControllerUtil.translatePage(JspPath.student_top, request, response);
 	}
