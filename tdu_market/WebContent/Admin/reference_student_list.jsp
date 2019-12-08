@@ -100,34 +100,34 @@
 						function sort_studentList(){
 							sortIndex = document.sort_student.sort_number.selectedIndex;
 							switch (sortIndex) {
-					        case 1:
+					        case 0:
 					        	studentList.sort( 'student_column1', {order : 'asc'} );
 					          break;
-					        case 2:
+					        case 1:
 					        	studentList.sort( 'student_column1', {order : 'desc'} );
 					          break;
-					        case 3:
+					        case 2:
 					        	studentList.sort( 'student_column2', {order : 'asc'} );
 					          break;
-					        case 4:
+					        case 3:
 					        	studentList.sort( 'student_column2', {order : 'desc'} );
 					          break;
-					        case 5:
+					        case 4:
 					        	studentList.sort( 'student_column3', {order : 'asc'} );
 					          break;
-					        case 6:
+					        case 5:
 					        	studentList.sort( 'student_column3', {order : 'desc'} );
 					          break;
-					        case 7:
+					        case 6:
 					        	studentList.sort( 'student_column4', {order : 'asc'} );
 					          break;
-					        case 8:
+					        case 7:
 					        	studentList.sort( 'student_column4', {order : 'desc'} );
 					          break;
-					        case 9:
+					        case 8:
 					        	studentList.sort( 'student_column5', {order : 'asc'} );
 					          break;
-					        case 10:
+					        case 9:
 					        	studentList.sort( 'student_column5', {order : 'desc'} );
 					          break;
 					      }
