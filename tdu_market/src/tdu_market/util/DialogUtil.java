@@ -54,4 +54,17 @@ public class DialogUtil {
 		message = " ' "+(String)session.getAttribute("dialogMessage") + " ' ";
 		return message;
 	}
+	
+	/**
+	 * ダイアログの表示を無効化するメソッド。通知ダイアログを表示し、確認ボタンを押す際にのみ使用。
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	public static void turnoffDialog(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
+		boolean isDisplayDialog = false;
+		HttpSession session = request.getSession();
+		session.setAttribute("isDisplayDialog", isDisplayDialog);
+	}
 }
