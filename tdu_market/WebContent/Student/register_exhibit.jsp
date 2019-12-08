@@ -96,7 +96,6 @@
 								<img id="plus" src="/tdu_market/images/plus.png">
 								<script type="text/javascript">
 									function imageError(){
-										console.log('hogehoge');
 										if(document.getElementById('fileItem').value == ''){
 											document.getElementById('error').innerHTML = '<h3>画像をアップロード</h3><p style="color:red;"> 画像は1枚以上必須です。</p>';
 											scrollTo(0,0);

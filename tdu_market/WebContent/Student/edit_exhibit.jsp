@@ -31,7 +31,7 @@
 			<!-- セカンドコンテナ -->
 			<div class="second_container_ver2">
 				<section>
-					<form action="<%=ServletPath.UpdateItemInfo %>" method="post">
+					<form action="<%=ServletPath.UpdateItemInfo %>" method="post" enctype="multipart/form-data">
 					<!-- フォームの初期設定 -->
 					<%
 					//１．更新対象の商品情報を取得
@@ -46,13 +46,17 @@
 					out.print("</div>");
 					out.print("<div class=\"detail_content_left\">");
 					//商品画像の表示
+					%>
+					<h3 id="error">画像をアップロード</h3>
+					<%
 					ArrayList<String> itemImageURLs = new ArrayList<>();
 					for(int i=0;i<info.getItemGetInfo().getItemImageBinaries().length;i++){
 						itemImageURLs.add(info.getItemGetInfo().getItemImageBinaries()[i]);
 					}
 					if(itemImageURLs == null){
 						//画像が0枚のとき（追加ボタンのみ表示）
-						out.print("<label class=\"item_img_add_button\"> <input class=\"item_img_input\" type=\"file\" name=\"itemImageURLs\"></input> <br><h3>+</h3></label>");
+						out.print("<label class=\"item_img_add_button\">"+
+						" <input class=\"item_img_input\" type=\"file\" name=\"itemImageURLs\"></input> <br><h3>+</h3></label>");
 					} else {
 						//画像が1枚４枚のとき
 						if(4 < itemImageURLs.size()){
@@ -120,6 +124,14 @@
 					out.print("<h4><input id=\"yen_field\" type=\"number\" name=\"price\" value=\""+ info.getItemGetInfo().getPrice()+"\" />円</h4>");
 					out.print("</div>");
 					%>
+					<script type="text/javascript">
+						function imageError(){
+							if(document.getElementById('fileItem').value == ''){
+								document.getElementById('error').innerHTML = '<h3>画像をアップロード</h3><p style="color:red;"> 画像は1枚以上必須です。</p>';
+								scrollTo(0,0);
+							}
+						}
+					</script>
 					<!-- ３．更新ボタンを押して、Servletにデータを渡す -->
 						<div id="confirm_dialog">
 							<p>更新しますか？</p>

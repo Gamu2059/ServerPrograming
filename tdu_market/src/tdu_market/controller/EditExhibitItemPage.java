@@ -10,7 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import tdu_market.dto.ItemGetInfo;
+import tdu_market.dto.RelatedClassGetInfo;
+import tdu_market.dto.SyllabusGetInfo;
 import tdu_market.entity_manager.ItemInfoManager;
+import tdu_market.entity_manager.SyllabusInfoManager;
 import tdu_market.util.ControllerUtil;
 import tdu_market.util.JspPath;
 
@@ -32,7 +35,7 @@ public class EditExhibitItemPage extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("EditExhibitItemPage is non implementation!");
 
@@ -41,12 +44,25 @@ public class EditExhibitItemPage extends HttpServlet {
 			return;
 		}
 
+		request.setCharacterEncoding("UTF-8");
+
 		//商品情報を取得する
 		ItemInfoManager itemInfo = new ItemInfoManager();
-		ItemGetInfo info =  itemInfo.getItemInfo(Integer.valueOf(request.getParameter("itemID")));
+		SyllabusInfoManager syllabusinfo = new SyllabusInfoManager();
 
-		HttpSession session = request.getSession();
+		String id = request.getParameter("itemID");
+		String code = request.getParameter("classCode");
+		System.out.println(id);
+		id = id.trim();
+
+
+		SyllabusGetInfo syllabus = syllabusinfo.getSyllabusInfo(code);
+		ItemGetInfo item = itemInfo.getItemInfo(Integer.valueOf(id).longValue());
+
+		RelatedClassGetInfo info = new RelatedClassGetInfo(item,syllabus);
 		
+		HttpSession session = request.getSession();
+
 		//jspに情報を投げる。
 		session.setAttribute("info", info);//ここはどこのjspで取得している？？？
 		//遷移

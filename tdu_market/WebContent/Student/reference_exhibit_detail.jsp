@@ -28,8 +28,14 @@
 			<div class="first_container_ver3">
 				<h3>出品物詳細</h3>
 				<!-- EditExhibitItemPageへ処理を引き継ぐ -->
-				<form action=<%=ServletPath.EditExhibitItemPage%> method="get">
-					<button type="submit" name="edit" class="button_flat_normal" id="edit">編集</button>
+				<%RelatedClassGetInfo info = (RelatedClassGetInfo)session.getAttribute("exhibitInfo");
+				%>
+				<form action="<%=ServletPath.EditExhibitItemPage%>" method="post">
+				<%
+
+				out.print("<button type=\"submit\" class=\"button_flat_normal\" id=\"edit\"name=\"itemID\" value=\""+info.getItemGetInfo().getItemID()+"  \">編集");
+				out.print("<input type=\"hidden\" name=\"classCode\" value=\"" + info.getSyllabusGetInfo().getClassCode() + "\">");
+				%>
 				</form>
 			</div>
 			<!-- セカンドコンテナ -->
@@ -37,7 +43,6 @@
 				<section>
 					<!-- ReferExhibitItemPageからのセッションデータを展開・表示 -->
 					<%
-					RelatedClassGetInfo info = (RelatedClassGetInfo)session.getAttribute("exhibitInfo");
 					out.print("<div class=\"detail_content\">");
 					out.print("<h2 id=\"item_name\">"+ info.getItemGetInfo().getItemName() +"</h2>");
 					out.print("</div>");
