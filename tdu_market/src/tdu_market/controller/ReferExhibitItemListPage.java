@@ -49,6 +49,11 @@ public class ReferExhibitItemListPage extends HttpServlet {
 		//jspに情報を投げる。
 		HttpSession session = request.getSession();
 		session.setAttribute("itemList",itemList);
+		
+ 		boolean isDisplayDialog = true;
+ 		String dialogMessage = "出品を登録しました";
+ 		session.setAttribute("dialogMessage", dialogMessage);
+ 		session.setAttribute("isDisplayDialog", isDisplayDialog);
 
 		//遷移
 		ControllerUtil.translatePage(JspPath.reference_exhibit_list, request, response);
