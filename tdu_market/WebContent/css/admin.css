@@ -20,23 +20,23 @@
   /* Chrome, Safari 対応 */
   display: none;
 }
-.list_content * {
+.list * {
   background-color: #ffffff;
 }
 /* リスト - 行設定 */
 .list_title tr th {
   padding: 5px 0px 5px 5px;
 }
-.list_content tr td {
+.list tr td {
   padding: 5px 0px 5px 5px;
 }
-.list_content tr {
+.list tr {
   border: solid 1px rgb(90, 90, 90);
 }
-.list_content tr * {
+.list tr * {
   background-color: rgba(0, 0, 0, 0);
 }
-.list_content tr:hover {
+.list tr:hover {
   background: rgb(239, 239, 239);
 }
 /* リスト - 列設定 */

@@ -35,23 +35,24 @@
 			</div>
 			<!-- テーブル -->
 			<div class="item_for_center">
-				<div class="list">
+				<div class="list_content">
 					<form action="<%= ServletPath.ManagerReferStudentPage %>" name="select_student" method="get">
-						<table>
+
+						<table id="studentList">
 							<!-- テーブルタイトル -->
 							<thead class="list_title">
 								<tr>
 									<th class="check_column1"></th>
 									<tb class="hidden_column">メールアドレス</tb>
-									<th class="student_column1">学籍番号</th>
-									<th class="student_column2">名前</th>
-									<th class="student_column3">学部</th>
-									<th class="student_column4">学科</th>
-									<th class="student_column5">出品数</th>
+									<th class="student_column1" data-sort="student_column1">学籍番号</th>
+									<th class="student_column2" data-sort="student_column2">名前</th>
+									<th class="student_column3" data-sort="student_column3">学部</th>
+									<th class="student_column4" data-sort="student_column4">学科</th>
+									<th class="student_column5" data-sort="student_column5">出品数</th>
 								</tr>
 							</thead>
 							<!-- テーブル要素 -->
-							<tbody class="list_content">
+							<tbody class="list" id="list_content" >
 								<!-- Sessionからデータを受け取る -->
 								<%
 								ArrayList<StudentGetInfo> studentList = new ArrayList<>();
@@ -80,6 +81,19 @@
 								%>
 							</tbody>
 						</table>
+
+						<!-- ソート機能 -->
+						<script src="/tdu_market/js/list.min.js"></script>
+						<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script> -->
+						<script>
+						var options = {
+							valueNames: [ 'student_column1', 'student_column2', 'student_column3', 'student_column4','student_column5' ]
+						};
+						var studentList = new List('studentList', options);
+						studentList.sort( 'student_column5', {order : 'asc'} );
+						/* studentList.sort( 'student_column5', {order : 'desc'} ); */
+						</script>
+
 						<!-- テーブル要素クリック -->
 						<script type="text/javascript"
 							src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
