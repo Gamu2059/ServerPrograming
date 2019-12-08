@@ -44,21 +44,10 @@
 			<button id="ok" class="button_flat_normal">了解</button>
 		</div>
 	</div>
-	<script type="text/javascript">
-<%-- 		<% if((boolean)session.getAttribute("isDisplayDialog")){%>
-		notify_dialog('<%= (String)session.getAttribute("dialogMessage") %>');
-		<% } %> --%>
-		//起動時にセッションを持てないので、メールアドレスチェックのダイアログは実装できませんでした。
-		function notify_dialog() {
-			let dialog = document.getElementById('notify_dialog');
-
-			document.getElementById('notify_text').textContent = '確認メールを送信しました。';
-
-			dialog.style.display = 'block';
-			ok.addEventListener('click', function() {
-				dialog.style.display = 'none';
-			});
-		}
-	</script>
+	<%
+	//ダイアログの初期化処理
+	boolean isDisplayDialog = false;
+	session.setAttribute("isDisplayDialog", isDisplayDialog);
+	%>
 </body>
 </html>
