@@ -98,7 +98,7 @@
 #notify_dialog {
   position: fixed;
   top: 50%;
-  left: 50%;
+  left: 25%;
   display: none;
   text-align: center;
   background-color: white;
@@ -130,7 +130,7 @@
 #notify_dialog_admin {
   position: fixed;
   top: 50%;
-  left: 50%;
+  left: 25%;
   display: none;
   text-align: center;
   background-color: white;
