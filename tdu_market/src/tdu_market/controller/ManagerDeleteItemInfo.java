@@ -1,13 +1,16 @@
 package tdu_market.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import tdu_market.dto.ItemGetInfo;
 import tdu_market.entity_manager.ItemInfoManager;
 import tdu_market.util.ControllerUtil;
 import tdu_market.util.JspPath;
@@ -39,13 +42,34 @@ public class ManagerDeleteItemInfo extends HttpServlet {
 			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
-		//削除処理
+
+		HttpSession session = request.getSession();
+
 		ItemInfoManager itemInfo = new ItemInfoManager();
-		itemInfo.deleteItemInfo(Integer.valueOf(request.getParameter("itemID")));
+
+		//商品情報の複数件削除
+		String[] itemIDs = request.getParameterValues("itemIDs");
+		if (itemIDs!=null) {
+			for(String info:itemIDs) {
+			itemInfo.deleteItemInfo(  Integer.parseInt(info) );
+			}
+			ControllerUtil.translatePage(JspPath.reference_item_list_by_admin, request, response);
+		}
+
+		//削除処理
+		if(request.getParameter("itemID")!=null) {
+			itemInfo.deleteItemInfo(Integer.valueOf(request.getParameter("itemID")));
+		}
+		//セッションからアイテム情報を削除する
+		session.removeAttribute("itemInfo");
+
+		//出品商品一覧を再取得
+		ArrayList<ItemGetInfo> itemList =  itemInfo.getExhibitItem(request.getParameter("studentMailAddress"));
+		//jspに情報を投げる。
+		session.setAttribute("exhibitItemList",itemList);
 
 		//遷移
-		ControllerUtil.translatePage(JspPath.reference_item_list_by_admin, request, response);
-	
+		ControllerUtil.translatePage(JspPath.reference_exhibit_item_by_admin, request, response);
 	}
 
 }

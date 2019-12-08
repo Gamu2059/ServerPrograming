@@ -25,6 +25,7 @@
 			String classCode = "";
 			String beforeClassCode = "";
 			String className = "";
+			long departmentID = 0;
 			String semester = "";
 			String date = "";
 			int unitNum = 0;
@@ -39,6 +40,7 @@
 				classCode = info.getClassCode();
 				beforeClassCode = info.getClassCode();
 				className = info.getClassName();
+				departmentID = info.getSubjectID();
 				semester = info.getOpeningSemester();
 				date = info.getDates();
 				unitNum = info.getUnitNum();
@@ -52,7 +54,7 @@
 		%>
 
 		<article>
-			<form action="<%=ServletPath.VaildateSyllabus%>" method="post">
+			<form action="<%=ServletPath.ValidateUpdateSyllabus%>" method="post">
 				<br>
 				<div class="errorMessage"></div>
 				<div class="syllabus_profile">
@@ -77,8 +79,11 @@
 									departmentInfoList = (ArrayList<DepartmentGetInfo>) session.getAttribute("departmentInfoList");
 									if (departmentInfoList != null) {
 										for (DepartmentGetInfo departmentInfo : departmentInfoList) {
-											out.print("<option value=\"" + departmentInfo.getSubjectID() + "\">"
-													+ departmentInfo.getSubjectName() + "</option>");
+											if(departmentInfo.getSubjectID() == departmentID){
+												out.print("<option value=\"" + departmentInfo.getSubjectID() + "\" selected>"+ departmentInfo.getSubjectName() + "</option>");
+											}else{
+												out.print("<option value=\"" + departmentInfo.getSubjectID() + "\">"+ departmentInfo.getSubjectName() + "</option>");
+											}
 										}
 									}
 								%>

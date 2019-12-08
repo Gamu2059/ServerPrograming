@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import tdu_market.dto.ReturnInfo;
-import tdu_market.dto.SyllabusCreateInfo;
 import tdu_market.dto.SyllabusUpdateInfo;
 import tdu_market.dto.TeacherGetInfo;
 import tdu_market.entity_manager.SyllabusInfoManager;
@@ -18,8 +17,8 @@ import tdu_market.entity_manager.TeacherInfoManager;
 import tdu_market.util.ControllerUtil;
 import tdu_market.util.JspPath;
 
-@WebServlet("/tdu_market/controller/VaildateSyllabus")
-public class VaildateSyllabus extends HttpServlet {
+@WebServlet("/tdu_market/controller/ValidateUpdateSyllabus")
+public class ValidateUpdateSyllabus extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -33,10 +32,6 @@ public class VaildateSyllabus extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		//データの受け取り
-		String registOrEdit = request.getParameter("registOrEdit");
-		boolean isRegist = registOrEdit.equals("regist");
-		boolean isEdit = registOrEdit.equals("edit");
-
 		String classCode = request.getParameter("classCode");
 		String className = request.getParameter("className");
 		String subjectIDStr = request.getParameter("subjectID");
@@ -91,24 +86,9 @@ public class VaildateSyllabus extends HttpServlet {
 		SyllabusInfoManager syllabus = new SyllabusInfoManager();
 		HttpSession session = request.getSession();
 
-		SyllabusCreateInfo createInfo = new SyllabusCreateInfo(classCode, className, subjectID, teacherID, dates,
-				unitNum, classRoom, overview, target, requirements, evaluationMethod, semesterID);
-		session.setAttribute("confirmCreateSyllabusInfo", createInfo);
+
 		session.setAttribute("confirmTeacherName", confirmTeacherName);
 
-		if (isRegist) {
-			ReturnInfo validateResult = syllabus.validateRegisterSyllabus(createInfo);
-
-			if (validateResult.isSuccess()) {
-				session.removeAttribute("createSyllabusErrorMessage");
-				session.setAttribute("isCreate", true);
-				ControllerUtil.translatePage(JspPath.confirm_syllabus_by_admin, request, response);
-			} else {
-				session.removeAttribute("isCreate");
-				session.setAttribute("createSyllabusErrorMessage", validateResult.toString());
-				ControllerUtil.translatePage(JspPath.register_syllabus_by_admin, request, response);
-			}
-		} else if (isEdit) {
 			String previousClassCode = request.getParameter("previousClassCode");
 			SyllabusUpdateInfo updateInfo = new SyllabusUpdateInfo(previousClassCode, classCode, className, subjectID,
 					teacherID, dates, unitNum, classRoom, overview, target, requirements, evaluationMethod, semesterID);
@@ -116,16 +96,13 @@ public class VaildateSyllabus extends HttpServlet {
 
 			if (validateResult.isSuccess()) {
 				session.removeAttribute("updateSyllabusErrorMessage");
-				session.setAttribute("isCreate", false);
+				session.setAttribute("confirmUpdateSyllabusInfo", updateInfo);
+				ControllerUtil.translatePage(JspPath.confirm_edit_syllabus_by_admin, request, response);
 			} else {
-				session.removeAttribute("isCreate");
 				session.setAttribute("updateSyllabusErrorMessage", validateResult.toString());
+				ControllerUtil.translatePage(JspPath.edit_syllabus_by_admin, request, response);
 			}
 
-			session.setAttribute("updateSyllabusClassCode", previousClassCode);
-			ControllerUtil.translatePage(JspPath.confirm_syllabus_by_admin, request, response);
-		} else {
-			throw new RuntimeException("registOrEditの文字列が無効です。 registOrEdit:" + registOrEdit);
-		}
 	}
 }
+

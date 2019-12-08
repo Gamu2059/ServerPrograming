@@ -22,7 +22,7 @@
 		<h2 id="page_title">シラバス詳細（登録）</h2>
 		<!-- メインコンテンツ -->
 		<article>
-		<form action="<%= ServletPath.VaildateSyllabus %>" method="post">
+		<form action="<%= ServletPath.ValidateRegisterSyllabus %>" method="post">
 			<br>
 			<div class="errorMessage">
 				<%
@@ -159,7 +159,6 @@
 			</div>
 			<br>
 			<div class="item_for_center">
-				<input type="hidden" name="registOrEdit" value="regist">
 				<button type="submit" id="orange_button">登録</button>
 			</div>
 			<br>

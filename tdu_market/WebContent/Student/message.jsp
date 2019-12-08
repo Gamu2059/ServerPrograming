@@ -1,5 +1,6 @@
 <%@page import="tdu_market.dto.*"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="tdu_market.util.*"%>
 <%@page import="tdu_market.util.ServletPath"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -39,14 +40,20 @@
 
 						<!-- メッセージルームを取得、展開 -->
 						<%
-							ArrayList<MessageRoomGetInfo> messageRoomList = new ArrayList<>();
+						String mailAddress = ControllerUtil.getMailAddress(request, response);
+						StudentGetInfo studentInfo = (StudentGetInfo) session.getAttribute("studentInfo");
+						ArrayList<MessageRoomGetInfo> messageRoomList = new ArrayList<>();
 							messageRoomList = (ArrayList<MessageRoomGetInfo>) session.getAttribute("messageRoomInfoList");
 							if (messageRoomList != null) {
+								//listが展開できているので、trueを渡してしまっている		
+								session.setAttribute("isSelect","true");
 								for (int i = 0; i < messageRoomList.size(); i++) {
 									out.print(
 											"<form action=\"/tdu_market/tdu_market/controller/ReferMessageBoxListPage\" method=\"post\">");
 									out.print("<input type=\"hidden\" name=\"studentNumber\" value=\""
 											+ messageRoomList.get(i).getOpponentStudentGetInfo().getMailAddress() + "\" />");
+									out.print("<input type=\"hidden\" name=\"roomID\" value=\""
+											+ messageRoomList.get(i).getRoomID() + "\" />");
 									out.print("<button type=\"submit\" for=\"message1\" class=\"message_list_tab\">");
 									out.print("<img src=\"" + messageRoomList.get(i).getOpponentStudentGetInfo().getIconImageBinary()
 											+ "\" alt=\"アイコン\" />");
@@ -69,16 +76,17 @@
 						<!--メッセージヘッダー-->
 						<!-- メッセージの取得 -->
 						<%
-							ArrayList<MessageGetInfo> messageList = new ArrayList<>();
+							ArrayList<MessageGetInfo> messageList =  (ArrayList<MessageGetInfo>) session.getAttribute("messageInfoList");
 							StudentGetInfo messageOpponentStudentInfo = (StudentGetInfo) session
 									.getAttribute("messageOpponentStudentInfo");
+							if (messageOpponentStudentInfo != null) {
 						%>
 						<div class="message_header" name="message_room_panel">
 							<div>
 								<%
-									if (messageOpponentStudentInfo != null) {
+									
 										out.print(messageOpponentStudentInfo.getDisplayName());
-									}
+									
 								%>
 							</div>
 							<input type="button" name="trading_button"
@@ -112,7 +120,7 @@
 											} else {
 												out.print("<div class=\"message_post\" name=\"myself\">");
 												out.print(
-														"<img src=\"" + messageOpponentStudentInfo.getIconImageBinary() + "\" alt=\"icon\" />");
+														"<img src=\"" + studentInfo.getIconImageBinary() + "\" alt=\"icon\" />");
 												out.print("<div class=\"message_post_content\" name=\"opponent\">");
 												out.print(messageList.get(i).getPostContent());
 												out.print("</div>");
@@ -126,12 +134,12 @@
 						<!--メッセージフォーム-->
 						<div class="textfield">
 							<form action="<%=ServletPath.PostMessage%>" method="post">
-								<textarea id="message_form" name="message_form" cols="50"
+							  <input type="hidden" name="roomID" value="<%=session.getAttribute("roomID")%>">
+							  <input type="hidden" name="studentNumber" value="<%=mailAddress%>">
+								<textarea id="message_form" name="content" cols="50"
 									rows="2" placeholder="メッセージを入力"></textarea>
-								<button type="submit">
-									<img src="/tdu_market/images/post.png" alt="post" />
-								</button>
-							</form>
+								<input type="image" src="/tdu_market/images/post2.png" alt="post" id="post_icon">
+ 							</form>
 						</div>
 					</div>
 					<section>
@@ -221,6 +229,7 @@
 							}
 						</script>
 					</section>
+					<%} %>
 				</section>
 			</div>
 			<!-- サードコンテナ -->

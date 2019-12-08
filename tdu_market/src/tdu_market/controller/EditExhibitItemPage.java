@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import tdu_market.dto.RelatedClassGetInfo;
+import tdu_market.dto.SyllabusGetInfo;
 import tdu_market.dto.ItemGetInfo;
 import tdu_market.dto.RelatedClassGetInfo;
 import tdu_market.dto.SyllabusGetInfo;
@@ -47,6 +49,7 @@ public class EditExhibitItemPage extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		//商品情報を取得する
+
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		SyllabusInfoManager syllabusinfo = new SyllabusInfoManager();
 
@@ -60,11 +63,11 @@ public class EditExhibitItemPage extends HttpServlet {
 		ItemGetInfo item = itemInfo.getItemInfo(Integer.valueOf(id).longValue());
 
 		RelatedClassGetInfo info = new RelatedClassGetInfo(item,syllabus);
-		
+
 		HttpSession session = request.getSession();
 
 		//jspに情報を投げる。
-		session.setAttribute("info", info);//ここはどこのjspで取得している？？？
+		session.setAttribute("relatedClassGetInfo",info);//ここはどこのjspで取得している？？？
 		//遷移
 		ControllerUtil.translatePage(JspPath.edit_exhibit, request, response);
 

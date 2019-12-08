@@ -1,3 +1,5 @@
+<%@page import="tdu_market.dto.DepartmentGetInfo"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="tdu_market.dto.SyllabusGetInfo"%>
 <%@page import="tdu_market.entity_bean.SyllabusInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -21,8 +23,11 @@
 		<!-- メインコンテンツ -->
 		<%
 		SyllabusGetInfo syllabusGetInfo = (SyllabusGetInfo)session.getAttribute("syllabusInfo");
+		ArrayList<DepartmentGetInfo> depatmentInfoList = new ArrayList<>();
+		depatmentInfoList =  (ArrayList<DepartmentGetInfo>)session.getAttribute("departmentInfoList");
 		String classCode = "";
 		String className = "";
+		String departmentName = "";
 		String openingSemester = "";
 		String date = "";
 		int unitNum = 0;
@@ -35,6 +40,7 @@
 		if(syllabusGetInfo != null){
 			classCode = syllabusGetInfo.getClassCode();
 			className = syllabusGetInfo.getClassName();
+			departmentName = depatmentInfoList.get((int)syllabusGetInfo.getSubjectID()-1).getSubjectName();
 			openingSemester = syllabusGetInfo.getOpeningSemester();
 			date = syllabusGetInfo.getDates();
 			unitNum = syllabusGetInfo.getUnitNum();
@@ -68,11 +74,11 @@
 				</div>
 				<div class="item_for_grid_r1c2">
 					<h3>開講学科</h3>
-					<input type="text" placeholder=" 未取得 " readonly="readonly">
+					<input type="text" placeholder=" 未取得 " readonly="readonly" value="<%= departmentName %>">
 				</div>
 				<div class="item_for_grid_r1c2">
 					<h3>開講年度</h3>
-					<input type="text" placeholder="<%= openingSemester %>" readonly="readonly">
+					<input type="text" placeholder="<%= openingSemester %>" readonly="readonly" value="<%= openingSemester %>">
 				</div>
 				<div class="item_for_grid_r1c2">
 					<div class="item_for_grid_r1c2">
