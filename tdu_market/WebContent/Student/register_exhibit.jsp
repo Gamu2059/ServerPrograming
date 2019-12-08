@@ -96,6 +96,7 @@
 								<img id="plus" src="/tdu_market/images/plus.png">
 								<script type="text/javascript">
 									function imageError(){
+										console.log('hogehoge');
 										if(document.getElementById('fileItem').value == ''){
 											document.getElementById('error').innerHTML = '<h3>画像をアップロード</h3><p style="color:red;"> 画像は1枚以上必須です。</p>';
 											scrollTo(0,0);
@@ -248,10 +249,19 @@
 					<div id="confirm_dialog">
 						<p>更新しますか？</p>
 						<div class="confirm_dialog_button">
-							<input type="submit" id="yes" class="button_flat_submit" value="確認">
+							<input type="submit" id="yes" class="button_flat_submit" value="確認" onclick="imageError()">
 							<button id="no" class="button_flat_normal">キャンセル</button>
 						</div>
 					</div>
+					<div id="notify_dialog">
+						<p id="notify_text">確認ダイアログ</p>
+						<div class="notify_dialog_button">
+							<button id="ok" class="button_flat_normal">了解</button>
+						</div>
+					</div>
+					<% if((boolean)session.getAttribute("isDisplayDialog")){%>
+						notify_dialog('<%= (String)session.getAttribute("dialogMessage") %>');
+					<% } %>
 					<script type="text/javascript">
 						document.getElementById('upload').onclick = function() {
 							//各ボタンの要素の取得
@@ -277,10 +287,6 @@
 								<% session.setAttribute("isDisplayDialog", false); %>
 								dialog.style.display = 'none';
 							});
-						}
-						document.getElementById('back_button').onclick = function() {
-							window.history.back(-1);
-							return false;
 						}
 					</script>
 				</form>
