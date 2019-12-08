@@ -189,7 +189,7 @@ public final class StudentInfoManager {
 		}
 
 		StudentInfoDAO studentInfoDAO = new StudentInfoDAO();
-		studentInfoDAO.updateStudentInfo(studentUpdateInfo);
+		studentInfoDAO.updateStudentInfoByAdmin(studentUpdateInfo);
 
 		return new ReturnInfo("", true);
 	}
