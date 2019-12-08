@@ -18,6 +18,10 @@ public final class RelatedClassInfoManager {
 		RelatedClassInfoDAO relatedClassInfoDAO = new RelatedClassInfoDAO();
 		ArrayList<RelatedClassInfo> list = relatedClassInfoDAO.getRelatedClassInfoWithItem(itemID);
 
+		if (list == null) {
+			return null;
+		}
+
 		ItemInfoManager itemInfoManager = new ItemInfoManager();
 		ItemGetInfo itemGetInfo = itemInfoManager.getItemInfo(itemID);
 
@@ -37,6 +41,10 @@ public final class RelatedClassInfoManager {
 
 		RelatedClassInfoDAO relatedClassInfoDAO = new RelatedClassInfoDAO();
 		ArrayList<RelatedClassInfo> list = relatedClassInfoDAO.getRelatedClassInfoWithSyllabus(classCode);
+
+		if (list == null) {
+			return null;
+		}
 
 		SyllabusInfoManager syllabusInfoManager = new SyllabusInfoManager();
 		SyllabusGetInfo syllabusGetInfo = syllabusInfoManager.getSyllabusInfo(classCode);

@@ -1,3 +1,4 @@
+<%@page import="tdu_market.dto.DepartmentGetInfo"%>
 <%@page import="tdu_market.dto.SyllabusGetInfo"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -55,16 +56,18 @@
 								<!-- データの表示と展開 -->
 								<%
 								ArrayList<SyllabusGetInfo> syllabusInfoList = new ArrayList<SyllabusGetInfo>();
+								ArrayList<DepartmentGetInfo> departmentInfoList = new ArrayList<DepartmentGetInfo>();
 								syllabusInfoList = (ArrayList<SyllabusGetInfo>)session.getAttribute("syllabusInfoList");
-								if(syllabusInfoList!=null){
+								departmentInfoList = (ArrayList<DepartmentGetInfo>)session.getAttribute("departmentInfoList");
+								if(syllabusInfoList!=null && departmentInfoList !=null ){
 									for(SyllabusGetInfo info:syllabusInfoList){
 										%>
 										<tr class="syllabusId">
 											<th class="check_column1"><input type="checkbox" name="classCodes" value="<%= info.getClassCode() %>" /></th>
 											<td class="syllabus_column1"><%= info.getClassCode() %></td>
 											<td class="syllabus_column2"><%= info.getClassName() %></td>
-											<td class="syllabus_column3">未取得</td>
-											<td class="syllabus_column4">未取得</td>
+											<td class="syllabus_column3"><%= departmentInfoList.get((int)info.getSubjectID()-1).getFacultyName() %></td>
+											<td class="syllabus_column4"><%= departmentInfoList.get((int)info.getSubjectID()-1).getSubjectName() %></td>
 											<td class="syllabus_column5"><%= info.getTeacherName() %></td>
 											<td class="syllabus_column6"><%= info.getOpeningSemester() %></td>
 										</tr>

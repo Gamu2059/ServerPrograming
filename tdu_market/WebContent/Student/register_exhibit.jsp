@@ -31,7 +31,7 @@
 			<!-- セカンドコンテナ -->
 			<div class="second_container_ver2">
 				<!-- VaildateExhibitItemへ処理を引き継ぐ -->
-				<form action=<%=ServletPath.VaildateExhibitItem %> method="post" enctype="multipart/form-data" id="exhibit_form">
+				<form action=<%=ServletPath.RegisterItemInfo %> method="post" enctype="multipart/form-data" id="exhibit_form">
 					<!-- 上部コンテンツ -->
 					<div class="top_content_ver2">
 						<div class="detail_content">
@@ -43,12 +43,21 @@
 							<h3>授業名</h3>
 <!-- 							<input id="exhibit_textfield" type="text" name="relatedClassCode"
 								placeholder="例：コンピュータプログラミングⅠ" /> -->
-						</div>
-						<%
-						ArrayList<SyllabusGetInfo> syllabusInfo = (ArrayList<SyllabusGetInfo>) session.getAttribute("classNameList");
-						%>
+
+						<input autocomplete="on" type="text" id="exhibit_textfield" list="classList" name="relatedClassCode"/>
+ 						<datalist id="classList">
+							<%
+								ArrayList<SyllabusGetInfo> syllabusInfo = (ArrayList<SyllabusGetInfo>) session.getAttribute("classNameList");
+								if(syllabusInfo != null){
+									for(SyllabusGetInfo syllabusGetInfo : syllabusInfo){
+										out.print("<option id=\"exhibit_textfield\" value=\"" + syllabusGetInfo.getClassCode() +" - " + syllabusGetInfo.getClassName() + "\">");
+											//+ syllabusGetInfo.getClassName() + "</option>");
+									}
+								}
+							%>
+						</datalist>
 						<script type="text/javascript">
-							let input = document.createElement('input');
+<%-- 							let input = document.createElement('input');
 							input.autocomplete = true;
 							input.setAttribute('id', 'exhibit_textfield');
 							input.setAttribute('list', 'class_name_list');
@@ -70,20 +79,29 @@
 								datalist.appendChild(option);
 							});
 							document.getElementById('exhibit_textfield')
-									.appendChild(datalist);
+									.appendChild(datalist); --%>
 						</script>
+						</div>
 					</div>
 					<!-- 中部コンテンツ -->
 					<div class="dialog_middle_content">
 						<div class="detail_content_ver2">
-							<h3>画像をアップロード</h3>
+							<h3 id="error">画像をアップロード</h3>
 							<div class="item_image_list">
 							<!-- 画像の登録に関して -->
 							<!-- HTML -->
 							<div>
 							<label class="item_img_add_button">
-								<input id="fileItem" class="item_img_input" type="file" name="itemImageURLs[]"></input>
+								<input id="fileItem" class="item_img_input" type="file" name="itemImageURLs_1" required></input>
 								<img id="plus" src="/tdu_market/images/plus.png">
+								<script type="text/javascript">
+									function imageError(){
+										if(document.getElementById('fileItem').value == ''){
+											document.getElementById('error').innerHTML = '<h3>画像をアップロード</h3><p style="color:red;"> 画像は1枚以上必須です。</p>';
+											scrollTo(0,0);
+										}
+									}
+								</script>
 							</label>
 							<div id="deleteButton" onClick="deleteAction();">
 								削除
@@ -112,7 +130,7 @@
 							<!-- HTML -->
 							<div>
 							<label class="item_img_add_button">
-								<input id="fileItem2" class="item_img_input" type="file" name="itemImageURLs[]"></input>
+								<input id="fileItem2" class="item_img_input" type="file" name="itemImageURLs_2"></input>
 								<img id="plus2" src="/tdu_market/images/plus.png">
 							</label>
 							<div id="deleteButton" onClick="deleteAction2();">
@@ -142,7 +160,7 @@
 							<!-- HTML -->
 							<div>
 							<label class="item_img_add_button">
-								<input id="fileItem3" class="item_img_input" type="file" name="itemImageURLs[]"></input>
+								<input id="fileItem3" class="item_img_input" type="file" name="itemImageURLs_3"></input>
 								<img id="plus3" src="/tdu_market/images/plus.png">
 							</label>
 							<div id="deleteButton" onClick="deleteAction3();">
@@ -172,7 +190,7 @@
 							<!-- HTML -->
 							<div>
 							<label class="item_img_add_button">
-								<input id="fileItem4" class="item_img_input" type="file" name="itemImageURLs[]"></input>
+								<input id="fileItem4" class="item_img_input" type="file" name="itemImageURLs_4"></input>
 								<img id="plus4" src="/tdu_market/images/plus.png">
 							</label>
 							<div id="deleteButton" onClick="deleteAction4();">
@@ -225,7 +243,7 @@
 					</div>
 					<div class="middle2_content">
 					<button type="submit" name="submit" class="button_flat_submit"
-						id="upload">確認</button>
+						id="upload" onclick="imageError()">確認</button>
 				</form>
 				<!-- 中部コンテンツ２ -->
 

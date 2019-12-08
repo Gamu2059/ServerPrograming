@@ -1,3 +1,4 @@
+<%@page import="tdu_market.util.JspPath"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="tdu_market.dto.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -24,6 +25,7 @@
 		ArrayList<RelatedClassGetInfo> itemInfo = new ArrayList<>();
 		itemInfo = (ArrayList<RelatedClassGetInfo>)session.getAttribute("itemInfo");
 		String mailAddress = "";
+		long itemID = 0;
 		String itemName = "未設定";
 		String className = "未設定";
 		String[] itemURL = new String[3];
@@ -32,6 +34,7 @@
 		int itemPrice = 0;
 		if(itemInfo != null){
 			mailAddress = itemInfo.get(0).getItemGetInfo().getExhibitorMailAddress();
+			itemID = itemInfo.get(0).getItemGetInfo().getItemID();
 			itemName = itemInfo.get(0).getItemGetInfo().getItemName();
 			className = itemInfo.get(0).getSyllabusGetInfo().getClassName();
 			if(itemInfo.get(0).getItemGetInfo().getItemImageBinaries() != null){
@@ -74,7 +77,7 @@
 							<%
 							switch(condition){
 							case 0:
-								out.print("新品・未使用");
+								out.print("状態：新品・未使用");
 							break;
 							case 1:
 								out.print("状態：中古（書き込みなし）");
@@ -94,7 +97,7 @@
 					</div>
 					<div class="item_for_LeftAndRight_between">
 						<button id="red_button">削除</button>
-						<button id="white_button">戻る</button>
+						<button id="white_button" onclick="window.history.back(-1)">戻る</button>
 						<br>
 					</div>
 				</div>
@@ -110,16 +113,20 @@
 			<div id="confirm_dialog_admin">
 				<p>削除しますか？</p>
 				<div class="confirm_dialog_button">
-					<button id="yes" class="button_flat_nega">確認</button>
+					<form action="<%= ServletPath.ManagerDeleteItemInfo %>" method="post">
+						<input type="hidden" name="studentMailAddress" value="<%= mailAddress %>">
+						<input type="hidden" name="itemID" value="<%= itemID %>">
+						<button id="yes" class="button_flat_nega">削除</button>
+					</form>
 					<button id="no" class="button_flat_normal">キャンセル</button>
 				</div>
 			</div>
-			<div id="notify_dialog_admin">
+			<!-- <div id="notify_dialog_admin">
 				<p id="notify_text">確認ダイアログ</p>
 				<div class="notify_dialog_button">
 					<button id="ok" class="button_flat_normal">了解</button>
 				</div>
-			</div>
+			</div> -->
 			<script type="text/javascript">
 				document.getElementById('red_button').onclick = function() {
 					//各ボタンの要素の取得
@@ -135,14 +142,14 @@
 
 								//ここに内部処理をいれる
 
-								notify_dialog('削除しました。',
-										'reference_item_list_by_admin');
+								/* notify_dialog('削除しました。',
+										'reference_item_list_by_admin'); */
 							});
 					no.addEventListener('click', function() {
 						dialog.style.display = 'none';
 					});
 				}
-				function notify_dialog(text, url) {
+				/* function notify_dialog(text, url) {
 					let dialog = document.getElementById('notify_dialog_admin');
 
 					document.getElementById('notify_text').textContent = text;
@@ -152,7 +159,7 @@
 						location.href = url + '.html';
 						dialog.style.display = 'none';
 					});
-				}
+				} */
 				/* 以下は、有効化すると学生情報ボタンに不具合が発生する */
 				/* document.getElementById('white_button').onclick = function() {
 					window.history.back(-1);

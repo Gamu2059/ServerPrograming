@@ -303,6 +303,11 @@ footer {
   margin: 20px 0px 5px 0px;
   font-size: 100%;
 }
+.detail_content img {
+  width: 200px;
+  object-fit: contain; 
+  margin: 5px;
+}
 .detail_content_left {
   display: flex;
   justify-content: left;

@@ -69,10 +69,6 @@ public class RegisterSyllabusInfo extends HttpServlet {
 				ArrayList<SyllabusGetInfo> syllabusInfoList = syllabusInfo.getAllSyllabus();
 				HttpSession session = request.getSession();
 				session.setAttribute("syllabusInfoList", syllabusInfoList);
-
-				//不要なセッションの破棄
-				session.removeAttribute("isCreate");
-
 				ControllerUtil.translatePage(JspPath.reference_syllabus_list_by_admin, request, response);
 			}
 		}

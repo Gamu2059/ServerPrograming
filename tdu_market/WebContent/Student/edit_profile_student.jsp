@@ -15,10 +15,10 @@
 <!-- Bootstrap -->
 <link href="/tdu_market/css/import_student.css" rel="stylesheet">
 <!-- InstanceBeginEditable name="scripts" -->
-<script type="text/javascript" src="/tdu_market/js/student.js" defer="defer"></script>
+<script type="text/javascript" src="/tdu_market/js/jquery-3.3.1.min.js"></script>
 <!-- InstanceEndEditable -->
 </head>
-<body onLoad="document.studentInfo.submit();">
+<body>
 	<%@ include file="header.jsp"%>
 	<!-- InstanceBeginEditable name="body" -->
 
@@ -34,18 +34,16 @@
 				<%
 				//Get information
 				StudentGetInfo info = (StudentGetInfo)session.getAttribute("studentInfo");
-				System.out.println(info);
 				%>
 					<div class="top_content">
 						<div class="top_content_left">
 							<label class="user_icon_button">
-							<input class="user_icon_button2" type="file" name="iconImageURL" id="iconFile"/>
 							<%
  							if(info.getIconImageBinary() != null){
 								out.print("<img src=\""+ info.getIconImageBinary() +" \" alt=\"ユーザーアイコン\" id=\"icon\">");
-/* 								out.print("<input name=\"iconImageURL\" type=\"file\" src=\" "+ info.getIconImageBinary() +" \" alt=\"ユーザーアイコン\">");
- */							}
+							}
 							%>
+							<input class="user_icon_button2" type="file" name="iconImageURL" id="iconFile"/>
 								<h3>変更</h3>
 							</label>
 						</div>
@@ -69,9 +67,7 @@
 							<div class="detail_content">
 								<h3>所属学科</h3>
 								<select name="departmentID">
-									<% out.println("<option name=\"media\" value=\""+ info.getDepartmentID() +"\">"+ "情報メディア学科" +"</option>");
-									System.out.println(info.getSelfIntroduction());
-									%>
+									<% out.println("<option name=\"media\" value=\""+ info.getDepartmentID() +"\">"+ "情報メディア学科" +"</option>");%>
 								</select>
 								<p id="note_Text">※注意 - 転科した学生はサポートまで連絡をお願いします。</p>
 							</div>
@@ -128,24 +124,31 @@
 					dialog.style.display = 'block';
 
 					yes.addEventListener('click', function() {
-						dialog.style.display = 'none';
 
 						//ここに内部処理をいれる
 
-						notify_dialog('更新しました。', 'reference_profile_student');
+						//notify_dialog('更新しました。', 'reference_profile_student');
+						<%
+						boolean isDisplayDialog = true;
+						String dialogMessage = "更新しました";
+						session.setAttribute("dialogMessage", dialogMessage);
+						session.setAttribute("isDisplayDialog", isDisplayDialog);
+						System.out.println(session.getAttribute("isDisplayDialog"));
+						%>
+						dialog.style.display = 'none';
 					});
 					no.addEventListener('click', function() {
 						dialog.style.display = 'none';
 					});
 				}
-				function notify_dialog(text, url) {
+				function notify_dialog(text) {
 					let dialog = document.getElementById('notify_dialog');
 
 					document.getElementById('notify_text').textContent = text;
 
 					dialog.style.display = 'block';
 					ok.addEventListener('click', function() {
-						//location.href = url + '.html';
+						<% //session.setAttribute("isDisplayDialog", false); %>
 						dialog.style.display = 'none';
 					});
 				}

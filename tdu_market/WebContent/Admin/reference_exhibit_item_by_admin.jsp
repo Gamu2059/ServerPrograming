@@ -1,3 +1,4 @@
+<%@page import="tdu_market.util.JspPath"%>
 <%@page import="tdu_market.dto.ItemGetInfo"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="tdu_market.dto.StudentGetInfo"%>
@@ -68,15 +69,21 @@
 				<br />
 				<!-- 戻るボタン -->
 				<button id="white_button">戻る</button>
+				<script type="text/javascript">
+					document.getElementById("white_button").onclick = function() {
+					<%
+					if(session.getAttribute("itemInfo")!=null){
+					 	out.print("window.history.back(-1);");
+					}else{
+						out.print("location.href='"+JspPath.reference_student_detail_by_admin+"'");
+					}
+					%>
+					return false;
+				};
+				</script>
 			</div>
 		</article>
 		<br />
-		<script type="text/javascript">
-			document.getElementById("white_button").onclick = function() {
-				window.history.back(-1);
-				return false;
-			};
-		</script>
 	</div>
 </body>
 </html>

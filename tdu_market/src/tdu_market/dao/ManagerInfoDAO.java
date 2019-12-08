@@ -1,5 +1,6 @@
 package tdu_market.dao;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -116,21 +117,42 @@ public final class ManagerInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "update \"ManagerInfo\" "
-					+ "set \"hashedPassword\" = ?, \"displayName\" = ?, \"iconImageBinary\" = ?, \"registerState\" = 2 "
-					+ "where \"mailAddress\" = ?";
-			PreparedStatement pstmt = connection.prepareStatement(sql);
-
 			String mailAddress = managerUpdateInfo.getMailAddress();
 			String hashedPassword = PasswordUtil.getHashedPassword(managerUpdateInfo.getNonHashedPassword(),
 					mailAddress);
 			String displayName = managerUpdateInfo.getDisplayName();
 			InputStream iconImageBinary = managerUpdateInfo.getIconImageBinary();
 
-			pstmt.setString(1, hashedPassword);
-			pstmt.setString(2, displayName);
-			pstmt.setBinaryStream(3, iconImageBinary);
-			pstmt.setString(4, mailAddress);
+			int iconAvailable = 0;
+			try {
+				iconAvailable = iconImageBinary.available();
+			} catch (IOException e) {
+
+			}
+
+			boolean isChangeIcon = iconAvailable > 0;
+
+			StringBuilder builder = new StringBuilder(
+					"update \"ManagerInfo\" set \"hashedPassword\" = ?, \"displayName\" = ?, \"registerState\" = 2");
+
+			if (isChangeIcon) {
+				builder.append(", \"iconImageBinary\" = ?");
+			}
+
+			builder.append(" where \"mailAddress\" = ?");
+			String sql = builder.toString();
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+
+			int setCount = 1;
+
+			pstmt.setString(setCount++, hashedPassword);
+			pstmt.setString(setCount++, displayName);
+
+			if (isChangeIcon) {
+				pstmt.setBinaryStream(setCount++, iconImageBinary);
+			}
+
+			pstmt.setString(setCount++, mailAddress);
 
 			int result = pstmt.executeUpdate();
 			System.out.println("updateManagerInfo : " + result + "件のデータを更新");
@@ -282,7 +304,7 @@ public final class ManagerInfoDAO extends DAOBase {
 			return;
 		}
 
-		for(ManagerInfo i : list) {
+		for (ManagerInfo i : list) {
 			System.out.println(i);
 		}
 	}

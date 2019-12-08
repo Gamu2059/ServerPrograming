@@ -28,8 +28,14 @@
 			<div class="first_container_ver3">
 				<h3>出品物詳細</h3>
 				<!-- EditExhibitItemPageへ処理を引き継ぐ -->
+				<%RelatedClassGetInfo info = (RelatedClassGetInfo)session.getAttribute("exhibitInfo"); 		
+				%>
 				<form action="<%=ServletPath.EditExhibitItemPage%>" method="get">
-					<button type="submit" name="edit" class="button_flat_normal" id="edit">編集</button>
+				<% 
+					
+				out.print("<button type=\"submit\" class=\"button_flat_normal\" id=\"edit\"name=\"itemID\" value=\" "+info.getItemGetInfo().getItemID()+"  \">編集");	
+				out.print("<input type=\"hidden\" name=\"syllabus\" value=\"" + info.getSyllabusGetInfo().getClassCode() + "\">");
+				%>
 				</form>
 			</div>
 			<!-- セカンドコンテナ -->
@@ -37,7 +43,7 @@
 				<section>
 					<!-- ReferExhibitItemPageからのセッションデータを展開・表示 -->
 					<%
-					RelatedClassGetInfo info = (RelatedClassGetInfo)session.getAttribute("exhibitInfo");
+					
 					out.print("<div class=\"detail_content\">");
 					out.print("<h2 id=\"item_name\">"+ info.getItemGetInfo().getItemName() +"</h2>");
 					out.print("</div>");
@@ -45,33 +51,40 @@
 					out.print("<h5 id=\"syllabus_name\">"+ info.getSyllabusGetInfo().getClassName() +"</h5>");
 					out.print("</div>");
 					//商品画像の表示
-					out.print("<div class=\"detail_content\">");
+					out.print("<div class=\"detail_content\" style=\" display:flex; \" >");
 					ArrayList<String> itemImageURLs = new ArrayList<>();
 					for(int i=0;i<info.getItemGetInfo().getItemImageBinaries().length;i++){
 						itemImageURLs.add(info.getItemGetInfo().getItemImageBinaries()[i]);
 					}
 					if(itemImageURLs == null){
 						//画像が0枚のとき（追加ボタンのみ表示）
-						out.print("<label class=\"item_img_add_button\"> <input class=\"item_img_input\" type=\"file\" name=\"itemImageURLs\"></input> <br><h3>+</h3></label>");
+						//out.print("<label class=\"item_img_add_button\"> <input class=\"item_img_input\" type=\"file\" name=\"itemImageURLs\"></input> <br><h3>+</h3></label>");
+						out.print("<h3>"+"No Image"+"</h3>");
 					} else {
 						//画像が1枚４枚のとき
 						if(4 < itemImageURLs.size()){
 							//画像が４枚のとき（画像のみ表示）
 							for(int i=0; i < itemImageURLs.size(); i++){
-								out.print("<div class=\"item_img_delete_button\">");
+								if(itemImageURLs.get(i) == null){
+									continue;
+								}
+								//out.print("<div class=\"item_img_delete_button\">");
 								out.print("<img src=\""+ itemImageURLs.get(i) +"\" alt=\"商品画像\" />");
-								out.print("<button name=\"itemImageURLs\" onClick=\""+ itemImageURLs.remove(i) +" \">削除</button>");
-								out.print("</div>");
+								//out.print("<button name=\"itemImageURLs\" onClick=\""+ itemImageURLs.remove(i) +" \">削除</button>");
+								//out.print("</div>");
 							}
 						} else {
 							//画像が３枚以下のとき（画像と追加ボタンを表示）
 							for(int i=0; i < itemImageURLs.size(); i++){
-								out.print("<div class=\"item_img_delete_button\">");
-								out.print("<img src=\""+ itemImageURLs.get(i) +"\" alt=\"商品画像\" />");
-								out.print("<button name=\"itemImageURLs\" onClick=\""+ itemImageURLs.remove(i) +" \" >削除</button>");
-								out.print("</div>");
+								if(itemImageURLs.get(i) == null){
+									continue;
+								}
+								//out.print("<div class=\"item_img_delete_button\">");
+								out.print("<img src=\""+ itemImageURLs.get(i) +"\" alt=\"商品画像\" \" />");
+								//out.print("<button name=\"itemImageURLs\" onClick=\""+ itemImageURLs.remove(i) +" \" >削除</button>");
+								//out.print("</div>");
 							}
-							out.print("<label class=\"item_img_add_button\"> <input class=\"item_img_input\" type=\"file\" name=\"itemImageURLs\"></input> <br><h3>+</h3></label>");
+							//out.print("<label class=\"item_img_add_button\"> <input class=\"item_img_input\" type=\"file\" name=\"itemImageURLs\"></input> <br><h3>+</h3></label>");
 						}
 					}
 

@@ -43,6 +43,7 @@ public class ReferItemListPage extends HttpServlet {
 			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
 		}
+		request.setCharacterEncoding("UTF-8");
 
 		//Stringはnull, intは-1が渡された場合に、
 		//その項目を反映しない検索結果が出力される仕様になっている。
@@ -59,7 +60,7 @@ public class ReferItemListPage extends HttpServlet {
 
 		}
 
-		int maxPrice = 0;
+		int maxPrice = -1;
 		try {
 			maxPrice = Integer.valueOf(request.getParameter("maxPrice")).intValue();
 		} catch(NumberFormatException e) {

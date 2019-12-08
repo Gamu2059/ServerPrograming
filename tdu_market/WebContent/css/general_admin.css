@@ -375,6 +375,14 @@ label#edit_img_button:hover {
   display: flex;
   justify-content: right;
 }
+/* アイテム左寄せ */
+.item_for_left {
+  margin-left: auto;
+  margin-right: auto;
+  flex-direction: column;
+  display: flex;
+  justify-content: left;
+}
 /* アイテム下寄せ */
 .item_for_bottom {
   margin-top: auto;
