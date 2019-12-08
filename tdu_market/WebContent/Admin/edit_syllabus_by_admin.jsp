@@ -54,7 +54,7 @@
 		%>
 
 		<article>
-			<form action="<%=ServletPath.VaildateSyllabus%>" method="post">
+			<form action="<%=ServletPath.ValidateUpdateSyllabus%>" method="post">
 				<br>
 				<div class="errorMessage"></div>
 				<div class="syllabus_profile">
