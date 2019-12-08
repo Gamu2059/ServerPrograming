@@ -1,3 +1,4 @@
+<%@page import="tdu_market.util.AccountUtil"%>
 <%@page import="tdu_market.util.ServletPath"%>
 <%@page import="tdu_market.dto.StudentGetInfo"%>
 <%@page import="tdu_market.util.ServletPath"%>
@@ -48,7 +49,7 @@
 		<div class="right">
 			<%
 				//学番とディスプレーネームを取得して表示
-				String number = info_header.getMailAddress().substring(0, 7);
+				String number = AccountUtil.getStudentNumber((String)session.getAttribute("mailaddress"));
 				out.print("<h3>" + number + "</h3>");
 				out.print("<h2>" + info_header.getDisplayName() + "</h2>");
 			%>

@@ -134,14 +134,12 @@
 						<!--メッセージフォーム-->
 						<div class="textfield">
 							<form action="<%=ServletPath.PostMessage%>" method="post">
-							<input type="hidden" name="roomID" value="<%=session.getAttribute("roomID")%>">
-							<input type="hidden" name="studentNumber" value="<%=mailAddress%>">
+							  <input type="hidden" name="roomID" value="<%=session.getAttribute("roomID")%>">
+							  <input type="hidden" name="studentNumber" value="<%=mailAddress%>">
 								<textarea id="message_form" name="content" cols="50"
 									rows="2" placeholder="メッセージを入力"></textarea>
-								<button type="submit">
-									<img src="/tdu_market/images/post.png" alt="post" />
-								</button>
-							</form>
+								<input type="image" src="/tdu_market/images/post2.png" alt="post" id="post_icon">
+ 							</form>
 						</div>
 					</div>
 					<section>

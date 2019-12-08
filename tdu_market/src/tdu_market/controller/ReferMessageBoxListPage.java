@@ -64,6 +64,7 @@ public class ReferMessageBoxListPage extends HttpServlet {
 			
 			String studentNumberString = (String) request.getParameter("studentNumber");
 			ArrayList<MessageGetInfo> messageInfoList = messageInfo.getMessageInfoWithRoomInfo(roomID);
+
 			StudentGetInfo studentGetInfo = studentInfoManager.getStudentInfo(studentNumberString, false);
 
 			session.setAttribute("messageInfoList", messageInfoList);

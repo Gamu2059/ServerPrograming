@@ -33,7 +33,7 @@
 					<button type="submit" name="item_search" class="search_button">
 						<input type="hidden" name="condtion" value="">
 						<input type="hidden" name="maxPrice" value="">
-						<img src="../images/search.png" alt="虫眼鏡" />
+						<img src="/tdu_market/images/search.png" alt="虫眼鏡" />
 					</button>
 				</div>
 			</form>
