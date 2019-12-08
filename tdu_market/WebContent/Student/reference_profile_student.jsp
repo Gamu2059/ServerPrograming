@@ -92,7 +92,7 @@
 				</div>
 			</div>
 			<script type="text/javascript">
- 				<% if((boolean)session.getAttribute("isDisplayDialog")){%>
+ 				<% if((boolean)session.getAttribute("isDisplayDialog") == true){%>
 					notify_dialog('<%= (String)session.getAttribute("dialogMessage") %>');
  				<% } %>
 				document.getElementById('delete').onclick = function() {
@@ -116,13 +116,9 @@
 
 					dialog.style.display = 'block';
 					ok.addEventListener('click', function() {
-						<% session.setAttribute("isDisplayDialog", false); %>
+						<%//session.setAttribute("isDisplayDialog", false) %>
 						dialog.style.display = 'none';
 					});
-				}
-				document.getElementById('back_button').onclick = function() {
-					window.history.back(-1);
-					return false;
 				}
 			</script>
 		</section>
