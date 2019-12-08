@@ -110,7 +110,7 @@
 
 					dialog.style.display = "block";
 					ok.addEventListener("click", function() {
-						//location.href = url + ".html";
+						<% DialogUtil.turnoffDialog(request, response); %>
 						dialog.style.display = "none";
 					});
 				}
