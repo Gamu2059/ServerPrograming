@@ -21,7 +21,7 @@
 				<input id="mailaddress_field" type="text" name="mailAddress"
 					placeholder="メールアドレス" />
 				<button id="send_mailaddress_button" type="submit"
-					class="button_flat_blue" onClick="notify()">
+					class="button_flat_blue" onClick="notify_dialog('確認メールを送信しました。')">
 					送信</button>
 			</form>
 		</article>
