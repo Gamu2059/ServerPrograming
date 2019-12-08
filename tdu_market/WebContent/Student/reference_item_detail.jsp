@@ -28,9 +28,10 @@
 			<!-- セカンドコンテナ -->
 			<div class="second_container_ver2">
 				<section>
+			
 					<!-- ReferItemPageから渡されるデータを展開・表示 -->
 					<%
-					ArrayList<RelatedClassGetInfo> info = (ArrayList<RelatedClassGetInfo>)request.getAttribute("relatedClassGetInfo");
+					ArrayList<RelatedClassGetInfo> info = (ArrayList<RelatedClassGetInfo>)session.getAttribute("itemInfo");
 					out.print("<div class=\"detail_content\">");
 					out.print("<h2 id=\"item_name\">"+info.get(0).getItemGetInfo().getItemName()+"</h2>");
 					out.print("</div>");
@@ -93,7 +94,7 @@
 					<!-- BuyItemに処理を引き継ぐ -->
 					<form action="<%=ServletPath.BuyItem%>" method="post">
 						<%
-						out.print("<input type=\"hidden\" name=\"beginTraderMailAddress\" value=\""+ session.getAttribute("meiladdress") +"\"/>");
+						out.print("<input type=\"hidden\" name=\"beginTraderMailAddress\" value=\""+ session.getAttribute("mailaddress") +"\"/>");
 						out.print("<input type=\"hidden\" name=\"tradedItemID\" value=\""+ info.get(0).getItemGetInfo().getItemID() +"\"/>");
 						%>
 						<button type="submit" id="yes" class="button_flat_submit">確認</button>

@@ -165,7 +165,8 @@ public final class ItemInfoDAO extends DAOBase {
 			String sql = "update \"ItemInfo\" set \"tradingState\" = ? where \"itemID\" = ?";
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setInt(1, tradingState);
-
+			pstmt.setLong(2, itemID);
+			
 			int result = pstmt.executeUpdate();
 			System.out.println("updateItemInfo : " + result + "件のデータを更新");
 		} catch (SQLException e) {
