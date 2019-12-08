@@ -1,4 +1,4 @@
-<%@page import="tdu_market.dto.DepartmentGetInfo"%>
+<%@page import="tdu_market.dto.*"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -56,7 +56,18 @@
 					</div>
 					<div class="detail_content">
 						<h3>担当教員</h3>
-						<input id="teacher_field" type="text" name="seacherNameKeyword">
+						<input id="teacher_field" type="text" name="seacherNameKeyword" autocomplete="on" list="teacherList">
+						<datalist id="teacherList">
+						<%
+						ArrayList<TeacherGetInfo> teacherList = new ArrayList<>();
+						teacherList = (ArrayList<TeacherGetInfo>)session.getAttribute("teacherList");
+						if(teacherList!=null){
+							for(TeacherGetInfo teacher:teacherList){
+								out.print("<option value=\""+teacher.getTeacherName()+"\">");
+							}
+						}
+						%>
+						</datalist>
 					</div>
 					<br>
 					<!-- サードコンテナ -->
