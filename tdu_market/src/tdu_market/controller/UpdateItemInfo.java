@@ -78,7 +78,7 @@ public class UpdateItemInfo extends HttpServlet {
 		itemInfo.updateItemInfo(updateInfo);
 
  		boolean isDisplayDialog = true;
- 		String dialogMessage = "更新しました";
+ 		String dialogMessage = "出品物を更新しました";
  		session.setAttribute("dialogMessage", dialogMessage);
  		session.setAttribute("isDisplayDialog", isDisplayDialog);
 		ControllerUtil.translatePage(JspPath.reference_exhibit_list, request, response);

@@ -33,7 +33,7 @@
 				<form action="<%=ServletPath.EditExhibitItemPage%>" method="post">
 				<%
 
-				out.print("<button type=\"submit\" class=\"button_flat_normal\" id=\"edit\"name=\"itemID\" value=\""+info.getItemGetInfo().getItemID()+"  \">編集");
+				out.print("<button type=\"submit\" class=\"button_flat_normal\" id=\"edit\" name=\"itemID\" value=\""+info.getItemGetInfo().getItemID()+"  \">編集");
 				out.print("<input type=\"hidden\" name=\"classCode\" value=\"" + info.getSyllabusGetInfo().getClassCode() + "\">");
 				%>
 				</form>
