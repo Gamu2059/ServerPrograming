@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import tdu_market.entity_manager.ItemInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.DialogUtil;
 import tdu_market.util.JspPath;
 import tdu_market.util.ServletPath;
 
@@ -47,10 +48,7 @@ public class DeleteItemInfo extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		//ダイアログの表示処理
- 		boolean isDisplayDialog = true;
- 		String dialogMessage = "出品を削除しました。";
- 		session.setAttribute("dialogMessage", dialogMessage);
- 		session.setAttribute("isDisplayDialog", isDisplayDialog);
+		DialogUtil.setDialog("出品を削除しました。", request, response);
 		// 遷移
 		ControllerUtil.translatePage(ServletPath.ReferExhibitItemListPage, request, response);
 
