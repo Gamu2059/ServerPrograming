@@ -2,8 +2,6 @@ package tdu_market.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,11 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import tdu_market.dto.ItemGetInfo;
+import tdu_market.dto.ItemGetInfoByAdmin;
 import tdu_market.dto.ItemSearchInfo;
 import tdu_market.entity_manager.ItemInfoManager;
-import tdu_market.entity_manager.RelatedClassInfoManager;
-import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.ControllerUtil;
 import tdu_market.util.JspPath;
 
@@ -75,36 +71,37 @@ public class ManagerReferItemListPage extends HttpServlet {
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		//検索結果をリストへ保持
 		ItemSearchInfo searchInfo = new ItemSearchInfo(itemNameKeyword,condition,maxPrice,oldestDate);
-		ArrayList<ItemGetInfo> itemListInfo = itemInfo.searchItem(searchInfo) ;
+//		ArrayList<ItemGetInfo> itemListInfo = itemInfo.searchItem(searchInfo) ;
+		ArrayList<ItemGetInfoByAdmin> searchResult = itemInfo.searchItemByManager(searchInfo);
 
-		//商品と授業IDの関連付けられた情報(ロード時間がかかる理由はここ)
-		RelatedClassInfoManager relatedInfoManager = new RelatedClassInfoManager();
-		Map<Long, String> relatedItemIdAndSyllabusIdMap = new HashMap<Long, String>();
-		for(ItemGetInfo _itemListInfo :itemListInfo) {
-			String classCode = "";
-			if(relatedInfoManager.getRelatedClassInfoWithItem(_itemListInfo.getItemID())!=null) {
-				classCode = relatedInfoManager.getRelatedClassInfoWithItem(_itemListInfo.getItemID()).get(0).getSyllabusGetInfo().getClassName();
-			}
-			relatedItemIdAndSyllabusIdMap.put(_itemListInfo.getItemID(), classCode );
-		}
-
-		//商品と出品者名が関連付けられた情報(ロード時間がかかる理由はここ)
-		StudentInfoManager studentInfoManager = new StudentInfoManager();
-		Map<Long, String> relatedItemIdAndStudentNameMap = new HashMap<Long, String>();
-		for(ItemGetInfo _itemListInfo:itemListInfo) {
-			String studentName = "取得出来ませんでした";
-			if(studentInfoManager.getStudentInfo(_itemListInfo.getExhibitorMailAddress(), false)!=null) {
-				studentName = studentInfoManager.getStudentInfo(_itemListInfo.getExhibitorMailAddress(), false).getDisplayName();
-			}
-			relatedItemIdAndStudentNameMap.put(_itemListInfo.getItemID(), studentName);
-		}
+//		//商品と授業IDの関連付けられた情報(ロード時間がかかる理由はここ)
+//		RelatedClassInfoManager relatedInfoManager = new RelatedClassInfoManager();
+//		Map<Long, String> relatedItemIdAndSyllabusIdMap = new HashMap<Long, String>();
+//		for(ItemGetInfo _itemListInfo :itemListInfo) {
+//			String classCode = "";
+//			if(relatedInfoManager.getRelatedClassInfoWithItem(_itemListInfo.getItemID())!=null) {
+//				classCode = relatedInfoManager.getRelatedClassInfoWithItem(_itemListInfo.getItemID()).get(0).getSyllabusGetInfo().getClassName();
+//			}
+//			relatedItemIdAndSyllabusIdMap.put(_itemListInfo.getItemID(), classCode );
+//		}
+//
+//		//商品と出品者名が関連付けられた情報(ロード時間がかかる理由はここ)
+//		StudentInfoManager studentInfoManager = new StudentInfoManager();
+//		Map<Long, String> relatedItemIdAndStudentNameMap = new HashMap<Long, String>();
+//		for(ItemGetInfo _itemListInfo:itemListInfo) {
+//			String studentName = "取得出来ませんでした";
+//			if(studentInfoManager.getStudentInfo(_itemListInfo.getExhibitorMailAddress(), false)!=null) {
+//				studentName = studentInfoManager.getStudentInfo(_itemListInfo.getExhibitorMailAddress(), false).getDisplayName();
+//			}
+//			relatedItemIdAndStudentNameMap.put(_itemListInfo.getItemID(), studentName);
+//		}
 
 
 		//jspに情報を投げる。
 		HttpSession session = request.getSession();
-		session.setAttribute("itemListInfo", itemListInfo);
-		session.setAttribute("relatedItemIdAndSyllabusIdMap", relatedItemIdAndSyllabusIdMap);
-		session.setAttribute("relatedItemIdAndStudentNameMap", relatedItemIdAndStudentNameMap );
+		session.setAttribute("itemListInfo", searchResult);
+//		session.setAttribute("relatedItemIdAndSyllabusIdMap", relatedItemIdAndSyllabusIdMap);
+//		session.setAttribute("relatedItemIdAndStudentNameMap", relatedItemIdAndStudentNameMap );
 
 		//遷移
 		ControllerUtil.translatePage(JspPath.reference_item_list_by_admin, request, response);

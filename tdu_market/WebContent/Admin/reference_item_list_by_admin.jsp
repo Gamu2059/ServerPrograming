@@ -13,7 +13,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <!-- Bootstrap -->
-<link rel="stylesheet" href="/tdu_market/css/import_admin.css" type="text/css" />
+<link rel="stylesheet" href="/tdu_market/css/import_admin.css"
+	type="text/css" />
 <title>商品情報一覧</title>
 </head>
 <body>
@@ -36,97 +37,109 @@
 			</div>
 			<!-- テーブル -->
 
-				<div class="item_for_center">
-					<div class="list">
-						<table>
-							<!-- テーブルタイトル -->
-							<thead class="list_title">
-								<tr>
-									<th class="check_column1"></th>
-									<tb class="hidden_column">商品ID</tb>
-									<th class="item_column1">商品名</th>
-									<th class="item_column2">学籍場号</th>
-									<th class="item_column3">出品者</th>
-									<th class="item_column4">関連授業名</th>
-									<th class="item_column5">価格</th>
+			<div class="item_for_center">
+				<div class="list">
+					<table>
+						<!-- テーブルタイトル -->
+						<thead class="list_title">
+							<tr>
+								<th class="check_column1"></th>
+								<tb class="hidden_column">商品ID</tb>
+								<th class="item_column1">商品名</th>
+								<th class="item_column2">学籍場号</th>
+								<th class="item_column3">出品者</th>
+								<th class="item_column4">関連授業名</th>
+								<th class="item_column5">価格</th>
+							</tr>
+						</thead>
+						<!-- テーブル要素 -->
+						<tbody class="list_content">
+
+							<form action="<%=ServletPath.ManagerDeleteItemInfo%>"
+								method="post">
+
+
+								<%
+									ArrayList<ItemGetInfoByAdmin> itemInfo = new ArrayList<>();
+									Object itemInfoObj = session.getAttribute("itemListInfo");
+									if (itemInfoObj != null) {
+										itemInfo = (ArrayList<ItemGetInfoByAdmin>) itemInfoObj;
+									}
+									if (itemInfo != null) {
+										for (ItemGetInfoByAdmin item : itemInfo) {
+											ItemGetInfo i = item.getItemGetInfo();
+											StudentGetInfo s = item.getStudentGetInfo();
+											SyllabusGetInfo sy = item.getSyllabusGetInfo();
+								%>
+								<tr class="exhibitId">
+									<th class="check_column1"><input type="checkbox"
+										name="itemIDs" value="<%=i.getItemID()%>" />
+									</td>
+									<td class="hidden_column" hidden><%=i.getItemID()%></td>
+									<td class="item_column1"><%=i.getItemName()%></td>
+									<td class="item_column2"><%=i.getExhibitorMailAddress().split("@", 0)[0]%></td>
+									<td class="item_column3"><%=s != null ? s.getDisplayName() : "未設定"%></td>
+									<td class="item_column4"><%=sy != null ? sy.getClassName() : "未設定"%></td>
+									<td class="item_column5"><%=i.getPrice()%></td>
 								</tr>
-							</thead>
-							<!-- テーブル要素 -->
-							<tbody class="list_content">
+								<%
+									}
+									}
+								%>
 
-							<form action="<%= ServletPath.ManagerDeleteItemInfo %>" method="post">
+						</tbody>
 
+						<!-- 複数件削除ダイアログ -->
 
-							<%
-							ArrayList<ItemGetInfo> itemInfo = new ArrayList<>();
-							itemInfo = (ArrayList<ItemGetInfo>)session.getAttribute("itemListInfo");
-							Map<Long,String> relatedItemIdAndSyllabusIdMap = new HashMap<>();
-							relatedItemIdAndSyllabusIdMap = (Map<Long,String>)session.getAttribute("relatedItemIdAndSyllabusIdMap");
-							Map<Long,String> relatedItemIdAndStudentNameMap = new HashMap<>();
-							relatedItemIdAndStudentNameMap = (Map<Long,String>)session.getAttribute("relatedItemIdAndStudentNameMap");
-							if(itemInfo != null){
-								for(ItemGetInfo item : itemInfo){
-									%>
-									<tr class="exhibitId">
-										<th class="check_column1"><input type="checkbox" name="itemIDs" value="<%= item.getItemID() %>" /></td>
-										<td class="hidden_column" hidden><%= item.getItemID() %></td>
-										<td class="item_column1"><%= item.getItemName() %></td>
-										<td class="item_column2"><%= item.getExhibitorMailAddress().split("@", 0)[0] %></td>
-										<td class="item_column3"><%= relatedItemIdAndStudentNameMap.get(item.getItemID()) %></td>
-										<td class="item_column4"><%= relatedItemIdAndSyllabusIdMap.get(item.getItemID()) %></td>
-										<td class="item_column5"><%= item.getPrice() %></td>
-									</tr>
-									<%
-								}
-							}
-							%>
-							</tbody>
-
-							<!-- 複数件削除ダイアログ -->
-
-							<div id="confirm_dialog_admin">
-								<p>削除しますか？</p>
-								<div class="confirm_dialog_button">
-										<button type="submit" id="yes" class="button_flat_nega">確認</button>
-										<button tyoe="button" id="no" class="button_flat_normal">キャンセル</button>
-								</div>
+						<div id="confirm_dialog_admin">
+							<p>削除しますか？</p>
+							<div class="confirm_dialog_button">
+								<button type="submit" id="yes" class="button_flat_nega">確認</button>
+								<button tyoe="button" id="no" class="button_flat_normal">キャンセル</button>
 							</div>
+						</div>
 
-							</form>
-
-						</table>
-						<form name="select_item" action="<%= ServletPath.ManagerReferItemPage %>" method="get">
 						</form>
-						<!-- テーブル要素クリック -->
-						<script type="text/javascript"
-							src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-						<script type="text/javascript">
-							$(".exhibitId").children(":not('th')").on("click",function() {
-								//商品IDの取得
-								var itemId = $(this).parent().children(".hidden_column")[0].innerText;
-								//Input型エレメントの生成
-								var element = document.createElement("input");
-								//typeの設定
-								element.setAttribute("type","hidden");
-								//nameの設定
-								element.setAttribute("name","itemID");
-								//valueの設定
-								element.setAttribute("value",itemId);
-								//取得したIDデータをsetattributeする
-								document.select_item.appendChild(element);
-								//データをサーバーへ送信する
-								document.select_item.submit();
-							});
-						</script>
-						<!-- テーブル要素クリックここまで -->
-					</div>
+
+					</table>
+					<form name="select_item"
+						action="<%=ServletPath.ManagerReferItemPage%>" method="get">
+					</form>
+					<!-- テーブル要素クリック -->
+					<script type="text/javascript"
+						src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+					<script type="text/javascript">
+						$(".exhibitId").children(":not('th')").on(
+								"click",
+								function() {
+									//商品IDの取得
+									var itemId = $(this).parent().children(
+											".hidden_column")[0].innerText;
+									//Input型エレメントの生成
+									var element = document
+											.createElement("input");
+									//typeの設定
+									element.setAttribute("type", "hidden");
+									//nameの設定
+									element.setAttribute("name", "itemID");
+									//valueの設定
+									element.setAttribute("value", itemId);
+									//取得したIDデータをsetattributeする
+									document.select_item.appendChild(element);
+									//データをサーバーへ送信する
+									document.select_item.submit();
+								});
+					</script>
+					<!-- テーブル要素クリックここまで -->
 				</div>
-				<br />
+			</div>
+			<br />
 			<!-- 絞り込みボタン -->
 			<div class="item_for_LeftAndRight_around">
 				<button id="red_button" type="button">削除</button>
 				<button class="search_button" type="button">
-					<img src="/tdu_market/images/search.png" onclick="location.href='<%= JspPath.search_item_by_admin %>'" />絞り込み
+					<img src="/tdu_market/images/search.png"
+						onclick="location.href='<%=JspPath.search_item_by_admin%>'" />絞り込み
 				</button>
 				<br />
 			</div>

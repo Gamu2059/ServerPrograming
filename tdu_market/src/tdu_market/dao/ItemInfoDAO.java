@@ -10,10 +10,15 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import tdu_market.dto.ItemCreateInfo;
+import tdu_market.dto.ItemGetInfo;
+import tdu_market.dto.ItemGetInfoByAdmin;
 import tdu_market.dto.ItemSearchInfo;
 import tdu_market.dto.ItemUpdateInfo;
+import tdu_market.dto.StudentGetInfo;
+import tdu_market.dto.SyllabusGetInfo;
 import tdu_market.entity_bean.ItemInfo;
 import tdu_market.entity_bean.ItemInfoByAdmin;
+import tdu_market.entity_bean.SyllabusInfo;
 
 public final class ItemInfoDAO extends DAOBase {
 
@@ -391,7 +396,7 @@ public final class ItemInfoDAO extends DAOBase {
 	}
 
 	/** 運営が商品を検索するために用意した、複数情報をまとめて検索するメソッド */
-	public ArrayList<ItemInfoByAdmin> searchItemInfoByManager(ItemSearchInfo itemSearchInfo) {
+	public ArrayList<ItemGetInfoByAdmin> searchItemInfoByManager(ItemSearchInfo itemSearchInfo) {
 
 		if (itemSearchInfo == null) {
 			System.err.println("searchItemInfoByManager : itemSearchInfo is null");
@@ -403,7 +408,7 @@ public final class ItemInfoDAO extends DAOBase {
 			return null;
 		}
 
-		ArrayList<ItemInfoByAdmin> list = null;
+		ArrayList<ItemGetInfoByAdmin> list = null;
 		ResultSet resultSet = null;
 
 		try {
@@ -418,38 +423,25 @@ public final class ItemInfoDAO extends DAOBase {
 			boolean isEmptyMaxPrice = maxPrice < 0;
 			boolean isEmptyOldestDate = oldestDate < 0;
 
-			StringBuilder builder = new StringBuilder("select * from \"ItemInfoByAdminView\" ");
-
-			if (!isEmptyINK || !isEmptyCondition || !isEmptyMaxPrice || !isEmptyOldestDate) {
-				builder.append("where ");
-			}
+			StringBuilder builder = new StringBuilder(String.format(
+					"select * from \"ItemInfoByAdminView\" as i, \"SyllabusInfoView\" as s where s.\"%s\" = i.\"%s\" ",
+					SyllabusInfo.CLASS_CODE,
+					SyllabusInfo.CLASS_CODE));
 
 			if (!isEmptyINK) {
-				builder.append(String.format("\"%s\" like ? ", ItemInfo.ITEM_NAME));
+				builder.append(String.format("and \"%s\" like ? ", ItemInfo.ITEM_NAME));
 			}
 
 			if (!isEmptyCondition) {
-				if (!isEmptyINK) {
-					builder.append("and ");
-				}
-
-				builder.append(String.format("\"%s\" = ? ", ItemInfo.CONDITION));
+				builder.append(String.format("and \"%s\" = ? ", ItemInfo.CONDITION));
 			}
 
 			if (!isEmptyMaxPrice) {
-				if (!isEmptyINK || !isEmptyCondition) {
-					builder.append("and ");
-				}
-
-				builder.append(String.format("\"%s\" <= ? ", ItemInfo.PRICE));
+				builder.append(String.format("and \"%s\" <= ? ", ItemInfo.PRICE));
 			}
 
 			if (!isEmptyOldestDate) {
-				if (!isEmptyINK || !isEmptyCondition || !isEmptyMaxPrice) {
-					builder.append("and ");
-				}
-
-				builder.append(String.format("\"%s\" >= ? ", ItemInfo.EXHIBIT_DATE));
+				builder.append(String.format("and \"%s\" >= ? ", ItemInfo.EXHIBIT_DATE));
 			}
 
 			String sql = builder.toString();
@@ -483,12 +475,19 @@ public final class ItemInfoDAO extends DAOBase {
 
 			while (resultSet.next()) {
 				ItemInfoByAdmin itemInfo = ItemInfoByAdmin.create(resultSet);
-
-				if (list == null) {
-					list = new ArrayList<ItemInfoByAdmin>();
+				if (itemInfo == null) {
+					continue;
 				}
 
-				list.add(itemInfo);
+				ItemGetInfo itemGetInfo = ItemGetInfo.create(itemInfo.getItemInfo(), null);
+				StudentGetInfo studentGetInfo = StudentGetInfo.create(itemInfo.getStudentInfo());
+				SyllabusGetInfo syllabusGetInfo = SyllabusGetInfo.create(itemInfo.getSyllabusInfo(), itemInfo.getSemesterInfo(), itemInfo.getTeacherInfo());
+
+				if (list == null) {
+					list = new ArrayList<ItemGetInfoByAdmin>();
+				}
+
+				list.add(new ItemGetInfoByAdmin(itemGetInfo, studentGetInfo, syllabusGetInfo));
 
 			}
 		} catch (SQLException e) {
