@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import tdu_market.dto.ItemGetInfo;
 import tdu_market.entity_manager.ItemInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.DialogUtil;
 import tdu_market.util.JspPath;
 
 /**
@@ -68,6 +69,9 @@ public class ManagerDeleteItemInfo extends HttpServlet {
 		//jspに情報を投げる。
 		session.setAttribute("exhibitItemList",itemList);
 
+		//ダイアログの設定
+		DialogUtil.setDialog("商品情報を削除しました。", request, response);
+		
 		//遷移
 		ControllerUtil.translatePage(JspPath.reference_exhibit_item_by_admin, request, response);
 	}

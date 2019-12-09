@@ -15,6 +15,7 @@ import tdu_market.dto.SyllabusCreateInfo;
 import tdu_market.dto.SyllabusGetInfo;
 import tdu_market.entity_manager.SyllabusInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.DialogUtil;
 import tdu_market.util.JspPath;
 
 /**
@@ -69,6 +70,7 @@ public class RegisterSyllabusInfo extends HttpServlet {
 				ArrayList<SyllabusGetInfo> syllabusInfoList = syllabusInfo.getAllSyllabus();
 				HttpSession session = request.getSession();
 				session.setAttribute("syllabusInfoList", syllabusInfoList);
+				DialogUtil.setDialog("シラバスを登録しました。", request, response);//一覧に戻った場合のみダイアログを表示
 				ControllerUtil.translatePage(JspPath.reference_syllabus_list_by_admin, request, response);
 			}
 		}

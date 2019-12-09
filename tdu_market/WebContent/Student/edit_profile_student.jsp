@@ -124,17 +124,6 @@
 					dialog.style.display = 'block';
 
 					yes.addEventListener('click', function() {
-
-						//ここに内部処理をいれる
-
-						//notify_dialog('更新しました。', 'reference_profile_student');
-						<%
-						boolean isDisplayDialog = true;
-						String dialogMessage = "更新しました";
-						session.setAttribute("dialogMessage", dialogMessage);
-						session.setAttribute("isDisplayDialog", isDisplayDialog);
-						System.out.println(session.getAttribute("isDisplayDialog"));
-						%>
 						dialog.style.display = 'none';
 					});
 					no.addEventListener('click', function() {

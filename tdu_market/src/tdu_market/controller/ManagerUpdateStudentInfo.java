@@ -17,6 +17,7 @@ import tdu_market.dto.StudentGetInfo;
 import tdu_market.dto.StudentUpdateInfo;
 import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.DialogUtil;
 import tdu_market.util.JspPath;
 
 @WebServlet("/tdu_market/controller/ManagerUpdateStudentInfo")
@@ -57,6 +58,7 @@ public class ManagerUpdateStudentInfo extends HttpServlet {
 		ReturnInfo updateResult = student.updateStudentInfoByAdmin(updateInfo);
 
 		if (updateResult.isSuccess()) {
+			DialogUtil.setDialog("学生情報を更新しました。", request, response);
 			session.removeAttribute("errorEditStudentMessage");
 			StudentGetInfo studetnInfo = student.getStudentInfo(studentMailAddress, false);
 			session.setAttribute("studentInfo", studetnInfo);

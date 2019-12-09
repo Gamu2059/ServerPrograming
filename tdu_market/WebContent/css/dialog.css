@@ -42,14 +42,14 @@
 #confirm_dialog_admin {
   position: fixed;
   top: 50%;
-  left: 50%;
+  left: 25%;
   display: none;
   text-align: center;
   background-color: white;
   width: 300px;
   height: 180px;
   margin-top: -90px;
-  margin-left: -150px;
+/*margin-left: -150px;*/
   border: solid 1px #aaa;
   border-radius: 10px;
   box-shadow: 10px 5px 10px #B7B5B5;
@@ -130,14 +130,14 @@
 #notify_dialog_admin {
   position: fixed;
   top: 50%;
-  left: 50%;
+  left: 25%;
   display: none;
   text-align: center;
   background-color: white;
   width: 300px;
   height: 180px;
   margin-top: -90px;
-  margin-left: -150px;
+  /* margin-left: -150px; */
   border: solid 1px #aaa;
   border-radius: 10px;
   box-shadow: 10px 5px 10px #B7B5B5;

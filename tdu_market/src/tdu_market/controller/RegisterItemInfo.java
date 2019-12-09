@@ -34,7 +34,7 @@ public class RegisterItemInfo extends HttpServlet {
 		}
 
 		request.setCharacterEncoding("UTF-8");
-		
+
 		String mailAddress = ControllerUtil.getMailAddress(request, response);
 		String itemName = request.getParameter("itemName");
 		String description = request.getParameter("description");
@@ -42,7 +42,6 @@ public class RegisterItemInfo extends HttpServlet {
 		String priceStr = request.getParameter("price");
 		String relatedClassCodeWithClassName = request.getParameter("relatedClassCode");
 		String relatedClassCode = relatedClassCodeWithClassName.substring(0, 10);
-		System.out.println(relatedClassCode);
 
 		int condition = -1;
 		try {
@@ -62,30 +61,40 @@ public class RegisterItemInfo extends HttpServlet {
 		Part image2 = request.getPart("itemImageURLs_2");
 		Part image3 = request.getPart("itemImageURLs_3");
 		Part image4 = request.getPart("itemImageURLs_4");
-		
+
 		InputStream[] iss = new InputStream[4];
 		iss[0] = image1.getInputStream();
 		iss[1] = image2.getInputStream();
 		iss[2] = image3.getInputStream();
 		iss[3] = image4.getInputStream();
-		
+
 		HttpSession session = request.getSession();
 		ItemCreateInfo createInfo = new ItemCreateInfo(mailAddress, itemName, description, condition, price,
 				relatedClassCode, iss);
 		session.setAttribute("info", createInfo);
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		ReturnInfo validateResult = itemInfo.validateRegisterExhibitItem(createInfo);
-		
+
 		if (validateResult.isSuccess()) {
+
+			showDialog("出品を登録しました。", request, response);
 			itemInfo.createItemInfo(createInfo);
+
 			//セッションを破棄
 			session.removeAttribute("info");
-//			ControllerUtil.translatePage(JspPath.confirm_register_exhibit, request, response);
 			// 出品物一覧へ遷移する
 			ReferExhibitItemListPage referExhibitItemListPage = new ReferExhibitItemListPage();
 			referExhibitItemListPage.doGet(request, response);
 		} else {
+			showDialog("入力に誤りがあります。", request, response);
 			ControllerUtil.translatePage(JspPath.register_exhibit, request, response);
 		}
+	}
+	public void showDialog(String message, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
+ 		boolean isDisplayDialog = true;
+ 		HttpSession session = request.getSession();
+ 		String dialogMessage = message;
+ 		session.setAttribute("dialogMessage", dialogMessage);
+ 		session.setAttribute("isDisplayDialog", isDisplayDialog);
 	}
 }

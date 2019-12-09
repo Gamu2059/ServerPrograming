@@ -57,13 +57,16 @@
 	  					out.print("新着商品はありません");
 	  				} else {
 	  					for(int i=0;i<newItemList.size();i++){
-		  					out.print("<button id=\"item_button\" type=\" submit \" value=\" "+ newItemList.get(i).getItemID() +"  \">");
+	  						out.print("<form action=\""+ServletPath.ReferItemPage+"\" method=\"get\">");
+	  						out.print("<input type=\"hidden\" name=\"itemID\"  value=\""+newItemList.get(i).getItemID()+"\" >");
+		  					out.print("<button id=\"item_button\" type=\" submit \">");
 		  					if(newItemList.get(i).getItemImageBinaries() != null){
 		  						out.print("<img src=\" " + newItemList.get(i).getItemImageBinaries()[0] +" \"/>");
 		  					}
 		  					out.print("<h5>"+newItemList.get(i).getItemName()+"</h5>");
 		  					out.print("<h4>"+newItemList.get(i).getPrice()+"</h4>");
 		  					out.print("</button>");
+		  					out.print("</form>");
 		  				}
 	  				}
 	  				%>

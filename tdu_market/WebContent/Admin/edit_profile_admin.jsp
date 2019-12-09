@@ -48,7 +48,7 @@
 						</label>
 						<div>
 							<h3>ディスプレイネーム</h3>
-							<input type="text" id="user_name" placeholder="<%= name %>" name="displayName" />
+							<input type="text" id="user_name" value="<%= name %>" name="displayName" />
 							<h3>アカウント種別</h3>
 							<h2>運営アカウント</h2>
 						</div>
@@ -134,20 +134,20 @@
 
 						//ここに内部処理をいれる
 
-						notify_dialog("削除しました。", "index");
+						//notify_dialog("削除しました。", "index");
 					});
 					no.addEventListener("click", function() {
 						dialog.style.display = "none";
 					});
 				};
-				function notify_dialog(text, url) {
+				function notify_dialog(text) {
 					let dialog = document.getElementById("notify_dialog_admin");
 
 					document.getElementById("notify_text").textContent = text;
 
 					dialog.style.display = "block";
 					ok.addEventListener("click", function() {
-						location.href = url + ".html";
+						//location.href = url + ".html";
 						dialog.style.display = "none";
 					});
 				}

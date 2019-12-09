@@ -1,3 +1,4 @@
+<%@page import="tdu_market.util.DialogUtil"%>
 <%@page import="tdu_market.dto.DepartmentGetInfo"%>
 <%@page import="tdu_market.dto.SyllabusGetInfo"%>
 <%@page import="java.util.ArrayList"%>
@@ -23,19 +24,27 @@
 		<article>
 			<!-- ソート -->
 			<div class="sort">
-				<select name="sort_student">
-					<option value="1">授業コード</option>
-					<option value="2">授業名</option>
-					<option value="3">学部</option>
-					<option value="4">学科</option>
-					<option value="5">担当教員</option>
-					<option value="6">開講年度</option>
+				<form name="sort_syllabus">
+				<select name="sort_number" onchange="sort_syllabusList();">
+					<option value="1">授業コード(昇順)</option>
+					<option value="2">授業コード(降順)</option>
+					<option value="3">授業名(昇順)</option>
+					<option value="4">授業名(降順)</option>
+					<option value="5">学部(昇順)</option>
+					<option value="6">学部(降順)</option>
+					<option value="7">学科(昇順)</option>
+					<option value="8">学科(降順)</option>
+					<option value="9">担当教員(昇順)</option>
+					<option value="10">担当教員(降順)</option>
+					<option value="11">開講年度(昇順)</option>
+					<option value="12">開講年度(降順)</option>
 				</select>
+				</form>
 			</div>
 			<!-- テーブル -->
 			<div class="item_for_center">
-				<div class="list">
-						<table>
+				<div class="list_content">
+						<table id="syllabusList">
 							<!-- テーブルタイトル -->
 							<thead class="list_title">
 								<tr>
@@ -49,7 +58,7 @@
 								</tr>
 							</thead>
 							<!-- テーブル要素 -->
-							<tbody class="list_content">
+							<tbody class="list" id="list_content">
 
 								<form action="<%= ServletPath.DeleteSyllabusInfo %>" method="post">
 
@@ -87,6 +96,57 @@
 							</div>
 
 							</form>
+
+							<!-- ソート機能 -->
+						<script src="/tdu_market/js/list.min.js"></script>
+						<script>
+						var options = {
+							valueNames: [ 'syllabus_column1', 'syllabus_column2', 'syllabus_column3', 'syllabus_column4','syllabus_column5', 'syllabus_column6' ]
+						};
+						var studentList = new List('syllabusList', options);
+						studentList.sort( 'syllabus_column1', {order : 'asc'} );
+						function sort_syllabusList(){
+							sortIndex = document.sort_syllabus.sort_number.selectedIndex;
+							switch (sortIndex) {
+					        case 0:
+					        	studentList.sort( 'syllabus_column1', {order : 'asc'} );
+					          break;
+					        case 1:
+					        	studentList.sort( 'syllabus_column1', {order : 'desc'} );
+					          break;
+					        case 2:
+					        	studentList.sort( 'syllabus_column2', {order : 'asc'} );
+					          break;
+					        case 3:
+					        	studentList.sort( 'syllabus_column2', {order : 'desc'} );
+					          break;
+					        case 4:
+					        	studentList.sort( 'syllabus_column3', {order : 'asc'} );
+					          break;
+					        case 5:
+					        	studentList.sort( 'syllabus_column3', {order : 'desc'} );
+					          break;
+					        case 6:
+					        	studentList.sort( 'syllabus_column4', {order : 'asc'} );
+					          break;
+					        case 7:
+					        	studentList.sort( 'syllabus_column4', {order : 'desc'} );
+					          break;
+					        case 8:
+					        	studentList.sort( 'syllabus_column5', {order : 'asc'} );
+					          break;
+					        case 9:
+					        	studentList.sort( 'syllabus_column5', {order : 'desc'} );
+					          break;
+					        case 10:
+						        	studentList.sort( 'syllabus_column6', {order : 'asc'} );
+						       break;
+						        case 11:
+						        	studentList.sort( 'syllabus_column6', {order : 'desc'} );
+						          break;
+					      }
+						}
+						</script>
 
 						</table>
 						<form name="select_syllabus" action="<%= ServletPath.ManagerReferSyllabusPage %>" method="get">
@@ -149,13 +209,17 @@
 					<button id="no" class="button_flat_normal">キャンセル</button>
 				</div>
 			</div> --%>
-			<!-- <div id="notify_dialog_admin">
+			<div id="notify_dialog_admin">
 				<p id="notify_text">確認ダイアログ</p>
 				<div class="notify_dialog_button">
 					<button id="ok" class="button_flat_normal">了解</button>
 				</div>
-			</div> -->
+			</div>
 			<script type="text/javascript">
+			<% if(DialogUtil.checkDisplayDialog(request, response)){ %>
+				notify_dialog(<%=DialogUtil.getDialogMessage(request, response)%>);
+			<% } %>
+			
 				document.getElementById("red_button").onclick = function() {
 					//各ボタンの要素の取得
 					let dialog = document.getElementById("confirm_dialog_admin");
@@ -166,22 +230,19 @@
 					yes.addEventListener("click", function() {
 						dialog.style.display = "none";
 
-						//ここに内部処理をいれる
-
-						//notify_dialog("削除しました。","reference_syllabus_list_by_admin"); /*再読み込みがかかります*/
 					});
 					no.addEventListener("click", function() {
 						dialog.style.display = "none";
 					});
 				};
-				function notify_dialog(text, url) {
+				function notify_dialog(text) {
 					let dialog = document.getElementById("notify_dialog_admin");
 
 					document.getElementById("notify_text").textContent = text;
 
 					dialog.style.display = "block";
 					ok.addEventListener("click", function() {
-						//location.href = url + ".jsp";
+						<% DialogUtil.turnoffDialog(request, response); %>
 						dialog.style.display = "none";
 					});
 				}

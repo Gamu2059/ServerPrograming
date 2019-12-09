@@ -7,10 +7,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import tdu_market.entity_manager.ItemInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.DialogUtil;
 import tdu_market.util.JspPath;
+import tdu_market.util.ServletPath;
 
 /**
  * Servlet implementation class DeleteItemInfo
@@ -42,8 +45,12 @@ public class DeleteItemInfo extends HttpServlet {
 		//削除処理
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		itemInfo.deleteItemInfo(Integer.valueOf(request.getParameter("itemID")));
+		
+		HttpSession session = request.getSession();
+		//ダイアログの表示処理
+		DialogUtil.setDialog("出品を削除しました。", request, response);
 		// 遷移
-		ControllerUtil.translatePage(JspPath.reference_item_list, request, response);
+		ControllerUtil.translatePage(ServletPath.ReferExhibitItemListPage, request, response);
 
 	}
 

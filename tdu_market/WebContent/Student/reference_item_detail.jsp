@@ -121,7 +121,7 @@
 
 						//ここに内部処理をいれる
 
-						notify_dialog('取引を申し込みました。<br>相手からの連絡をお待ちください。');
+						//notify_dialog('取引を申し込みました。<br>相手からの連絡をお待ちください。');
 					});
 					no.addEventListener('click', function() {
 						dialog.style.display = 'none';
