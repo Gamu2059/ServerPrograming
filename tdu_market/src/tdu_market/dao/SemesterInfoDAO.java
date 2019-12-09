@@ -22,7 +22,7 @@ public final class SemesterInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "select * from \"SemesterInfo\" where \"semesterID\" = ?";
+			String sql = String.format("select * from \"SemesterInfo\" where \"%s\" = ?",SemesterInfo.SEMESTER_ID);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setLong(1, semesterID);
 
@@ -94,24 +94,5 @@ public final class SemesterInfoDAO extends DAOBase {
 		}
 
 		return list;
-	}
-
-	public static void main(String[] args) {
-
-		SemesterInfoDAO dao = new SemesterInfoDAO();
-		showInfo(dao.getAllSemesterInfo());
-		System.out.println(dao.getSemesterInfo(2));
-	}
-
-	private static void showInfo(ArrayList<SemesterInfo> list) {
-
-		if (list == null) {
-			System.out.println("list is empty");
-			return;
-		}
-
-		for(SemesterInfo i : list) {
-			System.out.println(i);
-		}
 	}
 }

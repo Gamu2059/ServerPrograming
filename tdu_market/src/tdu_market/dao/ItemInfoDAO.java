@@ -13,6 +13,7 @@ import tdu_market.dto.ItemCreateInfo;
 import tdu_market.dto.ItemSearchInfo;
 import tdu_market.dto.ItemUpdateInfo;
 import tdu_market.entity_bean.ItemInfo;
+import tdu_market.entity_bean.ItemInfoByAdmin;
 
 public final class ItemInfoDAO extends DAOBase {
 
@@ -28,7 +29,7 @@ public final class ItemInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "select * from \"ItemInfo\" where \"itemID\" = ?";
+			String sql = "select * from \"ItemInfo\" where \"" + ItemInfo.ITEM_ID + "\" = ?";
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setLong(1, itemID);
 
@@ -72,7 +73,15 @@ public final class ItemInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "insert into \"ItemInfo\" (\"exhibitorMailAddress\", \"itemName\", \"description\", \"condition\", \"price\", \"exhibitDate\", \"tradingState\") values (?, ?, ?, ?, ?, ?, 0)";
+			String sql = String.format(
+					"insert into \"ItemInfo\" (\"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\") values (?, ?, ?, ?, ?, ?, 0)",
+					ItemInfo.EXHIBITOR_MAIL_ADDRESS,
+					ItemInfo.ITEM_NAME,
+					ItemInfo.DESCRIPTION,
+					ItemInfo.CONDITION,
+					ItemInfo.PRICE,
+					ItemInfo.EXHIBIT_DATE,
+					ItemInfo.TRADING_STATE);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 
 			Timestamp exhibitTimestamp = new Timestamp(new java.util.Date().getTime());
@@ -87,13 +96,15 @@ public final class ItemInfoDAO extends DAOBase {
 			int result = pstmt.executeUpdate();
 			System.out.println("createItemInfo : " + result + "件のデータを作成");
 
-			sql = "select \"itemID\" from \"ItemInfo\" order by \"itemID\" desc limit 1";
+			sql = String.format("select \"%s\" from \"ItemInfo\" order by \"%s\" desc limit 1",
+					ItemInfo.ITEM_ID,
+					ItemInfo.ITEM_ID);
 			pstmt = connection.prepareStatement(sql);
 
 			resultSet = pstmt.executeQuery();
 
 			if (resultSet.next()) {
-				itemID = resultSet.getLong("itemID");
+				itemID = resultSet.getLong(ItemInfo.ITEM_ID);
 			}
 		} catch (SQLException e) {
 			showSQLException(e);
@@ -127,9 +138,13 @@ public final class ItemInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "update \"ItemInfo\" "
-					+ "set \"itemName\" = ?, \"description\" = ?, \"condition\" = ?, \"price\" = ? "
-					+ "where \"itemID\" = ?";
+			String sql = String.format(
+					"update \"ItemInfo\" set \"%s\" = ?, \"%s\" = ?, \"%s\" = ?, \"%s\" = ? where \"%s\" = ?",
+					ItemInfo.ITEM_NAME,
+					ItemInfo.DESCRIPTION,
+					ItemInfo.CONDITION,
+					ItemInfo.PRICE,
+					ItemInfo.ITEM_ID);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 
 			pstmt.setString(1, itemUpdateInfo.getItemName());
@@ -162,11 +177,13 @@ public final class ItemInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "update \"ItemInfo\" set \"tradingState\" = ? where \"itemID\" = ?";
+			String sql = String.format("update \"ItemInfo\" set \"%s\" = ? where \"%s\" = ?",
+					ItemInfo.TRADING_STATE,
+					ItemInfo.ITEM_ID);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setInt(1, tradingState);
 			pstmt.setLong(2, itemID);
-			
+
 			int result = pstmt.executeUpdate();
 			System.out.println("updateItemInfo : " + result + "件のデータを更新");
 		} catch (SQLException e) {
@@ -191,7 +208,7 @@ public final class ItemInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "delete from \"ItemInfo\" where \"itemID\" = ?";
+			String sql = String.format("delete from \"ItemInfo\" where \"%s\" = ?", ItemInfo.ITEM_ID);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setLong(1, itemID);
 
@@ -222,7 +239,7 @@ public final class ItemInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "select * from \"ItemInfo\" where \"exhibitorMailAddress\" = ?";
+			String sql = String.format("select * from \"ItemInfo\" where \"%s\" = ?", ItemInfo.EXHIBITOR_MAIL_ADDRESS);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, exhibitorMailAddress);
 
@@ -289,7 +306,7 @@ public final class ItemInfoDAO extends DAOBase {
 			}
 
 			if (!isEmptyINK) {
-				builder.append("\"itemName\" like ? ");
+				builder.append(String.format("\"%s\" like ? ", ItemInfo.ITEM_NAME));
 			}
 
 			if (!isEmptyCondition) {
@@ -297,7 +314,7 @@ public final class ItemInfoDAO extends DAOBase {
 					builder.append("and ");
 				}
 
-				builder.append("\"condition\" = ? ");
+				builder.append(String.format("\"%s\" = ? ", ItemInfo.CONDITION));
 			}
 
 			if (!isEmptyMaxPrice) {
@@ -305,7 +322,7 @@ public final class ItemInfoDAO extends DAOBase {
 					builder.append("and ");
 				}
 
-				builder.append("\"price\" <= ? ");
+				builder.append(String.format("\"%s\" <= ? ", ItemInfo.PRICE));
 			}
 
 			if (!isEmptyOldestDate) {
@@ -313,7 +330,7 @@ public final class ItemInfoDAO extends DAOBase {
 					builder.append("and ");
 				}
 
-				builder.append("\"exhibitDate\" >= ? ");
+				builder.append(String.format("\"%s\" >= ? ", ItemInfo.EXHIBIT_DATE));
 			}
 
 			String sql = builder.toString();
@@ -353,7 +370,7 @@ public final class ItemInfoDAO extends DAOBase {
 				}
 
 				list.add(itemInfo);
-				
+
 			}
 		} catch (SQLException e) {
 			showSQLException(e);
@@ -373,7 +390,126 @@ public final class ItemInfoDAO extends DAOBase {
 		return list;
 	}
 
-	public ArrayList<ItemInfo> getAllItemInfo(){
+	/** 運営が商品を検索するために用意した、複数情報をまとめて検索するメソッド */
+	public ArrayList<ItemInfoByAdmin> searchItemInfoByManager(ItemSearchInfo itemSearchInfo) {
+
+		if (itemSearchInfo == null) {
+			System.err.println("searchItemInfoByManager : itemSearchInfo is null");
+			return null;
+		}
+
+		Connection connection = getConnection();
+		if (connection == null) {
+			return null;
+		}
+
+		ArrayList<ItemInfoByAdmin> list = null;
+		ResultSet resultSet = null;
+
+		try {
+
+			String itemNameKeyword = itemSearchInfo.getItemNameKeyword();
+			int condition = itemSearchInfo.getCondition();
+			int maxPrice = itemSearchInfo.getMaxPrice();
+			int oldestDate = itemSearchInfo.getOldestDate();
+
+			boolean isEmptyINK = itemNameKeyword == null;
+			boolean isEmptyCondition = condition < 1;
+			boolean isEmptyMaxPrice = maxPrice < 0;
+			boolean isEmptyOldestDate = oldestDate < 0;
+
+			StringBuilder builder = new StringBuilder("select * from \"ItemInfoByAdminView\" ");
+
+			if (!isEmptyINK || !isEmptyCondition || !isEmptyMaxPrice || !isEmptyOldestDate) {
+				builder.append("where ");
+			}
+
+			if (!isEmptyINK) {
+				builder.append(String.format("\"%s\" like ? ", ItemInfo.ITEM_NAME));
+			}
+
+			if (!isEmptyCondition) {
+				if (!isEmptyINK) {
+					builder.append("and ");
+				}
+
+				builder.append(String.format("\"%s\" = ? ", ItemInfo.CONDITION));
+			}
+
+			if (!isEmptyMaxPrice) {
+				if (!isEmptyINK || !isEmptyCondition) {
+					builder.append("and ");
+				}
+
+				builder.append(String.format("\"%s\" <= ? ", ItemInfo.PRICE));
+			}
+
+			if (!isEmptyOldestDate) {
+				if (!isEmptyINK || !isEmptyCondition || !isEmptyMaxPrice) {
+					builder.append("and ");
+				}
+
+				builder.append(String.format("\"%s\" >= ? ", ItemInfo.EXHIBIT_DATE));
+			}
+
+			String sql = builder.toString();
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+
+			int setCount = 1;
+
+			if (!isEmptyINK) {
+				pstmt.setString(setCount, String.format("%%%s%%", itemNameKeyword));
+				setCount++;
+			}
+
+			if (!isEmptyCondition) {
+				pstmt.setInt(setCount, condition);
+				setCount++;
+			}
+
+			if (!isEmptyMaxPrice) {
+				pstmt.setInt(setCount, maxPrice);
+				setCount++;
+			}
+
+			Calendar calendar = Calendar.getInstance();
+			if (!isEmptyOldestDate) {
+				calendar.add(Calendar.DAY_OF_MONTH, -oldestDate);
+				pstmt.setDate(setCount, new Date(calendar.getTime().getTime()));
+				setCount++;
+			}
+
+			resultSet = pstmt.executeQuery();
+
+			while (resultSet.next()) {
+				ItemInfoByAdmin itemInfo = ItemInfoByAdmin.create(resultSet);
+
+				if (list == null) {
+					list = new ArrayList<ItemInfoByAdmin>();
+				}
+
+				list.add(itemInfo);
+
+			}
+		} catch (SQLException e) {
+			showSQLException(e);
+		} finally {
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				showSQLException(e);
+			}
+		}
+
+		return list;
+	}
+
+	public ArrayList<ItemInfo> getAllItemInfo() {
 
 		Connection connection = getConnection();
 		if (connection == null) {

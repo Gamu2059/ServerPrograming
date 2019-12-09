@@ -25,13 +25,9 @@ public final class DepartmentInfoDAO extends DAOBase {
 
 			String sql;
 			if (isIncludeNormalSubject) {
-				sql = "select * " +
-						"from \"DegreeInfo\" as d, \"FacultyInfo\" as f, \"SubjectInfo\" as s " +
-						"where d.\"degreeID\" = f.\"degreeID\" and f.\"facultyID\" = s.\"facultyID\" and d.\"degreeID\" = ?";
+				sql = "select * from \"DepartmentInfoView\" where \"" + DepartmentInfo.DEGREE_ID + "\" = ?";
 			} else {
-				sql = "select * " +
-						"from \"DegreeInfo\" as d, \"FacultyInfo\" as f, \"SubjectInfo\" as s " +
-						"where d.\"degreeID\" = f.\"degreeID\" and f.\"facultyID\" = s.\"facultyID\" and f.\"facultySymbol\" <> ' ' and d.\"degreeID\" = ?";
+				sql = "select * from \"DepartmentInfoView\" where \"" + DepartmentInfo.FACULTY_SYMBOL + "\" <> ' ' and d.\"" + DepartmentInfo.DEGREE_ID + "\" = ?";
 			}
 
 			PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -80,13 +76,9 @@ public final class DepartmentInfoDAO extends DAOBase {
 
 			String sql;
 			if (isIncludeNormalSubject) {
-				sql = "select * " +
-						"from \"DegreeInfo\" as d, \"FacultyInfo\" as f, \"SubjectInfo\" as s " +
-						"where d.\"degreeID\" = f.\"degreeID\" and f.\"facultyID\" = s.\"facultyID\" and f.\"facultyID\" = ?";
+				sql = "select * from \"DepartmentInfoView\" where \"" + DepartmentInfo.FACULTY_ID + "\" = ?";
 			} else {
-				sql = "select * " +
-						"from \"DegreeInfo\" as d, \"FacultyInfo\" as f, \"SubjectInfo\" as s " +
-						"where d.\"degreeID\" = f.\"degreeID\" and f.\"facultyID\" = s.\"facultyID\" and f.\"facultySymbol\" <> ' ' and f.\"facultyID\" = ?";
+				sql = "select * from \"DepartmentInfoView\" where \"" + DepartmentInfo.FACULTY_SYMBOL + "\" <> ' ' and d.\"" + DepartmentInfo.FACULTY_ID + "\" = ?";
 			}
 
 			PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -135,13 +127,9 @@ public final class DepartmentInfoDAO extends DAOBase {
 
 			String sql;
 			if (isIncludeNormalSubject) {
-				sql = "select * " +
-						"from \"DegreeInfo\" as d, \"FacultyInfo\" as f, \"SubjectInfo\" as s " +
-						"where d.\"degreeID\" = f.\"degreeID\" and f.\"facultyID\" = s.\"facultyID\" and s.\"subjectID\" = ?";
+				sql = "select * from \"DepartmentInfoView\" where \"" + DepartmentInfo.SUBJECT_ID + "\" = ?";
 			} else {
-				sql = "select * " +
-						"from \"DegreeInfo\" as d, \"FacultyInfo\" as f, \"SubjectInfo\" as s " +
-						"where d.\"degreeID\" = f.\"degreeID\" and f.\"facultyID\" = s.\"facultyID\" and f.\"facultySymbol\" <> ' ' and s.\"subjectID\" = ?";
+				sql = "select * from \"DepartmentInfoView\" where \"" + DepartmentInfo.FACULTY_SYMBOL + "\" <> ' ' and d.\"" + DepartmentInfo.SUBJECT_ID + "\" = ?";
 			}
 
 			PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -190,13 +178,9 @@ public final class DepartmentInfoDAO extends DAOBase {
 
 			String sql;
 			if (isIncludeNormalSubject) {
-				sql = "select * " +
-						"from \"DegreeInfo\" as d, \"FacultyInfo\" as f, \"SubjectInfo\" as s " +
-						"where d.\"degreeID\" = f.\"degreeID\" and f.\"facultyID\" = s.\"facultyID\"";
+				sql = "select * from \"DepartmentInfoView\"";
 			} else {
-				sql = "select * " +
-						"from \"DegreeInfo\" as d, \"FacultyInfo\" as f, \"SubjectInfo\" as s " +
-						"where d.\"degreeID\" = f.\"degreeID\" and f.\"facultyID\" = s.\"facultyID\" and f.\"facultySymbol\" <> ' '";
+				sql = "select * from \"DepartmentInfoView\" where \"" + DepartmentInfo.FACULTY_SYMBOL + "\" <> ' '";
 			}
 
 			PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -228,36 +212,5 @@ public final class DepartmentInfoDAO extends DAOBase {
 		}
 
 		return list;
-	}
-
-	public static void main(String[] args) {
-
-		DepartmentInfoDAO dao = new DepartmentInfoDAO();
-		System.out.println("ALL not include normal");
-		showInfo(dao.getAllDepartmentInfo(false));
-
-		System.out.println("ALL include normal");
-		showInfo(dao.getAllDepartmentInfo(true));
-
-		System.out.println("DEGREE");
-		showInfo(dao.getDepartmentInfoWithDegree(1, false));
-
-		System.out.println("FACULTY");
-		showInfo(dao.getDepartmentInfoWithFaculty(1, false));
-
-		System.out.println("SUBJECT");
-		showInfo(dao.getDepartmentInfoWithSubject(11, false));
-	}
-
-	private static void showInfo(ArrayList<DepartmentInfo> list) {
-
-		if (list == null) {
-			System.out.println("List is empty.");
-			return;
-		}
-
-		for (DepartmentInfo i : list) {
-			System.out.println(i);
-		}
 	}
 }

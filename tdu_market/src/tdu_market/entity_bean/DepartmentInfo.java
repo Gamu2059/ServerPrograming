@@ -8,17 +8,17 @@ public final class DepartmentInfo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final String DEGREE_ID = "degreeID";
-	private static final String FACULTY_ID = "facultyID";
-	private static final String SUBJECT_ID = "subjectID";
-	private static final String CAMPUS_ID = "campusID";
+	public static final String DEGREE_ID = "degreeID";
+	public static final String FACULTY_ID = "facultyID";
+	public static final String SUBJECT_ID = "subjectID";
+	public static final String CAMPUS_ID = "campusID";
 
-	private static final String DEGREE = "degree";
-	private static final String FACULTY_NAME = "facultyName";
-	private static final String FACULTY_SYMBOL = "facultySymbol";
-	private static final String SUBJECT_NAME = "subjectName";
-	private static final String SUBJECT_SYMBOL = "subjectSymbol";
-	private static final String IS_FULL_TIME = "isFullTime";
+	public static final String DEGREE = "degree";
+	public static final String FACULTY_NAME = "facultyName";
+	public static final String FACULTY_SYMBOL = "facultySymbol";
+	public static final String SUBJECT_NAME = "subjectName";
+	public static final String SUBJECT_SYMBOL = "subjectSymbol";
+	public static final String IS_FULL_TIME = "isFullTime";
 
 	private long degreeID;
 	private long facultyID;

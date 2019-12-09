@@ -9,14 +9,14 @@ public final class ItemInfo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final String ITEM_ID = "itemID";
-	private static final String EXHIBITOR_MAIL_ADDRESS = "exhibitorMailAddress";
-	private static final String ITEM_NAME = "itemName";
-	private static final String DESCRIPTION = "description";
-	private static final String CONDITION = "condition";
-	private static final String PRICE = "price";
-	private static final String TRADING_STATE = "tradingState";
-	private static final String EXHIBIT_DATE = "exhibitDate";
+	public static final String ITEM_ID = "itemID";
+	public static final String EXHIBITOR_MAIL_ADDRESS = "exhibitorMailAddress";
+	public static final String ITEM_NAME = "itemName";
+	public static final String DESCRIPTION = "description";
+	public static final String CONDITION = "condition";
+	public static final String PRICE = "price";
+	public static final String TRADING_STATE = "tradingState";
+	public static final String EXHIBIT_DATE = "exhibitDate";
 
 	private long itemID;
 	private String exhibitorMailAddress;

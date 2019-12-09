@@ -31,7 +31,13 @@ public final class StudentInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "insert into \"StudentInfo\" (\"mailAddress\", \"hashedPassword\", \"studentNumber\", \"subjectID\", \"createdDate\") values (?, ?, ?, ?, ?)";
+			String sql = String.format(
+					"insert into \"StudentInfo\" (\"%s\", \"%s\", \"%s\", \"%s\", \"%s\") values (?, ?, ?, ?, ?)",
+					StudentInfo.MAIL_ADDRESS,
+					StudentInfo.HASHED_PASSWORD,
+					StudentInfo.STUDENT_NUMBER,
+					StudentInfo.SUBJECT_ID,
+					StudentInfo.CREATED_DATE);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 
 			String mailAddress = studentCreateInfo.getMailAddress();
@@ -74,9 +80,10 @@ public final class StudentInfoDAO extends DAOBase {
 
 		try {
 
-			StringBuilder builder = new StringBuilder("select * from \"StudentInfo\" where \"mailAddress\" = ?");
+			StringBuilder builder = new StringBuilder(
+					String.format("select * from \"StudentInfo\" where \"%s\" = ?", StudentInfo.MAIL_ADDRESS));
 			if (!isIncludeNonRegistered) {
-				builder.append(" and \"registerState\" = 2");
+				builder.append(String.format(" and \"%s\" = 2", StudentInfo.REGISTER_STATE));
 			}
 
 			String sql = builder.toString();
@@ -138,14 +145,18 @@ public final class StudentInfoDAO extends DAOBase {
 
 			boolean isChangeIcon = iconAvailable > 0;
 
-			StringBuilder builder = new StringBuilder(
-					"update \"StudentInfo\" set \"hashedPassword\" = ?, \"displayName\" = ?, \"selfIntroduction\" = ?, \"registerState\" = 2");
+			StringBuilder builder = new StringBuilder(String.format(
+					"update \"StudentInfo\" set \"%s\" = ?, \"%s\" = ?, \"%s\" = ?, \"%s\" = 2",
+					StudentInfo.HASHED_PASSWORD,
+					StudentInfo.DISPLAY_NAME,
+					StudentInfo.SELF_INTRODUCTION,
+					StudentInfo.REGISTER_STATE));
 
 			if (isChangeIcon) {
-				builder.append(", \"iconImageBinary\" = ?");
+				builder.append(String.format(", \"%s\" = ?", StudentInfo.ICON_IMAGE_BINARY));
 			}
 
-			builder.append(" where \"mailAddress\" = ?");
+			builder.append(String.format(" where \"%s\" = ?", StudentInfo.MAIL_ADDRESS));
 			String sql = builder.toString();
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 
@@ -207,14 +218,17 @@ public final class StudentInfoDAO extends DAOBase {
 			boolean isChangeIcon = iconAvailable > 0;
 
 			// 運営が更新する場合は、本登録状態にさせない
-			StringBuilder builder = new StringBuilder(
-					"update \"StudentInfo\" set \"displayName\" = ?, \"subjectID\" = ?, \"selfIntroduction\" = ?");
+			StringBuilder builder = new StringBuilder(String.format(
+					"update \"StudentInfo\" set \"%s\" = ?, \"%s\" = ?, \"%s\" = ?",
+					StudentInfo.DISPLAY_NAME,
+					StudentInfo.SUBJECT_ID,
+					StudentInfo.SELF_INTRODUCTION));
 
 			if (isChangeIcon) {
-				builder.append(", \"iconImageBinary\" = ?");
+				builder.append(String.format(", \"%s\" = ?", StudentInfo.ICON_IMAGE_BINARY));
 			}
 
-			builder.append(" where \"mailAddress\" = ?");
+			builder.append(String.format(" where \"%s\" = ?", StudentInfo.MAIL_ADDRESS));
 			String sql = builder.toString();
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 
@@ -254,7 +268,7 @@ public final class StudentInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "delete from \"StudentInfo\" where \"mailAddress\" = ?";
+			String sql = String.format("delete from \"StudentInfo\" where \"%s\" = ?", StudentInfo.MAIL_ADDRESS);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, mailAddress);
 
@@ -282,7 +296,9 @@ public final class StudentInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "update \"StudentInfo\" set \"lastLoginDate\" = ? where \"mailAddress\" = ?";
+			String sql = String.format("update \"StudentInfo\" set \"%s\" = ? where \"%s\" = ?",
+					StudentInfo.LAST_LOGIN_DATE,
+					StudentInfo.MAIL_ADDRESS);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 
 			Timestamp lastLoginTimestamp = new Timestamp(new java.util.Date().getTime());
@@ -338,7 +354,7 @@ public final class StudentInfoDAO extends DAOBase {
 			}
 
 			if (!isEmptySNK) {
-				builder.append("\"studentNumber\" like ? ");
+				builder.append(String.format("\"%s\" like ? ", StudentInfo.STUDENT_NUMBER));
 			}
 
 			if (!isEmptyDNK) {
@@ -346,7 +362,7 @@ public final class StudentInfoDAO extends DAOBase {
 					builder.append("and ");
 				}
 
-				builder.append("\"displayName\" like ? ");
+				builder.append(String.format("\"%s\" like ? ", StudentInfo.DISPLAY_NAME));
 			}
 
 			if (!isEmptySujectID) {
@@ -354,7 +370,7 @@ public final class StudentInfoDAO extends DAOBase {
 					builder.append("and ");
 				}
 
-				builder.append("\"subjectID\" = ? ");
+				builder.append(String.format("\"%s\" = ? ", StudentInfo.SUBJECT_ID));
 			}
 
 			if (!isIncludeNonRegistered) {
@@ -362,7 +378,7 @@ public final class StudentInfoDAO extends DAOBase {
 					builder.append("and ");
 				}
 
-				builder.append("\"registerState\" = 2");
+				builder.append(String.format("\"%s\" = 2", StudentInfo.REGISTER_STATE));
 			}
 
 			String sql = builder.toString();

@@ -8,8 +8,8 @@ public final class OpeningSemesterInfo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final String CLASS_CODE = "classCode";
-	private static final String SEMESTER_ID = "semesterID";
+	public static final String CLASS_CODE = "openingClassCode";
+	public static final String SEMESTER_ID = "openingSemesterID";
 
 	private String classCode;
 	private long semesterID;

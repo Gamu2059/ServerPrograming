@@ -23,7 +23,8 @@ public final class OpeningSemesterInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "select * from \"OpeningSemesterInfo\" where \"classCode\" = ?";
+			String sql = String.format("select * from \"OpeningSemesterInfo\" where \"%s\" = ?",
+					OpeningSemesterInfo.CLASS_CODE);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, classCode);
 
@@ -111,7 +112,8 @@ public final class OpeningSemesterInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "delete from \"OpeningSemesterInfo\" where \"classCode\" = ?";
+			String sql = String.format("delete from \"OpeningSemesterInfo\" where \"%s\" = ?",
+					OpeningSemesterInfo.CLASS_CODE);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, classCode);
 

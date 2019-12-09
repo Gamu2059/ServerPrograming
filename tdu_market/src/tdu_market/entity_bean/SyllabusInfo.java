@@ -8,17 +8,17 @@ public final class SyllabusInfo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final String CLASS_CODE = "classCode";
-	private static final String CLASS_NAME = "className";
-	private static final String SUBJECT_ID = "subjectID";
-	private static final String TEACHER_ID = "teacherID";
-	private static final String DATES = "dates";
-	private static final String UNIT_NUM = "unitNum";
-	private static final String CLASS_ROOM = "classRoom";
-	private static final String OVERVIEW = "overview";
-	private static final String TARGET = "target";
-	private static final String REQUIREMENTS = "requirements";
-	private static final String EVALUATIONMETHOD = "evaluationMethod";
+	public static final String CLASS_CODE = "classCode";
+	public static final String CLASS_NAME = "className";
+	public static final String SUBJECT_ID = "classSubjectID";
+	public static final String TEACHER_ID = "classTeacherID";
+	public static final String DATES = "dates";
+	public static final String UNIT_NUM = "unitNum";
+	public static final String CLASS_ROOM = "classRoom";
+	public static final String OVERVIEW = "overview";
+	public static final String TARGET = "target";
+	public static final String REQUIREMENTS = "requirements";
+	public static final String EVALUATIONMETHOD = "evaluationMethod";
 
 	private String classCode;
 	private String className;

@@ -22,7 +22,7 @@ public final class CampusInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "select * from \"CampusInfo\" where \"campusID\" = ?";
+			String sql = "select * from \"CampusInfo\" where \"" + CampusInfo.CAMPUS_ID + "\" = ?";
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 
 			pstmt.setLong(1, campusID);
