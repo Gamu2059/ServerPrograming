@@ -5,13 +5,13 @@ import java.util.Date;
 
 public abstract class UseBase {
 
-	protected static final String MAIL_ADDRESS = "mailAddress";
-	protected static final String HASHED_PASSWORD = "hashedPassword";
-	protected static final String DISPLAY_NAME = "displayName";
-	protected static final String ICON_IMAGE_BINARY = "iconImageBinary";
-	protected static final String REGISTER_STATE = "registerState";
-	protected static final String CREATED_DATE = "createdDate";
-	protected static final String LAST_LOGIN_DATE = "lastLoginDate";
+	public static final String MAIL_ADDRESS = "mailAddress";
+	public static final String HASHED_PASSWORD = "hashedPassword";
+	public static final String DISPLAY_NAME = "displayName";
+	public static final String ICON_IMAGE_BINARY = "iconImageBinary";
+	public static final String REGISTER_STATE = "registerState";
+	public static final String CREATED_DATE = "createdDate";
+	public static final String LAST_LOGIN_DATE = "lastLoginDate";
 
 	protected String mailAddress;
 	protected String hashedPassword;

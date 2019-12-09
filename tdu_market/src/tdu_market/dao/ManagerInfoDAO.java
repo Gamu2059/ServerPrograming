@@ -32,7 +32,10 @@ public final class ManagerInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "insert into \"ManagerInfo\" (\"mailAddress\", \"hashedPassword\", \"createdDate\") values (?, ?, ?)";
+			String sql = String.format("insert into \"ManagerInfo\" (\"%s\", \"%s\", \"%s\") values (?, ?, ?)",
+					ManagerInfo.MAIL_ADDRESS,
+					ManagerInfo.HASHED_PASSWORD,
+					ManagerInfo.CREATED_DATE);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 
 			String mailAddress = managerCreateInfo.getMailAddress();
@@ -74,7 +77,7 @@ public final class ManagerInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "select * from \"ManagerInfo\" where \"mailAddress\" = ?";
+			String sql = String.format("select * from \"ManagerInfo\" where \"%s\" = ?", ManagerInfo.MAIL_ADDRESS);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, mailAddress);
 
@@ -133,13 +136,16 @@ public final class ManagerInfoDAO extends DAOBase {
 			boolean isChangeIcon = iconAvailable > 0;
 
 			StringBuilder builder = new StringBuilder(
-					"update \"ManagerInfo\" set \"hashedPassword\" = ?, \"displayName\" = ?, \"registerState\" = 2");
+					String.format("update \"ManagerInfo\" set \"%s\" = ?, \"%s\" = ?, \"%s\" = 2",
+							ManagerInfo.HASHED_PASSWORD,
+							ManagerInfo.DISPLAY_NAME,
+							ManagerInfo.REGISTER_STATE));
 
 			if (isChangeIcon) {
-				builder.append(", \"iconImageBinary\" = ?");
+				builder.append(String.format(", \"%s\" = ?", ManagerInfo.ICON_IMAGE_BINARY));
 			}
 
-			builder.append(" where \"mailAddress\" = ?");
+			builder.append(String.format(" where \"%s\" = ?", ManagerInfo.MAIL_ADDRESS));
 			String sql = builder.toString();
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 
@@ -183,7 +189,7 @@ public final class ManagerInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "delete from \"ManagerInfo\" where \"mailAddress\" = ?";
+			String sql = String.format("delete from \"ManagerInfo\" where \"%s\" = ?", ManagerInfo.MAIL_ADDRESS);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, mailAddress);
 
@@ -216,7 +222,9 @@ public final class ManagerInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "update \"ManagerInfo\" set \"lastLoginDate\" = ? where \"mailAddress\" = ?";
+			String sql = String.format("update \"ManagerInfo\" set \"%s\" = ? where \"%s\" = ?",
+					ManagerInfo.LAST_LOGIN_DATE,
+					ManagerInfo.MAIL_ADDRESS);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 
 			Timestamp lastLoginTimestamp = new Timestamp(new java.util.Date().getTime());
@@ -283,29 +291,5 @@ public final class ManagerInfoDAO extends DAOBase {
 		}
 
 		return list;
-	}
-
-	public static void main(String[] args) {
-
-		ManagerInfoDAO dao = new ManagerInfoDAO();
-		showInfo(dao.getAllManagerInfo());
-
-		dao.createManagerInfo(new ManagerCreateInfo("kawasumi@dendai.ac.jp", "ub85IYUBUIv"));
-		showInfo(dao.getAllManagerInfo());
-
-		dao.deleteManagerInfo("kawasumi@dendai.ac.jp");
-		showInfo(dao.getAllManagerInfo());
-	}
-
-	private static void showInfo(ArrayList<ManagerInfo> list) {
-
-		if (list == null) {
-			System.out.println("list is empty");
-			return;
-		}
-
-		for (ManagerInfo i : list) {
-			System.out.println(i);
-		}
 	}
 }

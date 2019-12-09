@@ -22,7 +22,7 @@ public final class TeacherInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "select * from \"TeacherInfo\" where \"teacherID\" = ?";
+			String sql = String.format("select * from \"TeacherInfo\" where \"%s\" = ?",TeacherInfo.TEACHER_ID);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setLong(1, teacherID);
 
@@ -94,26 +94,5 @@ public final class TeacherInfoDAO extends DAOBase {
 		}
 
 		return list;
-	}
-
-	public static void main(String[] args) {
-
-		TeacherInfoDAO dao = new TeacherInfoDAO();
-		showInfo(dao.getAllTeacherInfo());
-		System.out.println(dao.getTeacherInfo(1));
-		System.out.println(dao.getTeacherInfo(6));
-		System.out.println(dao.getTeacherInfo(12));
-	}
-
-	private static void showInfo(ArrayList<TeacherInfo> list) {
-
-		if (list == null) {
-			System.out.println("list is empty");
-			return;
-		}
-
-		for(TeacherInfo i : list) {
-			System.out.println(i);
-		}
 	}
 }

@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import tdu_market.entity_bean.MessageRoomInfo;
+import tdu_market.entity_bean.RoomMemberInfo;
 
 public final class MessageRoomInfoDAO extends DAOBase {
 
@@ -23,7 +24,7 @@ public final class MessageRoomInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "select * from \"MessageRoomInfo\" where \"roomID\" = ?";
+			String sql = String.format("select * from \"MessageRoomInfo\" where \"%s\" = ?", MessageRoomInfo.ROOM_ID);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setLong(1, roomID);
 
@@ -49,7 +50,7 @@ public final class MessageRoomInfoDAO extends DAOBase {
 		return messageRoomInfo;
 	}
 
-	public ArrayList<MessageRoomInfo> getMessageRoomInfo(String mailAddress){
+	public ArrayList<MessageRoomInfo> getMessageRoomInfo(String mailAddress) {
 
 		Connection connection = getConnection();
 		if (connection == null) {
@@ -61,8 +62,11 @@ public final class MessageRoomInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "select * from \"MessageRoomInfo\" as m, \"RoomMemberInfo\" as r "
-					+ "where m.\"roomID\" = r.\"roomID\" and r.\"memberMailAddress\" = ?";
+			String sql = String.format("select * from \"MessageRoomInfo\" as m, \"RoomMemberInfo\" as r "
+					+ "where m.\"%s\" = r.\"%s\" and r.\"%s\" = ?",
+					MessageRoomInfo.ROOM_ID,
+					RoomMemberInfo.ROOM_ID,
+					RoomMemberInfo.MEMBER_MAIL_ADDRESS);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, mailAddress);
 
@@ -107,7 +111,8 @@ public final class MessageRoomInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "insert into \"MessageRoomInfo\" (\"createdDate\") values (?)";
+			String sql = String.format("insert into \"MessageRoomInfo\" (\"%s\") values (?)",
+					MessageRoomInfo.CREATED_DATE);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 
 			Timestamp createdTimestamp = new Timestamp(new java.util.Date().getTime());
@@ -116,11 +121,13 @@ public final class MessageRoomInfoDAO extends DAOBase {
 			int result = pstmt.executeUpdate();
 			System.out.println("createMessageRoomInfo : " + result + "件のデータを作成");
 
-			sql = "select \"roomID\" from \"MessageRoomInfo\" order by \"roomID\" desc";
+			sql = String.format("select \"%s\" from \"MessageRoomInfo\" order by \"%s\" desc",
+					MessageRoomInfo.ROOM_ID,
+					MessageRoomInfo.ROOM_ID);
 			pstmt = connection.prepareStatement(sql);
 			resultSet = pstmt.executeQuery();
 			if (resultSet.next()) {
-				roomID = resultSet.getLong("roomID");
+				roomID = resultSet.getLong(MessageRoomInfo.ROOM_ID);
 			}
 		} catch (SQLException e) {
 			showSQLException(e);
@@ -146,7 +153,7 @@ public final class MessageRoomInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "delete from \"MessgeRoomInfo\" where \"roomID\" = ?";
+			String sql = String.format("delete from \"MessgeRoomInfo\" where \"%s\" = ?", MessageRoomInfo.ROOM_ID);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setLong(1, roomID);
 
@@ -165,7 +172,7 @@ public final class MessageRoomInfoDAO extends DAOBase {
 		}
 	}
 
-	public ArrayList<MessageRoomInfo> getAllMessageRoomInfo(){
+	public ArrayList<MessageRoomInfo> getAllMessageRoomInfo() {
 
 		Connection connection = getConnection();
 		if (connection == null) {

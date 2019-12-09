@@ -9,9 +9,9 @@ public final class ItemImageInfo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final String IMAGE_ID = "imageID";
-	private static final String ITEM_ID = "itemID";
-	private static final String IMAGE_BINARY = "imageBinary";
+	public static final String IMAGE_ID = "imageID";
+	public static final String ITEM_ID = "itemID";
+	public static final String IMAGE_BINARY = "imageBinary";
 
 	private long imageID;
 	private long itemID;

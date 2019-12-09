@@ -25,7 +25,7 @@ public final class ItemImageInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "select * from \"ItemImageInfo\" where \"itemID\" = ?";
+			String sql = "select * from \"ItemImageInfo\" where \"" + ItemImageInfo.ITEM_ID + "\" = ?";
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setLong(1, itemID);
 
@@ -74,7 +74,7 @@ public final class ItemImageInfoDAO extends DAOBase {
 
 			InputStream[] imageBinaries = itemImageCreateInfo.getItemImageBinaries();
 			ArrayList<InputStream> imageList = null;
-			for(int i = 0; i < imageBinaries.length; i++) {
+			for (int i = 0; i < imageBinaries.length; i++) {
 
 				int iconAvailable = 0;
 				try {
@@ -96,7 +96,8 @@ public final class ItemImageInfoDAO extends DAOBase {
 				return;
 			}
 
-			StringBuilder builder = new StringBuilder("insert into \"ItemImageInfo\" (\"itemID\", \"imageBinary\") values");
+			StringBuilder builder = new StringBuilder("insert into \"ItemImageInfo\" (\"" + ItemImageInfo.ITEM_ID
+					+ "\", \"" + ItemImageInfo.IMAGE_BINARY + "\") values");
 			for (int i = 0; i < imageList.size(); i++) {
 				if (i > 0) {
 					builder.append(",");
@@ -136,7 +137,7 @@ public final class ItemImageInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "delete from \"ItemImageInfo\" where \"itemID\" = ?";
+			String sql = "delete from \"ItemImageInfo\" where \"" + ItemImageInfo.ITEM_ID + "\" = ?";
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setLong(1, itemID);
 
@@ -155,7 +156,7 @@ public final class ItemImageInfoDAO extends DAOBase {
 		}
 	}
 
-	public ArrayList<ItemImageInfo> getAllItemImageInfo(){
+	public ArrayList<ItemImageInfo> getAllItemImageInfo() {
 
 		Connection connection = getConnection();
 		if (connection == null) {

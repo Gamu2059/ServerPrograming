@@ -8,9 +8,9 @@ public final class TeacherInfo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final String TEACHER_ID = "teacherID";
-	private static final String TEACHER_NAME = "teacherName";
-	private static final String SUBJECT_ID = "subjectID";
+	public static final String TEACHER_ID = "teacherID";
+	public static final String TEACHER_NAME = "teacherName";
+	public static final String SUBJECT_ID = "subjectID";
 
 	private long teacherID;
 	private String teacherName;

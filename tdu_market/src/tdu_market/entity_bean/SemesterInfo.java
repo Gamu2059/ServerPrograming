@@ -8,9 +8,9 @@ public final class SemesterInfo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final String SEMESTER_ID = "semesterID";
-	private static final String YEAR = "year";
-	private static final String SEMESTER = "semester";
+	public static final String SEMESTER_ID = "semesterID";
+	public static final String YEAR = "year";
+	public static final String SEMESTER = "semester";
 
 	private long semesterID;
 	private String year;

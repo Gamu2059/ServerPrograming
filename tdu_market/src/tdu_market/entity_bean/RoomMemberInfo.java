@@ -8,8 +8,8 @@ public final class RoomMemberInfo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final String ROOM_ID = "roomID";
-	private static final String MEMBER_MAIL_ADDRESS = "memberMailAddress";
+	public static final String ROOM_ID = "roomID";
+	public static final String MEMBER_MAIL_ADDRESS = "memberMailAddress";
 
 	private long roomID;
 	private String memberMailAddress;

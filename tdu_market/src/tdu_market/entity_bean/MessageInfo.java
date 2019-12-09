@@ -9,11 +9,11 @@ public final class MessageInfo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final String MESSAGE_ID = "messageID";
-	private static final String ROOM_ID = "roomID";
-	private static final String POST_MAIL_ADDRESS = "postMailAddress";
-	private static final String POST_CONTENT = "postContent";
-	private static final String POST_DATE = "postDate";
+	public static final String MESSAGE_ID = "messageID";
+	public static final String ROOM_ID = "roomID";
+	public static final String POST_MAIL_ADDRESS = "postMailAddress";
+	public static final String POST_CONTENT = "postContent";
+	public static final String POST_DATE = "postDate";
 
 	private long messageID;
 	private long roomID;

@@ -24,7 +24,7 @@ public final class MessageInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "select * from \"MessageInfo\" where \"messageID\" = ?";
+			String sql = String.format("select * from \"MessageInfo\" where \"%s\" = ?", MessageInfo.MESSAGE_ID);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setLong(1, messageID);
 
@@ -62,7 +62,7 @@ public final class MessageInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "select * from \"MessageInfo\" where \"roomID\" = ?";
+			String sql = String.format("select * from \"MessageInfo\" where \"%s\" = ?", MessageInfo.ROOM_ID);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setLong(1, roomID);
 
@@ -106,7 +106,9 @@ public final class MessageInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "select * from \"MessageInfo\" where \"roomID\" = ? order by \"postDate\" desc";
+			String sql = String.format("select * from \"MessageInfo\" where \"%s\" = ? order by \"%s\" desc",
+					MessageInfo.ROOM_ID,
+					MessageInfo.POST_DATE);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setLong(1, roomID);
 
@@ -146,7 +148,12 @@ public final class MessageInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "insert into \"MessageInfo\" (\"roomID\", \"postMailAddress\", \"postContent\", \"postDate\") values (?, ?, ?, ?)";
+			String sql = String.format(
+					"insert into \"MessageInfo\" (\"%s\", \"%s\", \"%s\", \"%s\") values (?, ?, ?, ?)",
+					MessageInfo.ROOM_ID,
+					MessageInfo.POST_MAIL_ADDRESS,
+					MessageInfo.POST_CONTENT,
+					MessageInfo.POST_DATE);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 
 			Timestamp postTimestamp = new Timestamp(new java.util.Date().getTime());
@@ -180,7 +187,7 @@ public final class MessageInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "delete from \"MessgeInfo\" where \"roomID\" = ?";
+			String sql = String.format("delete from \"MessgeInfo\" where \"%s\" = ?", MessageInfo.ROOM_ID);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setLong(1, roomID);
 
@@ -208,7 +215,7 @@ public final class MessageInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "delete from \"MessgeInfo\" where \"postMailAddress\" = ?";
+			String sql = String.format("delete from \"MessgeInfo\" where \"%s\" = ?", MessageInfo.POST_MAIL_ADDRESS);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, mailAddress);
 

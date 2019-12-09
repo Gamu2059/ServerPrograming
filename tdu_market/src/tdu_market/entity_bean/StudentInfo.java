@@ -11,9 +11,9 @@ public final class StudentInfo extends UseBase implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final String STUDENT_NUMBER = "studentNumber";
-	private static final String SELF_INTRODUCTION = "selfIntroduction";
-	private static final String SUBJECT_ID = "subjectID";
+	public static final String STUDENT_NUMBER = "studentNumber";
+	public static final String SELF_INTRODUCTION = "selfIntroduction";
+	public static final String SUBJECT_ID = "subjectID";
 
 	private String studentNumber;
 	private String selfIntroduction;
