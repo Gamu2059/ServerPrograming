@@ -49,6 +49,7 @@
 					<li>
 					<form action="<%= ServletPath.ManagerReferItemPage %>" method="get">
 						<input type="hidden" name="itemID" value="<%= itemListInfo.get(i).getItemID() %>">
+						<input type="hidden" name="whereFromToItemPage" value="fromExhibitList">
 						<button type="submit">
 							<!-- 商品画像 -->
 							<img src="<%= itemImageURL %>" />

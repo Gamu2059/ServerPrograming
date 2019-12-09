@@ -22,19 +22,19 @@ import tdu_market.util.JspPath;
 public class ManagerDeleteItemInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ManagerDeleteItemInfo() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public ManagerDeleteItemInfo() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("ManagerDeleteItemInfo is non implementation!");
 
@@ -49,27 +49,61 @@ public class ManagerDeleteItemInfo extends HttpServlet {
 
 		//商品情報の複数件削除
 		String[] itemIDs = request.getParameterValues("itemIDs");
-		if (itemIDs!=null) {
-			for(String info:itemIDs) {
-			itemInfo.deleteItemInfo(  Integer.parseInt(info) );
+		if (itemIDs != null) {
+			for (String info : itemIDs) {
+				itemInfo.deleteItemInfo(Integer.parseInt(info));
 			}
-			ControllerUtil.translatePage(JspPath.reference_item_list_by_admin, request, response);
 		}
 
 		//削除処理
-		if(request.getParameter("itemID")!=null) {
+		if (request.getParameter("itemID") != null) {
 			itemInfo.deleteItemInfo(Integer.valueOf(request.getParameter("itemID")));
 		}
 		//セッションからアイテム情報を削除する
 		session.removeAttribute("itemInfo");
 
-		//出品商品一覧を再取得
-		ArrayList<ItemGetInfo> itemList =  itemInfo.getExhibitItem(request.getParameter("studentMailAddress"));
-		//jspに情報を投げる。
-		session.setAttribute("exhibitItemList",itemList);
+		//遷移先を分岐させる
+		String whereFromToItemPage = (String) session.getAttribute("whereFromToItemPage");
+		String inItemList = (String) request.getParameter("whereFromToItemPage");
+		if (whereFromToItemPage != null) {
+			//遷移元が商品一覧
+			if (whereFromToItemPage.equals("fromItemList")) {
+				//商品一覧を更新する
+				System.out.println("商品一覧の再取得未実装");
+				//遷移元の破棄
+				session.removeAttribute("whereFromToItemPage");
+				ControllerUtil.translatePage(JspPath.reference_item_list_by_admin, request, response);
+			}
 
-		//遷移
-		ControllerUtil.translatePage(JspPath.reference_exhibit_item_by_admin, request, response);
+			//遷移元が出品一覧
+			if (whereFromToItemPage.equals("fromExhibitList")) {
+				if(inItemList!=null) {
+					if (inItemList.equals("fromItemList")) {
+						//商品一覧を更新する
+						System.out.println("商品一覧の再取得未実装");
+
+						ControllerUtil.translatePage(JspPath.reference_item_list_by_admin, request, response);
+					}
+				}else {
+					//出品商品一覧を再取得
+					ArrayList<ItemGetInfo> exhibitItemList = itemInfo
+							.getExhibitItem(request.getParameter("studentMailAddress"));
+					session.setAttribute("exhibitItemList", exhibitItemList);
+					//遷移元の破棄
+					session.removeAttribute("whereFromToItemPage");
+					ControllerUtil.translatePage(JspPath.reference_exhibit_item_by_admin, request, response);
+				}
+			}
+		} else {
+			if(inItemList!=null) {
+				if (inItemList.equals("fromItemList")) {
+					//商品一覧を更新する
+					System.out.println("商品一覧の再取得未実装");
+
+					ControllerUtil.translatePage(JspPath.reference_item_list_by_admin, request, response);
+				}
+			}
+		}
 	}
 
 }
