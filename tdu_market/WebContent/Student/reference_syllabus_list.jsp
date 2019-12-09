@@ -44,7 +44,7 @@
 							<tbody>
 								<!-- ReferSyllabusListPageからデータを受け取り、展開 -->
 								<% ArrayList<SyllabusGetInfo> searchResult = new ArrayList<SyllabusGetInfo>();
-									searchResult = (ArrayList<SyllabusGetInfo>)request.getAttribute("searchResult");
+									searchResult = (ArrayList<SyllabusGetInfo>)session.getAttribute("searchResult");
 									if(searchResult == null){
 										out.print("該当の商品が見つかりませんでした。");
 									} else {

@@ -66,7 +66,7 @@ public class ReferSyllabusListPage extends HttpServlet {
 					classNameKeyword = null;
 				}
 
-				String searcherNameKeyword = request.getParameter("searcherNameKeyword");
+				String searcherNameKeyword = request.getParameter("tearcherNameKeyword");
 				if (searcherNameKeyword != null && searcherNameKeyword.trim().isEmpty()) {
 					searcherNameKeyword = null;
 				}
