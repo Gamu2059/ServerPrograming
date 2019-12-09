@@ -27,36 +27,42 @@
 		<article>
 			<!-- ソート -->
 			<div class="sort">
-				<select name="sort_item">
-					<option value="1">商品名</option>
-					<option value="2">学籍番号</option>
-					<option value="3">名前</option>
-					<option value="4">関連授業</option>
-					<option value="5">価格</option>
+			<form name="sort_item">
+				<select id="sort_number" onchange="sort_itemList();">
+					<option value="1">商品名(昇順)</option>
+					<option value="2">商品名(降順)</option>
+					<option value="3">学籍番号(昇順)</option>
+					<option value="4">学籍番号(降順)</option>
+					<option value="5">名前(昇順)</option>
+					<option value="6">名前(降順)</option>
+					<option value="7">関連授業(昇順)</option>
+					<option value="8">関連授業(降順)</option>
+					<option value="9">価格(昇順)</option>
+					<option value="10">価格(降順)</option>
 				</select>
+			</form>
 			</div>
 			<!-- テーブル -->
 
 				<div class="item_for_center">
-					<div class="list">
-						<table>
+					<div class="list_content">
+
+						<table id="itemList">
 							<!-- テーブルタイトル -->
 							<thead class="list_title">
 								<tr>
 									<th class="check_column1"></th>
 									<tb class="hidden_column">商品ID</tb>
-									<th class="item_column1">商品名</th>
-									<th class="item_column2">学籍場号</th>
-									<th class="item_column3">出品者</th>
-									<th class="item_column4">関連授業名</th>
-									<th class="item_column5">価格</th>
+									<th class="item_column1" data-sort="item_column1">商品名</th>
+									<th class="item_column2" data-sort="item_column2">学籍場号</th>
+									<th class="item_column3" data-sort="item_column3">出品者</th>
+									<th class="item_column4" data-sort="item_column4">関連授業名</th>
+									<th class="item_column5" data-sort="item_column5">価格</th>
 								</tr>
 							</thead>
 							<!-- テーブル要素 -->
-							<tbody class="list_content">
-
+							<tbody class="list" id="list_content">
 							<form action="<%= ServletPath.ManagerDeleteItemInfo %>" method="post">
-
 
 							<%
 							ArrayList<ItemGetInfo> itemInfo = new ArrayList<>();
@@ -84,7 +90,6 @@
 							</tbody>
 
 							<!-- 複数件削除ダイアログ -->
-
 							<div id="confirm_dialog_admin">
 								<p>削除しますか？</p>
 								<div class="confirm_dialog_button">
@@ -92,10 +97,54 @@
 										<button tyoe="button" id="no" class="button_flat_normal">キャンセル</button>
 								</div>
 							</div>
-
 							</form>
-
 						</table>
+
+						<!-- ソート機能 -->
+						<script src="/tdu_market/js/list.min.js"></script>
+						<script>
+						var options = {
+							valueNames: [ 'item_column1', 'item_column2', 'item_column3', 'item_column4','item_column5' ]
+						};
+						var itemList = new List('itemList', options);
+						itemList.sort( 'item_column1', {order : 'asc'} );
+						function sort_itemList(){
+							sortIndex = document.sort_item.sort_number.selectedIndex;
+							switch (sortIndex) {
+					        case 0:
+					        	itemList.sort( 'item_column1', {order : 'asc'} );
+					          break;
+					        case 1:
+					        	itemList.sort( 'item_column1', {order : 'desc'} );
+					          break;
+					        case 2:
+					        	itemList.sort( 'item_column2', {order : 'asc'} );
+					          break;
+					        case 3:
+					        	itemList.sort( 'item_column2', {order : 'desc'} );
+					          break;
+					        case 4:
+					        	itemList.sort( 'item_column3', {order : 'asc'} );
+					          break;
+					        case 5:
+					        	itemList.sort( 'item_column3', {order : 'desc'} );
+					          break;
+					        case 6:
+					        	itemList.sort( 'item_column4', {order : 'asc'} );
+					          break;
+					        case 7:
+					        	itemList.sort( 'item_column4', {order : 'desc'} );
+					          break;
+					        case 8:
+					        	itemList.sort( 'item_column5', {order : 'asc'} );
+					          break;
+					        case 9:
+					        	itemList.sort( 'item_column5', {order : 'desc'} );
+					          break;
+					      }
+						}
+						</script>
+
 						<form name="select_item" action="<%= ServletPath.ManagerReferItemPage %>" method="get">
 						</form>
 						<!-- テーブル要素クリック -->
