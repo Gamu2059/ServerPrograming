@@ -1,3 +1,5 @@
+<%@page import="tdu_market.controller.ReferExhibitItemListPage"%>
+<%@page import="tdu_market.util.ControllerUtil"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="tdu_market.entity_bean.RelatedClassInfo"%>
 <%@page import="tdu_market.dto.*"%>
@@ -28,13 +30,13 @@
 			<div class="first_container_ver3">
 				<h3>出品物詳細</h3>
 				<!-- EditExhibitItemPageへ処理を引き継ぐ -->
-				<%RelatedClassGetInfo info = (RelatedClassGetInfo)session.getAttribute("exhibitInfo"); 		
+				<%RelatedClassGetInfo info = (RelatedClassGetInfo)session.getAttribute("exhibitInfo");
 				%>
-				<form action="<%=ServletPath.EditExhibitItemPage%>" method="get">
-				<% 
-					
-				out.print("<button type=\"submit\" class=\"button_flat_normal\" id=\"edit\"name=\"itemID\" value=\" "+info.getItemGetInfo().getItemID()+"  \">編集");	
-				out.print("<input type=\"hidden\" name=\"syllabus\" value=\"" + info.getSyllabusGetInfo().getClassCode() + "\">");
+				<form action="<%=ServletPath.EditExhibitItemPage%>" method="post">
+				<%
+
+				out.print("<button type=\"submit\" class=\"button_flat_normal\" id=\"edit\" name=\"itemID\" value=\""+info.getItemGetInfo().getItemID()+"  \">編集");
+				out.print("<input type=\"hidden\" name=\"classCode\" value=\"" + info.getSyllabusGetInfo().getClassCode() + "\">");
 				%>
 				</form>
 			</div>
@@ -43,7 +45,6 @@
 				<section>
 					<!-- ReferExhibitItemPageからのセッションデータを展開・表示 -->
 					<%
-					
 					out.print("<div class=\"detail_content\">");
 					out.print("<h2 id=\"item_name\">"+ info.getItemGetInfo().getItemName() +"</h2>");
 					out.print("</div>");
@@ -112,7 +113,7 @@
 					}
 					out.print("</div>");
 					out.print("<div class=\"detail_content_right\">");
-					out.print("<h4>"+ info.getItemGetInfo().getPrice() +"</h4>");
+					out.print("<h4>"+ info.getItemGetInfo().getPrice() +"</h4><h4>円</h4>");
 					out.print("</div>");
 					%>
 				</section>
@@ -136,6 +137,7 @@
 				<div class="negative_dialog_button">
 					<!-- DeleteItemInfoに処理を引き継ぐ -->
 					<form action="<%=ServletPath.DeleteItemInfo%>" method="post">
+						<input type="hidden" value=<%=info.getItemGetInfo().getItemID() %> name="itemID">
 						<button id="nega_yes" class="button_flat_nega">確認</button>
 					</form>
 					<button id="nega_no" class="button_flat_normal">キャンセル</button>
@@ -148,6 +150,10 @@
 				</div>
 			</div>
 			<script type="text/javascript">
+				<%
+				boolean falser = false;
+				session.setAttribute("isDisplayDialog", falser);
+				%>
 				document.getElementById('edit').onclick = function() {
 					//ここに内部処理をかく。
 
@@ -166,7 +172,7 @@
 
 						//ここに内部処理をいれる
 
-						notify_dialog('削除しました。', 'reference_exhibit_list');
+						//notify_dialog('削除しました。', 'reference_exhibit_list');
 					});
 					no.addEventListener('click', function() {
 						dialog.style.display = 'none';
@@ -183,8 +189,9 @@
 					});
 				}
 				document.getElementById('back_button').onclick = function() {
-					window.history.back(-1);
-					return false;
+/* 					window.history.back(-1);
+					return false; */
+					location.href='<%=ServletPath.ReferExhibitItemListPage%>';
 				}
 			</script>
 		</section>

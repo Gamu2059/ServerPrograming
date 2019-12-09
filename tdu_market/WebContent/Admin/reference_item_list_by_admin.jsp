@@ -1,3 +1,4 @@
+<%@page import="tdu_market.util.DialogUtil"%>
 <%@page import="tdu_market.util.JspPath"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
@@ -137,13 +138,17 @@
 			1.該当するidをボタンに付与する。update, delete, back_button
 			2.notify_dialog('表示したいメッセージ','遷移先url')
 		-->
-			<!-- <div id="notify_dialog_admin">
+			<div id="notify_dialog_admin">
 				<p id="notify_text">確認ダイアログ</p>
 				<div class="notify_dialog_button">
 					<button id="ok" class="button_flat_normal">了解</button>
 				</div>
-			</div> -->
+			</div>
 			<script type="text/javascript">
+			<% if(DialogUtil.checkDisplayDialog(request, response)){ %>
+				notify_dialog(<%=DialogUtil.getDialogMessage(request, response)%>);
+			<% } %>
+			
 				document.getElementById("red_button").onclick = function() {
 					//各ボタンの要素の取得
 					let dialog = document
@@ -155,24 +160,19 @@
 					yes.addEventListener("click",
 							function() {
 								dialog.style.display = "none";
-
-								//ここに内部処理をいれる
-
-								notify_dialog("削除しました。",
-										"reference_item_list_by_admin"); /*再読み込みがかかります */
 							});
 					no.addEventListener("click", function() {
 						dialog.style.display = "none";
 					});
 				};
-				function notify_dialog(text, url) {
+				function notify_dialog(text) {
 					let dialog = document.getElementById("notify_dialog_admin");
 
 					document.getElementById("notify_text").textContent = text;
 
 					dialog.style.display = "block";
 					ok.addEventListener("click", function() {
-						location.href = url + ".html";
+						<% DialogUtil.turnoffDialog(request, response); %>
 						dialog.style.display = "none";
 					});
 				}

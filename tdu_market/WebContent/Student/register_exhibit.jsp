@@ -242,15 +242,59 @@
 						</div>
 					</div>
 					<div class="middle2_content">
-					<button type="submit" name="submit" class="button_flat_submit"
-						id="upload" onclick="imageError()">確認</button>
+					<button type="button" name="submit" class="button_flat_submit"
+						id="upload">確認</button>
+					<!-- 確認ダイアログ -->
+					<div id="confirm_dialog">
+						<p>更新しますか？</p>
+						<div class="confirm_dialog_button">
+							<input type="submit" id="yes" class="button_flat_submit" value="確認" onclick="imageError()">
+							<button id="no" class="button_flat_normal">キャンセル</button>
+						</div>
+					</div>
+					<div id="notify_dialog">
+						<p id="notify_text">確認ダイアログ</p>
+						<div class="notify_dialog_button">
+							<button id="ok" class="button_flat_normal">了解</button>
+						</div>
+					</div>
+					<% if((boolean)session.getAttribute("isDisplayDialog")){%>
+						notify_dialog('<%= (String)session.getAttribute("dialogMessage") %>');
+					<% } %>
+					<script type="text/javascript">
+						document.getElementById('upload').onclick = function() {
+							//各ボタンの要素の取得
+							let dialog = document.getElementById('confirm_dialog');
+							let yes = document.getElementById('yes');
+							let no = document.getElementById('no');
+							dialog.style.display = 'block';
+
+							yes.addEventListener('click', function() {
+								dialog.style.display = 'none';
+							});
+							no.addEventListener('click', function() {
+								dialog.style.display = 'none';
+							});
+						}
+						function notify_dialog(text) {
+							let dialog = document.getElementById('notify_dialog');
+
+							document.getElementById('notify_text').textContent = text;
+
+							dialog.style.display = 'block';
+							ok.addEventListener('click', function() {
+								<% session.setAttribute("isDisplayDialog", false); %>
+								dialog.style.display = 'none';
+							});
+						}
+					</script>
 				</form>
 				<!-- 中部コンテンツ２ -->
 
 				</div>
 			</div>
 		</article>
-		
+
 		<section>
 			<!--
 		ダイアログ付与手順。

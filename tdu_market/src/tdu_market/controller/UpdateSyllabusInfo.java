@@ -14,6 +14,7 @@ import tdu_market.dto.SyllabusGetInfo;
 import tdu_market.dto.SyllabusUpdateInfo;
 import tdu_market.entity_manager.SyllabusInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.DialogUtil;
 import tdu_market.util.JspPath;
 
 @WebServlet("/tdu_market/controller/UpdateSyllabusInfo")
@@ -73,6 +74,9 @@ public class UpdateSyllabusInfo extends HttpServlet {
 
 		//不要なsessionの破棄
 		session.removeAttribute("updateSyllabusClassCode");
+		
+		//ダイアログのセット
+		DialogUtil.setDialog("シラバス情報を更新しました。", request, response);
 
 		//ページ遷移
 		ControllerUtil.translatePage(JspPath.reference_syllabus_list_by_admin, request, response);
