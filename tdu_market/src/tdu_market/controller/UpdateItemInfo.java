@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -61,6 +62,18 @@ public class UpdateItemInfo extends HttpServlet {
 			e.printStackTrace();
 		}
 
+		Part image1 = request.getPart("itemImageURLs_1");
+		Part image2 = request.getPart("itemImageURLs_2");
+		Part image3 = request.getPart("itemImageURLs_3");
+		Part image4 = request.getPart("itemImageURLs_4");
+
+		InputStream[] iss = new InputStream[4];
+		iss[0] = image1.getInputStream();
+		iss[1] = image2.getInputStream();
+		iss[2] = image3.getInputStream();
+		iss[3] = image4.getInputStream();
+		
+		/*
 		InputStream[] iss = null;
 		Collection<Part> parts = request.getParts();
 		if (parts != null) {
@@ -70,7 +83,8 @@ public class UpdateItemInfo extends HttpServlet {
 				iss[i] = p.getInputStream();
 				i++;
 			}
-		}
+		}*/
+		
 		HttpSession session = request.getSession();
 
 		ItemUpdateInfo updateInfo = new ItemUpdateInfo(itemID, itemName, description, condition, price, relatedClassCode, iss);
