@@ -136,7 +136,7 @@
 							<form action="<%=ServletPath.PostMessage%>" method="post">
 							  <input type="hidden" name="roomID" value="<%=session.getAttribute("roomID")%>">
 							  <input type="hidden" name="studentNumber" value="<%=mailAddress%>">
-								<textarea id="message_form" name="content" cols="50"
+								<textarea id="message_form" name="content" cols="40"
 									rows="2" placeholder="メッセージを入力"></textarea>
 								<input type="image" src="/tdu_market/images/post2.png" alt="post" id="post_icon">
  							</form>
