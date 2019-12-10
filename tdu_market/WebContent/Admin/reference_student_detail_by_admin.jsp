@@ -49,7 +49,7 @@
 				<div class="item_for_LeftAndRight_between">
 					<form action="<%= ServletPath.ReferStudentListPage %>" method="get">
 						<input type="hidden" name="isBack" value="true">
-						<button id="white_button">戻る</button>
+						<button id="white_button">学生一覧へ</button>
 					</form>
 					<form action="<%= ServletPath.ManagerReferExhibitItemListPage %>" method="get">
 						<input type="hidden" name="studentMailAddress" value="<%= studentMailAddress %>">
@@ -109,16 +109,16 @@
 				<% } %>
 				function notify_dialog(text) {
 					let dialog = document.getElementById('notify_dialog_admin');
-	
+
 					document.getElementById('notify_text').textContent = text;
-	
+
 					dialog.style.display = 'block';
 					ok.addEventListener('click', function() {
 						<% DialogUtil.turnoffDialog(request, response); %>
 						dialog.style.display = 'none';
 					});
 				}
-			
+
 				document.getElementById('red_button').onclick = function() {
 					//各ボタンの要素の取得
 					let dialog = document
