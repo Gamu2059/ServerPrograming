@@ -77,6 +77,16 @@
 										ItemGetInfo i = item.getItemGetInfo();
 										StudentGetInfo s = item.getStudentGetInfo();
 										SyllabusGetInfo sy = item.getSyllabusGetInfo();
+
+										String studentName = "未設定";
+										if (s != null && s.getDisplayName() != null){
+											studentName = s.getDisplayName();
+										}
+
+										String syllabusName = "未設定";
+										if (sy != null && sy.getClassName() != null){
+											syllabusName = sy.getClassName();
+										}
 							%>
 								<tr class="exhibitId">
 									<th class="check_column1"><input type="checkbox" name="itemIDs"
@@ -85,8 +95,8 @@
 									<td class="hidden_column" hidden><%=i.getItemID()%></td>
 									<td class="item_column1"><%=i.getItemName()%></td>
 									<td class="item_column2"><%=i.getExhibitorMailAddress().split("@", 0)[0]%></td>
-									<td class="item_column3"><%=s != null ? s.getDisplayName() : "未設定"%></td>
-									<td class="item_column4"><%=sy != null ? sy.getClassName() : "未設定"%></td>
+									<td class="item_column3"><%=studentName%></td>
+									<td class="item_column4"><%=syllabusName%></td>
 									<td class="item_column5"><%=i.getPrice()%></td>
 								</tr>
 								<%
