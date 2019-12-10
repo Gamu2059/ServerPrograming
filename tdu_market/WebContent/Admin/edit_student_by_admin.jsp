@@ -132,17 +132,13 @@
 
 					dialog.style.display = "block";
 
-					/* yes.addEventListener("click", function() {
+					yes.addEventListener("click", function() {
 						dialog.style.display = "none";
 
-						//ここに内部処理をいれる
-
-						notify_dialog("更新しました。",
-								"reference_student_detail_by_admin");
 					});
 					no.addEventListener("click", function() {
 						dialog.style.display = "none";
-					}); */
+					});
 				};
 
 				function notify_dialog(text, url) {
@@ -152,7 +148,6 @@
 
 					dialog.style.display = "block";
 					ok.addEventListener("click", function() {
-						location.href = url + ".html";
 						dialog.style.display = "none";
 					});
 				}

@@ -17,6 +17,7 @@ import tdu_market.dto.ManagerUpdateInfo;
 import tdu_market.dto.ReturnInfo;
 import tdu_market.entity_manager.ManagerInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.DialogUtil;
 import tdu_market.util.JspPath;
 
 @WebServlet("/tdu_market/controller/UpdateManagerInfo")
@@ -56,7 +57,8 @@ public class UpdateManagerInfo extends HttpServlet {
 
 		if (updateResult.isSuccess()) {
 			session.setAttribute("errorUserEditMessages", null);
-
+			DialogUtil.setDialog("ユーザー情報を更新しました。", request, response);
+			
 			ManagerGetInfo managerInfo = manager.getManagerInfo(mailAddress);
 			session.setAttribute("managerProfileInfo", managerInfo);
 

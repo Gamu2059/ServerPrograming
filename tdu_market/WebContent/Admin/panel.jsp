@@ -16,7 +16,7 @@
 	<div class="left_panel">
 		<!-- ロゴ -->
 		<div class="title_logo">
-			<a href="top_admin.jsp"><img src="/tdu_market/images/manager_logo.png"
+			<a href=<%=ServletPath.ManagerTopPage %>><img src="/tdu_market/images/manager_logo.png"
 				alt="ロゴ画像" /></a>
 		</div>
 		<!-- 左パネルメニュー -->

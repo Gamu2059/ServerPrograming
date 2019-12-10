@@ -176,12 +176,36 @@
 						<input type="hidden" name="target" value="<%= syllabusInfo.getTarget() %>">
 						<input type="hidden" name="requierments" value="<%= syllabusInfo.getRequirements() %>">
 						<input type="hidden" name="evaluationMethod" value="<%= syllabusInfo.getEvaluationMethod() %>">
-						<button type="submit" id="orange_button">確定</button>
+						
+						<div id="confirm_dialog_admin">
+							<p id="confirm_text">情報を更新しますか？</p>
+							<div class="confirm_dialog_button">
+									<button id="yes" type="submit" class="button_flat_submit">はい</button>
+									<button id="no" class="button_flat_normal">いいえ</button>
+							</div>
+						</div>
 					</form>
-
+						<button type="button" id="orange_button">確定</button>
 			</div>
 			<br>
 		</article>
+		<script type="text/javascript">
+		document.getElementById('orange_button').onclick = function() {
+			//各ボタンの要素の取得
+			let dialog = document.getElementById('confirm_dialog_admin');
+			let yes = document.getElementById('yes');
+			let no = document.getElementById('no');
+
+			dialog.style.display = 'block';
+
+			yes.addEventListener('click', function() {
+				dialog.style.display = 'none';
+			});
+			no.addEventListener('click', function() {
+				dialog.style.display = 'none';
+			});
+		}
+		</script>
 	</div>
 </body>
 </html>

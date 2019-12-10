@@ -23,7 +23,7 @@ public final class RelatedClassInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "select * from \"RelatedClassInfo\" where \"itemID\" = ?";
+			String sql = String.format("select * from \"RelatedClassInfo\" where \"%s\" = ?", RelatedClassInfo.ITEM_ID);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setLong(1, itemID);
 
@@ -68,7 +68,8 @@ public final class RelatedClassInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "select * from \"RelatedClassInfo\" where \"classCode\" = ?";
+			String sql = String.format("select * from \"RelatedClassInfo\" where \"%s\" = ?",
+					RelatedClassInfo.CLASS_CODE);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, classCode);
 
@@ -145,7 +146,7 @@ public final class RelatedClassInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "delete from \"RelatedClassInfo\" where \"itemID\" = ?";
+			String sql = String.format("delete from \"RelatedClassInfo\" where \"%s\" = ?", RelatedClassInfo.ITEM_ID);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setLong(1, itemID);
 
@@ -173,7 +174,8 @@ public final class RelatedClassInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "delete from \"RelatedClassInfo\" where \"classCode\" = ?";
+			String sql = String.format("delete from \"RelatedClassInfo\" where \"%s\" = ?",
+					RelatedClassInfo.CLASS_CODE);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, classCode);
 
@@ -192,7 +194,7 @@ public final class RelatedClassInfoDAO extends DAOBase {
 		}
 	}
 
-	public ArrayList<RelatedClassInfo> getAllRelatedClassInfo(){
+	public ArrayList<RelatedClassInfo> getAllRelatedClassInfo() {
 
 		Connection connection = getConnection();
 		if (connection == null) {

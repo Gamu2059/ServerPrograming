@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import tdu_market.dto.ItemUpdateInfo;
@@ -70,11 +71,16 @@ public class UpdateItemInfo extends HttpServlet {
 				i++;
 			}
 		}
+		HttpSession session = request.getSession();
 
 		ItemUpdateInfo updateInfo = new ItemUpdateInfo(itemID, itemName, description, condition, price, relatedClassCode, iss);
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		itemInfo.updateItemInfo(updateInfo);
 
+ 		boolean isDisplayDialog = true;
+ 		String dialogMessage = "出品物を更新しました";
+ 		session.setAttribute("dialogMessage", dialogMessage);
+ 		session.setAttribute("isDisplayDialog", isDisplayDialog);
 		ControllerUtil.translatePage(JspPath.reference_exhibit_list, request, response);
 	}
 }

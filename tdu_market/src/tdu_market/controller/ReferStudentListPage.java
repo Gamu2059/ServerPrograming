@@ -71,14 +71,7 @@ public class ReferStudentListPage extends HttpServlet {
 
 		//jspに情報を送信する
 		HttpSession session = request.getSession();
-		if (request.getParameter("isBack") == null) {
-			session.setAttribute("studentList", searchResult);
-		} else {
-			if (request.getParameter("isBack").equals("true")) {
-			} else {
-				session.setAttribute("studentList", searchResult);
-			}
-		}
+		session.setAttribute("studentList", searchResult);
 		session.setAttribute("departmentInfoList", departmentInfoList);
 		session.setAttribute("studentAndExhibitMap", studentAndExhibit);
 

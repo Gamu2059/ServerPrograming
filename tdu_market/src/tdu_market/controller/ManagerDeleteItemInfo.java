@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import tdu_market.dto.ItemGetInfo;
 import tdu_market.entity_manager.ItemInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.DialogUtil;
 import tdu_market.util.JspPath;
 
 /**
@@ -99,11 +100,11 @@ public class ManagerDeleteItemInfo extends HttpServlet {
 				if (inItemList.equals("fromItemList")) {
 					//商品一覧を更新する
 					System.out.println("商品一覧の再取得未実装");
-
-					ControllerUtil.translatePage(JspPath.reference_item_list_by_admin, request, response);
-				}
-			}
-		}
+		//ダイアログの設定
+		DialogUtil.setDialog("商品情報を削除しました。", request, response);
+		
+		//遷移
+		ControllerUtil.translatePage(JspPath.reference_exhibit_item_by_admin, request, response);
 	}
 
 }

@@ -98,6 +98,28 @@ public class SyllabusGetInfo {
 		return subjectName;
 	}
 
+	public static SyllabusGetInfo create(SyllabusInfo syllabusInfo, SemesterInfo semesterInfo, TeacherInfo teacherInfo) {
+
+		if (syllabusInfo == null || semesterInfo == null || teacherInfo == null) {
+			return null;
+		}
+
+		String classCode = syllabusInfo.getClassCode();
+		String className = syllabusInfo.getClassName();
+		String openingSemester = String.format("%s年度%s", semesterInfo.getYear(), semesterInfo.getSemester());
+		String dates = syllabusInfo.getDates();
+		int unitNum = syllabusInfo.getUnitNum();
+		String classRoom = syllabusInfo.getClassRoom();
+		long subjectID = syllabusInfo.getSubjectID();
+		String teacherName = teacherInfo.getTeacherName();
+		String overview = syllabusInfo.getOverview();
+		String target = syllabusInfo.getTarget();
+		String requirments = syllabusInfo.getRequirements();
+		String evaluationMethod = syllabusInfo.getEvaluationMethod();
+
+		return new SyllabusGetInfo(classCode, className, openingSemester, dates, unitNum, classRoom, subjectID, teacherName, overview, target, requirments, evaluationMethod, null, null);
+	}
+
 	public static SyllabusGetInfo create(SyllabusInfo syllabusInfo, SemesterInfo semesterInfo, TeacherInfo teacherInfo, DepartmentInfo departmentInfo) {
 
 		if (syllabusInfo == null || semesterInfo == null || teacherInfo == null || departmentInfo == null) {

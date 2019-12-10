@@ -8,8 +8,8 @@ public final class RelatedClassInfo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final String ITEM_ID = "itemID";
-	private static final String CLASS_CODE = "classCode";
+	public static final String ITEM_ID = "relatedItemID";
+	public static final String CLASS_CODE = "relatedClassCode";
 
 	private long itemID;
 	private String classCode;

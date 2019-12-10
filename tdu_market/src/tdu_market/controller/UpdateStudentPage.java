@@ -68,6 +68,10 @@ public class UpdateStudentPage extends HttpServlet {
 		} else {
 			session.setAttribute("errorInfo", updateResult.getMsg());
 		}
+		boolean isDisplayDialog = true;
+		String dialogMessage = "更新しました";
+		session.setAttribute("dialogMessage", dialogMessage);
+		session.setAttribute("isDisplayDialog", isDisplayDialog);
 
 		//ページ遷移
 		ControllerUtil.translatePage(ServletPath.ReferStudentPage, request, response);

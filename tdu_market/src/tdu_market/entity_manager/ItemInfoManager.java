@@ -6,6 +6,7 @@ import tdu_market.dao.ItemInfoDAO;
 import tdu_market.dto.ItemBuyInfo;
 import tdu_market.dto.ItemCreateInfo;
 import tdu_market.dto.ItemGetInfo;
+import tdu_market.dto.ItemGetInfoByAdmin;
 import tdu_market.dto.ItemImageCreateInfo;
 import tdu_market.dto.ItemImageGetInfo;
 import tdu_market.dto.ItemSearchInfo;
@@ -169,6 +170,13 @@ public final class ItemInfoManager {
 		}
 
 		return result;
+	}
+
+	/** 商品を検索する。運営用。 */
+	public ArrayList<ItemGetInfoByAdmin> searchItemByManager(ItemSearchInfo itemSearchInfo) {
+
+		ItemInfoDAO itemInfoDAO = new ItemInfoDAO();
+		return itemInfoDAO.searchItemInfoByManager(itemSearchInfo);
 	}
 
 	/** 商品を購入する。 */

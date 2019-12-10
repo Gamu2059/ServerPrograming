@@ -92,7 +92,6 @@
 				</div>
 			</div>
 			<script type="text/javascript">
-			<% System.out.print(session.getAttribute("isDisplayDialog")); %>
  				<% if((boolean)session.getAttribute("isDisplayDialog")){%>
 					notify_dialog('<%= (String)session.getAttribute("dialogMessage") %>');
  				<% } %>
@@ -117,7 +116,7 @@
 
 					dialog.style.display = 'block';
 					ok.addEventListener('click', function() {
-						<% session.setAttribute("isDisplayDialog", false); %>
+						<%//session.setAttribute("isDisplayDialog", false) %>
 						dialog.style.display = 'none';
 					});
 				}

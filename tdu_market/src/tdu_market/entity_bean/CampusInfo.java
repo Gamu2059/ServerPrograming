@@ -8,8 +8,8 @@ public final class CampusInfo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final String CAMPUS_ID = "campusID";
-	private static final String CAMPUS_NAME = "campusName";
+	public static final String CAMPUS_ID = "campusID";
+	public static final String CAMPUS_NAME = "campusName";
 
 	private long campusID;
 	private String campusName;

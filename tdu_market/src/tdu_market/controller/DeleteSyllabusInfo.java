@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import tdu_market.dto.SyllabusGetInfo;
 import tdu_market.entity_manager.SyllabusInfoManager;
 import tdu_market.util.ControllerUtil;
+import tdu_market.util.DialogUtil;
 import tdu_market.util.JspPath;
 
 /**
@@ -61,6 +62,9 @@ public class DeleteSyllabusInfo extends HttpServlet {
 		//jspに送信する
 		HttpSession session = request.getSession();
 		session.setAttribute("syllabusInfoList", syllabusGetInfo);
+		
+		//ダイアログメッセージ
+		DialogUtil.setDialog("シラバスを削除しました。", request, response);
 
 		// 遷移
 		ControllerUtil.translatePage(JspPath.reference_syllabus_list_by_admin, request, response);

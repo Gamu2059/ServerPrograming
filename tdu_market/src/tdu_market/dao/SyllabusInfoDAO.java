@@ -29,8 +29,7 @@ public final class SyllabusInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "select * from \"SyllabusInfo\" as s, \"OpeningSemesterInfo\" as o, \"SemesterInfo\" as se, \"TeacherInfo\" as t "
-					+ "where s.\"classCode\" = o.\"classCode\" and o.\"semesterID\" = se.\"semesterID\" and s.\"teacherID\" = t.\"teacherID\" and s.\"classCode\" = ?";
+			String sql = String.format("select * from \"SyllabusInfoView\" where \"%s\" = ?", SyllabusInfo.CLASS_CODE);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, classCode);
 
@@ -42,7 +41,8 @@ public final class SyllabusInfoDAO extends DAOBase {
 				TeacherInfo teacherInfo = TeacherInfo.create(resultSet);
 
 				DepartmentInfoDAO departmentInfoDAO = new DepartmentInfoDAO();
-				ArrayList<DepartmentInfo> departmentInfoList = departmentInfoDAO.getDepartmentInfoWithSubject(syllabusInfo.getSubjectID(), true);
+				ArrayList<DepartmentInfo> departmentInfoList = departmentInfoDAO
+						.getDepartmentInfoWithSubject(syllabusInfo.getSubjectID(), true);
 				DepartmentInfo departmentInfo = null;
 				if (departmentInfoList != null && departmentInfoList.size() > 0) {
 					departmentInfo = departmentInfoList.get(0);
@@ -126,10 +126,20 @@ public final class SyllabusInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "update \"SyllabusInfo\" "
-					+ "set \"classCode\" = ?, \"className\" = ?, \"subjectID\" = ?, \"teacherID\" = ?, \"dates\" = ?, \"unitNum\" = ?, "
-					+ "\"classRoom\" = ?, \"overview\" = ?, \"target\" = ?, \"requirements\" = ?, \"evaluationMethod\" = ? "
-					+ "where \"classCode\" = ?";
+			String sql = String.format(
+					"update \"SyllabusInfo\" set \"%s\" = ?, \"%s\" = ?, \"%s\" = ?, \"%s\" = ?, \"%s\" = ?, \"%s\" = ?, \"%s\" = ?, \"%s\" = ?, \"%s\" = ?, \"%s\" = ?, \"%s\" = ? where \"%s\" = ?",
+					SyllabusInfo.CLASS_CODE,
+					SyllabusInfo.CLASS_NAME,
+					SyllabusInfo.SUBJECT_ID,
+					SyllabusInfo.TEACHER_ID,
+					SyllabusInfo.DATES,
+					SyllabusInfo.UNIT_NUM,
+					SyllabusInfo.CLASS_ROOM,
+					SyllabusInfo.OVERVIEW,
+					SyllabusInfo.TARGET,
+					SyllabusInfo.REQUIREMENTS,
+					SyllabusInfo.EVALUATIONMETHOD,
+					SyllabusInfo.CLASS_CODE);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 
 			pstmt.setString(1, syllabusUpdateInfo.getClassCode());
@@ -169,7 +179,7 @@ public final class SyllabusInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "delete from \"SyllabusInfo\" where \"classCode\" = ?";
+			String sql = String.format("delete from \"SyllabusInfo\" where \"%s\" = ?", SyllabusInfo.CLASS_CODE);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, classCode);
 
@@ -218,28 +228,42 @@ public final class SyllabusInfoDAO extends DAOBase {
 			boolean isEmptySemesterID = semesterID < 1;
 
 			StringBuilder builder = new StringBuilder(
-					"select * from \"SyllabusInfo\" as s, \"OpeningSemesterInfo\" as o, \"SemesterInfo\" as se, \"TeacherInfo\" as t ");
-			builder.append(
-					"where s.\"classCode\" = o.\"classCode\" and o.\"semesterID\" = se.\"semesterID\" and s.\"teacherID\" = t.\"teacherID\" ");
+					"select * from \"SyllabusInfoView\" ");
+
+			if (!isEmptyCCK || !isEmptyCNK || !isEmptyTNK || !isEmptySujectID || !isEmptySemesterID) {
+				builder.append("where ");
+			}
 
 			if (!isEmptyCCK) {
-				builder.append("and s.\"classCode\" like ? ");
+				builder.append(String.format("\"%s\" like ? ", SyllabusInfo.CLASS_CODE));
 			}
 
 			if (!isEmptyCNK) {
-				builder.append("and s.\"className\" like ? ");
+				if (!isEmptyCCK) {
+					builder.append("and ");
+				}
+				builder.append(String.format("\"%s\" like ? ", SyllabusInfo.CLASS_NAME));
 			}
 
 			if (!isEmptyTNK) {
-				builder.append("and t.\"teacherName\" like ? ");
+				if (!isEmptyCCK || !isEmptyCNK) {
+					builder.append("and ");
+				}
+				builder.append(String.format("\"%s\" like ? ", TeacherInfo.TEACHER_NAME));
 			}
 
 			if (!isEmptySujectID) {
-				builder.append("and s.\"subjectID\" = ? ");
+				if (!isEmptyCCK || !isEmptyCNK || !isEmptyTNK) {
+					builder.append("and ");
+				}
+				builder.append(String.format("\"subjectID\" = ? ",SyllabusInfo.SUBJECT_ID));
 			}
 
 			if (!isEmptySemesterID) {
-				builder.append("and se.\"semesterID\" = ? ");
+				if (!isEmptyCCK || !isEmptyCNK || !isEmptyTNK || !isEmptySujectID) {
+					builder.append("and ");
+				}
+				builder.append(String.format("\"semesterID\" = ? ", SemesterInfo.SEMESTER_ID));
 			}
 
 			String sql = builder.toString();
@@ -280,13 +304,15 @@ public final class SyllabusInfoDAO extends DAOBase {
 				SemesterInfo semesterInfo = SemesterInfo.create(resultSet);
 				TeacherInfo teacherInfo = TeacherInfo.create(resultSet);
 
-				ArrayList<DepartmentInfo> departmentInfoList = departmentInfoDAO.getDepartmentInfoWithSubject(syllabusInfo.getSubjectID(), true);
+				ArrayList<DepartmentInfo> departmentInfoList = departmentInfoDAO
+						.getDepartmentInfoWithSubject(syllabusInfo.getSubjectID(), true);
 				DepartmentInfo departmentInfo = null;
 				if (departmentInfoList != null && departmentInfoList.size() > 0) {
 					departmentInfo = departmentInfoList.get(0);
 				}
 
-				SyllabusGetInfo syllabusGetInfo = SyllabusGetInfo.create(syllabusInfo, semesterInfo, teacherInfo, departmentInfo);
+				SyllabusGetInfo syllabusGetInfo = SyllabusGetInfo.create(syllabusInfo, semesterInfo, teacherInfo,
+						departmentInfo);
 
 				if (list == null) {
 					list = new ArrayList<SyllabusGetInfo>();
@@ -324,8 +350,7 @@ public final class SyllabusInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "select * from \"SyllabusInfo\" as s, \"OpeningSemesterInfo\" as o, \"SemesterInfo\" as se, \"TeacherInfo\" as t "
-					+ "where s.\"classCode\" = o.\"classCode\" and o.\"semesterID\" = se.\"semesterID\" and s.\"teacherID\" = t.\"teacherID\"";
+			String sql = "select * from \"SyllabusInfoView\"";
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 
 			resultSet = pstmt.executeQuery();
@@ -336,13 +361,15 @@ public final class SyllabusInfoDAO extends DAOBase {
 				SemesterInfo semesterInfo = SemesterInfo.create(resultSet);
 				TeacherInfo teacherInfo = TeacherInfo.create(resultSet);
 
-				ArrayList<DepartmentInfo> departmentInfoList = departmentInfoDAO.getDepartmentInfoWithSubject(syllabusInfo.getSubjectID(), true);
+				ArrayList<DepartmentInfo> departmentInfoList = departmentInfoDAO
+						.getDepartmentInfoWithSubject(syllabusInfo.getSubjectID(), true);
 				DepartmentInfo departmentInfo = null;
 				if (departmentInfoList != null && departmentInfoList.size() > 0) {
 					departmentInfo = departmentInfoList.get(0);
 				}
 
-				SyllabusGetInfo syllabusGetInfo = SyllabusGetInfo.create(syllabusInfo, semesterInfo, teacherInfo, departmentInfo);
+				SyllabusGetInfo syllabusGetInfo = SyllabusGetInfo.create(syllabusInfo, semesterInfo, teacherInfo,
+						departmentInfo);
 
 				if (list == null) {
 					list = new ArrayList<SyllabusGetInfo>();

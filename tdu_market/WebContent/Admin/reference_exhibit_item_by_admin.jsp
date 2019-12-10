@@ -1,4 +1,4 @@
-<%@page import="tdu_market.util.JspPath"%>
+<%@page import="tdu_market.util.*"%>
 <%@page import="tdu_market.dto.ItemGetInfo"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="tdu_market.dto.StudentGetInfo"%>
@@ -84,6 +84,52 @@
 				</script>
 			</div>
 		</article>
+		<section>
+			<!--
+		ダイアログ付与手順。
+			1.該当するidをボタンに付与する。update, delete, back_button
+			2.notify_dialog('表示したいメッセージ','遷移先url')
+		-->
+			<div id="notify_dialog_admin">
+				<p id="notify_text">確認ダイアログ</p>
+				<div class="notify_dialog_button">
+					<button id="ok" class="button_flat_normal">了解</button>
+				</div>
+			</div>
+			<script type="text/javascript">
+			<% if(DialogUtil.checkDisplayDialog(request, response)){ %>
+				notify_dialog(<%=DialogUtil.getDialogMessage(request, response)%>);
+			<% } %>
+			
+				document.getElementById("red_button").onclick = function() {
+					//各ボタンの要素の取得
+					let dialog = document
+							.getElementById("confirm_dialog_admin");
+					let yes = document.getElementById("yes");
+					let no = document.getElementById("no");
+					dialog.style.display = "block";
+
+					yes.addEventListener("click",
+							function() {
+								dialog.style.display = "none";
+							});
+					no.addEventListener("click", function() {
+						dialog.style.display = "none";
+					});
+				};
+				function notify_dialog(text) {
+					let dialog = document.getElementById("notify_dialog_admin");
+
+					document.getElementById("notify_text").textContent = text;
+
+					dialog.style.display = "block";
+					ok.addEventListener("click", function() {
+						<% DialogUtil.turnoffDialog(request, response); %>
+						dialog.style.display = "none";
+					});
+				}
+			</script>
+		</section>
 		<br />
 	</div>
 </body>

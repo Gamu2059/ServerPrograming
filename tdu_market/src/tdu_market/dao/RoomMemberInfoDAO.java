@@ -23,7 +23,8 @@ public final class RoomMemberInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "select * from \"RoomMemberInfo\" where \"memberMailAddress\" = ?";
+			String sql = String.format("select * from \"RoomMemberInfo\" where \"%s\" = ?",
+					RoomMemberInfo.MEMBER_MAIL_ADDRESS);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, memberMailAddress);
 
@@ -67,7 +68,7 @@ public final class RoomMemberInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "select * from \"RoomMemberInfo\" where \"roomID\" = ?";
+			String sql = String.format("select * from \"RoomMemberInfo\" where \"%s\" = ?", RoomMemberInfo.ROOM_ID);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setLong(1, roomID);
 
@@ -154,7 +155,7 @@ public final class RoomMemberInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "delete from \"RoomMemberInfo\" where \"roomID\" = ?";
+			String sql = String.format("delete from \"RoomMemberInfo\" where \"%s\" = ?", RoomMemberInfo.ROOM_ID);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setLong(1, roomID);
 
@@ -182,7 +183,8 @@ public final class RoomMemberInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = "delete from \"RoomMemberInfo\" where \"memberMailAddress\" = ?";
+			String sql = String.format("delete from \"RoomMemberInfo\" where \"%s\" = ?",
+					RoomMemberInfo.MEMBER_MAIL_ADDRESS);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, memberMailAddress);
 
