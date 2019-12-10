@@ -79,7 +79,7 @@ public final class MessageRoomInfoManager {
 		roomMemberInfoManager.createRoomMemberInfo(roomMemberCreateInfo);
 		//初期メッセージを作成しておく。
 		MessageInfoManager messageInfo = new MessageInfoManager();
-		MessageCreateInfo createInfo = new MessageCreateInfo(roomID,beginTraderMailAddress,"自動送信：取引が開始されました。");
+		MessageCreateInfo createInfo = new MessageCreateInfo(roomID,beginTraderMailAddress,"自動送信："+itemGetInfo.getItemName()+"の取引が開始されました。");
 		messageInfo.createMessageInfo(createInfo);
 	}
 
