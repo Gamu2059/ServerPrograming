@@ -89,8 +89,9 @@
 									
 								%>
 							</div>
-							<input type="button" name="trading_button"
-								class="button_flat_normal" value="取引中の商品" />
+							<%-- <form action=<%=ServletPath.ReferItemPage %> method="get">
+								<input type="button" name="trading_button" class="button_flat_normal" value="取引中の商品" disabled="disabled" />
+							</form> --%>
 						</div>
 						<!--メッセージコンテンツ-->
 						<div class="message_post_list">
@@ -102,7 +103,7 @@
 											if (messageOpponentStudentInfo != null) {
 												out.print(messageOpponentStudentInfo.getDisplayName());
 											}
-										%>さんが取引を申し込みました。
+										%>さんと取引を開始しました。
 									</div>
 								</div>
 								<%
