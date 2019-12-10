@@ -18,12 +18,14 @@
 	<!-- 編集データの取得 -->
 	<%
 		StudentGetInfo studentInfo = (StudentGetInfo) session.getAttribute("studentInfo");
-		String iconURL = "/tdu_market/images/icon.png";
+		String iconURL = "/tdu_market/images/userIcon.png";
 		String name = "未設定";
 		long departmentID = 0;
 		String selfintroduction = "未設定";
 		if (studentInfo != null) {
-			iconURL = studentInfo.getIconImageBinary();
+			if(studentInfo.getIconImageBinary()!=null){
+				iconURL = studentInfo.getIconImageBinary();
+			}
 			name = studentInfo.getDisplayName();
 			departmentID = studentInfo.getDepartmentID();
 			selfintroduction = studentInfo.getSelfIntroduction();
