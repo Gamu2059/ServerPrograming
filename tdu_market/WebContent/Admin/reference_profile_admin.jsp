@@ -29,10 +29,12 @@
 						<!-- セッションデータの受け取り -->
 						<%
 						ManagerGetInfo profileInfo = (ManagerGetInfo)session.getAttribute("managerProfileInfo");
-						String iconURL = "/tdu_market/images/icon.png";
+						String iconURL = "/tdu_market/images/adminIcon.png";
 						String name = "未登録";
 						if(profileInfo != null){
-							iconURL = profileInfo.getIconImageBinary();
+							if(profileInfo.getIconImageBinary()!=null){
+								iconURL = profileInfo.getIconImageBinary();
+							}
 							name = profileInfo.getDisplayName();
 						}
 						%>
