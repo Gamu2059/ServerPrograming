@@ -31,13 +31,15 @@
 
 
 			String studentMailAddress = "";
-			String iconURL = "";
+			String iconURL = "/tdu_market/images/userIcon.png";
 			String name = "";
 			String departmentName="";
 			String selfIntroduction = "";
 			if (studentInfo != null) {
 				studentMailAddress = studentInfo.getMailAddress();
-				iconURL = studentInfo.getIconImageBinary();
+				if(studentInfo.getIconImageBinary()!=null){
+					iconURL = studentInfo.getIconImageBinary();
+				}
 				name = studentInfo.getDisplayName();
 				departmentName = departmentInfo.get((int)studentInfo.getDepartmentID() -1 ).getFacultyName()+" - "+ departmentInfo.get((int)studentInfo.getDepartmentID() -1 ).getSubjectName();
 				selfIntroduction = studentInfo.getSelfIntroduction();
