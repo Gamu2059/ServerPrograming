@@ -1,7 +1,5 @@
-<%@page import="tdu_market.util.AccountUtil"%>
-<%@page import="tdu_market.util.ServletPath"%>
+<%@page import="tdu_market.util.*"%>
 <%@page import="tdu_market.dto.StudentGetInfo"%>
-<%@page import="tdu_market.util.ServletPath"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -13,6 +11,14 @@
 <title>ヘッダー</title>
 </head>
 <header>
+　  	<%
+   	//ログイン状態の検証
+   	if (!ControllerUtil.verifyLogin(request, response)) {
+   		System.err.println("未ログインのため、ログイン画面にリダイレクトしました。");
+   		ControllerUtil.translatePage(JspPath.index, request, response);
+   		return;
+   	}
+   	%>
 	<div class="title_logo">
 		<!-- ロゴ -->
 		<h1>
