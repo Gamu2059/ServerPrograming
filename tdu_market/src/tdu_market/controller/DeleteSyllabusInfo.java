@@ -34,7 +34,8 @@ public class DeleteSyllabusInfo extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
 		if (!ControllerUtil.verifyLogin(request, response)) {
@@ -46,14 +47,18 @@ public class DeleteSyllabusInfo extends HttpServlet {
 
 		//シラバス情報の複数件削除
 		String[] classCodes = request.getParameterValues("classCodes");
-		if(classCodes!=null) {
-			for(String classes:classCodes) {
+		System.out.println(classCodes);
+		if (classCodes != null) {
+			for (String classes : classCodes) {
 				syllabusInfoManager.deleteSyllabusInfo(classes);
 			}
 		}
 
 		//シラバス情報の削除
-		syllabusInfoManager.deleteSyllabusInfo(request.getParameter("classCode"));
+		String classCode = request.getParameter("classCode");
+		if (classCode != null) {
+			syllabusInfoManager.deleteSyllabusInfo(classCode);
+		}
 
 		//シラバス情報一覧の更新
 		ArrayList<SyllabusGetInfo> syllabusGetInfo = new ArrayList<SyllabusGetInfo>();
@@ -62,7 +67,7 @@ public class DeleteSyllabusInfo extends HttpServlet {
 		//jspに送信する
 		HttpSession session = request.getSession();
 		session.setAttribute("syllabusInfoList", syllabusGetInfo);
-		
+
 		//ダイアログメッセージ
 		DialogUtil.setDialog("シラバスを削除しました。", request, response);
 
