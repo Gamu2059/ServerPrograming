@@ -1,7 +1,6 @@
 package tdu_market.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import tdu_market.dto.ItemGetInfo;
 import tdu_market.entity_manager.ItemInfoManager;
 import tdu_market.util.ControllerUtil;
 import tdu_market.util.DialogUtil;
@@ -84,13 +82,10 @@ public class ManagerDeleteItemInfo extends HttpServlet {
 						managerReferItemListPage.doPost(request, response);
 					}
 				} else {
-					//出品商品一覧を再取得
-					ArrayList<ItemGetInfo> exhibitItemList = itemInfo
-							.getExhibitItem(request.getParameter("studentMailAddress"));
-					session.setAttribute("exhibitItemList", exhibitItemList);
 					//遷移元の破棄
 					session.removeAttribute("whereFromToItemPage");
-					ControllerUtil.translatePage(JspPath.reference_exhibit_item_by_admin, request, response);
+					ManagerReferExhibitItemListPage managerReferExhibitItemListPage = new ManagerReferExhibitItemListPage();
+					managerReferExhibitItemListPage.doGet(request, response);
 				}
 			}
 		} else {
