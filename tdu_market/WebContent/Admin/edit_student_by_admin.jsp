@@ -57,6 +57,8 @@
 								<h3>編集</h3>
 							</label>
 							<!-- プレビュー機能 -->
+							<script type="text/javascript"
+						src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 							<script>
 								$('#iconFile').on('change',function(e) {
 									var reader = new FileReader();
