@@ -76,4 +76,8 @@ public class ReferMessageBoxListPage extends HttpServlet {
 
 		ControllerUtil.translatePage(JspPath.message, request, response);
 	}
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request, response);
+	}
 }
