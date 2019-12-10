@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="tdu_market.dto.*"%>
 <%@page import="tdu_market.util.ServletPath"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -38,6 +39,16 @@
 					<!-- ReferStudentPageからのセッションを展開・表示 -->
 					<%
 					StudentGetInfo info = (StudentGetInfo)session.getAttribute("studentInfo");
+					ArrayList<DepartmentGetInfo> departmentGetInfoList = (ArrayList<DepartmentGetInfo>)session.getAttribute("departmentInfoList");
+					DepartmentGetInfo studentDepartmentGetInfo = null;
+					if (departmentGetInfoList != null){
+						for(DepartmentGetInfo d : departmentGetInfoList){
+							if (d.getSubjectID() == info.getDepartmentID()) {
+								studentDepartmentGetInfo = d;
+								break;
+							}
+						}
+					}
 					out.print("<div class=\"top_content\">");
 					out.print("<div class=\"top_content_left\">");
 					out.print("<img src=\""+ info.getIconImageBinary() +"\" alt=\"ユーザーアイコン\" />");
@@ -49,7 +60,7 @@
 					out.print("</div>");
 					out.print("<div class=\"detail_content\">");
 					out.print("<h3>所属学科</h3>");
-					out.print("<div class=\"detail_content_text\">"+ "所属学科をここに記載。場合によっては、所属学科IDを所属学科名に変換する処理をする。"+"</div>");
+					out.print("<div class=\"detail_content_text\">"+ (studentDepartmentGetInfo != null ? studentDepartmentGetInfo.getSubjectName() : "未設定") +"</div>");
 					out.print("</div>");
 					out.print("</div>");
 					out.print("</div>");
