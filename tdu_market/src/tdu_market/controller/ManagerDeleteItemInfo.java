@@ -69,23 +69,21 @@ public class ManagerDeleteItemInfo extends HttpServlet {
 		if (whereFromToItemPage != null) {
 			//遷移元が商品一覧
 			if (whereFromToItemPage.equals("fromItemList")) {
-				//商品一覧を更新する
-				System.out.println("商品一覧の再取得未実装");
 				//遷移元の破棄
 				session.removeAttribute("whereFromToItemPage");
-				ControllerUtil.translatePage(JspPath.reference_item_list_by_admin, request, response);
+				ManagerReferItemListPage managerReferItemListPage = new ManagerReferItemListPage();
+				managerReferItemListPage.doPost(request, response);
 			}
 
 			//遷移元が出品一覧
 			if (whereFromToItemPage.equals("fromExhibitList")) {
-				if(inItemList!=null) {
+				if (inItemList != null) {
 					if (inItemList.equals("fromItemList")) {
 						//商品一覧を更新する
-						System.out.println("商品一覧の再取得未実装");
-
-						ControllerUtil.translatePage(JspPath.reference_item_list_by_admin, request, response);
+						ManagerReferItemListPage managerReferItemListPage = new ManagerReferItemListPage();
+						managerReferItemListPage.doPost(request, response);
 					}
-				}else {
+				} else {
 					//出品商品一覧を再取得
 					ArrayList<ItemGetInfo> exhibitItemList = itemInfo
 							.getExhibitItem(request.getParameter("studentMailAddress"));
@@ -96,15 +94,20 @@ public class ManagerDeleteItemInfo extends HttpServlet {
 				}
 			}
 		} else {
-			if(inItemList!=null) {
+			if (inItemList != null) {
 				if (inItemList.equals("fromItemList")) {
 					//商品一覧を更新する
 					System.out.println("商品一覧の再取得未実装");
-		//ダイアログの設定
-		DialogUtil.setDialog("商品情報を削除しました。", request, response);
-		
-		//遷移
-		ControllerUtil.translatePage(JspPath.reference_exhibit_item_by_admin, request, response);
+					//ダイアログの設定
+					DialogUtil.setDialog("商品情報を削除しました。", request, response);
+					//遷移
+					ControllerUtil.translatePage(JspPath.reference_exhibit_item_by_admin, request, response);
+				}
+			} else {
+				//遷移
+				ManagerReferItemListPage managerReferItemListPage = new ManagerReferItemListPage();
+				managerReferItemListPage.doPost(request, response);
+			}
+		}
 	}
-
 }
