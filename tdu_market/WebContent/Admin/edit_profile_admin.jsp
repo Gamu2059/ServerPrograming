@@ -19,7 +19,7 @@
 		<h2 id="page_title">ユーザー情報（編集）</h2>
 		<!-- メインコンテンツ -->
 		<article>
-			<div class="content_margin_300px">
+			<div class="content_margin_200px">
 			<form action="<%= ServletPath.UpdateManagerInfo %>" method="post" enctype="multipart/form-data">
 				<br />
 				<div class="user_profile">
@@ -34,10 +34,12 @@
 					<!-- セッションデータの受け取り -->
 					<%
 					ManagerGetInfo profileInfo = (ManagerGetInfo)session.getAttribute("managerProfileInfo");
-					String iconURL = "/tdu_market/images/icon.png";
+					String iconURL = "/tdu_market/images/adminIcon.png";
 					String name = "";
 					if(profileInfo != null){
-						iconURL = profileInfo.getIconImageBinary();
+						if(profileInfo.getIconImageBinary()!=null){
+							iconURL = profileInfo.getIconImageBinary();
+						}
 						name = profileInfo.getDisplayName();
 					}
 					%>

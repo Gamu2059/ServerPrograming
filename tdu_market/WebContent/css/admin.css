@@ -133,6 +133,7 @@
 }
 /* アイコン画像 */
 .user_profile img {
+	border-radius: 50%;
   width: 150px;
   height: 150px;
   object-fit: contain;
@@ -328,6 +329,7 @@ ul#user_exhibit_list .item_for_bottom {
 	flex-direction: row;
 }
 .exhibit_profile .item_for_left img {
+	border-radius: 50%;
   width: 200px;
   height: 200px;
   margin: 30px 10px;

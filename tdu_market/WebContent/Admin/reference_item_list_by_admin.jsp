@@ -149,9 +149,6 @@
 						}
 					</script>
 
-					<form name="select_item" action="<%= ServletPath.ManagerReferItemPage %>" method="get">
-					</form>
-
 					</table>
 					<form name="select_item" action="<%=ServletPath.ManagerReferItemPage%>" method="get">
 					</form>
