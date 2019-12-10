@@ -22,7 +22,7 @@
 		<!-- メインコンテンツ -->
 
 		<article>
-			<div class="content_margin_400px">
+			<div class="content_margin_200px">
 				<br>
 				<div class="user_profile">
 					<div class="item_for_LeftAndRight_around">
