@@ -96,12 +96,10 @@ public class ManagerDeleteItemInfo extends HttpServlet {
 		} else {
 			if (inItemList != null) {
 				if (inItemList.equals("fromItemList")) {
-					//商品一覧を更新する
-					System.out.println("商品一覧の再取得未実装");
 					//ダイアログの設定
 					DialogUtil.setDialog("商品情報を削除しました。", request, response);
-					//遷移
-					ControllerUtil.translatePage(JspPath.reference_exhibit_item_by_admin, request, response);
+					ManagerReferItemListPage managerReferItemListPage = new ManagerReferItemListPage();
+					managerReferItemListPage.doPost(request, response);
 				}
 			} else {
 				//遷移
