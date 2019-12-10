@@ -1,6 +1,7 @@
 package tdu_market.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import tdu_market.dto.DepartmentGetInfo;
 import tdu_market.dto.StudentGetInfo;
+import tdu_market.entity_manager.DepartmentInfoManager;
 import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.ControllerUtil;
 import tdu_market.util.JspPath;
@@ -36,6 +39,15 @@ public class ManagerReferStudentPage extends HttpServlet {
 		StudentGetInfo studentInfo = student.getStudentInfo(mailAddress, false);
 
 		HttpSession session = request.getSession();
+
+		//学科情報を保持していなければ送信
+		if(session.getAttribute("departmentInfoList")==null) {
+			DepartmentInfoManager departmentInfoManager = new DepartmentInfoManager();
+			ArrayList<DepartmentGetInfo> departmentInfoList = new ArrayList<DepartmentGetInfo>();
+			departmentInfoList = departmentInfoManager.getAllDepartmentInfoList(false);
+			session.setAttribute("departmentInfoList", departmentInfoList);
+		}
+
 		session.setAttribute("studentInfo", studentInfo);
 
 		ControllerUtil.translatePage(JspPath.reference_student_detail_by_admin, request, response);

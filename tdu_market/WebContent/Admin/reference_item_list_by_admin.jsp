@@ -48,7 +48,6 @@
 
 			<div class="item_for_center">
 				<div class="list_content">
-
 					<table id="itemList">
 						<!-- テーブルタイトル -->
 						<thead class="list_title">
@@ -94,7 +93,6 @@
 								}
 							%>
 						</tbody>
-
 						<!-- 複数件削除ダイアログ -->
 						<div id="confirm_dialog_admin">
 							<p>削除しますか？</p>

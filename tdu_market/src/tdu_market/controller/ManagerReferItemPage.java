@@ -26,12 +26,17 @@ public class ManagerReferItemPage extends HttpServlet {
 			return;
 		}
 
+		request.setCharacterEncoding("UTF-8");
+
 		RelatedClassInfoManager itemInfoManager = new RelatedClassInfoManager();
 		//出品商品情報をリストへ保持
 		ArrayList<RelatedClassGetInfo> itemAndClassInfo = itemInfoManager.getRelatedClassInfoWithItem(Integer.valueOf(request.getParameter("itemID")).longValue());
 		//jspに情報を投げる。
 		HttpSession session = request.getSession();
 		session.setAttribute("itemInfo", itemAndClassInfo);
+
+		//遷移元を保持
+		session.setAttribute("whereFromToItemPage", request.getParameter("whereFromToItemPage"));
 
 		//遷移
 		ControllerUtil.translatePage(JspPath.reference_item_detail_by_admin, request, response);
