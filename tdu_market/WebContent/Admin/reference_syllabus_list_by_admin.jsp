@@ -44,6 +44,7 @@
 			<!-- テーブル -->
 			<div class="item_for_center">
 				<div class="list_content">
+					<form name="remove_form" action="<%= ServletPath.DeleteSyllabusInfo %>" method="post">
 						<table id="syllabusList">
 							<!-- テーブルタイトル -->
 							<thead class="list_title">
@@ -60,7 +61,6 @@
 							<!-- テーブル要素 -->
 							<tbody class="list" id="list_content">
 
-								<form action="<%= ServletPath.DeleteSyllabusInfo %>" method="post">
 
 								<!-- データの表示と展開 -->
 								<%
@@ -94,8 +94,6 @@
 									<button type="button" id="no" class="button_flat_normal">キャンセル</button>
 								</div>
 							</div>
-
-							</form>
 
 							<!-- ソート機能 -->
 						<script src="/tdu_market/js/list.min.js"></script>
@@ -149,6 +147,8 @@
 						</script>
 
 						</table>
+						</form>
+
 						<form name="select_syllabus" action="<%= ServletPath.ManagerReferSyllabusPage %>" method="get">
 						</form>
 						<!-- テーブル要素クリック -->
@@ -219,7 +219,7 @@
 			<% if(DialogUtil.checkDisplayDialog(request, response)){ %>
 				notify_dialog(<%=DialogUtil.getDialogMessage(request, response)%>);
 			<% } %>
-			
+
 				document.getElementById("red_button").onclick = function() {
 					//各ボタンの要素の取得
 					let dialog = document.getElementById("confirm_dialog_admin");
@@ -229,7 +229,7 @@
 
 					yes.addEventListener("click", function() {
 						dialog.style.display = "none";
-
+						document.remove_form.submit();
 					});
 					no.addEventListener("click", function() {
 						dialog.style.display = "none";
