@@ -424,7 +424,7 @@ public final class ItemInfoDAO extends DAOBase {
 			boolean isEmptyOldestDate = oldestDate < 0;
 
 			StringBuilder builder = new StringBuilder(String.format(
-					"select * from \"ItemInfoByAdminView\" as i, \"SyllabusInfoView\" as s where s.\"%s\" = i.\"%s\" ",
+					"select * from \"ItemInfoByAdminView\" i left join \"SyllabusInfoView\" as s on i.\"%s\" = s.\"%s\" ",
 					SyllabusInfo.CLASS_CODE,
 					SyllabusInfo.CLASS_CODE));
 
