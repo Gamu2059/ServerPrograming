@@ -44,10 +44,22 @@
 					}
 					%>
 						<label id="edit_img_button">
-							<img src="<%= iconURL %>" />
-							<input type="file" name="iconImageURL" />
+							<img id="icon"  src="<%= iconURL %>" />
+							<input type="file" id="iconFile"   name="iconImageURL" />
 							<h3>編集</h3>
 						</label>
+						<!-- プレビュー機能 -->
+						<script type="text/javascript"
+						src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+							<script>
+								$('#iconFile').on('change',function(e) {
+									var reader = new FileReader();
+									reader.onload = function(e) {
+										$("#icon").attr('src',e.target.result);
+									}
+									reader.readAsDataURL(e.target.files[0]);
+								});
+							</script>
 						<div>
 							<h3>ディスプレイネーム</h3>
 							<input type="text" id="user_name" value="<%= name %>" name="displayName" />
