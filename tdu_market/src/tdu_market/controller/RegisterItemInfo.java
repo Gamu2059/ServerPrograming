@@ -18,7 +18,7 @@ import tdu_market.dto.ItemCreateInfo;
 import tdu_market.dto.ReturnInfo;
 import tdu_market.entity_manager.ItemInfoManager;
 import tdu_market.util.ControllerUtil;
-import tdu_market.util.JspPath;
+import tdu_market.util.*;
 
 @WebServlet("/tdu_market/controller/RegisterItemInfo")
 @MultipartConfig(maxFileSize = 1024 * 1024)
@@ -63,6 +63,16 @@ public class RegisterItemInfo extends HttpServlet {
 		Part image4 = request.getPart("itemImageURLs_4");
 
 		InputStream[] iss = new InputStream[4];
+		iss[0] = image1.getInputStream();
+		iss[1] = image2.getInputStream();
+		iss[2] = image3.getInputStream();
+		iss[3] = image4.getInputStream();
+		
+		for(InputStream i : iss) {
+			System.out.println("登録 さいず : " + i.available());
+			String src = ImageUtil.getImage(i);
+			System.out.println("内容 : " + src);
+		}
 		iss[0] = image1.getInputStream();
 		iss[1] = image2.getInputStream();
 		iss[2] = image3.getInputStream();

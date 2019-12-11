@@ -93,13 +93,16 @@
 					<div>
 					<label class="item_img_add_button">
 						<% if(itemImageLength > 0){ %>
-							<input id="fileItem" class="item_img_input" type="file" name="itemImageURLs_1" value=<%=itemImageURLs.get(0) %> required>
-							<%-- <img id="plus" src=<%=itemImageURLs.get(0) %> alt="商品画像1" /> --%>
-							<input id="plus" type="image" value=<%=itemImageURLs.get(0) %> src=<%=itemImageURLs.get(0) %> alt="商品画像1" />
+							<input id="fileItem" class="item_img_input" type="file" name="1" onchange="updateImageData()">
+							<img id="plus" src=<%=itemImageURLs.get(0) %> alt="商品画像1" />
+							<input id="image1" type="hidden" name="itemImageURLs_1" value=<%=itemImageURLs.get(0) %> >
+							<%-- <input id="plus" type="image" value=<%=itemImageURLs.get(0) %> src=<%=itemImageURLs.get(0) %> alt="商品画像1" /> --%>
 						<% }else{ %>
-							<input id="fileItem" class="item_img_input" type="file" name="itemImageURLs_1" required>
+							<input id="fileItem" class="item_img_input" type="file" name="1" >
 							<img id="plus" src="/tdu_market/images/plus.png">
+							<input id="image1" type="hidden" name="itemImageURLs_1" onchange="updateImageData()">
 						<% } %>
+						
 					</label>
 					<div id="deleteButton" onClick="deleteAction();">
 						削除
@@ -108,8 +111,19 @@
 					<!-- JavaScript（jQuery） -->
 					<!-- 削除（input） -->
 					<script>
+					function updateImageData(){
+						console.log('hogehoge');
+						let file = document.getElementById('fileItem');
+						let img = document.getElementById('image1');
+						img.value = file.value;
+						var file    = document.querySelector('input[type=file]').files[0];
+						var reader = new FileReader();
+						reader.readAsDataURL(file);
+						console.log(reader.readAsDataURL(file));
+					}
+					
   					function deleteAction() {
-  						var obj = document.getElementById("fileItem");
+  						var obj = document.getElementById("image1");
   						obj.value = "";
   						var img = document.getElementById("plus");
   						img.src = "/tdu_market/images/plus.png";
@@ -288,7 +302,7 @@
 							<p>更新しますか？</p>
 							<div class="confirm_dialog_button">
 
-								<button id="yes" class="button_flat_submit" type="submit" onclick="imageError()">確認</button>
+								<button id="yes" class="button_flat_submit" type="submit">確認</button>
 
 								<button id="no" class="button_flat_normal">キャンセル</button>
 

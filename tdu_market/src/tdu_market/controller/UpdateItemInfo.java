@@ -1,5 +1,6 @@
 package tdu_market.controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
@@ -14,10 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+
 import tdu_market.dto.ItemUpdateInfo;
 import tdu_market.entity_manager.ItemInfoManager;
 import tdu_market.util.ControllerUtil;
-import tdu_market.util.JspPath;
+import tdu_market.util.ImageUtil;
+import tdu_market.util.*;
 
 @WebServlet("/tdu_market/controller/UpdateItemInfo")
 @MultipartConfig(maxFileSize = 1024 * 1024)
@@ -37,7 +41,7 @@ public class UpdateItemInfo extends HttpServlet {
 		String itemIdStr = request.getParameter("itemID");
 		String itemName = request.getParameter("itemName");
 		String description = request.getParameter("description");
-		String conditionStr = request.getParameter("condtion");
+		String conditionStr = request.getParameter("condition");
 		String priceStr = request.getParameter("price");
 		String relatedClassCode = request.getParameter("relatedClassCode");
 
@@ -66,9 +70,28 @@ public class UpdateItemInfo extends HttpServlet {
 		Part image2 = request.getPart("itemImageURLs_2");
 		Part image3 = request.getPart("itemImageURLs_3");
 		Part image4 = request.getPart("itemImageURLs_4");
-
+		
+		String part1 = request.getParameter("itemImageURLs_1");
+		part1 = part1.replace("data:image/png;base64,", "");
+		byte[] decode = Base64.decode(part1);
+		/**
+		 * hiddenとfileを読み込み、fileがnullならhiddenから読み込む。
+		 */
+		
 		InputStream[] iss = new InputStream[4];
-		iss[0] = image1.getInputStream();
+//		iss[0] = image1.getInputStream();
+		iss[0] = new ByteArrayInputStream(decode);
+		iss[1] = image2.getInputStream();
+		iss[2] = image3.getInputStream();
+		iss[3] = image4.getInputStream();
+		
+		for(InputStream i : iss) {
+			System.out.println("更新 さいず : " + i.available());
+			String src = ImageUtil.getImage(i);
+			System.out.println("型 : " + i);
+			System.out.println("内容 : " + src);
+		}
+		iss[0] = new ByteArrayInputStream(decode);
 		iss[1] = image2.getInputStream();
 		iss[2] = image3.getInputStream();
 		iss[3] = image4.getInputStream();
