@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
+import java.util.Iterator;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -65,20 +66,34 @@ public class UpdateItemInfo extends HttpServlet {
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		}
-
-		Part image1 = request.getPart("itemImageURLs_file_1");
+		/**
+		 * まず、普通に読み込み、null？空文字であればhiddenを読み込む。
+		 */
+		String[] files = {"itemImageURLs_file_1", "itemImageURLs_file_2","itemImageURLs_file_3","itemImageURLs_file_4"};
+		String[] currentStrings = {"itemImageURLs_current_1","itemImageURLs_current_2","itemImageURLs_current_3","itemImageURLs_current_4"};
+		InputStream[] iss = new InputStream[4];
+		if (request.getPart("itemImageURLs_file_1").getContentType().contains("image")) {
+			Part image1 = request.getPart("itemImageURLs_file_1");
+			iss[0] = image1.getInputStream();
+		}else {
+			String part1 = request.getParameter("itemImageURLs_current_1");
+			iss[0] = getInputStream(part1);
+		}
+		
+		
+		//Part image1 = request.getPart("itemImageURLs_file_1");
 		Part image2 = request.getPart("itemImageURLs_file_1");
 		Part image3 = request.getPart("itemImageURLs_file_1");
 		Part image4 = request.getPart("itemImageURLs_file_1");
 		
-		String part1 = request.getParameter("itemImageURLs_current_1");
-
+		//String part1 = request.getParameter("itemImageURLs_current_1");
+		
 		/**
 		 * hiddenとfileを読み込み、fileがnullならhiddenから読み込む。
 		 */
 		
-		InputStream[] iss = new InputStream[4];
-		iss[0] = getInputStream(part1);
+		//InputStream[] iss = new InputStream[4];
+		//iss[0] = getInputStream(part1);
 		iss[1] = image2.getInputStream();
 		iss[2] = image3.getInputStream();
 		iss[3] = image4.getInputStream();
@@ -93,7 +108,7 @@ public class UpdateItemInfo extends HttpServlet {
  		String dialogMessage = "出品物を更新しました";
  		session.setAttribute("dialogMessage", dialogMessage);
  		session.setAttribute("isDisplayDialog", isDisplayDialog);
-		ControllerUtil.translatePage(JspPath.reference_exhibit_list, request, response);
+		ControllerUtil.translatePage(ServletPath.ReferExhibitItemListPage, request, response);
 	}
 	private ByteArrayInputStream getInputStream(String imageURL) {
 		imageURL = imageURL.replace("data:image/png;base64,", "");
