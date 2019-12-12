@@ -66,47 +66,22 @@ public class UpdateItemInfo extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		Part image1 = request.getPart("itemImageURLs_1");
-		Part image2 = request.getPart("itemImageURLs_2");
-		Part image3 = request.getPart("itemImageURLs_3");
-		Part image4 = request.getPart("itemImageURLs_4");
+		Part image1 = request.getPart("itemImageURLs_file_1");
+		Part image2 = request.getPart("itemImageURLs_file_1");
+		Part image3 = request.getPart("itemImageURLs_file_1");
+		Part image4 = request.getPart("itemImageURLs_file_1");
 		
-		String part1 = request.getParameter("itemImageURLs_1");
-		part1 = part1.replace("data:image/png;base64,", "");
-		byte[] decode = Base64.decode(part1);
+		String part1 = request.getParameter("itemImageURLs_current_1");
+
 		/**
 		 * hiddenとfileを読み込み、fileがnullならhiddenから読み込む。
 		 */
 		
 		InputStream[] iss = new InputStream[4];
-//		iss[0] = image1.getInputStream();
-		iss[0] = new ByteArrayInputStream(decode);
+		iss[0] = getInputStream(part1);
 		iss[1] = image2.getInputStream();
 		iss[2] = image3.getInputStream();
 		iss[3] = image4.getInputStream();
-		
-		for(InputStream i : iss) {
-			System.out.println("更新 さいず : " + i.available());
-			String src = ImageUtil.getImage(i);
-			System.out.println("型 : " + i);
-			System.out.println("内容 : " + src);
-		}
-		iss[0] = new ByteArrayInputStream(decode);
-		iss[1] = image2.getInputStream();
-		iss[2] = image3.getInputStream();
-		iss[3] = image4.getInputStream();
-		
-		/*
-		InputStream[] iss = null;
-		Collection<Part> parts = request.getParts();
-		if (parts != null) {
-			iss = new InputStream[parts.size()];
-			int i = 0;
-			for (Part p : parts) {
-				iss[i] = p.getInputStream();
-				i++;
-			}
-		}*/
 		
 		HttpSession session = request.getSession();
 
@@ -119,5 +94,10 @@ public class UpdateItemInfo extends HttpServlet {
  		session.setAttribute("dialogMessage", dialogMessage);
  		session.setAttribute("isDisplayDialog", isDisplayDialog);
 		ControllerUtil.translatePage(JspPath.reference_exhibit_list, request, response);
+	}
+	private ByteArrayInputStream getInputStream(String imageURL) {
+		imageURL = imageURL.replace("data:image/png;base64,", "");
+		byte[] decode = Base64.decode(imageURL);
+		return new ByteArrayInputStream(decode);
 	}
 }

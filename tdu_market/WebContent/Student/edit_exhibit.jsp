@@ -93,14 +93,13 @@
 					<div>
 					<label class="item_img_add_button">
 						<% if(itemImageLength > 0){ %>
-							<input id="fileItem" class="item_img_input" type="file" name="1" onchange="updateImageData()">
+							<input id="fileItem" class="item_img_input" type="file" name="itemImageURLs_file_1">
 							<img id="plus" src=<%=itemImageURLs.get(0) %> alt="商品画像1" />
-							<input id="image1" type="hidden" name="itemImageURLs_1" value=<%=itemImageURLs.get(0) %> >
-							<%-- <input id="plus" type="image" value=<%=itemImageURLs.get(0) %> src=<%=itemImageURLs.get(0) %> alt="商品画像1" /> --%>
+							<input id="image1" type="hidden" name="itemImageURLs_current_1" value=<%=itemImageURLs.get(0) %> >
 						<% }else{ %>
-							<input id="fileItem" class="item_img_input" type="file" name="1" >
+							<input id="fileItem" class="item_img_input" type="file" name="itemImageURLs_file_1" >
 							<img id="plus" src="/tdu_market/images/plus.png">
-							<input id="image1" type="hidden" name="itemImageURLs_1" onchange="updateImageData()">
+							<input id="image1" type="hidden" name="itemImageURLs_current_1" value=<%=itemImageURLs.get(0) %>>
 						<% } %>
 						
 					</label>
