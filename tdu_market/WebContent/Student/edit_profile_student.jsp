@@ -99,7 +99,7 @@
 						<p>更新しますか？</p>
 						<div class="confirm_dialog_button">
 							<input type="submit" id="yes" class="button_flat_submit" value="確認">
-							<button id="no" class="button_flat_normal">キャンセル</button>
+							<button id="no" class="button_flat_normal" type="button">キャンセル</button>
 						</div>
 					</div>
 				</form>

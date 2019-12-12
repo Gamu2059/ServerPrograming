@@ -55,7 +55,12 @@
 					for(int i=0;i<info.getItemGetInfo().getItemImageBinaries().length;i++){
 						itemImageURLs.add(info.getItemGetInfo().getItemImageBinaries()[i]);
 					}
-					int itemImageLength = itemImageURLs.size();
+					int itemImageLength;
+					if(itemImageURLs.isEmpty()){
+						itemImageLength = 0;
+					}else{
+						itemImageLength = itemImageURLs.size();
+					}
 					
 					/*if(itemImageURLs == null){
 						//画像が0枚のとき（追加ボタンのみ表示）
@@ -111,7 +116,6 @@
 					<!-- 削除（input） -->
 					<script>
 					function updateImageData(){
-						console.log('hogehoge');
 						let file = document.getElementById('fileItem');
 						let img = document.getElementById('image1');
 						img.value = file.value;
@@ -301,9 +305,9 @@
 							<p>更新しますか？</p>
 							<div class="confirm_dialog_button">
 
-								<button id="yes" class="button_flat_submit" type="submit">確認</button>
+								<button id="yes" class="button_flat_submit" type="submit" onclick="imageError()">確認</button>
 
-								<button id="no" class="button_flat_normal">キャンセル</button>
+								<button id="no" class="button_flat_normal" type="button">キャンセル</button>
 
 							</div>
 						</div>

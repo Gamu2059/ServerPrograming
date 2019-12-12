@@ -110,6 +110,11 @@ public class UpdateItemInfo extends HttpServlet {
  		session.setAttribute("isDisplayDialog", isDisplayDialog);
 		ControllerUtil.translatePage(ServletPath.ReferExhibitItemListPage, request, response);
 	}
+	/**
+	 * string型で読み込んだ画像をバイト列で返す。
+	 * @param imageURL string文字列（Base64）。
+	 * @return ByteArrayInputStream()(InputStream型)
+	 */
 	private ByteArrayInputStream getInputStream(String imageURL) {
 		imageURL = imageURL.replace("data:image/png;base64,", "");
 		byte[] decode = Base64.decode(imageURL);
