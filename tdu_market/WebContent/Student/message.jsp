@@ -89,8 +89,9 @@
 									
 								%>
 							</div>
-							<input type="button" name="trading_button"
-								class="button_flat_normal" value="取引中の商品" />
+							<%-- <form action=<%=ServletPath.ReferItemPage %> method="get">
+								<input type="button" name="trading_button" class="button_flat_normal" value="取引中の商品" disabled="disabled" />
+							</form> --%>
 						</div>
 						<!--メッセージコンテンツ-->
 						<div class="message_post_list">
@@ -102,7 +103,7 @@
 											if (messageOpponentStudentInfo != null) {
 												out.print(messageOpponentStudentInfo.getDisplayName());
 											}
-										%>さんが取引を申し込みました。
+										%>さんと取引を開始しました。
 									</div>
 								</div>
 								<%
@@ -135,7 +136,7 @@
 							<form action="<%=ServletPath.PostMessage%>" method="post">
 							  <input type="hidden" name="roomID" value="<%=session.getAttribute("roomID")%>">
 							  <input type="hidden" name="studentNumber" value="<%=mailAddress%>">
-								<textarea id="message_form" name="content" cols="50" 
+								<textarea id="message_form" name="content" cols="40"
 									rows="2" placeholder="メッセージを入力"></textarea>
 								<input type="image" src="/tdu_market/images/post2.png" alt="post" id="post_icon">
  							</form>
@@ -200,7 +201,7 @@
 		
 				dialog.style.display = 'block';
 				ok.addEventListener('click', function() {
-					//location.href = url + '.html';
+					<% DialogUtil.turnoffDialog(request, response); %>
 					dialog.style.display = 'none';
 				});
 			}

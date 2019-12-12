@@ -246,9 +246,9 @@
 						id="upload">確認</button>
 					<!-- 確認ダイアログ -->
 					<div id="confirm_dialog">
-						<p>更新しますか？</p>
+						<p>出品しますか？</p>
 						<div class="confirm_dialog_button">
-							<input type="submit" id="yes" class="button_flat_submit" value="確認" onclick="imageError()">
+							<input type="submit" id="yes" class="button_flat_submit" value="確認" onclick="imageError()" style="margin-bottom: 10px;">
 							<button id="no" class="button_flat_normal">キャンセル</button>
 						</div>
 					</div>

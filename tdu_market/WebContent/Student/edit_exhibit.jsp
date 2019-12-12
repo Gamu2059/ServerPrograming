@@ -17,6 +17,7 @@
 <!-- InstanceBeginEditable name="scripts" -->
 <script type="text/javascript" src="/tdu_market/js/student.js"
 	defer="defer"></script>
+<script type="text/javascript" src="/tdu_market/js/jquery-3.3.1.min.js"></script>
 <!-- InstanceEndEditable -->
 </head>
 <body>
@@ -39,46 +40,181 @@
 					//２．更新対象の商品情報を展開して入力フォームを生成
 					out.print("<input type=\"hidden\" name=\"itemID\" value=\""+info.getItemGetInfo().getItemID()+"\" />");
 					out.print("<div class=\"detail_input_textfield\">");
-					out.print("<input id=\"item_name\" type=\"text\" name=\"itemName\" value=\" " + info.getItemGetInfo().getItemName() + " \" />");
+					out.print("<input id=\"item_name\" type=\"text\" name=\"itemName\" value=\"" + info.getItemGetInfo().getItemName() + "\"/>");
 					out.print("</div>");
 					out.print("<div class=\"detail_input_textfield\">");
-					out.print("<input id=\"syllabus_name\" type=\"text\" name=\"class_name\" value=\""+ info.getSyllabusGetInfo().getClassName() +"\" />");
+					out.print("<input id=\"syllabus_name\" type=\"text\" name=\"class_name\" value=\""+ info.getSyllabusGetInfo().getClassName() +"\" disabled=\"disabled\" />");
 					out.print("</div>");
-					out.print("<div class=\"detail_content_left\">");
+					//out.print("<div class=\"detail_content_left\">");
 					//商品画像の表示
 					%>
-					<h3 id="error">画像をアップロード</h3>
+					<h3 id="error"></h3>
+					<div class="detail_content_left">
 					<%
 					ArrayList<String> itemImageURLs = new ArrayList<>();
 					for(int i=0;i<info.getItemGetInfo().getItemImageBinaries().length;i++){
 						itemImageURLs.add(info.getItemGetInfo().getItemImageBinaries()[i]);
 					}
-					if(itemImageURLs == null){
-						//画像が0枚のとき（追加ボタンのみ表示）
-						out.print("<label class=\"item_img_add_button\">"+
-						" <input class=\"item_img_input\" type=\"file\" name=\"itemImageURLs\"></input> <br><h3>+</h3></label>");
-					} else {
-						//画像が1枚４枚のとき
-						if(4 < itemImageURLs.size()){
-							//画像が４枚のとき（画像のみ表示）
-							for(int i=0; i < itemImageURLs.size(); i++){
-								out.print("<div class=\"item_img_delete_button\">");
-								out.print("<img src=\""+ itemImageURLs.get(i) +"\" alt=\"商品画像\" />");
-								out.print("<button name=\"itemImageURLs\" onClick=\""+ itemImageURLs.remove(i) +" \">削除</button>");
-								out.print("</div>");
-							}
-						} else {
-							//画像が３枚以下のとき（画像と追加ボタンを表示）
-							for(int i=0; i < itemImageURLs.size(); i++){
-								out.print("<div class=\"item_img_delete_button\">");
-								out.print("<img src=\""+ itemImageURLs.get(i) +"\" alt=\"商品画像\" />");
-								out.print("<button name=\"itemImageURLs\" onClick=\""+ itemImageURLs.remove(i) +" \" >削除</button>");
-								out.print("</div>");
-							}
-							out.print("<label class=\"item_img_add_button\"> <input class=\"item_img_input\" type=\"file\" name=\"itemImageURLs\"></input> <br><h3>+</h3></label>");
-						}
+					int itemImageLength;
+					if(itemImageURLs.isEmpty()){//もし画像がなかった場合ぬるぽを回避。
+						itemImageLength = 0;
+					}else{
+						itemImageLength = itemImageURLs.size();
 					}
-					out.print("</div>");
+					%>
+					<!-- 画像を置く場所をつくる。もし画像があればおく。サイズを取得し、サイズ内であれば実行する -->
+					<div class="item_image_list">
+					<div>
+					<label class="item_img_add_button">
+							<input id="fileItem" class="item_img_input" type="file" name="itemImageURLs_file_1">
+						<% if(itemImageLength > 0){ %>
+							<img id="plus" src=<%=itemImageURLs.get(0) %> alt="商品画像1" />
+							<input id="image1" type="hidden" name="itemImageURLs_current_1" value=<%=itemImageURLs.get(0) %> required>
+						<% }else{ %>
+							<img id="plus" src="/tdu_market/images/plus.png">
+							<input id="image1" type="hidden" name="itemImageURLs_current_1" value=<%=itemImageURLs.get(0) %> required>
+						<% } %>
+						
+					</label>
+					<div id="deleteButton" onClick="deleteAction();">
+						削除
+					</div>
+					</div>				
+					<!-- JavaScript（jQuery） -->
+					<!-- 削除（input） -->
+					<script>
+  					function deleteAction() {
+  						var obj = document.getElementById("fileItem");
+  						obj.value = "";
+  						var img = document.getElementById("plus");
+  						img.src = "/tdu_market/images/plus.png";
+  					}
+					</script>
+					<!-- プレビュー -->
+					<script>
+					$('#fileItem').on('change', function (e) {
+					    var reader = new FileReader();
+					    reader.onload = function (e) {
+					        $("#plus").attr('src', e.target.result);
+					    }
+					    reader.readAsDataURL(e.target.files[0]);
+					});
+					</script>
+					
+					<div>
+					<label class="item_img_add_button">
+						<input id="fileItem2" class="item_img_input" type="file" name="itemImageURLs_file_2">
+						<% if(itemImageLength > 1){%>
+							<img id="plus2" src=<%=itemImageURLs.get(1) %> alt="商品画像2" />
+							<input id="image2" type="hidden" name="itemImageURLs_current_2" value=<%=itemImageURLs.get(1) %>>
+						<% }else{ %>
+							<img id="plus2" src="/tdu_market/images/plus.png">
+							<input id="image2" type="hidden" name="itemImageURLs_current_2">
+						<% } %>
+					</label>
+					<div id="deleteButton" onClick="deleteAction2();">
+						削除
+					</div>
+					</div>				
+					<!-- JavaScript（jQuery） -->
+					<!-- 削除（input） -->
+					<script>
+  					function deleteAction2() {
+  						var file = document.getElementById("fileItem2");
+  						var current = document.getElementById("image2");
+  						file.value = "";
+  						current.value = "";
+  						var img = document.getElementById("plus2");
+  						img.src = "/tdu_market/images/plus.png";
+  					}
+					</script>
+					<!-- プレビュー -->
+					<script>
+					$('#fileItem2').on('change', function (e) {
+					    var reader = new FileReader();
+					    reader.onload = function (e) {
+					        $("#plus2").attr('src', e.target.result);
+					    }
+					    reader.readAsDataURL(e.target.files[0]);
+					});
+					</script>
+					<div>
+					<label class="item_img_add_button">
+						<input id="fileItem3" class="item_img_input" type="file" name="itemImageURLs_file_3">
+						<% if(itemImageLength > 2){%>
+							<img id="plus3" src=<%=itemImageURLs.get(2) %> alt="商品画像3" />
+							<input id="image3" type="hidden" name="itemImageURLs_current_3" value=<%=itemImageURLs.get(2) %>>
+						<% }else{ %>
+							<img id="plus3" src="/tdu_market/images/plus.png">
+							<input id="image3" type="hidden" name="itemImageURLs_current_3">
+						<% } %>
+					</label>
+					<div id="deleteButton" onClick="deleteAction3();">
+						削除
+					</div>
+					</div>		
+					<!-- JavaScript（jQuery） -->
+					<!-- 削除（input） -->
+					<script>
+  					function deleteAction3() {
+  						var file = document.getElementById("fileItem3");
+  						var current = document.getElementById("image3");
+  						file.value = "";
+  						current.value = "";
+  						var img = document.getElementById("plus3");
+  						img.src = "/tdu_market/images/plus.png";
+  					}
+					</script>
+					<!-- プレビュー -->
+					<script>
+					$('#fileItem3').on('change', function (e) {
+					    var reader = new FileReader();
+					    reader.onload = function (e) {
+					        $("#plus3").attr('src', e.target.result);
+					    }
+					    reader.readAsDataURL(e.target.files[0]);
+					});
+					</script>
+					<div>
+					<label class="item_img_add_button">
+							<input id="fileItem4" class="item_img_input" type="file" name="itemImageURLs_file_4">
+						<% if(itemImageLength > 3){%>
+							<img id="plus4" src=<%=itemImageURLs.get(3) %> alt="商品画像4" />
+							<input id="image4" type="hidden" name="itemImageURLs_current_4" value=<%=itemImageURLs.get(3) %>>
+						<% }else{ %>
+							<img id="plus4" src="/tdu_market/images/plus.png">
+							<input id="image4" type="hidden" name="itemImageURLs_current_4">
+						<% } %>
+					</label>
+					<div id="deleteButton" onClick="deleteAction4();">
+						削除
+					</div>
+					</div>		
+					<!-- JavaScript（jQuery） -->
+					<!-- 削除（input） -->
+					<script>
+  					function deleteAction4() {
+  						var file = document.getElementById("fileItem4");
+  						var current = document.getElementById("image4");
+  						file.value = "";
+  						current.value = "";
+  						var img = document.getElementById("plus4");
+  						img.src = "/tdu_market/images/plus.png";
+  					}
+					</script>
+					<!-- プレビュー -->
+					<script>
+					$('#fileItem4').on('change', function (e) {
+					    var reader = new FileReader();
+					    reader.onload = function (e) {
+					        $("#plus4").attr('src', e.target.result);
+					    }
+					    reader.readAsDataURL(e.target.files[0]);
+					});
+					</script>
+					</div>
+					</div>
+					<%
 					out.print("<div class=\"detail_content\">");
 					out.print("<textarea id=\"item_explanation_field\" name=\"description\">"+info.getItemGetInfo().getDescription()+"</textarea>");
 					out.print("</div>");
@@ -126,7 +262,7 @@
 					%>
 					<script type="text/javascript">
 						function imageError(){
-							if(document.getElementById('fileItem').value == ''){
+							if(document.getElementById('fileItem').value == '' && document.getElementById('image1').value == ''){
 								document.getElementById('error').innerHTML = '<h3>画像をアップロード</h3><p style="color:red;"> 画像は1枚以上必須です。</p>';
 								scrollTo(0,0);
 							}
@@ -137,9 +273,9 @@
 							<p>更新しますか？</p>
 							<div class="confirm_dialog_button">
 
-								<button id="yes" class="button_flat_submit" type="submit">確認</button>
+								<button id="yes" class="button_flat_submit" type="submit" onclick="imageError()">確認</button>
 
-								<button id="no" class="button_flat_normal">キャンセル</button>
+								<button id="no" class="button_flat_normal" type="button">キャンセル</button>
 
 							</div>
 						</div>

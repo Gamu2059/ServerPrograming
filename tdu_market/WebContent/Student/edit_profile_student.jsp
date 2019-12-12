@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="tdu_market.entity_bean.StudentInfo"%>
 <%@page import="tdu_market.dto.*"%>
 <%@page import="tdu_market.util.ServletPath"%>
@@ -34,6 +35,16 @@
 				<%
 				//Get information
 				StudentGetInfo info = (StudentGetInfo)session.getAttribute("studentInfo");
+				ArrayList<DepartmentGetInfo> departmentGetInfoList = (ArrayList<DepartmentGetInfo>)session.getAttribute("departmentInfoList");
+				DepartmentGetInfo studentDepartmentGetInfo = null;
+				if (departmentGetInfoList != null){
+					for(DepartmentGetInfo d : departmentGetInfoList){
+						if (d.getSubjectID() == info.getDepartmentID()) {
+							studentDepartmentGetInfo = d;
+							break;
+						}
+					}
+				}
 				%>
 					<div class="top_content">
 						<div class="top_content_left">
@@ -67,7 +78,7 @@
 							<div class="detail_content">
 								<h3>所属学科</h3>
 								<select name="departmentID">
-									<% out.println("<option name=\"media\" value=\""+ info.getDepartmentID() +"\">"+ "情報メディア学科" +"</option>");%>
+									<% out.println("<option name=\"media\" value=\""+  studentDepartmentGetInfo.getSubjectID()+"\">"+ studentDepartmentGetInfo.getSubjectName() +"</option>");%>
 								</select>
 								<p id="note_Text">※注意 - 転科した学生はサポートまで連絡をお願いします。</p>
 							</div>
@@ -88,7 +99,7 @@
 						<p>更新しますか？</p>
 						<div class="confirm_dialog_button">
 							<input type="submit" id="yes" class="button_flat_submit" value="確認">
-							<button id="no" class="button_flat_normal">キャンセル</button>
+							<button id="no" class="button_flat_normal" type="button">キャンセル</button>
 						</div>
 					</div>
 				</form>

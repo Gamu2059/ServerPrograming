@@ -441,7 +441,8 @@ button#item_button{
   border: 1px solid black;
   margin: 0px;
   padding: 10px;
-  width: 16%;
+  width:200px;
+  height:250px;
 }
 button#item_button img {
   width: 100%;

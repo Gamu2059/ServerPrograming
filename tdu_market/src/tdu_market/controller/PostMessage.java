@@ -12,6 +12,7 @@ import tdu_market.dto.MessageCreateInfo;
 import tdu_market.entity_manager.MessageInfoManager;
 import tdu_market.util.ControllerUtil;
 import tdu_market.util.JspPath;
+import tdu_market.util.ServletPath;
 
 /**
  * Servlet implementation class PostMessage
@@ -35,6 +36,7 @@ public class PostMessage extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.err.println("PostMessage is non implementation!");
+		request.setCharacterEncoding("UTF-8");
 
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			ControllerUtil.translatePage(JspPath.index, request, response);
@@ -44,7 +46,7 @@ public class PostMessage extends HttpServlet {
 		MessageCreateInfo createInfo = new MessageCreateInfo(Integer.valueOf(request.getParameter("roomID")).longValue(),request.getParameter("studentNumber"),request.getParameter("content"));
 		messageInfo.createMessageInfo(createInfo);
 		//遷移
-		ControllerUtil.translatePage(JspPath.message, request, response);
+		ControllerUtil.translatePage(ServletPath.ReferMessageBoxListPage, request, response);
 
 	}
 

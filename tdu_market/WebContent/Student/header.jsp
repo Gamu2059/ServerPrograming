@@ -1,5 +1,6 @@
 <%@page import="tdu_market.util.*"%>
 <%@page import="tdu_market.dto.StudentGetInfo"%>
+<%@page import="tdu_market.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>

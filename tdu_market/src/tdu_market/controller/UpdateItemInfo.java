@@ -1,9 +1,12 @@
 package tdu_market.controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
+import java.util.Iterator;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -13,10 +16,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+
 import tdu_market.dto.ItemUpdateInfo;
 import tdu_market.entity_manager.ItemInfoManager;
 import tdu_market.util.ControllerUtil;
-import tdu_market.util.JspPath;
+import tdu_market.util.ImageUtil;
+import tdu_market.util.*;
 
 @WebServlet("/tdu_market/controller/UpdateItemInfo")
 @MultipartConfig(maxFileSize = 1024 * 1024)
@@ -36,7 +42,7 @@ public class UpdateItemInfo extends HttpServlet {
 		String itemIdStr = request.getParameter("itemID");
 		String itemName = request.getParameter("itemName");
 		String description = request.getParameter("description");
-		String conditionStr = request.getParameter("condtion");
+		String conditionStr = request.getParameter("condition");
 		String priceStr = request.getParameter("price");
 		String relatedClassCode = request.getParameter("relatedClassCode");
 
@@ -60,17 +66,43 @@ public class UpdateItemInfo extends HttpServlet {
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		}
-
-		InputStream[] iss = null;
-		Collection<Part> parts = request.getParts();
-		if (parts != null) {
-			iss = new InputStream[parts.size()];
-			int i = 0;
-			for (Part p : parts) {
-				iss[i] = p.getInputStream();
-				i++;
+		/**
+		 * まず、普通に読み込み、null？空文字であればhiddenを読み込む。
+		 */
+		//予め読み込む文字列を定義
+		String[] files = {"itemImageURLs_file_1", "itemImageURLs_file_2","itemImageURLs_file_3","itemImageURLs_file_4"};
+		String[] currentStrings = {"itemImageURLs_current_1","itemImageURLs_current_2","itemImageURLs_current_3","itemImageURLs_current_4"};
+		InputStream[] iss = new InputStream[4];
+//		if (request.getPart("itemImageURLs_file_1").getContentType().contains("image")) {
+//			Part image1 = request.getPart("itemImageURLs_file_1");
+//			iss[0] = image1.getInputStream();
+//		}else {
+//			String part1 = request.getParameter("itemImageURLs_current_1");
+//			iss[0] = getInputStream(part1);
+//		}
+		int i = 0;
+		//最初に、hiddenの内容を書き込む。（元々ない場合は除く。）
+		for (String current : currentStrings) {
+			if (request.getParameter(current) != null) {
+				String part = request.getParameter(current);
+				iss[i] = getInputStream(part);
 			}
+			i++;
 		}
+		i = 0;
+		//次に、imageファイルがアップロードされている場合にのみ、その部分にファイルを書き込む。
+		for (String file : files) {
+			if (request.getPart(file) != null && request.getPart(file).getContentType().contains("image")) {
+				Part image = request.getPart(file);
+				iss[i] = image.getInputStream();
+			}
+			//nullの場合も書き込まないとエラーが出るので、input-fileから吸い出したダミーファイルを書き込む。
+			if (iss[i] == null) {
+				iss[i] = request.getPart(file).getInputStream();
+			}
+			i++;
+		}
+		
 		HttpSession session = request.getSession();
 
 		ItemUpdateInfo updateInfo = new ItemUpdateInfo(itemID, itemName, description, condition, price, relatedClassCode, iss);
@@ -81,6 +113,16 @@ public class UpdateItemInfo extends HttpServlet {
  		String dialogMessage = "出品物を更新しました";
  		session.setAttribute("dialogMessage", dialogMessage);
  		session.setAttribute("isDisplayDialog", isDisplayDialog);
-		ControllerUtil.translatePage(JspPath.reference_exhibit_list, request, response);
+		ControllerUtil.translatePage(ServletPath.ReferExhibitItemListPage, request, response);
+	}
+	/**
+	 * string型で読み込んだ画像をバイト列で返す。
+	 * @param imageURL string文字列（Base64）。
+	 * @return ByteArrayInputStream()(InputStream型)
+	 */
+	private ByteArrayInputStream getInputStream(String imageURL) {
+		imageURL = imageURL.replace("data:image/png;base64,", "");
+		byte[] decode = Base64.decode(imageURL);
+		return new ByteArrayInputStream(decode);
 	}
 }
