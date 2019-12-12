@@ -34,7 +34,7 @@
 						<option value="3">破損・汚れあり</option>
 					</select>
 					<h3>価格</h3>
-					<input type="text" name="maxPrice" /><label>円以下</label> <br /> <br />
+					<input type="number" name="maxPrice" min="0" /><label>円以下</label><br /><br />
 					<div class="item_for_center">
 						<button id="orange_button">検索</button>
 					</div>

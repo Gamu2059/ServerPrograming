@@ -1,4 +1,4 @@
-<%@page import="tdu_market.util.ServletPath"%>
+<%@page import="tdu_market.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -12,6 +12,14 @@
 <title>左パネル</title>
 </head>
 <body>
+　  	<%
+   	//ログイン状態の検証
+   	if (!ControllerUtil.verifyLogin(request, response)) {
+   		System.err.println("未ログインのため、ログイン画面にリダイレクトしました。");
+   		ControllerUtil.translatePage(JspPath.index, request, response);
+   		return;
+   	}
+   	%>
 	<!-- 左パネル -->
 	<div class="left_panel">
 		<!-- ロゴ -->

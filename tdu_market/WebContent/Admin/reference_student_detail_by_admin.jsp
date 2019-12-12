@@ -31,13 +31,15 @@
 
 
 			String studentMailAddress = "";
-			String iconURL = "";
+			String iconURL = "/tdu_market/images/userIcon.png";
 			String name = "";
 			String departmentName="";
 			String selfIntroduction = "";
 			if (studentInfo != null) {
 				studentMailAddress = studentInfo.getMailAddress();
-				iconURL = studentInfo.getIconImageBinary();
+				if(studentInfo.getIconImageBinary()!=null){
+					iconURL = studentInfo.getIconImageBinary();
+				}
 				name = studentInfo.getDisplayName();
 				departmentName = departmentInfo.get((int)studentInfo.getDepartmentID() -1 ).getFacultyName()+" - "+ departmentInfo.get((int)studentInfo.getDepartmentID() -1 ).getSubjectName();
 				selfIntroduction = studentInfo.getSelfIntroduction();
@@ -49,7 +51,7 @@
 				<div class="item_for_LeftAndRight_between">
 					<form action="<%= ServletPath.ReferStudentListPage %>" method="get">
 						<input type="hidden" name="isBack" value="true">
-						<button id="white_button">戻る</button>
+						<button id="white_button">学生一覧へ</button>
 					</form>
 					<form action="<%= ServletPath.ManagerReferExhibitItemListPage %>" method="get">
 						<input type="hidden" name="studentMailAddress" value="<%= studentMailAddress %>">
@@ -109,16 +111,16 @@
 				<% } %>
 				function notify_dialog(text) {
 					let dialog = document.getElementById('notify_dialog_admin');
-	
+
 					document.getElementById('notify_text').textContent = text;
-	
+
 					dialog.style.display = 'block';
 					ok.addEventListener('click', function() {
 						<% DialogUtil.turnoffDialog(request, response); %>
 						dialog.style.display = 'none';
 					});
 				}
-			
+
 				document.getElementById('red_button').onclick = function() {
 					//各ボタンの要素の取得
 					let dialog = document

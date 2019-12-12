@@ -18,12 +18,14 @@
 	<!-- 編集データの取得 -->
 	<%
 		StudentGetInfo studentInfo = (StudentGetInfo) session.getAttribute("studentInfo");
-		String iconURL = "/tdu_market/images/icon.png";
+		String iconURL = "/tdu_market/images/userIcon.png";
 		String name = "未設定";
 		long departmentID = 0;
 		String selfintroduction = "未設定";
 		if (studentInfo != null) {
-			iconURL = studentInfo.getIconImageBinary();
+			if(studentInfo.getIconImageBinary()!=null){
+				iconURL = studentInfo.getIconImageBinary();
+			}
 			name = studentInfo.getDisplayName();
 			departmentID = studentInfo.getDepartmentID();
 			selfintroduction = studentInfo.getSelfIntroduction();
@@ -55,6 +57,8 @@
 								<h3>編集</h3>
 							</label>
 							<!-- プレビュー機能 -->
+							<script type="text/javascript"
+						src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 							<script>
 								$('#iconFile').on('change',function(e) {
 									var reader = new FileReader();

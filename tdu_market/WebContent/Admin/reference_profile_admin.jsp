@@ -22,17 +22,19 @@
 		<!-- メインコンテンツ -->
 
 		<article>
-			<div class="content_margin_400px">
+			<div class="content_margin_200px">
 				<br>
 				<div class="user_profile">
 					<div class="item_for_LeftAndRight_around">
 						<!-- セッションデータの受け取り -->
 						<%
 						ManagerGetInfo profileInfo = (ManagerGetInfo)session.getAttribute("managerProfileInfo");
-						String iconURL = "/tdu_market/images/icon.png";
+						String iconURL = "/tdu_market/images/adminIcon.png";
 						String name = "未登録";
 						if(profileInfo != null){
-							iconURL = profileInfo.getIconImageBinary();
+							if(profileInfo.getIconImageBinary()!=null){
+								iconURL = profileInfo.getIconImageBinary();
+							}
 							name = profileInfo.getDisplayName();
 						}
 						%>

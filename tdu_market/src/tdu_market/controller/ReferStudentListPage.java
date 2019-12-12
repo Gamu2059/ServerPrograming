@@ -58,13 +58,15 @@ public class ReferStudentListPage extends HttpServlet {
 		// 絶対この処理重い(今後試したときに重すぎたら改良する)
 		Map<String, Integer> studentAndExhibit = new HashMap<>();
 		ItemInfoManager itemInfoManager = new ItemInfoManager();
-		for (StudentGetInfo info : searchResult) {
-			ArrayList<ItemGetInfo> itemInfoList = itemInfoManager.getExhibitItem(info.getMailAddress());
-			if (info.getMailAddress() != null) {
-				if (itemInfoList == null) {
-					studentAndExhibit.put(info.getMailAddress(), 0);
-				} else {
-					studentAndExhibit.put(info.getMailAddress(), itemInfoList.size());
+		if (searchResult != null) {
+			for (StudentGetInfo info : searchResult) {
+				ArrayList<ItemGetInfo> itemInfoList = itemInfoManager.getExhibitItem(info.getMailAddress());
+				if (info.getMailAddress() != null) {
+					if (itemInfoList == null) {
+						studentAndExhibit.put(info.getMailAddress(), 0);
+					} else {
+						studentAndExhibit.put(info.getMailAddress(), itemInfoList.size());
+					}
 				}
 			}
 		}

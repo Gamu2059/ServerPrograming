@@ -9,16 +9,15 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-
 <head>
-	<meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<!-- Bootstrap -->
-	<link rel="stylesheet" href="/tdu_market/css/import_admin.css" type="text/css" />
-	<title>商品情報一覧</title>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- Bootstrap -->
+<link rel="stylesheet" href="/tdu_market/css/import_admin.css"
+	type="text/css" />
+<title>商品情報一覧</title>
 </head>
-
 <body>
 	<%@ include file="panel.jsp"%>
 	<!-- 右パネル -->
@@ -49,23 +48,24 @@
 			<div class="item_for_center">
 				<div class="list_content">
 
-					<table id="itemList">
-						<!-- テーブルタイトル -->
-						<thead class="list_title">
-							<tr>
-								<th class="check_column1"></th>
-								<tb class="hidden_column">商品ID</tb>
-								<th class="item_column1" data-sort="item_column1">商品名</th>
-								<th class="item_column2" data-sort="item_column2">学籍場号</th>
-								<th class="item_column3" data-sort="item_column3">出品者</th>
-								<th class="item_column4" data-sort="item_column4">関連授業名</th>
-								<th class="item_column5" data-sort="item_column5">価格</th>
-							</tr>
-						</thead>
-						<!-- テーブル要素 -->
-						<tbody class="list" id="list_content">
-							<form action="<%= ServletPath.ManagerDeleteItemInfo %>" method="post">
-
+					<form action="<%=ServletPath.ManagerDeleteItemInfo%>" method="post">
+					<input type="hidden" name="whereFromToItemPage"
+									value="fromItemList">
+						<table id="itemList">
+							<!-- テーブルタイトル -->
+							<thead class="list_title">
+								<tr>
+									<th class="check_column1"></th>
+									<th class="hidden_column">商品ID</tb>
+									<th class="item_column1" data-sort="item_column1">商品名</th>
+									<th class="item_column2" data-sort="item_column2">学籍場号</th>
+									<th class="item_column3" data-sort="item_column3">出品者</th>
+									<th class="item_column4" data-sort="item_column4">関連授業名</th>
+									<th class="item_column5" data-sort="item_column5">価格</th>
+								</tr>
+							</thead>
+							<!-- テーブル要素 -->
+							<tbody class="list" id="list_content">
 								<%
 								ArrayList<ItemGetInfoByAdmin> itemInfo = new ArrayList<>();
 								Object itemInfoObj = session.getAttribute("itemListInfo");
@@ -77,6 +77,16 @@
 										ItemGetInfo i = item.getItemGetInfo();
 										StudentGetInfo s = item.getStudentGetInfo();
 										SyllabusGetInfo sy = item.getSyllabusGetInfo();
+
+										String studentName = "未設定";
+										if (s != null && s.getDisplayName() != null){
+											studentName = s.getDisplayName();
+										}
+
+										String syllabusName = "未設定";
+										if (sy != null && sy.getClassName() != null){
+											syllabusName = sy.getClassName();
+										}
 							%>
 								<tr class="exhibitId">
 									<th class="check_column1"><input type="checkbox" name="itemIDs"
@@ -85,8 +95,8 @@
 									<td class="hidden_column" hidden><%=i.getItemID()%></td>
 									<td class="item_column1"><%=i.getItemName()%></td>
 									<td class="item_column2"><%=i.getExhibitorMailAddress().split("@", 0)[0]%></td>
-									<td class="item_column3"><%=s != null ? s.getDisplayName() : "未設定"%></td>
-									<td class="item_column4"><%=sy != null ? sy.getClassName() : "未設定"%></td>
+									<td class="item_column3"><%=studentName%></td>
+									<td class="item_column4"><%=syllabusName%></td>
 									<td class="item_column5"><%=i.getPrice()%></td>
 								</tr>
 								<%
@@ -94,7 +104,6 @@
 								}
 							%>
 						</tbody>
-
 						<!-- 複数件削除ダイアログ -->
 						<div id="confirm_dialog_admin">
 							<p>削除しますか？</p>
@@ -150,9 +159,6 @@
 							}
 						}
 					</script>
-
-					<form name="select_item" action="<%= ServletPath.ManagerReferItemPage %>" method="get">
-					</form>
 
 					</table>
 					<form name="select_item" action="<%=ServletPath.ManagerReferItemPage%>" method="get">
