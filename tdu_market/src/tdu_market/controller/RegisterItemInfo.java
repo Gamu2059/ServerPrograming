@@ -68,15 +68,15 @@ public class RegisterItemInfo extends HttpServlet {
 		iss[2] = image3.getInputStream();
 		iss[3] = image4.getInputStream();
 		
-		for(InputStream i : iss) {
-			System.out.println("登録 さいず : " + i.available());
-			String src = ImageUtil.getImage(i);
-			System.out.println("内容 : " + src);
-		}
-		iss[0] = image1.getInputStream();
-		iss[1] = image2.getInputStream();
-		iss[2] = image3.getInputStream();
-		iss[3] = image4.getInputStream();
+//		for(InputStream i : iss) {
+//			System.out.println("登録 さいず : " + i.available());
+//			String src = ImageUtil.getImage(i);
+//			System.out.println("内容 : " + src);
+//		}
+//		iss[0] = image1.getInputStream();
+//		iss[1] = image2.getInputStream();
+//		iss[2] = image3.getInputStream();
+//		iss[3] = image4.getInputStream();
 
 		HttpSession session = request.getSession();
 		ItemCreateInfo createInfo = new ItemCreateInfo(mailAddress, itemName, description, condition, price,
