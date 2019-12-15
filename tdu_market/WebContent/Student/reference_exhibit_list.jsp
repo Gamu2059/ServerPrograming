@@ -71,6 +71,7 @@
 							}
 						%>
 					</div>
+					<div class="tab_content" id="trading_content">
 					<!-- 取引中の商品データを表示する -->
 					<%
 						int count2 = 0;
@@ -80,11 +81,16 @@
 									out.print(
 											"<form action=\"/tdu_market/tdu_market/controller/ReferExhibitItemPage\" method=\"get\">");
 									out.print("<button id=\"exhibit_button\" type=\"submit\">");
-									out.print("<img src=\"itemList.get(i).getItemImageBinaries()[0]\" alt=\"商品画像\">");
+									int imageLength = itemList.get(i).getItemImageBinaries().length;
+									if(imageLength >= 1){
+										out.print("<img src=\""+itemList.get(i).getItemImageBinaries()[0]+"\" alt=\"商品画像\">");
+									}
 									out.print("<label id=\"item_name\">" + itemList.get(i).getItemName() + "</label>");
 									out.print("<label id=\"item_price\">" + itemList.get(i).getPrice() + "円</label>");
 									out.print("</button>");
+									out.print("<input type=\"hidden\" name=\"itemID\" value=\"" + itemList.get(i).getItemID() + "\">");
 									out.print("</form>");
+									count2++;
 								}
 							}
 						}
@@ -92,8 +98,8 @@
 							out.print("取引中の商品が見つかりませんでした。");
 						}
 					%>
+					</div>
 				</div>
-			</div>
 			<div id="notify_dialog">
 				<p id="notify_text">確認ダイアログ</p>
 				<div class="notify_dialog_button">
