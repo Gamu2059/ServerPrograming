@@ -318,7 +318,7 @@ p#note_Text {
 }
 /* シラバス紹介 - 学科組織 */
 .detail_content #department {
-  font-size: 1.3em;
+  font-size: 1.0em;
 }
 /* シラバス照会 - 授業名 */
 .detail_content #class_name_field {
