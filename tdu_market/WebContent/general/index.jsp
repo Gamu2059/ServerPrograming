@@ -18,7 +18,7 @@
 	<div class="center_container">
 		<article>
 			<h1>電大マーケットへようこそ</h1>
-			<h2>
+			<h2 style="color: red;">
 			<%
 			String obj = (String)session.getAttribute("errorMessage");
 			if(obj != null && !obj.trim().isEmpty()){
