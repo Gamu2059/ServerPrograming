@@ -60,7 +60,6 @@
 						<input type="hidden" name="isBack" value="true">
 						<button id="white_button">一覧へ</button>
 					</form>
-					<button id="white_button">関連商品で絞り込む</button>
 				</div>
 			</div>
 			<br>

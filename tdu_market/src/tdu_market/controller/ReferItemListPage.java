@@ -15,8 +15,6 @@ import tdu_market.dto.ItemSearchInfo;
 import tdu_market.entity_manager.ItemInfoManager;
 import tdu_market.util.ControllerUtil;
 import tdu_market.util.JspPath;
-
-import java.text.SimpleDateFormat;
 /**
  * Servlet implementation class ReferItemListPage
  */
@@ -37,7 +35,6 @@ public class ReferItemListPage extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.err.println("ReferItemListPage is non implementation!");
 
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			ControllerUtil.translatePage(JspPath.index, request, response);

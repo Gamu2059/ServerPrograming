@@ -37,7 +37,6 @@ public class ReferSyllabusListPage extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.err.println("ReferSyllabusListPage is non implementation!");
 
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			ControllerUtil.translatePage(JspPath.index, request, response);

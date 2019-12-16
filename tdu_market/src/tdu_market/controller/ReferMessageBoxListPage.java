@@ -26,8 +26,6 @@ public class ReferMessageBoxListPage extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		System.err.println("ReferMessageBoxListPage is non implementation!");
-
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			ControllerUtil.translatePage(JspPath.index, request, response);
 			return;
@@ -55,13 +53,13 @@ public class ReferMessageBoxListPage extends HttpServlet {
 			long roomID = messageRoomInfoList.get(0).getRoomID();
 			try {
 				roomID = Long.parseLong(request.getParameter("roomID"));
-				
+
 			} catch(NumberFormatException e) {
 
 			}
 			//メッセージ送信フォーム（message.jsp 137行目付近）でroomIDを上手に取ってこれないため、便宜的にセッションに保存してしまっている
 			session.setAttribute("roomID", roomID);
-			
+
 			String studentNumberString = (String) request.getParameter("studentNumber");
 			ArrayList<MessageGetInfo> messageInfoList = messageInfo.getMessageInfoWithRoomInfo(roomID);
 
@@ -76,7 +74,7 @@ public class ReferMessageBoxListPage extends HttpServlet {
 
 		ControllerUtil.translatePage(JspPath.message, request, response);
 	}
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}

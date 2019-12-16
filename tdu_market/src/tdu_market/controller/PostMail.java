@@ -14,7 +14,6 @@ import tdu_market.entity_manager.StudentInfoManager;
 import tdu_market.util.AccountUtil;
 import tdu_market.util.ControllerUtil;
 import tdu_market.util.JspPath;
-import tdu_market.controller.SendMail;
 
 /**
  * Servlet implementation class PostMail
@@ -37,7 +36,6 @@ public class PostMail extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.err.println("PostMail is non implementation!");
 
 		//String mailAddress = ControllerUtil.getMailAddress(request, response);
 		String mailAddress = request.getParameter("mailAddress");

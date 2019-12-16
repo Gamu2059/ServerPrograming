@@ -34,7 +34,6 @@ public class ManagerPostMail extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.err.println("ManagerPostMail is non implementation!");
 /*
  *
  * 新規登録画面の送信ボタンから呼び出される
