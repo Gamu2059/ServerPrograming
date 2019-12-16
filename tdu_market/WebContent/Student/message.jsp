@@ -59,7 +59,7 @@
 										out.print("<img src=\"" + messageRoomList.get(i).getOpponentStudentGetInfo().getIconImageBinary()
 												+ "\" alt=\"アイコン\" />");
 									}else{
-										out.print("<img src=\"/tdu_market/images/icon.png\" alt=\"アイコン\" />");
+										out.print("<img src=\"/tdu_market/images/userIcon.png\" alt=\"アイコン\" />");
 									}
 									out.print("<div class=\"message_content\">");
 									out.print("<div class=\"message_sender\">"
@@ -119,7 +119,7 @@
 												if(messageOpponentStudentInfo.getIconImageBinary() != null){
 													out.print("<img src=\"" + messageOpponentStudentInfo.getIconImageBinary() + "\" alt=\"icon\" />");
 												}else{
-													out.print("<img src=\"/tdu_market/images/icon.png\" alt=\"icon\" />");
+													out.print("<img src=\"/tdu_market/images/userIcon.png\" alt=\"icon\" />");
 												}
 												out.print("<div class=\"message_post_content\" name=\"opponent\">");
 												out.print(messageList.get(i).getPostContent());
@@ -133,7 +133,7 @@
 												if(studentInfo.getIconImageBinary() != null){
 													out.print("<img src=\"" + studentInfo.getIconImageBinary() + "\" alt=\"icon\" />");
 												}else{
-													out.print("<img src=\"/tdu_market/images/icon.png\" alt=\"icon\" />");
+													out.print("<img src=\"/tdu_market/images/userIcon.png\" alt=\"icon\" />");
 												}
 												out.print("</div>");
 											}

@@ -54,7 +54,7 @@
 					if(info.getIconImageBinary() != null){
 						out.print("<img src=\""+ info.getIconImageBinary() +"\" alt=\"ユーザーアイコン\" />");
 					}else{
-						out.print("<img src=\"/tdu_market/images/icon.png\" alt=\"ユーザーアイコン\" />");
+						out.print("<img src=\"/tdu_market/images/userIcon.png\" alt=\"ユーザーアイコン\" />");
 					}
 					out.print("</div>");
 					out.print("<div class=\"top_content_right\">");

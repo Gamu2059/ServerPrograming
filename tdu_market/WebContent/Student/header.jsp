@@ -45,7 +45,7 @@
 				<% if(info_header.getIconImageBinary() != null){ %>
 					<li><a href = "#"><img src=<%=info_header.getIconImageBinary()%> alt="ユーザーアイコン" id="user_information_controller"></a>
 				<% }else{ %>
-					<li><a href = "#"><img src="/tdu_market/images/icon.png" alt="ユーザーアイコン" id="user_information_controller"></a>
+					<li><a href = "#"><img src="/tdu_market/images/userIcon.png" alt="ユーザーアイコン" id="user_information_controller"></a>
 				<% } %>
 		</ul>
 	</div>
@@ -58,7 +58,7 @@
 			if(info_header.getIconImageBinary() != null){
 				out.print("<img src=\"" + info_header.getIconImageBinary() + " \" alt=\"アイコン\">");
 			}else{
-				out.print("<img src=\"/tdu_market/images/icon.png\" alt=\"アイコン\">");
+				out.print("<img src=\"/tdu_market/images/userIcon.png\" alt=\"アイコン\">");
 			}
 			%>
 		</div>
