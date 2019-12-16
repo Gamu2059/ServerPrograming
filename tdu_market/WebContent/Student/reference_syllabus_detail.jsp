@@ -31,19 +31,22 @@
 					<% ArrayList<RelatedClassGetInfo> info = (ArrayList<RelatedClassGetInfo>)session.getAttribute("getInfo"); %>
 
 					<!-- セッションに関連商品を記録して画面を遷移させる -->
-					<form action="<%=ServletPath.SearchItemPage%>" name="get">
+					<form action="<%=ServletPath.SearchItemPage %>" name="get">
 						<%
 						ArrayList<ItemGetInfo> item_info = new ArrayList<>();
-						for(int i=0;i<info.size();i++){
-							item_info.add(info.get(i).getItemGetInfo());
-							if(100 < i){
-								//１００件を超える商品が登録されている場合は追加を打ち切りにする
-								break;
+						if(item_info != null){
+							for(int i=0;i<info.size();i++){
+								item_info.add(info.get(i).getItemGetInfo());
+								if(100 < i){
+									//１００件を超える商品が登録されている場合は追加を打ち切りにする
+									break;
+								}
 							}
+							session.setAttribute("itemList", item_info);
 						}
-						session.setAttribute("itemList", item_info);
 						%>
-						<input type="submit" class="button_flat_normal" value="関連商品" onClick="location.href='reference_item_list.jsp'"/>
+						<!-- <input type="submit" class="button_flat_normal" value="商品検索" onClick="location.href='reference_item_list.jsp'"/> -->
+						<a href="#related_item"><button type="button" class="button_flat_normal">関連商品へ</button></a>
 					</form>
 					<!--ページ内の遷移-->
 				</nav>
@@ -99,7 +102,7 @@
 			<!-- サードコンテナ -->
 			<div class="third_container_ver4">
 				<nav>
-					<h4>出品された教科書</h4>
+					<h4 id="related_item">出品された教科書</h4>
 					<br />
 					<div class="new_item_list">
 					<%

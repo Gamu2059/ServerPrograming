@@ -50,7 +50,7 @@
 									} else {
 										for(int i = 0 ; i < searchResult.size() ; i++){
 											out.print("<tr class=\"syllabusId\">");
-											out.print("<td hidden>"+searchResult.get(i).getClassCode()+"</td>");
+											out.print("<td name=\"classCode\" value=\"" +searchResult.get(i).getClassCode() +"\" hidden>"+searchResult.get(i).getClassCode()+"</td>");
 											out.print("<td id=\"syllabus_column1\">"+searchResult.get(i).getClassName()+"</td>");
 											out.print("<td id=\"syllabus_column2\">"+searchResult.get(i).getDates()+"</td>");
 											out.print("<td id=\"syllabus_column3\">"+searchResult.get(i).getTeacherName()+"</td>");
@@ -59,7 +59,6 @@
 									}
 								%>
 							</tbody>
-						</table>
 						<!-- テーブル要素クリック -->
 						<script type="text/javascript"
 							src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -74,7 +73,7 @@
 										var element = document
 												.createElement("input");
 										//typeの設定
-										element.setAttribute("type", "submit");
+										element.setAttribute("type", "hidden");
 										//nameの設定
 										element.setAttribute("name",
 												"selectSyllabus");
@@ -89,6 +88,8 @@
 									});
 						</script>
 						<!-- テーブル要素クリックここまで -->
+						</table>
+
 					</form>
 				</section>
 			</div>
