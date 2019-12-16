@@ -64,7 +64,7 @@
 		  						out.print("<img src=\" " + newItemList.get(i).getItemImageBinaries()[0] +" \"/>");
 		  					}
 		  					out.print("<h5>"+newItemList.get(i).getItemName()+"</h5>");
-		  					out.print("<h4>"+newItemList.get(i).getPrice()+"</h4>");
+		  					out.print("<h4>"+newItemList.get(i).getPrice()+"円</h4>");
 		  					out.print("</button>");
 		  					out.print("</form>");
 		  				}

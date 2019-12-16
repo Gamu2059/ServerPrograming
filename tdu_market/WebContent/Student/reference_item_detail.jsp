@@ -29,7 +29,7 @@
 			<!-- セカンドコンテナ -->
 			<div class="second_container_ver2">
 				<section>
-			
+
 					<!-- ReferItemPageから渡されるデータを展開・表示 -->
 					<%
 					ArrayList<ItemGetInfo> myExhibitItemGetInfo = (ArrayList<ItemGetInfo>)session.getAttribute("itemList");
@@ -115,12 +115,14 @@
 					let isNotMine = false;
 					<%
 					long selectedItemID = info.get(0).getItemGetInfo().getItemID();
-					for(ItemGetInfo myItem: myExhibitItemGetInfo){
-						long myItemID = myItem.getItemID();
-						if(myItemID == selectedItemID){
-							%>
-							isNotMine = true;
-							<%
+					if(myExhibitItemGetInfo!=null){
+						for(ItemGetInfo myItem: myExhibitItemGetInfo){
+							long myItemID = myItem.getItemID();
+								if(myItemID == selectedItemID){
+								%>
+								isNotMine = true;
+								<%
+							}
 						}
 					}
 					%>
@@ -129,7 +131,7 @@
 						scrollTo(0,0);
 						retuen;
 					}
-					
+
 					//各ボタンの要素の取得
 					let dialog = document.getElementById('confirm_dialog');
 					let yes = document.getElementById('yes');
