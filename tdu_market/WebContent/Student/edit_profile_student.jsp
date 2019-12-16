@@ -1,4 +1,4 @@
-<%@page import="java.util.ArrayList"%>
+ <%@page import="java.util.ArrayList"%>
 <%@page import="tdu_market.entity_bean.StudentInfo"%>
 <%@page import="tdu_market.dto.*"%>
 <%@page import="tdu_market.util.ServletPath"%>
@@ -52,6 +52,8 @@
 							<%
  							if(info.getIconImageBinary() != null){
 								out.print("<img src=\""+ info.getIconImageBinary() +" \" alt=\"ユーザーアイコン\" id=\"icon\">");
+							}else{
+								out.print("<img src=\"/tdu_market/images/icon.png\" alt=\"ユーザーアイコン\" id=\"icon\">");
 							}
 							%>
 							<input class="user_icon_button2" type="file" name="iconImageURL" id="iconFile"/>
