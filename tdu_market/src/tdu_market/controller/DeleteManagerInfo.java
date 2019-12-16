@@ -33,7 +33,6 @@ public class DeleteManagerInfo extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.err.println("DeleteManagerInfo is non implementation!");
 
 		ManagerInfoManager manager = new ManagerInfoManager();
 

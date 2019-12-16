@@ -36,7 +36,6 @@ public class DeleteItemInfo extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.err.println("DeleteItemInfo is non implementation!");
 
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			ControllerUtil.translatePage(JspPath.index, request, response);
@@ -45,7 +44,7 @@ public class DeleteItemInfo extends HttpServlet {
 		//削除処理
 		ItemInfoManager itemInfo = new ItemInfoManager();
 		itemInfo.deleteItemInfo(Integer.valueOf(request.getParameter("itemID")));
-		
+
 		HttpSession session = request.getSession();
 		//ダイアログの表示処理
 		DialogUtil.setDialog("出品を削除しました。", request, response);

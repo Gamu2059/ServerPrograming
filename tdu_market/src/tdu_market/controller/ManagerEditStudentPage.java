@@ -37,7 +37,6 @@ public class ManagerEditStudentPage extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.err.println("ManagerEditStudentPage is non implementation!");
 		//ログイン状態の検証
 
 		if (!ControllerUtil.verifyLogin(request, response)) {

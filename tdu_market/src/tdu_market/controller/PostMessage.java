@@ -35,7 +35,6 @@ public class PostMessage extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.err.println("PostMessage is non implementation!");
 		request.setCharacterEncoding("UTF-8");
 
 		if (!ControllerUtil.verifyLogin(request, response)) {

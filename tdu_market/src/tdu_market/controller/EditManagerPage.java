@@ -34,7 +34,6 @@ public class EditManagerPage extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.err.println("EditManagerPage is non implementation!");
 		ManagerInfoManager manager = new ManagerInfoManager();
 
 		if (!ControllerUtil.verifyLogin(request, response)) {

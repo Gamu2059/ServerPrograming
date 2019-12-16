@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import tdu_market.dto.RelatedClassGetInfo;
-import tdu_market.dto.SyllabusGetInfo;
 import tdu_market.dto.ItemGetInfo;
 import tdu_market.dto.RelatedClassGetInfo;
 import tdu_market.dto.SyllabusGetInfo;
@@ -39,7 +37,6 @@ public class EditExhibitItemPage extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.err.println("EditExhibitItemPage is non implementation!");
 
 		if (!ControllerUtil.verifyLogin(request, response)) {
 			ControllerUtil.translatePage(JspPath.index, request, response);
