@@ -195,9 +195,8 @@
 			<!-- 絞り込みボタン -->
 			<div class="item_for_LeftAndRight_around">
 				<button id="red_button" type="button">削除</button>
-				<button class="search_button" type="button">
-					<img src="/tdu_market/images/search.png"
-						onclick="location.href='<%=JspPath.search_item_by_admin%>'" />絞り込み
+				<button class="search_button" type="button" onclick="location.href='<%=JspPath.search_item_by_admin%>'" >
+					<img src="/tdu_market/images/search.png"/>絞り込み
 				</button>
 				<br />
 			</div>
