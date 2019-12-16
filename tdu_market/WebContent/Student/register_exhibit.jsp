@@ -242,7 +242,7 @@
 						</div>
 					</div>
 					<div class="middle2_content">
-					<button type="button" name="submit" class="button_flat_submit"
+					<button type="button" name="button" class="button_flat_submit"
 						id="upload">確認</button>
 					<!-- 確認ダイアログ -->
 					<div id="confirm_dialog">

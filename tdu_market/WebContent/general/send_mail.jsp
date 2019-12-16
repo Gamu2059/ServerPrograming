@@ -21,7 +21,7 @@
 				<input id="mailaddress_field" type="text" name="mailAddress"
 					placeholder="メールアドレス" />
 				<button id="send_mailaddress_button" type="submit"
-					class="button_flat_blue" onClick="notify_dialog('確認メールを送信しました。')">
+					class="button_flat_blue" onClick="notify_dialog('確認メールを送信しました。<br>画面が変わるまでお待ちください。')">
 					送信</button>
 			</form>
 		</article>
@@ -41,7 +41,7 @@
 				function notify() {
 					<%
 					boolean isDisplayDialog = true;
-					String dialogMessage = "確認メールを送信しました";
+					String dialogMessage = "確認メールを送信しました。";
 					session.setAttribute("dialogMessage", dialogMessage);
 					session.setAttribute("isDisplayDialog", isDisplayDialog);
 					%>
@@ -49,7 +49,7 @@
 				function notify_dialog(text) {
 					let dialog = document.getElementById('notify_dialog');
 
-					document.getElementById('notify_text').textContent = text;
+					document.getElementById('notify_text').innerHTML = text;
 
 					dialog.style.display = 'block';
 					ok.addEventListener('click', function() {
