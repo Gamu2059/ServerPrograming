@@ -187,7 +187,7 @@ public final class MessageInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = String.format("delete from \"MessgeInfo\" where \"%s\" = ?", MessageInfo.ROOM_ID);
+			String sql = String.format("delete from \"MessageInfo\" where \"%s\" = ?", MessageInfo.ROOM_ID);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setLong(1, roomID);
 
@@ -215,7 +215,7 @@ public final class MessageInfoDAO extends DAOBase {
 
 		try {
 
-			String sql = String.format("delete from \"MessgeInfo\" where \"%s\" = ?", MessageInfo.POST_MAIL_ADDRESS);
+			String sql = String.format("delete from \"MessageInfo\" where \"%s\" = ?", MessageInfo.POST_MAIL_ADDRESS);
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, mailAddress);
 
