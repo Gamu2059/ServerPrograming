@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import tdu_market.dto.ItemGetInfo;
 import tdu_market.dto.RelatedClassGetInfo;
+import tdu_market.entity_manager.ItemInfoManager;
 import tdu_market.entity_manager.RelatedClassInfoManager;
 import tdu_market.util.ControllerUtil;
 import tdu_market.util.JspPath;
@@ -47,10 +49,15 @@ public class ReferItemPage extends HttpServlet {
 		//出品商品情報をリストへ保持
 		ArrayList<RelatedClassGetInfo> relatedClassGetInfo = relatedClassInfoManager
 				.getRelatedClassInfoWithItem(Integer.valueOf(request.getParameter("itemID")).longValue());
+		//自分の出品情報を取得
+		ItemInfoManager itemInfo = new ItemInfoManager();
+		ArrayList<ItemGetInfo> itemList =  itemInfo.getExhibitItem(ControllerUtil.getMailAddress(request, response));
+		
 		//jsp情報を投げる。
 
 		HttpSession session = request.getSession();
 		session.setAttribute("itemInfo", relatedClassGetInfo);
+		session.setAttribute("itemList", itemList);
 
 		//遷移
 		ControllerUtil.translatePage(JspPath.reference_item_detail, request, response);

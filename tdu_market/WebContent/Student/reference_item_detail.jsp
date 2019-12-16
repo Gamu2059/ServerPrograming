@@ -1,3 +1,4 @@
+<%@page import="tdu_market.dto.ItemGetInfo"%>
 <%@page import="tdu_market.dto.RelatedClassGetInfo"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="tdu_market.util.ServletPath"%>
@@ -31,6 +32,7 @@
 			
 					<!-- ReferItemPageから渡されるデータを展開・表示 -->
 					<%
+					ArrayList<ItemGetInfo> myExhibitItemGetInfo = (ArrayList<ItemGetInfo>)session.getAttribute("itemList");
 					ArrayList<RelatedClassGetInfo> info = (ArrayList<RelatedClassGetInfo>)session.getAttribute("itemInfo");
 					out.print("<div class=\"detail_content\">");
 					out.print("<h2 id=\"item_name\">"+info.get(0).getItemGetInfo().getItemName()+"</h2>");
@@ -110,6 +112,24 @@
 			</div>
 			<script type="text/javascript">
 				document.getElementById('buy_item').onclick = function() {
+					let isNotMine = false;
+					<%
+					long selectedItemID = info.get(0).getItemGetInfo().getItemID();
+					for(ItemGetInfo myItem: myExhibitItemGetInfo){
+						long myItemID = myItem.getItemID();
+						if(myItemID == selectedItemID){
+							%>
+							isNotMine = true;
+							<%
+						}
+					}
+					%>
+					if(isNotMine){
+						notify_dialog('自分の商品は取引できません。');
+						scrollTo(0,0);
+						retuen;
+					}
+					
 					//各ボタンの要素の取得
 					let dialog = document.getElementById('confirm_dialog');
 					let yes = document.getElementById('yes');
@@ -134,6 +154,7 @@
 
 					dialog.style.display = 'block';
 					ok.addEventListener('click', function() {
+						<% DialogUtil.turnoffDialog(request, response); %>
 						dialog.style.display = 'none';
 					});
 				}
