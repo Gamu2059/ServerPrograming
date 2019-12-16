@@ -26,18 +26,6 @@
 		<!-- ファーストコンテナ -->
 		<div class="first_container_ver3">
 			<h2>商品情報一覧</h2>
-			<select name="sort_item" id="sort_item">
-				<!--新着,カテゴリ,キャンパス,名前,価格,講義名-->
-				<option value="new_item">新着</option>
-				<option value="category">カテゴリ</option>
-				<option value="campus">キャンパス</option>
-				<option value="name_asc">名前（昇順）</option>
-				<option value="name_desc">名前（降順）</option>
-				<option value="price_asc">価格（昇順）</option>
-				<option value="price_desc">価格（降順）</option>
-				<option value="class_asc">講義名（昇順）</option>
-				<option value="class_desc">講義名（降順）</option>
-			</select>
 		</div>
 		<br>
 		<div class="new_item_list">
