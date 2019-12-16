@@ -51,7 +51,11 @@
 					}
 					out.print("<div class=\"top_content\">");
 					out.print("<div class=\"top_content_left\">");
-					out.print("<img src=\""+ info.getIconImageBinary() +"\" alt=\"ユーザーアイコン\" />");
+					if(info.getIconImageBinary() != null){
+						out.print("<img src=\""+ info.getIconImageBinary() +"\" alt=\"ユーザーアイコン\" />");
+					}else{
+						out.print("<img src=\"/tdu_market/images/icon.png\" alt=\"ユーザーアイコン\" />");
+					}
 					out.print("</div>");
 					out.print("<div class=\"top_content_right\">");
 					out.print("<div class=\"detail_content\">");

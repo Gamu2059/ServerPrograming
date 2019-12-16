@@ -41,7 +41,12 @@
 						<img src="/tdu_market/images/message.png" alt="メッセージアイコン">
 					</button>
 				</form>
-			<li><a href = "#"><img src=<%=info_header.getIconImageBinary()%> alt="ユーザーアイコン" id="user_information_controller"></a>
+				
+				<% if(info_header.getIconImageBinary() != null){ %>
+					<li><a href = "#"><img src=<%=info_header.getIconImageBinary()%> alt="ユーザーアイコン" id="user_information_controller"></a>
+				<% }else{ %>
+					<li><a href = "#"><img src="/tdu_market/images/icon.png" alt="ユーザーアイコン" id="user_information_controller"></a>
+				<% } %>
 		</ul>
 	</div>
 </header>
@@ -50,7 +55,11 @@
 		<div class="left">
 			<!-- <img src="../images/icon.png" alt="アイコン"> -->
 			<%
+			if(info_header.getIconImageBinary() != null){
 				out.print("<img src=\"" + info_header.getIconImageBinary() + " \" alt=\"アイコン\">");
+			}else{
+				out.print("<img src=\"/tdu_market/images/icon.png\" alt=\"アイコン\">");
+			}
 			%>
 		</div>
 		<div class="right">

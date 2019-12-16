@@ -55,8 +55,12 @@
 									out.print("<input type=\"hidden\" name=\"roomID\" value=\""
 											+ messageRoomList.get(i).getRoomID() + "\" />");
 									out.print("<button type=\"submit\" for=\"message1\" class=\"message_list_tab\">");
-									out.print("<img src=\"" + messageRoomList.get(i).getOpponentStudentGetInfo().getIconImageBinary()
-											+ "\" alt=\"アイコン\" />");
+									if(messageRoomList.get(i).getOpponentStudentGetInfo().getIconImageBinary() != null){
+										out.print("<img src=\"" + messageRoomList.get(i).getOpponentStudentGetInfo().getIconImageBinary()
+												+ "\" alt=\"アイコン\" />");
+									}else{
+										out.print("<img src=\"/tdu_market/images/icon.png\" alt=\"アイコン\" />");
+									}
 									out.print("<div class=\"message_content\">");
 									out.print("<div class=\"message_sender\">"
 											+ messageRoomList.get(i).getOpponentStudentGetInfo().getDisplayName() + "</div>");
@@ -112,8 +116,11 @@
 											if (messageList.get(i).getPostStudentNumber().equals(messageOpponentStudentInfo.getMailAddress())) {
 												//取引相手のメッセージならば
 												out.print("<div class=\"message_post\" name=\"opponent\">");
-												out.print(
-														"<img src=\"" + messageOpponentStudentInfo.getIconImageBinary() + "\" alt=\"icon\" />");
+												if(messageOpponentStudentInfo.getIconImageBinary() != null){
+													out.print("<img src=\"" + messageOpponentStudentInfo.getIconImageBinary() + "\" alt=\"icon\" />");
+												}else{
+													out.print("<img src=\"/tdu_market/images/icon.png\" alt=\"icon\" />");
+												}
 												out.print("<div class=\"message_post_content\" name=\"opponent\">");
 												out.print(messageList.get(i).getPostContent());
 												out.print("</div>");
@@ -123,7 +130,11 @@
 												out.print("<div class=\"message_post_content\" name=\"opponent\">");
 												out.print(messageList.get(i).getPostContent());
 												out.print("</div>");
-												out.print("<img src=\"" + studentInfo.getIconImageBinary() + "\" alt=\"icon\" />");
+												if(studentInfo.getIconImageBinary() != null){
+													out.print("<img src=\"" + studentInfo.getIconImageBinary() + "\" alt=\"icon\" />");
+												}else{
+													out.print("<img src=\"/tdu_market/images/icon.png\" alt=\"icon\" />");
+												}
 												out.print("</div>");
 											}
 										}
