@@ -46,7 +46,7 @@
 								<% ArrayList<SyllabusGetInfo> searchResult = new ArrayList<SyllabusGetInfo>();
 									searchResult = (ArrayList<SyllabusGetInfo>)session.getAttribute("searchResult");
 									if(searchResult == null){
-										out.print("該当の商品が見つかりませんでした。");
+										out.print("該当のシラバスが見つかりませんでした。");
 									} else {
 										for(int i = 0 ; i < searchResult.size() ; i++){
 											out.print("<tr class=\"syllabusId\">");

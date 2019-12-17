@@ -48,7 +48,9 @@ public class BuyItem extends HttpServlet {
 		DialogUtil.setDialog("取引を申し込みました。<br>相手からの連絡をお待ちください。", request, response);
 
 		// メッセージ画面へ遷移
-		ControllerUtil.translatePage(JspPath.message, request, response);
+		//ControllerUtil.translatePage(JspPath.message, request, response);
+		ReferMessageBoxListPage messagePage = new ReferMessageBoxListPage();
+		messagePage.doGet(request, response);
 	}
 
 }

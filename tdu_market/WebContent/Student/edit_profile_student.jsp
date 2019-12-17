@@ -53,7 +53,7 @@
  							if(info.getIconImageBinary() != null){
 								out.print("<img src=\""+ info.getIconImageBinary() +" \" alt=\"ユーザーアイコン\" id=\"icon\">");
 							}else{
-								out.print("<img src=\"/tdu_market/images/icon.png\" alt=\"ユーザーアイコン\" id=\"icon\">");
+								out.print("<img src=\"/tdu_market/images/userIcon.png\" alt=\"ユーザーアイコン\" id=\"icon\">");
 							}
 							%>
 							<input class="user_icon_button2" type="file" name="iconImageURL" id="iconFile"/>
