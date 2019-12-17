@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public final class ConnectDBUtil {
 
-	private final static boolean IS_CONNECT_DOCKER_DB = false;
+	private final static boolean IS_CONNECT_DOCKER_DB = true;
 
 	private final static String DB_NAME = "develop";
 	private final static String USER = "teamYAMAGAMI";
