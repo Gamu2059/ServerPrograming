@@ -74,8 +74,13 @@
 						}else{
 						}
 
+						System.out.println();
+						System.out.println("info :"+info);
+						System.out.println("syllabusGetInfo :"+syllabusGetInfo);
+						System.out.println();
+
 						ArrayList<ItemGetInfo> item_info = new ArrayList<>();
-						if(info==null){
+						if(syllabusGetInfo==null){
 							for(int i=0;i<info.size();i++){
 								item_info.add(info.get(i).getItemGetInfo());
 								if(100 < i){
@@ -84,11 +89,10 @@
 								}
 							}
 							session.setAttribute("itemList", item_info);
-						}else if(syllabusGetInfo==null){
+						}else if(info==null){
 							session.setAttribute("itemList", null);
 							item_info = null;
 						}
-						 System.out.println("info:"+item_info.size());
 						%>
 						<!-- <input type="submit" class="button_flat_normal" value="商品検索" onClick="location.href='reference_item_list.jsp'"/> -->
 						<a href="#related_item"><button type="button" class="button_flat_normal">関連商品へ</button></a>

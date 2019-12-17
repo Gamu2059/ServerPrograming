@@ -44,19 +44,24 @@ public class ReferSyllabusPage extends HttpServlet {
 			return;
 		}
 
+		HttpSession session = request.getSession();
+
+		if (session.getAttribute("syllabusInfo") != null) {
+			session.removeAttribute("syllabusInfo");
+		}
+		if (session.getAttribute("getInfo") != null) {
+			session.removeAttribute("getInfo");
+		}
+
 		RelatedClassInfoManager syllabusInfoManager = new RelatedClassInfoManager();
 		//getInfoにシラバス情報を格納
 		ArrayList<RelatedClassGetInfo> getInfo = syllabusInfoManager
 				.getRelatedClassInfoWithSyllabus(request.getParameter("selectSyllabus"));
 
-		System.out.println("getInfo:" + getInfo);
-
-		SyllabusInfoManager syllabusManager = new SyllabusInfoManager();
-		SyllabusGetInfo syllabusInfo = syllabusManager.getSyllabusInfo(request.getParameter("selectSyllabus"));
-
 		//jspに情報を投げる。
-		HttpSession session = request.getSession();
 		if (getInfo == null) {
+			SyllabusInfoManager syllabusManager = new SyllabusInfoManager();
+			SyllabusGetInfo syllabusInfo = syllabusManager.getSyllabusInfo(request.getParameter("selectSyllabus"));
 			session.setAttribute("syllabusInfo", syllabusInfo);
 		} else {
 			session.setAttribute("getInfo", getInfo);
