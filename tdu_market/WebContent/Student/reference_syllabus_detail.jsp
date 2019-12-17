@@ -28,13 +28,54 @@
 			<div class="first_container_ver4">
 				<nav>
 					<!-- ReferSyllabusPageからのデータを展開する -->
-					<% ArrayList<RelatedClassGetInfo> info = (ArrayList<RelatedClassGetInfo>)session.getAttribute("getInfo"); %>
+					<%
+					ArrayList<RelatedClassGetInfo> info = (ArrayList<RelatedClassGetInfo>)session.getAttribute("getInfo");
+					SyllabusGetInfo syllabusGetInfo = (SyllabusGetInfo)session.getAttribute("syllabusInfo");
+					%>
 
 					<!-- セッションに関連商品を記録して画面を遷移させる -->
 					<form action="<%=ServletPath.SearchItemPage %>" name="get">
 						<%
+						String classCode ="" ;
+						String className="";
+						String openingSemester="";
+						String date="";
+						int unitNum = 0;
+						String classRoom="";
+						String teacherName="";
+						String target="";
+						String requirments="";
+						String orverView="";
+						String evaluationMethod="";
+						if(info!=null){
+							classCode = info.get(0).getSyllabusGetInfo().getClassCode();
+							className = info.get(0).getSyllabusGetInfo().getClassName();
+							openingSemester = info.get(0).getSyllabusGetInfo().getOpeningSemester();
+							date = info.get(0).getSyllabusGetInfo().getDates();
+							unitNum = info.get(0).getSyllabusGetInfo().getUnitNum();
+							classRoom = info.get(0).getSyllabusGetInfo().getClassRoom();
+							teacherName = info.get(0).getSyllabusGetInfo().getTeacherName();
+							target = info.get(0).getSyllabusGetInfo().getTarget();
+							requirments = info.get(0).getSyllabusGetInfo().getRequirments();
+							orverView = info.get(0).getSyllabusGetInfo().getOverview();
+							evaluationMethod = info.get(0).getSyllabusGetInfo().getEvaluationMethod();
+						}else if(syllabusGetInfo!=null){
+							classCode = syllabusGetInfo.getClassCode();
+							className = syllabusGetInfo.getClassName();
+							openingSemester = syllabusGetInfo.getOpeningSemester();
+							date = syllabusGetInfo.getDates();
+							unitNum = syllabusGetInfo.getUnitNum();
+							classRoom = syllabusGetInfo.getClassRoom();
+							teacherName = syllabusGetInfo.getTeacherName();
+							target = syllabusGetInfo.getTarget();
+							requirments = syllabusGetInfo.getRequirments();
+							orverView = syllabusGetInfo.getOverview();
+							evaluationMethod = syllabusGetInfo.getEvaluationMethod();
+						}else{
+						}
+
 						ArrayList<ItemGetInfo> item_info = new ArrayList<>();
-						if(item_info != null){
+						if(info==null){
 							for(int i=0;i<info.size();i++){
 								item_info.add(info.get(i).getItemGetInfo());
 								if(100 < i){
@@ -43,7 +84,11 @@
 								}
 							}
 							session.setAttribute("itemList", item_info);
+						}else if(syllabusGetInfo==null){
+							session.setAttribute("itemList", null);
+							item_info = null;
 						}
+						 System.out.println("info:"+item_info.size());
 						%>
 						<!-- <input type="submit" class="button_flat_normal" value="商品検索" onClick="location.href='reference_item_list.jsp'"/> -->
 						<a href="#related_item"><button type="button" class="button_flat_normal">関連商品へ</button></a>
@@ -55,48 +100,48 @@
 			<div class="second_container_syllabus">
 				<div class="detail_content_syllabus_top">
 					<h3 id="title">授業コード</h3>
-					<h3><% out.print(info.get(0).getSyllabusGetInfo().getClassCode()); %></h3>
+					<h3><%= classCode %></h3>
 				</div>
 				<div class="detail_content_syllabus">
-					<h3><% out.print(info.get(0).getSyllabusGetInfo().getClassName()); %></h3>
+					<h3><%= className %></h3>
 				</div>
 				<div class="detail_content_syllabus">
 					<h3 id="title">開講年度</h3>
-					<h3><% out.print(info.get(0).getSyllabusGetInfo().getOpeningSemester()); %></h3>
+					<h3><%= openingSemester %></h3>
 				</div>
 				<div class="detail_content_syllabus">
 					<div class="detail_content_syllabus_ver2">
 						<h3 id="title">曜日</h3>
-						<h3><% out.print(info.get(0).getSyllabusGetInfo().getDates()); %></h3>
+						<h3><%= date %></h3>
 					</div>
 					<div class="detail_content_syllabus_ver2">
 						<h3 id="title">単位数</h3>
-						<h3><% out.print(info.get(0).getSyllabusGetInfo().getUnitNum()); %></h3>
+						<h3><%= unitNum %></h3>
 					</div>
 				</div>
 				<div class="detail_content_syllabus">
 					<h3 id="title">教室</h3>
-					<h3><% out.print(info.get(0).getSyllabusGetInfo().getClassRoom()); %></h3>
+					<h3><%= classRoom %></h3>
 				</div>
 				<div class="detail_content_syllabus">
 					<h3 id="title">教員</h3>
-					<h3><% out.print(info.get(0).getSyllabusGetInfo().getTeacherName()); %></h3>
+					<h3><%= teacherName %></h3>
 				</div>
 				<div class="detail_content_syllabus_textbox">
 					<h3 id="title">目的概要</h3>
-					<h3><% out.print(info.get(0).getSyllabusGetInfo().getTarget()); %></h3>
+					<h3><%= target %></h3>
 				</div>
 				<div class="detail_content_syllabus_textbox">
 					<h3 id="title">達成目標</h3>
-					<h3><% out.print(info.get(0).getSyllabusGetInfo().getRequirments());%></h3>
+					<h3><%= orverView %></h3>
 				</div>
 				<div class="detail_content_syllabus">
 					<h3 id="title">履修条件</h3>
-					<h3><% out.print(info.get(0).getSyllabusGetInfo().getRequirments()); %></h3>
+					<h3><%= requirments %></h3>
 				</div>
 				<div class="detail_content_syllabus_textbox">
 					<h3 id="title">評価方法</h3>
-					<h3><% out.print(info.get(0).getSyllabusGetInfo().getEvaluationMethod()); %></h3>
+					<h3><%= evaluationMethod %></h3>
 				</div>
 			</div>
 			<!-- サードコンテナ -->

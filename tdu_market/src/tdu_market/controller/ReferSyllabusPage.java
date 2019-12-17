@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import tdu_market.dto.RelatedClassGetInfo;
+import tdu_market.dto.SyllabusGetInfo;
 import tdu_market.entity_manager.RelatedClassInfoManager;
+import tdu_market.entity_manager.SyllabusInfoManager;
 import tdu_market.util.ControllerUtil;
 import tdu_market.util.JspPath;
 
@@ -46,9 +48,19 @@ public class ReferSyllabusPage extends HttpServlet {
 		//getInfoにシラバス情報を格納
 		ArrayList<RelatedClassGetInfo> getInfo = syllabusInfoManager
 				.getRelatedClassInfoWithSyllabus(request.getParameter("selectSyllabus"));
+
+		System.out.println("getInfo:" + getInfo);
+
+		SyllabusInfoManager syllabusManager = new SyllabusInfoManager();
+		SyllabusGetInfo syllabusInfo = syllabusManager.getSyllabusInfo(request.getParameter("selectSyllabus"));
+
 		//jspに情報を投げる。
 		HttpSession session = request.getSession();
-		session.setAttribute("getInfo", getInfo);
+		if (getInfo == null) {
+			session.setAttribute("syllabusInfo", syllabusInfo);
+		} else {
+			session.setAttribute("getInfo", getInfo);
+		}
 		//遷移
 		ControllerUtil.translatePage(JspPath.reference_syllabus_detail, request, response);
 
