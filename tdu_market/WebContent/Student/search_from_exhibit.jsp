@@ -43,7 +43,7 @@
 					</div>
 					<div class="detail_content">
 						<h3>価格</h3>
-						<input type="text" name="maxPrice"> 円
+						<input type="number" name="maxPrice" min="0"> 円
 					</div>
 					<br>
 					<!-- サードコンテナ -->

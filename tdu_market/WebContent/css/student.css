@@ -94,7 +94,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  min-height: 40vh;
+  min-height: 60vh;
 }
 .item_image_list {
   display: flex;
